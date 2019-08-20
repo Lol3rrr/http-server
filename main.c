@@ -316,6 +316,8 @@ node_t* splitHTTPRequest(char** buffer, int bufferLength) {
         pushHeaderLine(head, line);
       }
 
+      free(line);
+
       start = i + 1;
     }
   }
@@ -329,10 +331,14 @@ int receiveRequest(int conFd, request** reqPtr) {
 
   int readBytes = readHTTP(conFd, &readBuffer, bufferSize);
   if (readBytes < 0) {
+    free(readBuffer);
+
     return 1;
   }
 
   node_t* head = splitHTTPRequest(&readBuffer, readBytes);
+
+  free(readBuffer);
 
   request* req;
   int worked = parseRequest(head, &req);
@@ -340,8 +346,6 @@ int receiveRequest(int conFd, request** reqPtr) {
     return 1;
   }
   cleanHeaderLines(head);
-
-  free(readBuffer);
 
   *reqPtr = req;
 
@@ -468,6 +472,8 @@ int loadData(request* reqPtr, char** rawData) {
     return -1;
   }
 
+  free(fileName);
+
   *rawData = data;
 
   return readBytes;
@@ -522,6 +528,8 @@ int setContent(response* respPtr, char* contentType, int contentLength) {
   char* str = (char*) malloc(12 * sizeof(char));
   sprintf(str, "%d", contentLength);
   addHeader(respPtr, "Content-Length", str);
+
+  free(str);
 
   return 0;
 }
@@ -679,7 +687,6 @@ int createHTTPHead(response* respPtr, char** result) {
   char* firstLine;
   int firstLineLength = createFirstLine(respPtr, &firstLine);
 
-
   char* headerPart;
   int headerLength = createHTTPHeaderPart(respPtr, spacer, &headerPart);
 
@@ -700,6 +707,9 @@ int createHTTPHead(response* respPtr, char** result) {
     head[headOffset] = spacer[i];
     headOffset++;
   }
+
+  free(firstLine);
+  free(headerPart);
 
   *result = head;
 
@@ -725,6 +735,8 @@ int createHTTPResponse(response* respPtr, char** result) {
     resp[respOffset] = respPtr->data[i];
     respOffset++;
   }
+
+  free(head);
 
   *result = resp;
 
@@ -810,6 +822,8 @@ int handleConnection(int conFd) {
     return 1;
   }
 
+  print_request(req);
+
   char* data;
   int size = loadData(req, &data);
   if (size < 0) {
@@ -828,7 +842,11 @@ int handleConnection(int conFd) {
   determinContentType(req->path, &contentType);
   setContent(resp, contentType, size);
 
+  print_response(resp);
+
   sendResponse(conFd, resp);
+
+  free(contentType);
 
   cleanRequest(req);
   cleanResponse(resp);
