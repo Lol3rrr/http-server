@@ -9,6 +9,8 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 
+int debug;
+
 typedef struct node {
   char* line;
   struct node* next;
@@ -26,13 +28,17 @@ void pushHeaderLine(node_t* head, char* line) {
     current->next->next = NULL;
 }
 
-void print_headerLine(node_t* head) {
-    node_t* current = head;
+void print_headerLine_debug(node_t* head) {
+  if (debug == 0) {
+    return;
+  }
 
-    while (current != NULL) {
-        printf("%s\n", current->line);
-        current = current->next;
-    }
+  node_t* current = head;
+
+  while (current != NULL) {
+    printf("[Debug] Line: '%s' Next: '%p'\n", current->line, current->next);
+    current = current->next;
+  }
 }
 
 void cleanHeaderLines(node_t* node) {
@@ -40,6 +46,7 @@ void cleanHeaderLines(node_t* node) {
     cleanHeaderLines(node->next);
   }
 
+  free(node->line);
   free(node);
 }
 
@@ -62,13 +69,17 @@ void pushHeader(headerNode_t* head, char* key, char* value) {
   current->next->next = NULL;
 }
 
-void print_header(headerNode_t* head) {
-    headerNode_t* current = head;
+void print_header_debug(headerNode_t* head) {
+  if (debug == 0) {
+    return;
+  }
 
-    while (current != NULL) {
-        printf("Key: '%s' Value: '%s' Next: '%p'\n", current->key, current->value, current->next);
-        current = current->next;
-    }
+  headerNode_t* current = head;
+
+  while (current != NULL) {
+    printf("[Debug] Key: '%s' Value: '%s' Next: '%p'\n", current->key, current->value, current->next);
+    current = current->next;
+  }
 }
 
 void cleanHeader(headerNode_t* node) {
@@ -209,11 +220,17 @@ typedef struct request {
   headerNode_t* headers;
 } request;
 
-void print_request(request* req) {
-  printf("Method: '%s' \n", req->method);
-  printf("Path: '%s' \n", req->path);
-  printf("Protokol: '%s' \n", req->protokol);
-  print_header(req->headers);
+void print_request_debug(request* req) {
+  if (debug == 0) {
+    return;
+  }
+
+  printf("[Debug] Printing Request: \n");
+  printf("[Debug] Method: '%s' \n", req->method);
+  printf("[Debug] Path: '%s' \n", req->path);
+  printf("[Debug] Protokol: '%s' \n", req->protokol);
+  printf("[Debug] Headers: \n");
+  print_header_debug(req->headers);
 }
 
 // Returns 0 if worked
@@ -247,6 +264,10 @@ int parseRequest(node_t* headerLines, request** reqPtr) {
       }
     }else {
       worked = parseFirstLine(current->line, &(req->method), &(req->path), &(req->protokol));
+
+      if (worked != 0 && debug) {
+        printf("[Debug][parseRequest] Could not parse Line '%s' \n", current->line);
+      }
     }
 
     current = current->next;
@@ -255,6 +276,11 @@ int parseRequest(node_t* headerLines, request** reqPtr) {
   req->headers = head;
 
   if (req->method == NULL || req->path == NULL || req->protokol == NULL || req->headers->key == NULL) {
+    if (debug) {
+      printf("[Debug][parseRequest] Not everything has been set \n");
+      printf("[Debug][parseRequest] Method: '%p', Path: '%p', Protokol: '%p', First Header Key: '%p' \n", req->method, req->path, req->protokol, req->headers->key);
+    }
+
     return 1;
   }
 
@@ -277,8 +303,8 @@ int readHTTP(int socketFd, char** buffer, int bufferSize) {
 
   int received = recv(socketFd, readBuffer, bufferSize, 0);
   if (received < 1) {
-    if (received == 0) {
-      printf("Connection Closed \n");
+    if (received == 0 && debug) {
+      printf("[Debug][readHTTP] Connection Closed \n");
     }
 
     return 1;
@@ -316,8 +342,6 @@ node_t* splitHTTPRequest(char** buffer, int bufferLength) {
         pushHeaderLine(head, line);
       }
 
-      free(line);
-
       start = i + 1;
     }
   }
@@ -336,6 +360,10 @@ int receiveRequest(int conFd, request** reqPtr) {
     return 1;
   }
 
+  if (debug) {
+    printf("[Debug][receiveRequest] Read %d Bytes \n", readBytes);
+  }
+
   node_t* head = splitHTTPRequest(&readBuffer, readBytes);
 
   free(readBuffer);
@@ -343,8 +371,13 @@ int receiveRequest(int conFd, request** reqPtr) {
   request* req;
   int worked = parseRequest(head, &req);
   if (worked != 0) {
+    if (debug) {
+      printf("[Debug][receiveRequest] Error parsing Request \n");
+    }
+
     return 1;
   }
+
   cleanHeaderLines(head);
 
   *reqPtr = req;
@@ -540,13 +573,18 @@ int setData(response* respPtr, char* data, int size) {
   return 0;
 }
 
-int print_response(response* respPtr) {
-  printf("Statuscode: %d \n", respPtr->statusCode);
-  printf("Statusmessage: %s \n", respPtr->statusMessage);
-  printf("Protokol: %s \n", respPtr->protokol);
-  printf("Headers: \n");
-  print_header(respPtr->headers);
-  printf("Data: %s \n", respPtr->data);
+void print_response_debug(response* respPtr) {
+  if (debug == 0) {
+    return;
+  }
+
+  printf("[Debug] Printing Response: \n");
+  printf("[Debug] Statuscode: %d \n", respPtr->statusCode);
+  printf("[Debug] Statusmessage: %s \n", respPtr->statusMessage);
+  printf("[Debug] Protokol: %s \n", respPtr->protokol);
+  printf("[Debug] Headers: \n");
+  print_header_debug(respPtr->headers);
+  printf("[Debug] Data: %s \n", respPtr->data);
 }
 
 response* createResponse(int statusCode, char* statusMessage, char* protokol) {
@@ -818,16 +856,16 @@ int handleConnection(int conFd) {
   request* req;
   int worked = receiveRequest(conFd, &req);
   if (worked != 0) {
-    printf("Error Receiving Request: %d \n", worked);
+    printf("[Error] Receiving Request: %d \n", worked);
     return 1;
   }
 
-  print_request(req);
+  print_request_debug(req);
 
   char* data;
   int size = loadData(req, &data);
   if (size < 0) {
-    printf("Error Loading Data: %d \n", worked);
+    printf("[Error] Loading Data: %d \n", worked);
 
     sendMissingFile(conFd, req);
     cleanRequest(req);
@@ -842,9 +880,13 @@ int handleConnection(int conFd) {
   determinContentType(req->path, &contentType);
   setContent(resp, contentType, size);
 
-  print_response(resp);
+  print_response_debug(resp);
 
   sendResponse(conFd, resp);
+
+  if (debug) {
+    printf("[Debug][handleConnection] Cleaning Up \n");
+  }
 
   free(contentType);
 
@@ -883,10 +925,12 @@ int createServer(int port) {
 
 int startServer(int serverFd) {
   if (listen(serverFd, SOMAXCONN)) {
-    printf("failed to listen for connections \n");
+    printf("[Error] failed to listen for connections \n");
   }
 
-  printf("Now waiting for connections \n");
+  signal(SIGCHLD,SIG_IGN);
+
+  printf("[Info] Now waiting for connections \n");
   while (1) {
     int session_fd = accept(serverFd, 0, 0);
 
@@ -895,7 +939,7 @@ int startServer(int serverFd) {
 
       int worked = close(session_fd);
       if (worked < 0) {
-        printf("Error closing connection \n");
+        printf("[Error] closing connection \n");
       }
 
       exit(0);
@@ -907,10 +951,39 @@ int startServer(int serverFd) {
   return 0;
 }
 
-int main() {
-  printf("Starting... \n");
+int getPort(char** args, int argCount) {
+  for (int i = 0; i < argCount; i++) {
+    if(strcmp(args[i], "-p") == 0) {
+      if (i < argCount - 1) {
+        int port;
+        sscanf(args[i + 1], "%d", &port);
 
-  int port = 8080;
+        return port;
+      }
+    }
+  }
+
+  return 80;
+}
+
+int checkDebug(char** args, int argCount) {
+  for (int i = 0; i < argCount; i++) {
+    if (strcmp(args[i], "-d") == 0) {
+      printf("[Info] Debug Enabled \n");
+
+      return 1;
+    }
+  }
+
+  return 0;
+}
+
+int main(int argc, char *argv[]) {
+  debug = checkDebug(argv, argc);
+  int port = getPort(argv, argc);
+
+  printf("[Info] Starting on Port %d... \n", port);
+
   int serverFd = createServer(port);
   if (serverFd < 0) {
     return 0;
