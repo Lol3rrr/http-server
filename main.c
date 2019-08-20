@@ -36,7 +36,7 @@ void print_headerLine_debug(node_t* head) {
   node_t* current = head;
 
   while (current != NULL) {
-    printf("[Debug] Line: '%s' Next: '%p'\n", current->line, current->next);
+    printf("[Debug] Line: '%s'\n", current->line);
     current = current->next;
   }
 }
@@ -77,7 +77,7 @@ void print_header_debug(headerNode_t* head) {
   headerNode_t* current = head;
 
   while (current != NULL) {
-    printf("[Debug] Key: '%s' Value: '%s' Next: '%p'\n", current->key, current->value, current->next);
+    printf("[Debug] Key: '%s' Value: '%s'\n", current->key, current->value);
     current = current->next;
   }
 }
@@ -842,7 +842,7 @@ int sendResponse(int connection, response* respPtr) {
   free(httpResponse);
 }
 
-int sendMissingFile(int connection, request* reqPtr) {
+int sendNotFound(int connection, request* reqPtr) {
   response* resp = createResponse(404, "Not Found", reqPtr->protokol);
 
   sendResponse(connection, resp);
@@ -850,24 +850,13 @@ int sendMissingFile(int connection, request* reqPtr) {
   cleanResponse(resp);
 }
 
-// Returns 0 if no error occured
-int handleConnection(int conFd) {
-  // Receiving and parsing the Request
-  request* req;
-  int worked = receiveRequest(conFd, &req);
-  if (worked != 0) {
-    printf("[Error] Receiving Request: %d \n", worked);
-    return 1;
-  }
-
-  print_request_debug(req);
-
+int handleGETrequest(int conFd, request* req) {
   char* data;
   int size = loadData(req, &data);
   if (size < 0) {
-    printf("[Error] Loading Data: %d \n", worked);
+    printf("[Error] Loading Data: %d \n", size);
 
-    sendMissingFile(conFd, req);
+    sendNotFound(conFd, req);
     cleanRequest(req);
 
     return 1;
@@ -892,6 +881,27 @@ int handleConnection(int conFd) {
 
   cleanRequest(req);
   cleanResponse(resp);
+}
+
+// Returns 0 if no error occured
+int handleConnection(int conFd) {
+  // Receiving and parsing the Request
+  request* req;
+  int worked = receiveRequest(conFd, &req);
+  if (worked != 0) {
+    printf("[Error] Receiving Request: %d \n", worked);
+    return 1;
+  }
+
+  print_request_debug(req);
+
+  if (strcmp(req->method, "GET") == 0) {
+    return handleGETrequest(conFd, req);
+  }else {
+    sendNotFound(conFd, req);
+
+    free(req);
+  }
 
   return 0;
 }
@@ -903,7 +913,7 @@ int createServer(int port) {
   fd = socket(AF_INET, SOCK_STREAM, 0);
   if(fd == -1)
   {
-      printf("Error opening socket\n");
+      printf("[Error] opening socket\n");
       return -1;
   }
 
@@ -914,11 +924,11 @@ int createServer(int port) {
 
   if(bind(fd, (struct sockaddr *)&addr,sizeof(struct sockaddr_in) ) == -1)
   {
-      printf("Error binding socket\n");
+      printf("[Error] binding socket\n");
       return -1;
   }
 
-  printf("Successfully bound to port %u\n", port);
+  printf("[Info] Successfully bound to port %u\n", port);
 
   return fd;
 }
