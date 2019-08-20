@@ -11,23 +11,57 @@
 
 int debug;
 
+int getLength(char* src) {
+  int length = 0;
+  while (src[length] != '\0') {
+    length++;
+  }
+  return length;
+}
+int find(char* src, char* key, int srcLength, int keyLength) {
+  if (srcLength < 0) {
+    srcLength = getLength(src);
+  }
+  if (keyLength < 0) {
+    keyLength = getLength(key);
+  }
+
+  for (int i = 0; i < srcLength; i++) {
+    for(int j = 0; j < keyLength; j++) {
+      if (src[i + j] == '\0') {
+        return -1;
+      }
+
+      if (src[i + j] != key[j]) {
+        break;
+      }
+
+      if (j == keyLength - 1) {
+        return i;
+      }
+    }
+  }
+
+  return -1;
+}
+
+
 typedef struct node {
   char* line;
   struct node* next;
 } node_t;
 
 void pushHeaderLine(node_t* head, char* line) {
-    node_t* current = head;
-    while (current->next != NULL) {
-      current = current->next;
-    }
+  node_t* current = head;
+  while (current->next != NULL) {
+    current = current->next;
+  }
 
-    /* now we can add a new variable */
-    current->next = (node_t*) malloc(1 * sizeof(node_t));
-    current->next->line = line;
-    current->next->next = NULL;
+  /* now we can add a new variable */
+  current->next = (node_t*) malloc(1 * sizeof(node_t));
+  current->next->line = line;
+  current->next->next = NULL;
 }
-
 void print_headerLine_debug(node_t* head) {
   if (debug == 0) {
     return;
@@ -40,7 +74,6 @@ void print_headerLine_debug(node_t* head) {
     current = current->next;
   }
 }
-
 void cleanHeaderLines(node_t* node) {
   if (node->next != NULL) {
     cleanHeaderLines(node->next);
@@ -68,7 +101,6 @@ void pushHeader(headerNode_t* head, char* key, char* value) {
   current->next->value = value;
   current->next->next = NULL;
 }
-
 void print_header_debug(headerNode_t* head) {
   if (debug == 0) {
     return;
@@ -81,7 +113,6 @@ void print_header_debug(headerNode_t* head) {
     current = current->next;
   }
 }
-
 void cleanHeader(headerNode_t* node) {
   if (node->next != NULL) {
     cleanHeader(node->next);
@@ -94,22 +125,8 @@ void cleanHeader(headerNode_t* node) {
 
 // Returns 0 if worked
 int parseHeader(char* headerLine, char** keyPtr, char** valuePtr) {
-  int seperator = -1;
-  int totalLength = -1;
-  for (int i = 0; 1; i++) {
-    if (headerLine[i] == '\0') {
-      totalLength = i;
-      break;
-    }
-
-    if (seperator != -1) {
-      continue;
-    }
-
-    if (headerLine[i] == ':') {
-      seperator = i;
-    }
-  }
+  int totalLength = getLength(headerLine);
+  int seperator = find(headerLine, ":", totalLength, 1);
 
   if (seperator == -1) {
     return 1;
@@ -144,21 +161,8 @@ int parseHeader(char* headerLine, char** keyPtr, char** valuePtr) {
 }
 
 int createHeaderPair(headerNode_t* headerPtr, char** result) {
-  int keyLength = 0;
-  int valueLength = 0;
-
-  for(int i = 0; 1; i++) {
-    if (headerPtr->key[i] == '\0') {
-      keyLength = i;
-      break;
-    }
-  }
-  for(int i = 0; 1; i++) {
-    if (headerPtr->value[i] == '\0') {
-      valueLength = i;
-      break;
-    }
-  }
+  int keyLength = getLength(headerPtr->key);
+  int valueLength = getLength(headerPtr->value);
 
   int totalLength = keyLength + 2 + valueLength;
 
@@ -284,6 +288,14 @@ int parseRequest(node_t* headerLines, request** reqPtr) {
     return 1;
   }
 
+  if (find(req->path, "..", -1, -1) != -1) {
+    if (debug) {
+      printf("[Debug][parseRequest] Found a '..' in the path \n");
+    }
+
+    return 2;
+  }
+
   *reqPtr = req;
 
   return 0;
@@ -313,9 +325,7 @@ int readHTTP(int socketFd, char** buffer, int bufferSize) {
   return received;
 }
 node_t* splitHTTPRequest(char** buffer, int bufferLength) {
-  char message[bufferLength + 1];
-  strncpy(message, (*buffer), bufferLength + 1);
-  message[bufferLength] = '\0';
+  char* message = (*buffer);
 
   node_t* head = (node_t*) malloc(1 * sizeof(node_t));
   head->next = NULL;
@@ -387,16 +397,8 @@ int receiveRequest(int conFd, request** reqPtr) {
 
 // Files stuff //
 int getFileName(char* folder, char* path, char** filePath) {
-  int folderLength = 1;
-  while (folder[folderLength - 1] != '\0') {
-    folderLength++;
-  }
-  folderLength--;
-  int pathLength = 1;
-  while (path[pathLength - 1] != '\0') {
-    pathLength++;
-  }
-  pathLength--;
+  int folderLength = getLength(folder);
+  int pathLength = getLength(path);
   int totalLength = folderLength + pathLength;
 
   char* file = (char*) malloc((totalLength + 1) * sizeof(char));
@@ -435,15 +437,9 @@ int getFileName(char* folder, char* path, char** filePath) {
     totalLength = nLength;
   }
 
-  int hasEnding = 0;
-  for (int i = 0; i < totalLength; i++) {
-    if(file[i] == '.' && i < (totalLength - 1)) {
-      hasEnding = 1;
-      break;
-    }
-  }
+  int dot = find(file, ".", totalLength, 1);
 
-  if (hasEnding == 0) {
+  if (dot == -1) {
     int nLength = totalLength + 5;
     char* nFile = (char*) malloc((nLength + 1) * sizeof(char));
 
@@ -523,14 +519,8 @@ typedef struct response {
 } response;
 
 int addHeader(response* respPtr, char* key, char* value) {
-  int keyLength = 0;
-  int valueLength = 0;
-  while(key[keyLength] != '\0') {
-    keyLength++;
-  }
-  while(value[valueLength] != '\0') {
-    valueLength++;
-  }
+  int keyLength = getLength(key);
+  int valueLength = getLength(value);
 
   char* keyValue = (char*) malloc((keyLength + 1) * sizeof(char));
   char* valueValue = (char*) malloc((valueLength + 1) * sizeof(char));
@@ -611,22 +601,12 @@ int cleanResponse(response* respPtr) {
 }
 
 int createFirstLine(response* respPtr, char** result) {
-  int protokolLength = 0;
-  while(respPtr->protokol[protokolLength] != '\0') {
-    protokolLength++;
-  }
+  int protokolLength = getLength(respPtr->protokol);
 
   char statusCode[12];
   sprintf(statusCode, "%d", respPtr->statusCode);
-  int statusCodeLength = 0;
-  while(statusCode[statusCodeLength] != '\0') {
-    statusCodeLength++;
-  }
-
-  int statusMessageLength = 0;
-  while(respPtr->statusMessage[statusMessageLength] != '\0') {
-    statusMessageLength++;
-  }
+  int statusCodeLength = getLength(statusCode);
+  int statusMessageLength = getLength(respPtr->statusMessage);
 
   int totalLength = protokolLength + 1 + statusCodeLength + 1 + statusMessageLength + 2;
 
@@ -663,10 +643,7 @@ int createFirstLine(response* respPtr, char** result) {
 }
 
 int createHTTPHeaderPart(response* respPtr, char* spacer, char** result) {
-  int spacerLength = 0;
-  while(spacer[spacerLength] != '\0') {
-    spacerLength++;
-  }
+  int spacerLength = getLength(spacer);
 
   int headerLength = -1;
   char* headerPart;
@@ -782,18 +759,8 @@ int createHTTPResponse(response* respPtr, char** result) {
 }
 
 int determinContentType(char* path, char** result) {
-  int dot = -1;
-  int length = -1;
-  for(int i = 0; 1; i++) {
-    if (path[i] == '.') {
-      dot = i + 1;
-    }
-
-    if (path[i] == '\0') {
-      length = i;
-      break;
-    }
-  }
+  int length = getLength(path);
+  int dot = find(path, ".", length, 1);
 
   if(dot == -1 || length == -1) {
     (*result) = (char*) malloc(23 * sizeof(char));
@@ -806,7 +773,7 @@ int determinContentType(char* path, char** result) {
   char* extension = (char*) malloc((extensionLenght + 1) * sizeof(char));
   extension[extensionLenght] = '\0';
   for (int i = 0; i < extensionLenght; i++) {
-    extension[i] = path[i + dot];
+    extension[i] = path[i + dot + 1];
   }
 
   if(strcmp(extension, "html") == 0) {
