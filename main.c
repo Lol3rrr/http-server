@@ -485,7 +485,7 @@ int readFile(char* fileName, char** result) {
 	return size;
 }
 
-int loadData(request* reqPtr, char** rawData) {
+int loadFileName(request* reqPtr, char** fileNameReturn) {
   char* folder = "website";
   char* path = reqPtr->path;
 
@@ -495,13 +495,18 @@ int loadData(request* reqPtr, char** rawData) {
     return -1;
   }
 
+  (*fileNameReturn) = fileName;
+
+  int fileNameLength = getLength(fileName);
+
+  return fileNameLength;
+}
+int loadData(char* fileName, char** rawData) {
   char* data;
   int readBytes = readFile(fileName, &data);
   if (readBytes < 0) {
     return -1;
   }
-
-  free(fileName);
 
   *rawData = data;
 
@@ -818,16 +823,30 @@ int sendNotFound(int connection, request* reqPtr) {
 }
 
 int handleGETrequest(int conFd, request* req) {
+  char* fileName;
+  int fileNameLength = loadFileName(req, &fileName);
+  if (fileNameLength < 0) {
+    printf("[Error] Loading Filename \n");
+
+    return 1;
+  }
+
+  if (debug) {
+    printf("[Debug] Loading File: '%s' \n", fileName);
+  }
+
   char* data;
-  int size = loadData(req, &data);
+  int size = loadData(fileName, &data);
   if (size < 0) {
-    printf("[Error] Loading Data: %d \n", size);
+    printf("[Error] Loading Data: '%d' Loading Filename: '%s' \n", size, fileName);
 
     sendNotFound(conFd, req);
     cleanRequest(req);
 
     return 1;
   }
+
+  free(fileName);
 
   response* resp = createResponse(200, "OK", req->protokol);
   setData(resp, data, size);
