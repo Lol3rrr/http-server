@@ -586,7 +586,11 @@ response* createResponse(int statusCode, char* statusMessage, char* protokol) {
   response* resp = (response*) malloc(1 * sizeof(response));
   resp->headers = NULL;
 
-  resp->protokol = protokol;
+  int protokolLength = getLength(protokol);
+  resp->protokol = (char*) malloc((protokolLength + 1) * sizeof(char));
+  resp->protokol[protokolLength] = '\0';
+  strncpy(resp->protokol, protokol, protokolLength);
+
   resp->statusCode = statusCode;
   resp->statusMessage = statusMessage;
 
@@ -768,7 +772,7 @@ int determinContentType(char* path, char** result) {
   int dot = find(path, ".", length, 1);
 
   if(dot == -1 || length == -1) {
-    (*result) = (char*) malloc(23 * sizeof(char));
+    (*result) = (char*) malloc(24 * sizeof(char));
     strcpy((*result), "text/html;charset=UTF-8");
 
     return 0;
@@ -782,19 +786,19 @@ int determinContentType(char* path, char** result) {
   }
 
   if(strcmp(extension, "html") == 0) {
-    (*result) = (char*) malloc(23 * sizeof(char));
+    (*result) = (char*) malloc(24 * sizeof(char));
     strcpy((*result), "text/html;charset=UTF-8");
   }else if(strcmp(extension, "css") == 0) {
-    (*result) = (char*) malloc(22 * sizeof(char));
+    (*result) = (char*) malloc(23 * sizeof(char));
     strcpy((*result), "text/css;charset=UTF-8");
   }else if(strcmp(extension, "js") == 0) {
-    (*result) = (char*) malloc(29 * sizeof(char));
+    (*result) = (char*) malloc(30 * sizeof(char));
     strcpy((*result), "text/javascript;charset=UTF-8");
   }else if(strcmp(extension, "jpg") == 0) {
-    (*result) = (char*) malloc(9 * sizeof(char));
+    (*result) = (char*) malloc(10 * sizeof(char));
     strcpy((*result), "image/png");
   }else if(strcmp(extension, "png") == 0) {
-    (*result) = (char*) malloc(9 * sizeof(char));
+    (*result) = (char*) malloc(10 * sizeof(char));
     strcpy((*result), "image/png");
   }else {
     (*result) = (char*) malloc(18 * sizeof(char));
@@ -826,6 +830,8 @@ int handleGETrequest(int conFd, request* req) {
   char* fileName;
   int fileNameLength = loadFileName(req, &fileName);
   if (fileNameLength < 0) {
+    free(fileName);
+
     printf("[Error] Loading Filename \n");
 
     return 1;
@@ -839,6 +845,8 @@ int handleGETrequest(int conFd, request* req) {
   int size = loadData(fileName, &data);
   if (size < 0) {
     printf("[Error] Loading Data: '%d' Loading Filename: '%s' \n", size, fileName);
+
+    free(fileName);
 
     sendNotFound(conFd, req);
     cleanRequest(req);
