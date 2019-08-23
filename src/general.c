@@ -7,6 +7,13 @@ int isDebug() {
   return debug;
 }
 
+void setGeneralCaching(int value) {
+  caching = value;
+}
+int isCaching() {
+  return caching;
+}
+
 int getLength(char* src) {
   int length = 0;
   while (src[length] != '\0') {

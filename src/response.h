@@ -7,6 +7,7 @@
 
 #include "general.h"
 #include "header.h"
+#include "request.h"
 
 typedef struct response {
   int statusCode;
@@ -21,6 +22,7 @@ int addHeader(response* respPtr, char* key, char* value);
 
 int setContent(response* respPtr, char* contentType, int contentLength);
 int setData(response* respPtr, char* data, int size);
+int setCache(response* respPtr, request* reqPtr, int cacheTime);
 
 void print_response_debug(response* respPtr);
 

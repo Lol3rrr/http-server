@@ -15,8 +15,6 @@
 #include "request.h"
 #include "response.h"
 
-int debug;
-
 // Files stuff //
 int getFileName(char* folder, char* path, char** filePath) {
   int folderLength = getLength(folder);
@@ -205,7 +203,7 @@ int handleGETrequest(int conFd, request* req) {
     return 1;
   }
 
-  if (debug) {
+  if (isDebug()) {
     printf("[Debug][handleGETrequest] Loading File: '%s' \n", fileName);
   }
 
@@ -230,12 +228,13 @@ int handleGETrequest(int conFd, request* req) {
   char* contentType;
   determinContentType(req->path, &contentType);
   setContent(resp, contentType, size);
+  setCache(resp, req, -1);
 
   print_response_debug(resp);
 
   sendResponse(conFd, resp);
 
-  if (debug) {
+  if (isDebug()) {
     printf("[Debug][handleGETrequest] Cleaning Up \n");
   }
 
@@ -244,7 +243,7 @@ int handleGETrequest(int conFd, request* req) {
   cleanRequest(req);
   cleanResponse(resp);
 
-  if (debug) {
+  if (isDebug()) {
     printf("[Debug][handleGETrequest] Cleaned up \n");
     printf("[Debug] ---------------- \n");
   }
@@ -343,11 +342,9 @@ int getPort(char** args, int argCount) {
   return 80;
 }
 
-int checkDebug(char** args, int argCount) {
+int checkFlag(char** args, int argCount, char* flag) {
   for (int i = 0; i < argCount; i++) {
-    if (strcmp(args[i], "-d") == 0) {
-      printf("[Info] Debug Enabled \n");
-
+    if (strcmp(args[i], flag) == 0) {
       return 1;
     }
   }
@@ -356,8 +353,11 @@ int checkDebug(char** args, int argCount) {
 }
 
 int main(int argc, char *argv[]) {
-  debug = checkDebug(argv, argc);
+  int debug = checkFlag(argv, argc, "-d");
+  int caching = checkFlag(argv, argc, "-c");
+
   setGeneralDebug(debug);
+  setGeneralCaching(caching);
 
   int port = getPort(argv, argc);
 

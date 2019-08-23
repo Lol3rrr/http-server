@@ -45,6 +45,58 @@ int setData(response* respPtr, char* data, int size) {
   return 0;
 }
 
+int allowCaching(request* reqPtr) {
+  if (isCaching() == 0) {
+    return 0;
+  }
+
+  headerNode_t* result;
+  int worked = getHeader(reqPtr->headers, "Cache-Control", &result);
+  if (worked == 0) {
+    char* value = result->value;
+    if (strcmp(value, "max-age=0") == 0) {
+      return 0;
+    }
+
+    if (strcmp(value, "no-cache") == 0) {
+      return 0;
+    }
+
+    if (strcmp(value, "no-store") == 0) {
+      return 0;
+    }
+  }
+
+  return 1;
+}
+int setCache(response* respPtr, request* reqPtr, int cacheTime) {
+  if (allowCaching(reqPtr) != 1) {
+    return 0;
+  }
+
+  int defaultCacheTime = 24 * 60 * 60;
+  int cacheValue = defaultCacheTime;
+
+  if (cacheTime > 0) {
+    cacheValue = cacheTime;
+  }
+
+  char cacheValueStr[12];
+  sprintf(cacheValueStr, "%d", cacheValue);
+  int cacheValueLength = getLength(cacheValueStr);
+  int preCacheLength = 16;
+
+  int cacheHeaderLength = cacheValueLength + preCacheLength;
+  char* cacheHeader = (char*) malloc((cacheHeaderLength + 1) * sizeof(char));
+  cacheHeader[cacheHeaderLength] = '\0';
+
+
+  strncpy(cacheHeader, "public, max-age=", 16);
+  strncpy(cacheHeader + 16, cacheValueStr, cacheValueLength);
+
+  addHeader(respPtr, "Cache-Control", cacheHeader);
+}
+
 void print_response_debug(response* respPtr) {
   if (debug == 0) {
     return;
