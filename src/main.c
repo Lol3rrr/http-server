@@ -187,6 +187,7 @@ int sendResponse(int connection, response* respPtr) {
 
 int sendNotFound(int connection, request* reqPtr) {
   response* resp = createResponse(404, "Not Found", reqPtr->protokol);
+  setData(resp, "", 0);
 
   sendResponse(connection, resp);
 
@@ -259,6 +260,7 @@ int handleConnection(int conFd) {
   int worked = receiveRequest(conFd, &req);
   if (worked != 0) {
     printf("[Error] Receiving Request: %d \n", worked);
+
     return 1;
   }
 

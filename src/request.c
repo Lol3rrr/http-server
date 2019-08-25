@@ -21,6 +21,7 @@ int parseRequest(node_t* headerLines, request** reqPtr) {
   req->method = NULL;
   req->path = NULL;
   req->protokol = NULL;
+  req->headers = NULL;
 
   node_t* current = headerLines;
 
@@ -63,6 +64,8 @@ int parseRequest(node_t* headerLines, request** reqPtr) {
       printf("[Debug][parseRequest] Method: '%p', Path: '%p', Protokol: '%p', First Header Key: '%p' \n", req->method, req->path, req->protokol, req->headers->key);
     }
 
+    cleanRequest(req);
+
     return 1;
   }
 
@@ -85,9 +88,15 @@ int parseRequest(node_t* headerLines, request** reqPtr) {
   return 0;
 }
 int cleanRequest(request* reqPtr) {
-  free(reqPtr->method);
-  free(reqPtr->path);
-  free(reqPtr->protokol);
+  if (reqPtr->method != NULL) {
+    free(reqPtr->method);
+  }
+  if (reqPtr->path != NULL) {
+    free(reqPtr->path);
+  }
+  if (reqPtr->protokol != NULL) {
+    free(reqPtr->protokol);
+  }
 
   cleanHeader(reqPtr->headers);
 
@@ -113,6 +122,7 @@ node_t* splitHTTPRequest(char** buffer, int bufferLength) {
 
   node_t* head = (node_t*) malloc(1 * sizeof(node_t));
   head->next = NULL;
+  head->line = NULL;
   int first = 1;
 
   int start = 0;
@@ -168,6 +178,8 @@ int receiveRequest(int conFd, request** reqPtr) {
     if (isDebug()) {
       printf("[Debug][receiveRequest] Error parsing Request \n");
     }
+
+    cleanHeaderLines(head);
 
     return 1;
   }

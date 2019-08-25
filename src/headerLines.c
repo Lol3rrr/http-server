@@ -28,6 +28,9 @@ void cleanHeaderLines(node_t* node) {
     cleanHeaderLines(node->next);
   }
 
-  free(node->line);
+  if (node->line != NULL) {
+    free(node->line);
+  }
+
   free(node);
 }

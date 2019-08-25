@@ -27,6 +27,10 @@ void print_header_debug(headerNode_t* head) {
 }
 
 void cleanHeader(headerNode_t* node) {
+  if (node == NULL) {
+    return;
+  }
+
   if (node->next != NULL) {
     cleanHeader(node->next);
   }
@@ -166,7 +170,7 @@ int parseFirstLine(char* firstLine, char** methodPtr, char** pathPtr, char** pro
   }
 
   clock_t endTime = clock();
-  if (isMeasuring) {
+  if (isMeasuring()) {
     double time_spent = (double) (endTime - startTime) /  CLOCKS_PER_SEC;
     printf("[Measuring][parseFirstLine] Took %f Seconds \n", time_spent);
   }
