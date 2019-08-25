@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <signal.h>
+#include <time.h>
 
 // Socket stuff
 #include <unistd.h>
@@ -179,7 +180,7 @@ int sendResponse(int connection, response* respPtr) {
   char* httpResponse;
   int respSize = createHTTPResponse(respPtr, &httpResponse);
 
-  write(connection, httpResponse, respSize);
+  send(connection, httpResponse, respSize, 0);
 
   free(httpResponse);
 }
@@ -251,6 +252,8 @@ int handleGETrequest(int conFd, request* req) {
 
 // Returns 0 if no error occured
 int handleConnection(int conFd) {
+  clock_t startTime = clock();
+
   // Receiving and parsing the Request
   request* req;
   int worked = receiveRequest(conFd, &req);
@@ -261,15 +264,23 @@ int handleConnection(int conFd) {
 
   print_request_debug(req);
 
+  int handled = 0;
   if (strcmp(req->method, "GET") == 0) {
-    return handleGETrequest(conFd, req);
+    handled = handleGETrequest(conFd, req);
   }else {
     sendNotFound(conFd, req);
 
     free(req);
   }
 
-  return 0;
+  clock_t endTime = clock();
+  if (isMeasuring()) {
+    double time_spent = (double)(endTime - startTime) / CLOCKS_PER_SEC;
+
+    printf("[Measuring][handleConnection] Took %f Seconds \n", time_spent);
+  }
+
+  return handled;
 }
 
 int createServer(int port) {
@@ -355,9 +366,11 @@ int checkFlag(char** args, int argCount, char* flag) {
 int main(int argc, char *argv[]) {
   int debug = checkFlag(argv, argc, "-d");
   int caching = checkFlag(argv, argc, "-c");
+  int measureExec = checkFlag(argv, argc, "-m");
 
   setGeneralDebug(debug);
   setGeneralCaching(caching);
+  setMeasureExec(measureExec);
 
   int port = getPort(argv, argc);
 

@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include "general.h"
 #include "header.h"
@@ -17,6 +18,16 @@ typedef struct response {
   char* data;
   int dataSize;
 } response;
+
+typedef struct headerPartNode {
+  int length;
+  char* content;
+  struct headerPartNode* next;
+} headerPartNode_t;
+
+void pushHeaderNodePart(headerPartNode_t* head, char* content, int length);
+void cleanHeaderNodePart(headerPartNode_t* node);
+
 
 int addHeader(response* respPtr, char* key, char* value);
 

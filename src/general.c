@@ -14,6 +14,13 @@ int isCaching() {
   return caching;
 }
 
+void setMeasureExec(int value) {
+  measuring = value;
+}
+int isMeasuring() {
+  return measuring;
+}
+
 int getLength(char* src) {
   int length = 0;
   while (src[length] != '\0') {

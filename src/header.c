@@ -53,6 +53,8 @@ int getHeader(headerNode_t* head, char* key, headerNode_t** result) {
 
 // Returns 0 if worked
 int parseHeader(char* headerLine, char** keyPtr, char** valuePtr) {
+  clock_t startTime = clock();
+
   int totalLength = getLength(headerLine);
   int seperator = find(headerLine, ":", totalLength, 1);
 
@@ -85,32 +87,53 @@ int parseHeader(char* headerLine, char** keyPtr, char** valuePtr) {
   *keyPtr = key;
   *valuePtr = value;
 
+  clock_t endTime = clock();
+  if (isMeasuring()) {
+    double time_spent = (double) (endTime - startTime) / CLOCKS_PER_SEC;
+    printf("[Measuring][parseHeader] Took %f Seconds \n", time_spent);
+  }
+
   return 0;
 }
 
 int createHeaderPair(headerNode_t* headerPtr, char** result) {
+  clock_t startTime = clock();
+
   int keyLength = getLength(headerPtr->key);
   int valueLength = getLength(headerPtr->value);
 
   int totalLength = keyLength + 2 + valueLength;
 
   (*result) = (char*) malloc((totalLength + 1) * sizeof(char));
+
+  int index = 0;
   for(int i = 0; i < keyLength; i++) {
-    (*result)[i] = headerPtr->key[i];
+    (*result)[index] = headerPtr->key[i];
+    index++;
   }
-  (*result)[keyLength + 0] = ':';
-  (*result)[keyLength + 1] = ' ';
+  (*result)[index] = ':';
+  index++;
+  (*result)[index] = ' ';
+  index++;
   for(int i = 0; i < valueLength; i++) {
-    (*result)[i + 2 + keyLength] = headerPtr->value[i];
+    (*result)[index] = headerPtr->value[i];
+    index++;
   }
-  (*result)[totalLength] = '\0';
+  (*result)[index] = '\0';
+
+  clock_t endTime = clock();
+  if (isMeasuring()) {
+    double time_spent = (double) (endTime - startTime) / CLOCKS_PER_SEC;
+    printf("[Measuring][createHeaderPair] Took %f Seconds \n", time_spent);
+  }
 
   return totalLength;
 }
 
 // Returns 0 if worked
 int parseFirstLine(char* firstLine, char** methodPtr, char** pathPtr, char** protokolPtr) {
-  int totalLength = -1;
+  clock_t startTime = clock();
+
   int start = 0;
   int partNumber = 0;
   for (int i = 0; 1; i++) {
@@ -140,6 +163,12 @@ int parseFirstLine(char* firstLine, char** methodPtr, char** pathPtr, char** pro
       start = i + 1;
       partNumber++;
     }
+  }
+
+  clock_t endTime = clock();
+  if (isMeasuring) {
+    double time_spent = (double) (endTime - startTime) /  CLOCKS_PER_SEC;
+    printf("[Measuring][parseFirstLine] Took %f Seconds \n", time_spent);
   }
 
   return 0;

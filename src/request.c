@@ -15,6 +15,8 @@ void print_request_debug(request* req) {
 
 // Returns 0 if worked
 int parseRequest(node_t* headerLines, request** reqPtr) {
+  clock_t startTime = clock();
+
   request* req = (request*) malloc(1 * sizeof(request));
   req->method = NULL;
   req->path = NULL;
@@ -73,6 +75,12 @@ int parseRequest(node_t* headerLines, request** reqPtr) {
   }
 
   *reqPtr = req;
+
+  clock_t endTime = clock();
+  if (isMeasuring()) {
+    double time_spent = (double) (endTime - startTime) / CLOCKS_PER_SEC;
+    printf("[Measuring][parseRequest] Took %f Seconds \n", time_spent);
+  }
 
   return 0;
 }

@@ -1,5 +1,26 @@
 #include "response.h"
 
+void pushHeaderNodePart(headerPartNode_t* head, char* content, int length) {
+  headerPartNode_t* current = head;
+
+  while (current->next != NULL) {
+    current = current->next;
+  }
+
+  current->next = (headerPartNode_t*) malloc(1 * sizeof(headerPartNode_t));
+  current->next->content = content;
+  current->next->length = length;
+  current->next->next = NULL;
+}
+void cleanHeaderNodePart(headerPartNode_t* node) {
+  if (node->next != NULL) {
+    cleanHeaderNodePart(node->next);
+  }
+
+  free(node->content);
+  free(node);
+}
+
 int addHeader(response* respPtr, char* key, char* value) {
   int keyLength = getLength(key);
   int valueLength = getLength(value);
@@ -138,6 +159,8 @@ int cleanResponse(response* respPtr) {
 }
 
 int createFirstLine(response* respPtr, char** result) {
+  clock_t startTime = clock();
+
   int protokolLength = getLength(respPtr->protokol);
 
   char statusCode[12];
@@ -176,29 +199,47 @@ int createFirstLine(response* respPtr, char** result) {
 
   *result = firstLine;
 
+  clock_t endTime = clock();
+  if (isMeasuring()) {
+    double time_spent = (double) (endTime - startTime) / CLOCKS_PER_SEC;
+    printf("[Measuring][createFirstLine] Took %f Seconds \n", time_spent);
+  }
+
   return totalLength;
 }
 
 int createHTTPHeaderPart(response* respPtr, char* spacer, char** result) {
+  clock_t startTime = clock();
+
   int spacerLength = getLength(spacer);
 
   int headerLength = -1;
   char* headerPart;
 
   if (respPtr->headers != NULL) {
-    headerNode_t* currentLength = respPtr->headers;
+    headerNode_t* currentHeader = respPtr->headers;
+    headerPartNode_t* head = NULL;
 
     headerLength = 0;
 
-    while (currentLength != NULL) {
+    while (currentHeader != NULL) {
       char* result;
 
-      headerLength += createHeaderPair(currentLength, &result);
+      int resultLength = createHeaderPair(currentHeader, &result);
+      headerLength += resultLength;
       headerLength += spacerLength;
 
-      free(result);
 
-      currentLength = currentLength->next;
+      if (head == NULL) {
+        head = (headerPartNode_t*) malloc(1 * sizeof(headerPartNode_t));
+        head->content = result;
+        head->length = resultLength;
+        head->next = NULL;
+      }else {
+        pushHeaderNodePart(head, result, resultLength);
+      }
+
+      currentHeader = currentHeader->next;
     }
 
     headerPart = (char*) malloc((headerLength + 1) * sizeof(char));
@@ -206,17 +247,13 @@ int createHTTPHeaderPart(response* respPtr, char* spacer, char** result) {
 
     int offset = 0;
 
-    headerNode_t* current = respPtr->headers;
+    headerPartNode_t* current = head;
     while (current != NULL) {
-      char* pair;
-      int pairLength = createHeaderPair(current, &pair);
-      for (int i = 0; i < pairLength; i++) {
-        headerPart[offset] = pair[i];
+      for (int i = 0; i < current->length; i++) {
+        headerPart[offset] = current->content[i];
 
         offset++;
       }
-
-      free(pair);
 
       for (int i = 0; i < spacerLength; i++) {
         headerPart[offset] = spacer[i];
@@ -226,7 +263,15 @@ int createHTTPHeaderPart(response* respPtr, char* spacer, char** result) {
       current = current->next;
     }
 
+    cleanHeaderNodePart(head);
+
     *result = headerPart;
+  }
+
+  clock_t endTime = clock();
+  if (isMeasuring()) {
+    double time_spent = (double) (endTime - startTime) / CLOCKS_PER_SEC;
+    printf("[Measuring][createHTTPHeaderPart] Took %f Seconds \n", time_spent);
   }
 
   return headerLength;
