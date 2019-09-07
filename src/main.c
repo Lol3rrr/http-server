@@ -58,7 +58,7 @@ int getFileName(char* folder, char* path, char** filePath) {
     totalLength = nLength;
   }
 
-  int dot = find(file, ".", totalLength, 1);
+  int dot = findStr(file, ".", totalLength, 1);
 
   if (dot == -1) {
     int nLength = totalLength + 5;
@@ -136,7 +136,7 @@ int loadData(char* fileName, char** rawData) {
 
 int determinContentType(char* path, char** result) {
   int length = getLength(path);
-  int dot = find(path, ".", length, 1);
+  int dot = findStr(path, ".", length, 1);
 
   if(dot == -1 || length == -1) {
     (*result) = (char*) malloc(24 * sizeof(char));
@@ -229,7 +229,7 @@ int handleGETrequest(int conFd, request* req) {
 
   char* contentType;
   determinContentType(req->path, &contentType);
-  setContent(resp, contentType, size);
+  setContentType(resp, contentType, size);
   setCache(resp, req, -1);
 
   print_response_debug(resp);

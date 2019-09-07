@@ -9,10 +9,10 @@
 typedef struct node {
   char* line;
   struct node* next;
-} node_t;
+} headerLine_t;
 
-void pushHeaderLine(node_t* head, char* line);
-void print_headerLine_debug(node_t* head);
-void cleanHeaderLines(node_t* node);
+void pushHeaderLine(headerLine_t* head, char* line);
+void print_headerLine_debug(headerLine_t* head);
+void cleanHeaderLines(headerLine_t* node);
 
 #endif

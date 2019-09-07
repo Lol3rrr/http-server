@@ -20,11 +20,11 @@ typedef struct request {
 void print_request_debug(request* req);
 
 // Returns 0 if worked
-int parseRequest(node_t* headerLines, request** reqPtr);
+int parseRequest(headerLine_t* headerLines, request** reqPtr);
 int cleanRequest(request* reqPtr);
 
 int readHTTP(int socketFd, char** buffer, int bufferSize);
-node_t* splitHTTPRequest(char** buffer, int bufferLength);
+headerLine_t* splitHTTPRequest(char** buffer, int bufferLength);
 
 int receiveRequest(int conFd, request** reqPtr);
 

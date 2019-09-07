@@ -9,12 +9,12 @@ void setGeneralDebug(int value);
 int isDebug();
 
 void setGeneralCaching(int value);
-int isCaching();
+int isCachingEnabled();
 
 void setMeasureExec(int value);
 int isMeasuring();
 
 int getLength(char* src);
-int find(char* src, char* key, int srcLength, int keyLength);
+int findStr(char* src, char* key, int srcLength, int keyLength);
 
 #endif

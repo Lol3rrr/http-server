@@ -31,7 +31,9 @@ void cleanHeaderNodePart(headerPartNode_t* node);
 
 int addHeader(response* respPtr, char* key, char* value);
 
-int setContent(response* respPtr, char* contentType, int contentLength);
+int isCachingAllowed(request* reqPtr);
+
+int setContentType(response* respPtr, char* contentType, int contentLength);
 int setData(response* respPtr, char* data, int size);
 int setCache(response* respPtr, request* reqPtr, int cacheTime);
 
