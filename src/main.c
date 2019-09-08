@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "server.h"
+#include "webserver/server.h"
 
 int getPort(char** args, int argCount) {
   for (int i = 0; i < argCount; i++) {
