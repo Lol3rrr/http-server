@@ -22,7 +22,7 @@ int getFileName(char* folder, char* path, char** filePath) {
   int pathLength = getLength(path);
   int totalLength = folderLength + pathLength;
 
-  char* file = (char*) malloc((totalLength + 1) * sizeof(char));
+  char* file = createEmptyCString(totalLength);
   for(int i = 0; i < totalLength; i++) {
     if (i < folderLength) {
       file[i] = folder[i];
@@ -30,11 +30,10 @@ int getFileName(char* folder, char* path, char** filePath) {
       file[i] = path[i - folderLength];
     }
   }
-  file[totalLength] = '\0';
 
   if (file[totalLength - 1] == '/') {
     int nLength = totalLength + 10;
-    char* nFile = (char*) malloc((nLength + 1) * sizeof(char));
+    char* nFile = createEmptyCString(nLength);
 
     for (int i = 0; i < nLength; i++) {
       if (i < totalLength) {
@@ -51,7 +50,6 @@ int getFileName(char* folder, char* path, char** filePath) {
     nFile[nLength - 3] = 't';
     nFile[nLength - 2] = 'm';
     nFile[nLength - 1] = 'l';
-    nFile[nLength] = '\0';
 
     free(file);
     file = nFile;
@@ -62,7 +60,7 @@ int getFileName(char* folder, char* path, char** filePath) {
 
   if (dot == -1) {
     int nLength = totalLength + 5;
-    char* nFile = (char*) malloc((nLength + 1) * sizeof(char));
+    char* nFile = createEmptyCString(nLength);
 
     for (int i = 0; i < nLength; i++) {
       if (i < totalLength) {
@@ -74,7 +72,6 @@ int getFileName(char* folder, char* path, char** filePath) {
     nFile[nLength - 3] = 't';
     nFile[nLength - 2] = 'm';
     nFile[nLength - 1] = 'l';
-    nFile[nLength] = '\0';
 
     free(file);
     file = nFile;

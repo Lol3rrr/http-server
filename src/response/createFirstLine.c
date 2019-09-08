@@ -12,8 +12,7 @@ int createFirstLine(response* respPtr, char** result) {
 
   int totalLength = protokolLength + 1 + statusCodeLength + 1 + statusMessageLength + 2;
 
-  char* firstLine = (char*) malloc((totalLength + 1) * sizeof(char));
-  firstLine[totalLength] = '\0';
+  char* firstLine = createEmptyCString(totalLength);
 
   int lineOffset = 0;
 

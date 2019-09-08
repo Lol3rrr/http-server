@@ -5,8 +5,7 @@ response* createResponse(int statusCode, char* statusMessage, char* protokol) {
   resp->headers = NULL;
 
   int protokolLength = getLength(protokol);
-  resp->protokol = (char*) malloc((protokolLength + 1) * sizeof(char));
-  resp->protokol[protokolLength] = '\0';
+  resp->protokol = createEmptyCString(protokolLength);
   strncpy(resp->protokol, protokol, protokolLength);
 
   resp->statusCode = statusCode;

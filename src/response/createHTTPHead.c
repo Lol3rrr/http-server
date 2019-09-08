@@ -11,8 +11,7 @@ int createHTTPHead(response* respPtr, char** result) {
   int headerLength = createHTTPHeaderPart(respPtr, spacer, &headerPart);
 
   int totalLength = firstLineLength + headerLength + spacerLength;
-  char* head = (char*) malloc((totalLength + 1) * sizeof(char));
-  head[totalLength] = '\0';
+  char* head = createEmptyCString(totalLength);
 
   int headOffset = 0;
   for(int i = 0; i < firstLineLength; i++) {

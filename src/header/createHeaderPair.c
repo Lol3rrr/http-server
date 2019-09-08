@@ -8,7 +8,7 @@ int createHeaderPair(headerNode_t* headerPtr, char** result) {
 
   int totalLength = keyLength + 2 + valueLength;
 
-  (*result) = (char*) malloc((totalLength + 1) * sizeof(char));
+  (*result) = createEmptyCString(totalLength);
 
   int index = 0;
   for(int i = 0; i < keyLength; i++) {
@@ -23,7 +23,6 @@ int createHeaderPair(headerNode_t* headerPtr, char** result) {
     (*result)[index] = headerPtr->value[i];
     index++;
   }
-  (*result)[index] = '\0';
 
   clock_t endTime = clock();
   if (isMeasuring()) {

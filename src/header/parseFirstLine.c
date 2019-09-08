@@ -11,12 +11,11 @@ int parseFirstLine(char* firstLine, char** methodPtr, char** pathPtr, char** pro
       int end = i;
       int length = end - start;
 
-      char* part = (char*) malloc((length + 1) * sizeof(char));
+      char* part = createEmptyCString(length);
 
       for(int j = 0; j < length; j++) {
         part[j] = firstLine[start + j];
       }
-      part[length] = '\0';
 
       if (partNumber == 0) {
         *methodPtr = part;

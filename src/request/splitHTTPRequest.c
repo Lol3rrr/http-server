@@ -15,12 +15,11 @@ headerLine_t* splitHTTPRequest(char** buffer, int bufferLength) {
       int end = i - 1;
       int length = end - start;
 
-      char* line = (char*) malloc((length + 1) * sizeof(char));
+      char* line = createEmptyCString(length);
 
       for(int j = 0; j < length; j++) {
         line[j] = message[j + start];
       }
-      line[length] = '\0';
 
       if (first) {
         head->line = line;

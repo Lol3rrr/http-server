@@ -4,10 +4,8 @@ int addHeader(response* respPtr, char* key, char* value) {
   int keyLength = getLength(key);
   int valueLength = getLength(value);
 
-  char* keyValue = (char*) malloc((keyLength + 1) * sizeof(char));
-  char* valueValue = (char*) malloc((valueLength + 1) * sizeof(char));
-  keyValue[keyLength] = '\0';
-  valueValue[valueLength] = '\0';
+  char* keyValue = createEmptyCString(keyLength);
+  char* valueValue = createEmptyCString(valueLength);
 
   strncpy(keyValue, key, keyLength);
   strncpy(valueValue, value, valueLength);

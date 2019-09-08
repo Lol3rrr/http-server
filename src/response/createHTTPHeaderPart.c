@@ -34,8 +34,7 @@ int createHTTPHeaderPart(response* respPtr, char* spacer, char** result) {
       currentHeader = currentHeader->next;
     }
 
-    headerPart = (char*) malloc((headerLength + 1) * sizeof(char));
-    headerPart[headerLength] = '\0';
+    headerPart = createEmptyCString(headerLength);
 
     int offset = 0;
 

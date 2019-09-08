@@ -8,8 +8,7 @@ int createHTTPResponse(response* respPtr, char** result) {
 
   int totalLength = headSize + contentLength;
 
-  char* resp = (char*) malloc((totalLength + 1) * sizeof(char));
-  resp[totalLength] = '\0';
+  char* resp = createEmptyCString(totalLength);
 
   int respOffset = 0;
   for(int i = 0; i < headSize; i++) {

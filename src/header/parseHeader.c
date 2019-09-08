@@ -14,13 +14,12 @@ int parseHeader(char* headerLine, char** keyPtr, char** valuePtr) {
   int keyLength = seperator;
   int valueLength = totalLength - seperator;
 
-  char* key = (char*) malloc((keyLength + 1) * sizeof(char));
+  char* key = createEmptyCString(keyLength);
   char* value = (char*) malloc((valueLength + 1) * sizeof(char));
 
   for (int i = 0; i < keyLength; i++) {
     key[i] = headerLine[i];
   }
-  key[keyLength] = '\0';
 
   int index = 0;
   for (int i = 0; i < valueLength; i++) {

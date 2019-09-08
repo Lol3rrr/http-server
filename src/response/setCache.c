@@ -18,9 +18,7 @@ int setCache(response* respPtr, request* reqPtr, int cacheTime) {
   int preCacheLength = 16;
 
   int cacheHeaderLength = cacheValueLength + preCacheLength;
-  char* cacheHeader = (char*) malloc((cacheHeaderLength + 1) * sizeof(char));
-  cacheHeader[cacheHeaderLength] = '\0';
-
+  char* cacheHeader = createEmptyCString(cacheHeaderLength);
 
   strncpy(cacheHeader, "public, max-age=", 16);
   strncpy(cacheHeader + 16, cacheValueStr, cacheValueLength);
