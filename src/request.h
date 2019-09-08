@@ -28,4 +28,6 @@ headerLine_t* splitHTTPRequest(char** buffer, int bufferLength);
 
 int receiveRequest(int conFd, request** reqPtr);
 
+int hasEmptyField(request* reqPtr);
+
 #endif

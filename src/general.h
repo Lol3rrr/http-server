@@ -14,7 +14,7 @@ void setGeneralCaching(int value);
 int isCachingEnabled();
 
 void setMeasureExec(int value);
-int isMeasuring();
+int isMeasuringEnabled();
 
 int getStringLength(char* src);
 int findStr(char* src, char* key, int srcLength, int keyLength);

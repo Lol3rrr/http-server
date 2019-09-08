@@ -41,7 +41,7 @@ int createFirstLine(response* respPtr, char** result) {
   *result = firstLine;
 
   clock_t endTime = clock();
-  if (isMeasuring()) {
+  if (isMeasuringEnabled()) {
     double time_spent = (double) (endTime - startTime) / CLOCKS_PER_SEC;
     printf("[Measuring][createFirstLine] Took %f Seconds \n", time_spent);
   }

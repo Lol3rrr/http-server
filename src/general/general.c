@@ -17,21 +17,6 @@ int isCachingEnabled() {
 void setMeasureExec(int value) {
   measuring = value;
 }
-int isMeasuring() {
+int isMeasuringEnabled() {
   return measuring;
-}
-
-int getStringLength(char* src) {
-  int length = 0;
-  while (src[length] != '\0') {
-    length++;
-  }
-  return length;
-}
-
-char* createEmptyCString(int length) {
-  char* result = (char*) malloc((length + 1) * sizeof(char));
-  result[length] = '\0';
-
-  return result;
 }

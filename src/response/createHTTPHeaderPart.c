@@ -60,7 +60,7 @@ int createHTTPHeaderPart(response* respPtr, char* spacer, char** result) {
   }
 
   clock_t endTime = clock();
-  if (isMeasuring()) {
+  if (isMeasuringEnabled()) {
     double time_spent = (double) (endTime - startTime) / CLOCKS_PER_SEC;
     printf("[Measuring][createHTTPHeaderPart] Took %f Seconds \n", time_spent);
   }

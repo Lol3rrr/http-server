@@ -21,10 +21,7 @@ int parseRequest(headerLine_t* headerLines, request** reqPtr) {
 
   headerLine_t* current = headerLines;
 
-  headerNode_t* head = (headerNode_t*) malloc(1 * sizeof(headerNode_t));
-  head->key = NULL;
-  head->value = NULL;
-  head->next = NULL;
+  headerNode_t* head = createEmptyHeaderNode_t();
 
   while (current->next != NULL) {
     char* key = NULL;
@@ -53,7 +50,7 @@ int parseRequest(headerLine_t* headerLines, request** reqPtr) {
 
   req->headers = head;
 
-  if (req->method == NULL || req->path == NULL || req->protokol == NULL || req->headers->key == NULL) {
+  if (hasEmptyField(req)) {
     if (isDebugEnabled()) {
       printf("[Debug][parseRequest] Not everything has been set \n");
       printf("[Debug][parseRequest] Method: '%p', Path: '%p', Protokol: '%p', First Header Key: '%p' \n", req->method, req->path, req->protokol, req->headers->key);
@@ -75,7 +72,7 @@ int parseRequest(headerLine_t* headerLines, request** reqPtr) {
   *reqPtr = req;
 
   clock_t endTime = clock();
-  if (isMeasuring()) {
+  if (isMeasuringEnabled()) {
     double time_spent = (double) (endTime - startTime) / CLOCKS_PER_SEC;
     printf("[Measuring][parseRequest] Took %f Seconds \n", time_spent);
   }

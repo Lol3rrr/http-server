@@ -16,6 +16,8 @@ typedef struct headerNode {
   struct headerNode* next;
 } headerNode_t;
 
+headerNode_t* createEmptyHeaderNode_t();
+
 void pushHeader(headerNode_t* head, char* key, char* value);
 void print_header_debug(headerNode_t* head);
 void cleanHeader(headerNode_t* head);
