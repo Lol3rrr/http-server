@@ -2,7 +2,7 @@
 
 int handleGETrequest(int conFd, request* req) {
   char* fileName;
-  int fileNameLength = loadFileName(req, &fileName);
+  int fileNameLength = loadFileName(req->path, &fileName);
   if (fileNameLength < 0) {
     free(fileName);
 
@@ -16,7 +16,7 @@ int handleGETrequest(int conFd, request* req) {
   }
 
   char* data;
-  int size = readFile(fileName, &data);
+  int size = loadFile(fileName, &data);
   if (size < 0) {
     printf("[Error] Loading Data: '%d' Loading Filename: '%s' \n", size, fileName);
 

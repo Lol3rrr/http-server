@@ -31,6 +31,4 @@ int receiveRequest(int conFd, request** reqPtr);
 
 int hasEmptyField(request* reqPtr);
 
-int loadFileName(request* reqPtr, char** fileNameReturn);
-
 #endif

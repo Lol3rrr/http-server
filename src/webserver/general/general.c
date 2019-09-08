@@ -7,6 +7,13 @@ int isDebugEnabled() {
   return debug;
 }
 
+void setMeasureExec(int value) {
+  measuring = value;
+}
+int isMeasuringEnabled() {
+  return measuring;
+}
+
 void setGeneralCaching(int value) {
   caching = value;
 }
@@ -14,9 +21,9 @@ int isCachingEnabled() {
   return caching;
 }
 
-void setMeasureExec(int value) {
-  measuring = value;
+void setGeneralTemplateUsage(int value) {
+  templating = value;
 }
-int isMeasuringEnabled() {
-  return measuring;
+int isTemplateEnabled() {
+  return templating;
 }

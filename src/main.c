@@ -32,10 +32,12 @@ int main(int argc, char *argv[]) {
   int debug = checkFlag(argv, argc, "-d");
   int caching = checkFlag(argv, argc, "-c");
   int measureExec = checkFlag(argv, argc, "-m");
+  int template = checkFlag(argv, argc, "-t");
 
   setDebugMode(debug);
   setGeneralCaching(caching);
   setMeasureExec(measureExec);
+  setGeneralTemplateUsage(template);
 
   int port = getPort(argv, argc);
 

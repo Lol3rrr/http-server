@@ -1,8 +1,7 @@
-#include "../headerFiles/request.h"
+#include "../headerFiles/file.h"
 
-int loadFileName(request* reqPtr, char** fileNameReturn) {
+int loadFileName(char* path, char** fileNameReturn) {
   char* folder = "website";
-  char* path = reqPtr->path;
 
   char* fileName;
   int worked = getFileName(folder, path, &fileName);

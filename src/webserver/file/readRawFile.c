@@ -1,6 +1,6 @@
 #include "../headerFiles/file.h"
 
-int readFile(char* fileName, char** result) {
+int readRawFile(char* fileName, char** result) {
   int size = 0;
 	FILE *f = fopen(fileName, "rb");
 	if (f == NULL) {
