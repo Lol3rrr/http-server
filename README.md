@@ -2,6 +2,9 @@
 A HTTP-Server completly written in ansi-C.
 Though it only works on linux at the moment.
 
+## Code-Checks
+[![CodeFactor](https://www.codefactor.io/repository/github/lol3rrr/http-server/badge)](https://www.codefactor.io/repository/github/lol3rrr/http-server)
+
 ## Features
 - Serve static Files
 - Completly parses the Headers received
