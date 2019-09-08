@@ -3,8 +3,8 @@
 int createHeaderPair(headerNode_t* headerPtr, char** result) {
   clock_t startTime = clock();
 
-  int keyLength = getLength(headerPtr->key);
-  int valueLength = getLength(headerPtr->value);
+  int keyLength = getStringLength(headerPtr->key);
+  int valueLength = getStringLength(headerPtr->value);
 
   int totalLength = keyLength + 2 + valueLength;
 

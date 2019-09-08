@@ -1,7 +1,7 @@
 #include "../request.h"
 
 void print_request_debug(request* req) {
-  if (isDebug() == 0) {
+  if (isDebugEnabled() == 0) {
     return;
   }
 

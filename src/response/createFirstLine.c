@@ -3,12 +3,12 @@
 int createFirstLine(response* respPtr, char** result) {
   clock_t startTime = clock();
 
-  int protokolLength = getLength(respPtr->protokol);
+  int protokolLength = getStringLength(respPtr->protokol);
 
   char statusCode[12];
   sprintf(statusCode, "%d", respPtr->statusCode);
-  int statusCodeLength = getLength(statusCode);
-  int statusMessageLength = getLength(respPtr->statusMessage);
+  int statusCodeLength = getStringLength(statusCode);
+  int statusMessageLength = getStringLength(respPtr->statusMessage);
 
   int totalLength = protokolLength + 1 + statusCodeLength + 1 + statusMessageLength + 2;
 

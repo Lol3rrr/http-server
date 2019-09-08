@@ -18,8 +18,8 @@
 
 // Files stuff //
 int getFileName(char* folder, char* path, char** filePath) {
-  int folderLength = getLength(folder);
-  int pathLength = getLength(path);
+  int folderLength = getStringLength(folder);
+  int pathLength = getStringLength(path);
   int totalLength = folderLength + pathLength;
 
   char* file = createEmptyCString(totalLength);
@@ -115,7 +115,7 @@ int loadFileName(request* reqPtr, char** fileNameReturn) {
 
   (*fileNameReturn) = fileName;
 
-  int fileNameLength = getLength(fileName);
+  int fileNameLength = getStringLength(fileName);
 
   return fileNameLength;
 }
@@ -132,7 +132,7 @@ int loadData(char* fileName, char** rawData) {
 }
 
 int determinContentType(char* path, char** result) {
-  int length = getLength(path);
+  int length = getStringLength(path);
   int dot = findStr(path, ".", length, 1);
 
   if(dot == -1 || length == -1) {
@@ -202,7 +202,7 @@ int handleGETrequest(int conFd, request* req) {
     return 1;
   }
 
-  if (isDebug()) {
+  if (isDebugEnabled()) {
     printf("[Debug][handleGETrequest] Loading File: '%s' \n", fileName);
   }
 
@@ -233,7 +233,7 @@ int handleGETrequest(int conFd, request* req) {
 
   sendResponse(conFd, resp);
 
-  if (isDebug()) {
+  if (isDebugEnabled()) {
     printf("[Debug][handleGETrequest] Cleaning Up \n");
   }
 
@@ -242,7 +242,7 @@ int handleGETrequest(int conFd, request* req) {
   cleanRequest(req);
   cleanResponse(resp);
 
-  if (isDebug()) {
+  if (isDebugEnabled()) {
     printf("[Debug][handleGETrequest] Cleaned up \n");
     printf("[Debug] ---------------- \n");
   }
@@ -367,7 +367,7 @@ int main(int argc, char *argv[]) {
   int caching = checkFlag(argv, argc, "-c");
   int measureExec = checkFlag(argv, argc, "-m");
 
-  setGeneralDebug(debug);
+  setDebugMode(debug);
   setGeneralCaching(caching);
   setMeasureExec(measureExec);
 

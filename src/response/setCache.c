@@ -14,7 +14,7 @@ int setCache(response* respPtr, request* reqPtr, int cacheTime) {
 
   char cacheValueStr[12];
   sprintf(cacheValueStr, "%d", cacheValue);
-  int cacheValueLength = getLength(cacheValueStr);
+  int cacheValueLength = getStringLength(cacheValueStr);
   int preCacheLength = 16;
 
   int cacheHeaderLength = cacheValueLength + preCacheLength;

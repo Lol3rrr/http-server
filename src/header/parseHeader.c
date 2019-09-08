@@ -4,7 +4,7 @@
 int parseHeader(char* headerLine, char** keyPtr, char** valuePtr) {
   clock_t startTime = clock();
 
-  int totalLength = getLength(headerLine);
+  int totalLength = getStringLength(headerLine);
   int seperator = findStr(headerLine, ":", totalLength, 1);
 
   if (seperator == -1) {

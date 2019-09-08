@@ -2,10 +2,10 @@
 
 int findStr(char* src, char* key, int srcLength, int keyLength) {
   if (srcLength < 0) {
-    srcLength = getLength(src);
+    srcLength = getStringLength(src);
   }
   if (keyLength < 0) {
-    keyLength = getLength(key);
+    keyLength = getStringLength(key);
   }
 
   for (int i = 0; i < srcLength; i++) {

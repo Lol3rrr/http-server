@@ -7,8 +7,8 @@ int debug;
 int caching;
 int measuring;
 
-void setGeneralDebug(int value);
-int isDebug();
+void setDebugMode(int value);
+int isDebugEnabled();
 
 void setGeneralCaching(int value);
 int isCachingEnabled();
@@ -16,7 +16,7 @@ int isCachingEnabled();
 void setMeasureExec(int value);
 int isMeasuring();
 
-int getLength(char* src);
+int getStringLength(char* src);
 int findStr(char* src, char* key, int srcLength, int keyLength);
 
 char* createEmptyCString(int length);

@@ -3,7 +3,7 @@
 int createHTTPHeaderPart(response* respPtr, char* spacer, char** result) {
   clock_t startTime = clock();
 
-  int spacerLength = getLength(spacer);
+  int spacerLength = getStringLength(spacer);
 
   int headerLength = -1;
   char* headerPart;

@@ -11,7 +11,7 @@ int receiveRequest(int conFd, request** reqPtr) {
     return 1;
   }
 
-  if (isDebug()) {
+  if (isDebugEnabled()) {
     printf("[Debug][receiveRequest] Read %d Bytes \n", readBytes);
   }
 
@@ -22,7 +22,7 @@ int receiveRequest(int conFd, request** reqPtr) {
   request* req;
   int worked = parseRequest(head, &req);
   if (worked != 0) {
-    if (isDebug()) {
+    if (isDebugEnabled()) {
       printf("[Debug][receiveRequest] Error parsing Request \n");
     }
 

@@ -1,9 +1,9 @@
 #include "../general.h"
 
-void setGeneralDebug(int value) {
+void setDebugMode(int value) {
   debug = value;
 }
-int isDebug() {
+int isDebugEnabled() {
   return debug;
 }
 
@@ -21,7 +21,7 @@ int isMeasuring() {
   return measuring;
 }
 
-int getLength(char* src) {
+int getStringLength(char* src) {
   int length = 0;
   while (src[length] != '\0') {
     length++;

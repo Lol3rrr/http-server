@@ -1,7 +1,7 @@
 #include "../headerLines.h"
 
 void print_headerLine_debug(headerLine_t* head) {
-  if (isDebug() == 0) {
+  if (isDebugEnabled() == 0) {
     return;
   }
 

@@ -33,7 +33,7 @@ int parseRequest(headerLine_t* headerLines, request** reqPtr) {
     if (isFirstLine(current->line)) {
       int worked = parseFirstLine(current->line, &(req->method), &(req->path), &(req->protokol));
 
-      if (worked != 0 && isDebug()) {
+      if (worked != 0 && isDebugEnabled()) {
         printf("[Debug][parseRequest] Could not parse First-Line '%s' \n", current->line);
       }
     }else {
@@ -54,7 +54,7 @@ int parseRequest(headerLine_t* headerLines, request** reqPtr) {
   req->headers = head;
 
   if (req->method == NULL || req->path == NULL || req->protokol == NULL || req->headers->key == NULL) {
-    if (isDebug()) {
+    if (isDebugEnabled()) {
       printf("[Debug][parseRequest] Not everything has been set \n");
       printf("[Debug][parseRequest] Method: '%p', Path: '%p', Protokol: '%p', First Header Key: '%p' \n", req->method, req->path, req->protokol, req->headers->key);
     }
@@ -65,7 +65,7 @@ int parseRequest(headerLine_t* headerLines, request** reqPtr) {
   }
 
   if (findStr(req->path, "..", -1, -1) != -1) {
-    if (isDebug()) {
+    if (isDebugEnabled()) {
       printf("[Debug][parseRequest] Found a '..' in the path \n");
     }
 

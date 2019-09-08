@@ -1,8 +1,8 @@
 #include "../response.h"
 
 int addHeader(response* respPtr, char* key, char* value) {
-  int keyLength = getLength(key);
-  int valueLength = getLength(value);
+  int keyLength = getStringLength(key);
+  int valueLength = getStringLength(value);
 
   char* keyValue = createEmptyCString(keyLength);
   char* valueValue = createEmptyCString(valueLength);
