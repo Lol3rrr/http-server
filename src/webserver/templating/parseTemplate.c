@@ -7,12 +7,12 @@ int parseTemplate(char* rawContent, int rawContentLength, char** result) {
   int includeStart = findStr(content, "<--include", contentLength, 10);
   while (includeStart != -1) {
     int includeInnerStart = includeStart + 10;
-    int includeEnd = findStrAfter(rawContent, "/>", contentLength, 2, includeStart);
+    int includeEnd = findStrAfter(content, "/>", contentLength, 2, includeStart);
     includeEnd += 2;
 
     int includeStrLength = (includeEnd - includeStart);
     char* includeStr;
-    getSubstring(rawContent, includeStart, includeStrLength, &includeStr);
+    getSubstring(content, includeStart, includeStrLength, &includeStr);
 
     includeStatement* statement;
     parseIncludeStatement(includeStr, includeStrLength, &statement);
