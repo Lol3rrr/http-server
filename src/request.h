@@ -9,6 +9,7 @@
 #include "general.h"
 #include "headerLines.h"
 #include "header.h"
+#include "file.h"
 
 typedef struct request {
   char* method;
@@ -29,5 +30,7 @@ headerLine_t* splitHTTPRequest(char** buffer, int bufferLength);
 int receiveRequest(int conFd, request** reqPtr);
 
 int hasEmptyField(request* reqPtr);
+
+int loadFileName(request* reqPtr, char** fileNameReturn);
 
 #endif
