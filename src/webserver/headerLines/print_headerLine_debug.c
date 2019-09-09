@@ -8,7 +8,7 @@ void print_headerLine_debug(headerLine_t* head) {
   headerLine_t* current = head;
 
   while (current != NULL) {
-    printf("[Debug] Line: '%s'\n", current->line);
+    logDebug("Line: '%s'\n", current->line);
     current = current->next;
   }
 }

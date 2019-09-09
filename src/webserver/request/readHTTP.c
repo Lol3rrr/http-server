@@ -5,8 +5,8 @@ int readHTTP(int socketFd, char** buffer, int bufferSize) {
 
   int received = recv(socketFd, readBuffer, bufferSize, 0);
   if (received < 1) {
-    if (received == 0 && isDebugEnabled()) {
-      printf("[Debug][readHTTP] Connection Closed \n");
+    if (received == 0) {
+      logDebug("[readHTTP] Connection Closed \n");
     }
 
     return 1;

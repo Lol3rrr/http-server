@@ -6,19 +6,17 @@ int handleGETrequest(int conFd, request* req) {
   if (fileNameLength < 0) {
     free(fileName);
 
-    printf("[Error] Loading Filename \n");
+    logError("Loading Filename \n");
 
     return 1;
   }
 
-  if (isDebugEnabled()) {
-    printf("[Debug][handleGETrequest] Loading File: '%s' \n", fileName);
-  }
+  logDebug("[handleGETrequest] Loading File: '%s' \n", fileName);
 
   char* data;
   int size = loadFile(fileName, &data);
   if (size < 0) {
-    printf("[Error] Loading Data: '%d' Loading Filename: '%s' \n", size, fileName);
+    logError("Loading Data: '%d' Loading Filename: '%s' \n", size, fileName);
 
     free(fileName);
 
@@ -42,17 +40,13 @@ int handleGETrequest(int conFd, request* req) {
 
   sendResponse(conFd, resp);
 
-  if (isDebugEnabled()) {
-    printf("[Debug][handleGETrequest] Cleaning Up \n");
-  }
+  logDebug("[handleGETrequest] Cleaning Up \n");
 
   free(contentType);
 
   cleanRequest(req);
   cleanResponse(resp);
 
-  if (isDebugEnabled()) {
-    printf("[Debug][handleGETrequest] Cleaned up \n");
-    printf("[Debug] ---------------- \n");
-  }
+  logDebug("[handleGETrequest] Cleaned up \n");
+  logDebug("---------------- \n");
 }

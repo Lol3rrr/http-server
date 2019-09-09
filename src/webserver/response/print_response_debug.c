@@ -5,10 +5,10 @@ void print_response_debug(response* respPtr) {
     return;
   }
 
-  printf("[Debug][Response] Printing Response: \n");
-  printf("[Debug][Response] Statuscode: %d \n", respPtr->statusCode);
-  printf("[Debug][Response] Statusmessage: %s \n", respPtr->statusMessage);
-  printf("[Debug][Response] Protokol: %s \n", respPtr->protokol);
-  printf("[Debug][Response] Headers: \n");
+  logDebug("[Response] Printing Response: \n");
+  logDebug("[Response] Statuscode: %d \n", respPtr->statusCode);
+  logDebug("[Response] Statusmessage: %s \n", respPtr->statusMessage);
+  logDebug("[Response] Protokol: %s \n", respPtr->protokol);
+  logDebug("[Response] Headers: \n");
   print_header_debug(respPtr->headers);
 }

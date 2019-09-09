@@ -43,7 +43,7 @@ int createFirstLine(response* respPtr, char** result) {
   clock_t endTime = clock();
   if (isMeasuringEnabled()) {
     double time_spent = (double) (endTime - startTime) / CLOCKS_PER_SEC;
-    printf("[Measuring][createFirstLine] Took %f Seconds \n", time_spent);
+    logMeasuring("[createFirstLine] Took %f Seconds \n", time_spent);
   }
 
   return totalLength;

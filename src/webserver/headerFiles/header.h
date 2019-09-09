@@ -7,6 +7,7 @@
 #include <time.h>
 
 #include "general.h"
+#include "logger.h"
 
 int debug;
 

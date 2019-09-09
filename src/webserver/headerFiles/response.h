@@ -8,6 +8,7 @@
 
 #include "general.h"
 #include "header.h"
+#include "logger.h"
 #include "request.h"
 
 typedef struct response {

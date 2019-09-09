@@ -2,12 +2,12 @@
 
 int startServer(int serverFd) {
   if (listen(serverFd, SOMAXCONN)) {
-    printf("[Error] failed to listen for connections \n");
+    logError("Failed to listen for connections \n");
   }
 
   signal(SIGCHLD,SIG_IGN);
 
-  printf("[Info] Now waiting for connections \n");
+  logInfo("Now waiting for connections \n");
   while (1) {
     int session_fd = accept(serverFd, 0, 0);
 
@@ -16,7 +16,7 @@ int startServer(int serverFd) {
 
       int worked = close(session_fd);
       if (worked < 0) {
-        printf("[Error] closing connection \n");
+        logError("Closing connection \n");
       }
 
       exit(0);

@@ -4,8 +4,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../headerFiles/general.h"
-#include "../headerFiles/file.h"
+#include "general.h"
+#include "logger.h"
+#include "file.h"
 
 typedef struct {
   char* filePath;

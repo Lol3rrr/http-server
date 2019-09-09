@@ -7,7 +7,7 @@ int handleConnection(int conFd) {
   request* req;
   int worked = receiveRequest(conFd, &req);
   if (worked != 0) {
-    printf("[Error] Receiving Request: %d \n", worked);
+    logError("Receiving Request: %d \n", worked);
 
     return 1;
   }
@@ -27,7 +27,7 @@ int handleConnection(int conFd) {
   if (isMeasuringEnabled()) {
     double time_spent = (double)(endTime - startTime) / CLOCKS_PER_SEC;
 
-    printf("[Measuring][handleConnection] Took %f Seconds \n", time_spent);
+    logMeasuring("[handleConnection] Took %f Seconds \n", time_spent);
   }
 
   return handled;

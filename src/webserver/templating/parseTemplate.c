@@ -24,7 +24,7 @@ int parseTemplate(char* rawContent, int rawContentLength, char** result) {
     if (size < 0) {
       free(data);
 
-      printf("[Error][parseTemplate] Could not include the file '%s' \n", statement->filePath);
+      logError("[parseTemplate] Could not include the file '%s' \n", statement->filePath);
 
       data = createEmptyCString(0);
     }

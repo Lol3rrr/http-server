@@ -38,7 +38,7 @@ int parseHeader(char* headerLine, char** keyPtr, char** valuePtr) {
   clock_t endTime = clock();
   if (isMeasuringEnabled()) {
     double time_spent = (double) (endTime - startTime) / CLOCKS_PER_SEC;
-    printf("[Measuring][parseHeader] Took %f Seconds \n", time_spent);
+    logMeasuring("[parseHeader] Took %f Seconds \n", time_spent);
   }
 
   return 0;

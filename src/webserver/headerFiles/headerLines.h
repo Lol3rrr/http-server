@@ -5,6 +5,7 @@
 #include <stdlib.h>
 
 #include "general.h"
+#include "logger.h"
 
 typedef struct node {
   char* line;

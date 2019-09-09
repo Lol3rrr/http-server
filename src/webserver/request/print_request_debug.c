@@ -5,10 +5,10 @@ void print_request_debug(request* req) {
     return;
   }
 
-  printf("[Debug][Request] Printing Request: \n");
-  printf("[Debug][Request] Method: '%s' \n", req->method);
-  printf("[Debug][Request] Path: '%s' \n", req->path);
-  printf("[Debug][Request] Protokol: '%s' \n", req->protokol);
-  printf("[Debug][Request] Headers: \n");
+  logDebug("[Request] Printing Request: \n");
+  logDebug("[Request] Method: '%s' \n", req->method);
+  logDebug("[Request] Path: '%s' \n", req->path);
+  logDebug("[Request] Protokol: '%s' \n", req->protokol);
+  logDebug("[Request] Headers: \n");
   print_header_debug(req->headers);
 }

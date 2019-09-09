@@ -10,6 +10,7 @@
 #include <netinet/in.h>
 
 #include "headerFiles/general.h"
+#include "headerFiles/logger.h"
 #include "headerFiles/request.h"
 #include "headerFiles/response.h"
 

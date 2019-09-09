@@ -9,6 +9,7 @@
 #include "general.h"
 #include "headerLines.h"
 #include "header.h"
+#include "logger.h"
 #include "file.h"
 
 typedef struct request {

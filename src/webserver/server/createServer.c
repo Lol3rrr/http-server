@@ -5,9 +5,8 @@ int createServer(int port) {
   int fd;
 
   fd = socket(AF_INET, SOCK_STREAM, 0);
-  if(fd == -1)
-  {
-      printf("[Error] opening socket\n");
+  if(fd == -1) {
+      logError("Could not open socket \n");
       return -1;
   }
 
@@ -16,13 +15,12 @@ int createServer(int port) {
   addr.sin_addr.s_addr = INADDR_ANY;
   addr.sin_family = AF_INET;
 
-  if(bind(fd, (struct sockaddr *)&addr,sizeof(struct sockaddr_in) ) == -1)
-  {
-      printf("[Error] binding socket\n");
+  if(bind(fd, (struct sockaddr *)&addr,sizeof(struct sockaddr_in) ) == -1) {
+      logError("Could not bind socket \n");
       return -1;
   }
 
-  printf("[Info] Successfully bound to port %u\n", port);
+  logInfo("Successfully bound to port %u \n", port);
 
   return fd;
 }

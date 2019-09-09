@@ -11,9 +11,7 @@ int receiveRequest(int conFd, request** reqPtr) {
     return 1;
   }
 
-  if (isDebugEnabled()) {
-    printf("[Debug][receiveRequest] Read %d Bytes \n", readBytes);
-  }
+  logDebug("[receiveRequest] Read %d Bytes \n", readBytes);
 
   headerLine_t* head = splitHTTPRequest(&readBuffer, readBytes);
 
@@ -22,9 +20,7 @@ int receiveRequest(int conFd, request** reqPtr) {
   request* req;
   int worked = parseRequest(head, &req);
   if (worked != 0) {
-    if (isDebugEnabled()) {
-      printf("[Debug][receiveRequest] Error parsing Request \n");
-    }
+    logDebug("[receiveRequest] Error parsing Request \n");
 
     cleanHeaderLines(head);
 
