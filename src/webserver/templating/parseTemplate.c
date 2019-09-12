@@ -4,6 +4,12 @@ int parseTemplate(char* rawContent, int rawContentLength, char** result) {
   int contentLength = rawContentLength;
   char* content = rawContent;
 
+  if (contentLength <= 0)
+    return -1;
+
+  if (content == NULL)
+    return -1;
+
   int includeStart = findStr(content, "<--include", contentLength, 10);
   while (includeStart != -1) {
     int includeInnerStart = includeStart + 10;

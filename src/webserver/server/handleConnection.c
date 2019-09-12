@@ -14,13 +14,9 @@ int handleConnection(int conFd) {
 
   print_request_debug(req);
 
-  int handled = 0;
-  if (strcmp(req->method, "GET") == 0) {
-    handled = handleGETrequest(conFd, req);
-  }else {
-    sendNotFound(conFd, req);
-
-    free(req);
+  int handled = handleRequest(conFd, req);
+  if (handled != 0) {
+    printf("Error handling \n");
   }
 
   clock_t endTime = clock();

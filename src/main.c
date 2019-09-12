@@ -28,6 +28,12 @@ int checkFlag(char** args, int argCount, char* flag) {
   return 0;
 }
 
+int test(request* req, response* resp) {
+  printf("Called test \n");
+
+  return -1;
+}
+
 int main(int argc, char *argv[]) {
   int debug = checkFlag(argv, argc, "-d");
   int caching = checkFlag(argv, argc, "-c");
@@ -47,6 +53,8 @@ int main(int argc, char *argv[]) {
   if (serverFd < 0) {
     return 0;
   }
+
+  //addCustomPath("GET", "/", handleGETrequest);
 
   startServer(serverFd);
 

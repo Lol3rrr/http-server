@@ -1,6 +1,6 @@
 #include "../server.h"
 
-int handleGETrequest(int conFd, request* req) {
+int handleGETrequest(request* req, response* resp) {
   char* fileName;
   int fileNameLength = loadFileName(req->path, &fileName);
   if (fileNameLength < 0) {
@@ -8,7 +8,7 @@ int handleGETrequest(int conFd, request* req) {
 
     logError("Loading Filename \n");
 
-    return 1;
+    return -1;
   }
 
   logDebug("[handleGETrequest] Loading File: '%s' \n", fileName);
@@ -20,15 +20,12 @@ int handleGETrequest(int conFd, request* req) {
 
     free(fileName);
 
-    sendNotFound(conFd, req);
-    cleanRequest(req);
-
     return 1;
   }
 
   free(fileName);
 
-  response* resp = createResponse(200, "OK", req->protokol);
+  setStatus(resp, 200, "OK");
   setData(resp, data, size);
 
   char* contentType;
@@ -38,15 +35,7 @@ int handleGETrequest(int conFd, request* req) {
 
   print_response_debug(resp);
 
-  sendResponse(conFd, resp);
-
-  logDebug("[handleGETrequest] Cleaning Up \n");
-
   free(contentType);
 
-  cleanRequest(req);
-  cleanResponse(resp);
-
-  logDebug("[handleGETrequest] Cleaned up \n");
-  logDebug("---------------- \n");
+  return 0;
 }
