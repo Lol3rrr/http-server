@@ -8,7 +8,7 @@ void cleanUp(request* req, response* respPtr) {
 int handleRequest(int conFd, request* reqPtr) {
   response* respPtr = createEmptyResponse(reqPtr->protokol);
 
-  int worked = -1;
+  int worked;
   if (customPathEnabled) {
     worked = callCustomPath(reqPtr->method, reqPtr->path, reqPtr, respPtr);
   } else {

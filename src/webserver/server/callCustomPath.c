@@ -1,20 +1,23 @@
 #include "../server.h"
 
-pathNode_t* findPathNode(pathNode_t* head, char* method, char* path) {
+int findPathNode(pathNode_t* head, char* method, char* path, pathNode_t** result) {
   pathNode_t* current = head;
-  while (current->next != NULL) {
-    if (strcmp(current->method, method) && strcmp(current->path, path))
-      return current;
+  while (current != NULL) {
+    if (strcmp(current->method, method) == 0 && strcmp(current->path, path) == 0) {
+      (*result) = current;
+      return 0;
+    }
 
     current = current->next;
   }
 
-  return NULL;
+  return -1;
 }
 
 int callCustomPath(char* method, char* path, request* reqPtr, response* respPtr) {
-  pathNode_t* node = findPathNode(customPaths, method, path);
-  if (node == NULL)
+  pathNode_t* node;
+  int found = findPathNode(customPaths, method, path, &node);
+  if (found != 0)
     return -1;
 
   return node->funcPtr(reqPtr, respPtr);

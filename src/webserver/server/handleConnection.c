@@ -15,9 +15,6 @@ int handleConnection(int conFd) {
   print_request_debug(req);
 
   int handled = handleRequest(conFd, req);
-  if (handled != 0) {
-    printf("Error handling \n");
-  }
 
   clock_t endTime = clock();
   if (isMeasuringEnabled()) {
@@ -26,5 +23,5 @@ int handleConnection(int conFd) {
     logMeasuring("[handleConnection] Took %f Seconds \n", time_spent);
   }
 
-  return handled;
+  return 0;
 }
