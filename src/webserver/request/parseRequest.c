@@ -18,6 +18,8 @@ int parseRequest(headerLine_t* headerLines, request** reqPtr) {
   req->path = NULL;
   req->protokol = NULL;
   req->headers = NULL;
+  req->body = NULL;
+  req->bodyLength = -1;
 
   headerLine_t* current = headerLines;
 

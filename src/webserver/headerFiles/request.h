@@ -17,6 +17,8 @@ typedef struct request {
   char* path;
   char* protokol;
   headerNode_t* headers;
+  char* body;
+  int bodyLength;
 } request;
 
 void print_request_debug(request* req);
@@ -27,6 +29,7 @@ int cleanRequest(request* reqPtr);
 
 int readHTTP(int socketFd, char** buffer, int bufferSize);
 headerLine_t* splitHTTPRequest(char** buffer, int bufferLength);
+int parseBody(char* rawRequest, int rawLength, char** result);
 
 int receiveRequest(int conFd, request** reqPtr);
 
