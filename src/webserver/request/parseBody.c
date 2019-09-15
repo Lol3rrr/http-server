@@ -10,6 +10,9 @@ int parseBody(char* rawRequest, int rawLength, char** result) {
   startOfBody += 4;
   length = rawLength - startOfBody;
 
+  if (length <= 0)
+    return -1;
+
   char* body = createEmptyCString(length);
   for (int i = 0; i < length; i++) {
     int index = i + startOfBody;
