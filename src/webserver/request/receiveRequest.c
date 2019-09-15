@@ -15,19 +15,26 @@ int receiveRequest(int conFd, request** reqPtr) {
 
   headerLine_t* head = splitHTTPRequest(&readBuffer, readBytes);
 
-  free(readBuffer);
+  char* body;
+  int bodySize = parseBody(readBuffer, readBytes, &body);
 
   request* req;
   int worked = parseRequest(head, &req);
+
+  cleanHeaderLines(head);
+  free(readBuffer);
+
   if (worked != 0) {
     logDebug("[receiveRequest] Error parsing Request \n");
-
-    cleanHeaderLines(head);
 
     return 1;
   }
 
-  cleanHeaderLines(head);
+
+  if (bodySize > 0) {
+    req->body = body;
+    req->bodyLength = bodySize;
+  }
 
   *reqPtr = req;
 
