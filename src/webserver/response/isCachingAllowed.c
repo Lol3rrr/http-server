@@ -5,7 +5,7 @@ int isCachingAllowed(request* reqPtr) {
     return 0;
   }
 
-  headerNode_t* result;
+  kvNode_t* result;
   int worked = getHeader(reqPtr->headers, "Cache-Control", &result);
   if (worked == 0) {
     char* value = result->value;

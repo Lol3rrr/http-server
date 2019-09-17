@@ -16,12 +16,6 @@ typedef struct headers {
   kvNode_t* kvNodes;
 } headers_t;
 
-typedef struct headerNode {
-  char* key;
-  char* value;
-  struct headerNode* next;
-} headerNode_t;
-
 headers_t* createEmptyHeaders();
 
 void pushHeader(headers_t* headers, char* key, char* value);
@@ -30,7 +24,6 @@ void cleanHeader(headers_t* headers);
 int getHeader(headers_t* headers, char* key, kvNode_t** result);
 
 int parseHeader(char* headerLine, char** keyPtr, char** valuePtr);
-int createHeaderPair(headers_t* headers, char** result);
 int parseFirstLine(char* firstLine, char** methodPtr, char** pathPtr, char** protokolPtr);
 
 #endif

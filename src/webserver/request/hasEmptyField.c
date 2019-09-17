@@ -10,7 +10,7 @@ int hasEmptyField(request* reqPtr) {
   if (reqPtr->protokol == NULL)
     return 1;
 
-  if (reqPtr->headers->key == NULL)
+  if (reqPtr->headers->kvNodes == NULL)
     return 1;
 
   return 0;

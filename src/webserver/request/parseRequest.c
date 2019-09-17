@@ -23,7 +23,7 @@ int parseRequest(headerLine_t* headerLines, request** result) {
 
   headerLine_t* current = headerLines;
 
-  headerNode_t* head = createEmptyHeaderNode_t();
+  headers_t* head = createEmptyHeaders();
 
   while (current->next != NULL) {
     char* key = NULL;
@@ -38,12 +38,9 @@ int parseRequest(headerLine_t* headerLines, request** result) {
     }else {
       int worked = parseHeader(current->line, &key, &value);
       if (worked == 0) {
-        if (head->key == NULL) {
-          head->key = key;
-          head->value = value;
-        }else {
-          pushHeader(head, key, value);
-        }
+        pushHeader(head, key, value);
+        free(key);
+        free(value);
       }
     }
 
@@ -54,7 +51,7 @@ int parseRequest(headerLine_t* headerLines, request** result) {
 
   if (hasEmptyField(req)) {
     logDebug("[parseRequest] Not everything has been set \n");
-    logDebug("[parseRequest] Method: '%p', Path: '%p', Protokol: '%p', First Header Key: '%p' \n", req->method, req->path, req->protokol, req->headers->key);
+    logDebug("[parseRequest] Method: '%p', Path: '%p', Protokol: '%p', First Header Key: '%p' \n", req->method, req->path, req->protokol, req->headers->kvNodes);
 
     cleanRequest(req);
 

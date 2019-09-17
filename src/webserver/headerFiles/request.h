@@ -16,7 +16,7 @@ typedef struct request {
   char* method;
   char* path;
   char* protokol;
-  headerNode_t* headers;
+  headers_t* headers;
   char* body;
   int bodyLength;
 } request;
