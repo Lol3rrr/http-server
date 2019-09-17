@@ -8,8 +8,13 @@
 
 #include "general.h"
 #include "logger.h"
+#include "keyValueList.h"
 
 int debug;
+
+typedef struct headers {
+  kvNode_t* kvNodes;
+} headers_t;
 
 typedef struct headerNode {
   char* key;
@@ -17,15 +22,15 @@ typedef struct headerNode {
   struct headerNode* next;
 } headerNode_t;
 
-headerNode_t* createEmptyHeaderNode_t();
+headers_t* createEmptyHeaders();
 
-void pushHeader(headerNode_t* head, char* key, char* value);
-void print_header_debug(headerNode_t* head);
-void cleanHeader(headerNode_t* head);
-int getHeader(headerNode_t* head, char* key, headerNode_t** result);
+void pushHeader(headers_t* headers, char* key, char* value);
+void print_header_debug(headers_t* headers);
+void cleanHeader(headers_t* headers);
+int getHeader(headers_t* headers, char* key, kvNode_t** result);
 
 int parseHeader(char* headerLine, char** keyPtr, char** valuePtr);
-int createHeaderPair(headerNode_t* headerPtr, char** result);
+int createHeaderPair(headers_t* headers, char** result);
 int parseFirstLine(char* firstLine, char** methodPtr, char** pathPtr, char** protokolPtr);
 
 #endif
