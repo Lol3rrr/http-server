@@ -10,7 +10,7 @@ int isFirstLine(char* line) {
 }
 
 // Returns 0 if worked
-int parseRequest(headerLine_t* headerLines, request** reqPtr) {
+int parseRequest(headerLine_t* headerLines, request** result) {
   clock_t startTime = clock();
 
   request* req = (request*) malloc(1 * sizeof(request));
@@ -20,10 +20,11 @@ int parseRequest(headerLine_t* headerLines, request** reqPtr) {
   req->headers = NULL;
   req->body = NULL;
   req->bodyLength = -1;
+  req->params = NULL;
 
   headerLine_t* current = headerLines;
 
-  headerNode_t* head = createEmptyHeaderNode_t();
+  headers_t* head = createEmptyHeaders();
 
   while (current->next != NULL) {
     char* key = NULL;
@@ -38,12 +39,9 @@ int parseRequest(headerLine_t* headerLines, request** reqPtr) {
     }else {
       int worked = parseHeader(current->line, &key, &value);
       if (worked == 0) {
-        if (head->key == NULL) {
-          head->key = key;
-          head->value = value;
-        }else {
-          pushHeader(head, key, value);
-        }
+        pushHeader(head, key, value);
+        free(key);
+        free(value);
       }
     }
 
@@ -54,7 +52,7 @@ int parseRequest(headerLine_t* headerLines, request** reqPtr) {
 
   if (hasEmptyField(req)) {
     logDebug("[parseRequest] Not everything has been set \n");
-    logDebug("[parseRequest] Method: '%p', Path: '%p', Protokol: '%p', First Header Key: '%p' \n", req->method, req->path, req->protokol, req->headers->key);
+    logDebug("[parseRequest] Method: '%p', Path: '%p', Protokol: '%p', First Header Key: '%p' \n", req->method, req->path, req->protokol, req->headers->kvNodes);
 
     cleanRequest(req);
 
@@ -67,7 +65,7 @@ int parseRequest(headerLine_t* headerLines, request** reqPtr) {
     return 2;
   }
 
-  *reqPtr = req;
+  *result = req;
 
   clock_t endTime = clock();
   if (isMeasuringEnabled()) {

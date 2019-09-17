@@ -2,7 +2,7 @@
 
 int cleanResponse(response* respPtr) {
   free(respPtr->protokol);
-  if (respPtr->dataSize > -1)
+  if (respPtr->dataSize > 0)
     free(respPtr->data);
 
   cleanHeader(respPtr->headers);

@@ -30,10 +30,17 @@ int receiveRequest(int conFd, request** reqPtr) {
     return 1;
   }
 
-
   if (bodySize > 0) {
     req->body = body;
     req->bodyLength = bodySize;
+  }
+
+  char* nPath;
+  queryParams_t* params = parseQueryParams(req->path, &nPath);
+  if (params != NULL) {
+    free(req->path);
+    req->path = nPath;
+    req->params = params;  
   }
 
   *reqPtr = req;

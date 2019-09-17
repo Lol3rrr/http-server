@@ -16,6 +16,8 @@ int handleConnection(int conFd) {
 
   int handled = handleRequest(conFd, req);
 
+  logDebug("[handleConnection] Request has been handled \n");
+
   clock_t endTime = clock();
   if (isMeasuringEnabled()) {
     double time_spent = (double)(endTime - startTime) / CLOCKS_PER_SEC;

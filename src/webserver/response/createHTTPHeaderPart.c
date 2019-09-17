@@ -9,15 +9,16 @@ int createHTTPHeaderPart(response* respPtr, char* spacer, char** result) {
   char* headerPart;
 
   if (respPtr->headers != NULL) {
-    headerNode_t* currentHeader = respPtr->headers;
+    headers_t* headers = respPtr->headers;
+    kvNode_t* currentKV = headers->kvNodes;
     headerPartNode_t* head = NULL;
 
     headerLength = 0;
 
-    while (currentHeader != NULL) {
+    while (currentKV != NULL) {
       char* result;
 
-      int resultLength = createHeaderPair(currentHeader, &result);
+      int resultLength = createKVPair(currentKV, &result);
       headerLength += resultLength;
       headerLength += spacerLength;
 
@@ -31,7 +32,7 @@ int createHTTPHeaderPart(response* respPtr, char* spacer, char** result) {
         pushHeaderNodePart(head, result, resultLength);
       }
 
-      currentHeader = currentHeader->next;
+      currentKV = currentKV->next;
     }
 
     headerPart = createEmptyCString(headerLength);

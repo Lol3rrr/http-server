@@ -6,6 +6,8 @@ void cleanUp(request* req, response* respPtr) {
 }
 
 int handleRequest(int conFd, request* reqPtr) {
+  logDebug("[handleRequest] Handling Request... \n");
+
   response* respPtr = createEmptyResponse(reqPtr->protokol);
 
   int worked;
@@ -17,15 +19,17 @@ int handleRequest(int conFd, request* reqPtr) {
 
   if (worked != 0) {
     sendNotFound(conFd, reqPtr);
-
     cleanUp(reqPtr, respPtr);
+
+    logDebug("[handleRequest] Sent not found");
 
     return -1;
   }
 
   sendResponse(conFd, respPtr);
-
   cleanUp(reqPtr, respPtr);
+
+  logDebug("[handleRequest] Sent Response \n");
 
   return 0;
 }

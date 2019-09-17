@@ -2,7 +2,7 @@
 
 response* createEmptyResponse(char* protokol) {
   response* resp = (response*) malloc(1 * sizeof(response));
-  resp->headers = NULL;
+  resp->headers = createEmptyHeaders();
 
   int protokolLength = getStringLength(protokol);
   resp->protokol = createEmptyCString(protokolLength);

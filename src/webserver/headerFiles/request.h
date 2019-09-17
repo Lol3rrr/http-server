@@ -9,6 +9,7 @@
 #include "general.h"
 #include "headerLines.h"
 #include "header.h"
+#include "queryParams.h"
 #include "logger.h"
 #include "file.h"
 
@@ -16,7 +17,8 @@ typedef struct request {
   char* method;
   char* path;
   char* protokol;
-  headerNode_t* headers;
+  headers_t* headers;
+  queryParams_t* params;
   char* body;
   int bodyLength;
 } request;
