@@ -6,6 +6,8 @@ int cleanRequest(request* reqPtr) {
   free(reqPtr->protokol);
 
   cleanHeader(reqPtr->headers);
+  if (reqPtr->params != NULL)
+    cleanQueryParams(reqPtr->params);
 
   free(reqPtr->body);
 

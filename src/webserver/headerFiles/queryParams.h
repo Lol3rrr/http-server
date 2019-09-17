@@ -20,4 +20,6 @@ int parseQueryParam(char* rawParam, queryParams_t* params);
 
 int getQueryParam(queryParams_t* params, char* key, kvNode_t** result);
 
+void cleanQueryParams(queryParams_t* params);
+
 #endif

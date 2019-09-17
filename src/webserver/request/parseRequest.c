@@ -20,6 +20,7 @@ int parseRequest(headerLine_t* headerLines, request** result) {
   req->headers = NULL;
   req->body = NULL;
   req->bodyLength = -1;
+  req->params = NULL;
 
   headerLine_t* current = headerLines;
 

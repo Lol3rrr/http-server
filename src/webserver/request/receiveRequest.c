@@ -37,10 +37,11 @@ int receiveRequest(int conFd, request** reqPtr) {
 
   char* nPath;
   queryParams_t* params = parseQueryParams(req->path, &nPath);
-  free(req->path);
-  req->path = nPath;
-
-  free(params);
+  if (params != NULL) {
+    free(req->path);
+    req->path = nPath;
+    req->params = params;  
+  }
 
   *reqPtr = req;
 
