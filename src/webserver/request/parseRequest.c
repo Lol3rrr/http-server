@@ -10,7 +10,7 @@ int isFirstLine(char* line) {
 }
 
 // Returns 0 if worked
-int parseRequest(headerLine_t* headerLines, request** reqPtr) {
+int parseRequest(headerLine_t* headerLines, request** result) {
   clock_t startTime = clock();
 
   request* req = (request*) malloc(1 * sizeof(request));
@@ -67,7 +67,7 @@ int parseRequest(headerLine_t* headerLines, request** reqPtr) {
     return 2;
   }
 
-  *reqPtr = req;
+  *result = req;
 
   clock_t endTime = clock();
   if (isMeasuringEnabled()) {
