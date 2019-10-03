@@ -25,7 +25,7 @@ Simply compile the code and execute the resulting binary to start a simple Webse
 - include an html file in another html file
 
 #### Usage
-To include a file you simply add `<--include path="path to file">` to your html file.
+To include a file you simply add `<--include path="path to file"/>` to your html file.
 It will load the specified file and replace the tag with the content of said file.
 
 Note: The path to the file has to start with a '/' otherwise it cant find it.
