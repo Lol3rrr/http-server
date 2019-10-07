@@ -10,4 +10,4 @@ RUN make build
 
 EXPOSE 80
 
-ENTRYPOINT ["./a.out"]
+ENTRYPOINT ["./server.out"]
