@@ -1,4 +1,4 @@
-prog:
+build:
 	gcc -o a.out src/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c
 
 memcheck:
@@ -12,3 +12,6 @@ run_test:
 run_debug:
 	make
 	./a.out -p 8080 -d
+
+docker:
+	docker build -t c-http-server:latest .
