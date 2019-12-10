@@ -9,7 +9,11 @@ int readHTTP(int socketFd, char** buffer, int bufferSize) {
       logDebug("[readHTTP] Connection Closed \n");
     }
 
-    return 1;
+    return -1;
+  }
+
+  if (received < bufferSize) {
+    readBuffer[bufferSize - 1] = '\0';
   }
 
   return received;
