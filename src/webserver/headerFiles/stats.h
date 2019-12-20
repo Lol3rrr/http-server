@@ -17,7 +17,7 @@ counter_t* findCounterByID(int counterID);
 counter_t* findCounterByName(char* name);
 
 int createCounter(char* name);
-void addCounterByID(int counterID);
-void addCounterByName(char* name);
+void incCounterByID(int counterID);
+void incCounterByName(char* name);
 
 #endif

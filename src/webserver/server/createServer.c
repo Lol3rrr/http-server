@@ -1,5 +1,7 @@
 #include "../server.h"
 
+int totalRequestsID = 0;
+
 int createServer(int port) {
   struct sockaddr_in addr;
   int fd;
@@ -24,7 +26,7 @@ int createServer(int port) {
 
 
   // Create All the needed Metrics
-  createCounter("total_requests");
+  totalRequestsID = createCounter("total_requests");
 
 
   return fd;

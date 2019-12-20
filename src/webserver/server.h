@@ -23,6 +23,9 @@ typedef struct pathNode {
   struct pathNode* next;
 } pathNode_t;
 
+extern int totalRequestsID;
+
+
 int customPathEnabled;
 pathNode_t* customPaths;
 

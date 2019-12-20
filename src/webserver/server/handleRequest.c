@@ -7,6 +7,7 @@ void cleanUp(request* req, response* respPtr) {
 
 int handleRequest(int conFd, request* reqPtr) {
   logDebug("[handleRequest] Handling Request... \n");
+  incCounterByID(totalRequestsID);
 
   response* respPtr = createEmptyResponse(reqPtr->protokol);
 

@@ -1,6 +1,6 @@
 #include "../headerFiles/stats.h"
 
-void addCounterByName(char* name) {
+void incCounterByName(char* name) {
   counter_t* tmpCounter = findCounterByName(name);
   if (tmpCounter == NULL) {
     return;
