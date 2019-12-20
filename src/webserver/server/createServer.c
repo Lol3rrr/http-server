@@ -22,5 +22,10 @@ int createServer(int port) {
 
   logInfo("Successfully bound to port %u \n", port);
 
+
+  // Create All the needed Metrics
+  createCounter("total_requests");
+
+
   return fd;
 }

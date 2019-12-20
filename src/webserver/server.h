@@ -9,6 +9,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 
+#include "headerFiles/stats.h"
 #include "headerFiles/general.h"
 #include "headerFiles/logger.h"
 #include "headerFiles/request.h"
