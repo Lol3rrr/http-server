@@ -1,5 +1,7 @@
 FROM ubuntu:18.04 AS build
 
+ARG buildType=build_static
+
 WORKDIR /root/http-server
 
 RUN apt-get update
@@ -9,7 +11,7 @@ RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/*
 
 COPY . .
-RUN make build_static
+RUN make $buildType
 
 FROM alpine:latest
 

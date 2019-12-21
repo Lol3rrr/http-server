@@ -3,15 +3,48 @@ name: C/C++ CI
 on: [push]
 
 jobs:
-  build_normal:
+  compile_normal:
     runs-on: ubuntu-18.04
     steps:
-    - uses: actions/checkout@v1
-    - name: make
+    - name: Pull
+      uses: actions/checkout@v1
+    - name: Compile to binary
       run: make build
-  build_prometheus:
+  compile_prometheus:
     runs-on: ubuntu-18.04
     steps:
-    - uses: actions/checkout@v1
-    - name: make
+    - name: Pull
+      uses: actions/checkout@v1
+    - name: Compile to binary
       run: make build_prometheus
+
+  build_normal:
+    name: Build without Prometheus
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull
+        uses: actions/checkout@master
+
+      - name: Build Docker image
+        run: docker build --build-arg buildType=build_static -t lol3r/c-http-server:latest .
+
+      - name: Login to Repo
+        run: docker login --username ${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Publish
+        run: docker push lol3r/c-http-server:latest
+  build_prometheus:
+    name: Build with Prometheus
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull
+        uses: actions/checkout@master
+
+      - name: Build Docker image
+        run: docker build --build-arg buildType=build_prometheus_static -t lol3r/c-http-server:latest-prometheus .
+
+      - name: Login to Repo
+        run: docker login --username ${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Publish
+        run: docker push lol3r/c-http-server:latest-prometheus
