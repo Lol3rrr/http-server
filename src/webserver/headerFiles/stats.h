@@ -29,6 +29,9 @@ int createCounter(char* name, counter_t** registry);
 int incCounterByID(int counterID, counter_t** registry);
 int incCounterByName(char* name, counter_t** registry);
 
+int counterRegistryToString(counter_t** registry, char** result);
+int counterToTypeString(counter_t* counter, char** result);
+int counterToString(counter_t* counter, char** result);
 
 void createMetricsEndpoint(int port);
 

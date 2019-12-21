@@ -36,9 +36,17 @@ void createMetricsEndpoint(int port) {
     if (fork() == 0) {
       counter_t* current = counterRegistry;
       while (current != NULL) {
-        logInfo("P: '%p' Stat: '%s' with Value: '%u' \n", current, current->name, current->count);
+        char* str;
+        int length = counterToString(current, &str);
+
+        logInfo("Stat: '%s' Value: '%u' Line: '%s' \n", current->name, current->count, str);
+
         current = current->next;
       }
+
+      char* str;
+      int length = counterRegistryToString(&counterRegistry, &str);
+      logInfo("Total Result: '%s' \n", str);
 
       exit(0);
     }else {
