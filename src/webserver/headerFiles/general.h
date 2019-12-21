@@ -3,6 +3,12 @@
 
 #include <stdlib.h>
 
+typedef struct string {
+  char* content;
+  int length;
+} string;
+
+
 int debug;
 int caching;
 int measuring;
@@ -28,5 +34,6 @@ int getSubstring(char* src, int start, int length, char** result);
 int replaceStr(char* src, char* replacement, int start, int lengthToReplace, char** result);
 
 char* createEmptyCString(int length);
+string* createEmptyString(int length);
 
 #endif

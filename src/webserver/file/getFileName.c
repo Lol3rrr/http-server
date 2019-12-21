@@ -1,38 +1,19 @@
 #include "../headerFiles/file.h"
 
-int getFileName(char* folder, char* path, char** filePath) {
-  int folderLength = getStringLength(folder);
-  int pathLength = getStringLength(path);
-  int totalLength = folderLength + pathLength;
+int getFileName(string* folder, char* path, char** filePath) {
+  int pathLength = strlen(path);
+  int totalLength = folder->length + pathLength;
 
   char* file = createEmptyCString(totalLength);
-  for(int i = 0; i < totalLength; i++) {
-    if (i < folderLength) {
-      file[i] = folder[i];
-    }else {
-      file[i] = path[i - folderLength];
-    }
-  }
+  strncpy(file, folder->content, folder->length);
+  strncpy(file + folder->length, path, pathLength);
 
   if (file[totalLength - 1] == '/') {
     int nLength = totalLength + 10;
     char* nFile = createEmptyCString(nLength);
 
-    for (int i = 0; i < nLength; i++) {
-      if (i < totalLength) {
-        nFile[i] = file[i];
-      }
-    }
-    nFile[nLength - 10] = 'i';
-    nFile[nLength - 9] = 'n';
-    nFile[nLength - 8] = 'd';
-    nFile[nLength - 7] = 'e';
-    nFile[nLength - 6] = 'x';
-    nFile[nLength - 5] = '.';
-    nFile[nLength - 4] = 'h';
-    nFile[nLength - 3] = 't';
-    nFile[nLength - 2] = 'm';
-    nFile[nLength - 1] = 'l';
+    strncpy(nFile, file, totalLength);
+    strncpy(nFile + totalLength, "index.html", 10);
 
     free(file);
     file = nFile;
@@ -40,21 +21,12 @@ int getFileName(char* folder, char* path, char** filePath) {
   }
 
   int dot = findStr(file, ".", totalLength, 1);
-
   if (dot == -1) {
     int nLength = totalLength + 5;
     char* nFile = createEmptyCString(nLength);
 
-    for (int i = 0; i < nLength; i++) {
-      if (i < totalLength) {
-        nFile[i] = file[i];
-      }
-    }
-    nFile[nLength - 5] = '.';
-    nFile[nLength - 4] = 'h';
-    nFile[nLength - 3] = 't';
-    nFile[nLength - 2] = 'm';
-    nFile[nLength - 1] = 'l';
+    strncpy(nFile, file, totalLength);
+    strncpy(nFile + totalLength, ".html", 5);
 
     free(file);
     file = nFile;
@@ -63,5 +35,5 @@ int getFileName(char* folder, char* path, char** filePath) {
 
   *filePath = file;
 
-  return 0;
+  return totalLength;
 }

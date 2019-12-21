@@ -1,17 +1,19 @@
 #include "../headerFiles/file.h"
 
 int loadFileName(char* path, char** fileNameReturn) {
-  char* folder = "website";
+  string* nFolder = createEmptyString(7);
+  strncpy(nFolder->content, "website", 7);
 
   char* fileName;
-  int worked = getFileName(folder, path, &fileName);
-  if (worked != 0) {
+  int length = getFileName(nFolder, path, &fileName);
+  if (length < 0) {
     return -1;
   }
 
+  free(nFolder->content);
+  free(nFolder);
+
   (*fileNameReturn) = fileName;
 
-  int fileNameLength = getStringLength(fileName);
-
-  return fileNameLength;
+  return length;
 }
