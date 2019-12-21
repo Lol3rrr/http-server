@@ -1,10 +1,12 @@
 #include "../headerFiles/stats.h"
 
-void incCounterByID(int counterID) {
+int incCounterByID(int counterID) {
   counter_t* tmpCounter = findCounterByID(counterID);
   if (tmpCounter == NULL) {
-    return;
+    return 0;
   }
 
   tmpCounter->count += 1;
+
+  return 1;
 }
