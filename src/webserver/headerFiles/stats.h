@@ -1,6 +1,8 @@
 #ifndef STATS_H
 #define STATS_H
 
+#include <stdio.h>
+
 #include <stdlib.h>
 #include <string.h>
 #include <signal.h>

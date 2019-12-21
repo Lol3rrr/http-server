@@ -24,10 +24,20 @@ int counterToString(counter_t* counter, char** result) {
   offset++;
 
   // 12 is the length of the char array that holds the String Version of the Value
+  int numbersWritten = 0;
   for (int i = 0; i < 12; i++) {
     tmp[offset] = tmpValue[i];
+    if (tmp[offset] == '\0') {
+      break;
+    }
+    numbersWritten++;
     offset++;
   }
+  for (int i = numbersWritten; i < 12; i++) {
+    tmp[offset] = ' ';
+    offset++;
+  }
+
   tmp[offset] = '\n';
   offset++;
 
