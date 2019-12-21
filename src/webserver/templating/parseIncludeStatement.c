@@ -11,12 +11,18 @@ int parseIncludeStatement(char* includeText, int length, includeStatement** stat
   if (pathEnd == -1)
     return -1;
 
-  char* substr;
-  getSubstring(includeText, pathStart, (pathEnd - pathStart), &substr);
+  char* rawSubstr;
+  int subLength = (pathEnd - pathStart);
+  getSubstring(includeText, pathStart, subLength, &rawSubstr);
+
+  string* subStr = createEmptyString(subLength);
+  strncpy(subStr->content, rawSubstr, subLength);
+  free(rawSubstr);
 
   char* fileName;
-  int fileNameLength = loadFileName(substr, &fileName);
-  free(substr);
+  int fileNameLength = loadFileName(subStr, &fileName);
+  free(subStr->content);
+  free(subStr);
   if (fileNameLength < 0) {
     free(fileName);
 

@@ -1,22 +1,18 @@
 #include "../server.h"
 
-int determinContentType(char* path, char** result) {
-  int length = getStringLength(path);
-  int dot = findStr(path, ".", length, 1);
+int determinContentType(string* path, char** result) {
+  int dot = findStr(path->content, ".", path->length, 1);
 
-  if(dot == -1 || length == -1) {
+  if(dot == -1) {
     (*result) = (char*) malloc(24 * sizeof(char));
     strcpy((*result), "text/html;charset=UTF-8");
 
     return 0;
   }
 
-  int extensionLenght = length - dot;
-  char* extension = (char*) malloc((extensionLenght + 1) * sizeof(char));
-  extension[extensionLenght] = '\0';
-  for (int i = 0; i < extensionLenght; i++) {
-    extension[i] = path[i + dot + 1];
-  }
+  int extensionLength = path->length - dot;
+  char* extension = createEmptyCString(extensionLength);
+  strncpy(extension, path->content, extensionLength);
 
   if(strcmp(extension, "html") == 0) {
     (*result) = (char*) malloc(24 * sizeof(char));

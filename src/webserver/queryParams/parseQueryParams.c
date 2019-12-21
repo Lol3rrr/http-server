@@ -1,17 +1,15 @@
 #include "../headerFiles/queryParams.h"
 
-queryParams_t* parseQueryParams(char* rawPath, char** resultPath) {
-  int rawLength = getStringLength(rawPath);
-
-  int paramStart = findStr(rawPath, "?", -1, 1);
+queryParams_t* parseQueryParams(string* rawPath, char** resultPath) {
+  int paramStart = findStr(rawPath->content, "?", rawPath->length, 1);
   if (paramStart < 0) {
     return NULL;
   }
-  getSubstring(rawPath, 0, paramStart, resultPath);
+  getSubstring(rawPath->content, 0, paramStart, resultPath);
 
-  int paramStrLength = (rawLength - paramStart - 1);
+  int paramStrLength = (rawPath->length - paramStart - 1);
   char* paramStr;
-  getSubstring(rawPath, paramStart + 1, paramStrLength, &paramStr);
+  getSubstring(rawPath->content, paramStart + 1, paramStrLength, &paramStr);
 
 
   queryParams_t* result = (queryParams_t*) malloc(1 * sizeof(queryParams_t));

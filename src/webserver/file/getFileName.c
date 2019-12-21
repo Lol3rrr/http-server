@@ -1,38 +1,37 @@
 #include "../headerFiles/file.h"
 
-int getFileName(string* folder, string* path, char** filePath) {
+string* getFileName(string* folder, string* path) {
   int totalLength = folder->length + path->length;
 
-  char* file = createEmptyCString(totalLength);
-  strncpy(file, folder->content, folder->length);
-  strncpy(file + folder->length, path->content, path->length);
+  string* file = createEmptyString(totalLength);
 
-  if (file[totalLength - 1] == '/') {
-    int nLength = totalLength + 10;
+  strncpy(file->content, folder->content, folder->length);
+  strncpy(file->content + folder->length, path->content, path->length);
+
+  if (file->content[file->length - 1] == '/') {
+    int nLength = file->length + 10;
     char* nFile = createEmptyCString(nLength);
 
-    strncpy(nFile, file, totalLength);
-    strncpy(nFile + totalLength, "index.html", 10);
+    strncpy(nFile, file->content, file->length);
+    strncpy(nFile + file->length, "index.html", 10);
 
-    free(file);
-    file = nFile;
-    totalLength = nLength;
+    free(file->content);
+    file->content = nFile;
+    file->length = nLength;
   }
 
-  int dot = findStr(file, ".", totalLength, 1);
+  int dot = findStr(file->content, ".", file->length, 1);
   if (dot == -1) {
-    int nLength = totalLength + 5;
+    int nLength = file->length + 5;
     char* nFile = createEmptyCString(nLength);
 
-    strncpy(nFile, file, totalLength);
-    strncpy(nFile + totalLength, ".html", 5);
+    strncpy(nFile, file->content, file->length);
+    strncpy(nFile + file->length, ".html", 5);
 
-    free(file);
-    file = nFile;
-    totalLength = nLength;
+    free(file->content);
+    file->content = nFile;
+    file->length = nLength;
   }
 
-  *filePath = file;
-
-  return totalLength;
+  return file;
 }

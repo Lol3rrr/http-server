@@ -15,7 +15,7 @@ typedef struct queryParams {
 } queryParams_t;
 
 
-queryParams_t* parseQueryParams(char* rawPath, char** resultPath);
+queryParams_t* parseQueryParams(string* rawPath, char** resultPath);
 int parseQueryParam(char* rawParam, queryParams_t* params);
 
 int getQueryParam(queryParams_t* params, char* key, kvNode_t** result);
