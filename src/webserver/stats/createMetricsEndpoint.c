@@ -1,5 +1,7 @@
 #include "../headerFiles/stats.h"
 
+#include "../headerFiles/response.h"
+
 void createMetricsEndpoint(int port) {
   struct sockaddr_in addr;
   int fd;
@@ -34,19 +36,20 @@ void createMetricsEndpoint(int port) {
     int session_fd = accept(fd, 0, 0);
 
     if (fork() == 0) {
-      counter_t* current = counterRegistry;
-      while (current != NULL) {
-        char* str;
-        int length = counterToString(current, &str);
-
-        logInfo("Stat: '%s' Value: '%u' Line: '%s' \n", current->name, current->count, str);
-
-        current = current->next;
-      }
-
       char* str;
       int length = counterRegistryToString(&counterRegistry, &str);
-      logInfo("Total Result: '%s' \n", str);
+
+      response* resp = createResponse(200, "OK", "HTTP/1.1");
+      setData(resp, str, length);
+      setContentType(resp, "text/plain; version=0.0.4", length);
+
+      char* httpResponse;
+      int respSize = createHTTPResponse(resp, &httpResponse);
+      send(session_fd, httpResponse, respSize, 0);
+      free(httpResponse);
+
+      cleanResponse(resp);
+      free(str);
 
       exit(0);
     }else {

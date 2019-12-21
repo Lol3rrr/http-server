@@ -13,8 +13,6 @@ int counterRegistryToString(counter_t** registry, char** result) {
     totalLength += tmpLength;
     totalLength += tmpTypeLength;
 
-    printf("Current: '%p' \n", lengthCurrent);
-
     lengthCurrent = lengthCurrent->next;
   }
 
@@ -46,5 +44,5 @@ int counterRegistryToString(counter_t** registry, char** result) {
 
   (*result) = res;
 
-  return -1;
+  return totalLength;
 }
