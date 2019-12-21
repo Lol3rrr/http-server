@@ -8,6 +8,7 @@ Though it only works on linux at the moment.
 ## Features
 * Serve static Files
 * Can be implemented into any other project to handle (GET) Requests
+* Can expose port 9001 to allow for monitoring using prometheus
 
 ## Command line Usage
 Simply compile the code and execute the resulting binary to start a simple Webserver
@@ -16,7 +17,7 @@ Simply compile the code and execute the resulting binary to start a simple Webse
 * "-p [port]" sets the port where it should listen on (default is 80)
 * "-c" enables the Cache-Control-Header with a default Cache time of 1 Day
 * "-d" enables the Debug mode
-* "-m" enables the measuring of the performance of the most important functions (mainly used for optimizing code)
+* "-m" enables the measuring of the performance of the most important functions (should only be used for optimization)
 * "-t" enables the Templating System
 
 ### Templating System
@@ -30,7 +31,7 @@ It will load the specified file and replace the tag with the content of said fil
 
 Note: The path to the file has to start with a '/' otherwise it cant find it.
 
-### Error Handling
+#### Error Handling
 When a specified file can not be found it simply removes the tag.
 
 ## Implementing into existing project
@@ -66,5 +67,5 @@ and return a 0 if everything worked or a value that is not 0 if something went w
 * Make it possible to simply add it to existing programs
   * Parse the request body
   * Parse the Query-params of the Request
-  * Also POST-Requests 
+  * Also POST-Requests
 * Fully add the Cache from the HTTP-Spec
