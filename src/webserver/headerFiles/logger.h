@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 
+#include "stats.h"
 #include "general.h"
 
 void logInfo(const char *fmt, ...);

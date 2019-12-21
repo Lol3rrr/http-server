@@ -8,4 +8,6 @@ void logError(const char *fmt, ...) {
   va_end(args);
 
   printf("[Error] %s", buffer);
+
+  incCounterByName("total_errors", &counterRegistry);
 }

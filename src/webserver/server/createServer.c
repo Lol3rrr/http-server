@@ -25,6 +25,7 @@ int createServer(int port) {
 
   // Create All the needed Metrics
   createCounter("total_requests", &counterRegistry);
+  createCounter("total_errors", &counterRegistry);
 
   if (fork() == 0) {
     createMetricsEndpoint(9001);
