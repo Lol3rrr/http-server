@@ -20,6 +20,7 @@ jobs:
 
   build_normal:
     name: Build without Prometheus
+    if: contains(github.ref, 'master')
     runs-on: ubuntu-latest
     steps:
       - name: Pull
@@ -35,6 +36,7 @@ jobs:
         run: docker push lol3r/c-http-server:latest
   build_prometheus:
     name: Build with Prometheus
+    if: contains(github.ref, 'master')
     runs-on: ubuntu-latest
     steps:
       - name: Pull
