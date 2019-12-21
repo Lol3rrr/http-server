@@ -1,12 +1,11 @@
 #include "../headerFiles/file.h"
 
-int getFileName(string* folder, char* path, char** filePath) {
-  int pathLength = strlen(path);
-  int totalLength = folder->length + pathLength;
+int getFileName(string* folder, string* path, char** filePath) {
+  int totalLength = folder->length + path->length;
 
   char* file = createEmptyCString(totalLength);
   strncpy(file, folder->content, folder->length);
-  strncpy(file + folder->length, path, pathLength);
+  strncpy(file + folder->length, path->content, path->length);
 
   if (file[totalLength - 1] == '/') {
     int nLength = totalLength + 10;
