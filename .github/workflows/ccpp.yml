@@ -3,11 +3,15 @@ name: C/C++ CI
 on: [push]
 
 jobs:
-  build:
-
+  build_normal:
     runs-on: ubuntu-18.04
-    
     steps:
     - uses: actions/checkout@v1
     - name: make
-      run: make
+      run: make build
+  build_prometheus:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v1
+    - name: make
+      run: make build_prometheus
