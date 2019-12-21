@@ -23,6 +23,7 @@ int createServer(int port) {
   logInfo("Successfully bound to port %u \n", port);
 
 
+#ifdef PROMETHEUS
   // Create All the needed Metrics
   createCounter("total_requests", &counterRegistry);
   createCounter("total_errors", &counterRegistry);
@@ -30,6 +31,7 @@ int createServer(int port) {
   if (fork() == 0) {
     createMetricsEndpoint(9001);
   }
+#endif
 
   return fd;
 }

@@ -13,7 +13,10 @@
 #include "headerFiles/logger.h"
 #include "headerFiles/request.h"
 #include "headerFiles/response.h"
+
+#ifdef PROMETHEUS
 #include "headerFiles/stats.h"
+#endif
 
 
 typedef struct pathNode {

@@ -7,7 +7,9 @@ void cleanUp(request* req, response* respPtr) {
 
 int handleRequest(int conFd, request* reqPtr) {
   logDebug("[handleRequest] Handling Request... \n");
+#ifdef PROMETHEUS
   incCounterByName("total_requests", &counterRegistry);
+#endif
 
   response* respPtr = createEmptyResponse(reqPtr->protokol);
 

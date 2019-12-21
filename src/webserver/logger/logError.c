@@ -9,5 +9,7 @@ void logError(const char *fmt, ...) {
 
   printf("[Error] %s", buffer);
 
+#ifdef PROMETHEUS
   incCounterByName("total_errors", &counterRegistry);
+#endif
 }

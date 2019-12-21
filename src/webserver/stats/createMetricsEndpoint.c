@@ -49,7 +49,6 @@ void createMetricsEndpoint(int port) {
       free(httpResponse);
 
       cleanResponse(resp);
-      free(str);
 
       exit(0);
     }else {
