@@ -11,7 +11,7 @@ int handleRequest(int conFd, request* reqPtr) {
   incCounterByName("total_requests", &counterRegistry);
 #endif
 
-  response* respPtr = createEmptyResponse(reqPtr->protokol);
+  response* respPtr = createEmptyResponse(reqPtr->protokol->content);
 
   int worked;
   if (customPathEnabled) {

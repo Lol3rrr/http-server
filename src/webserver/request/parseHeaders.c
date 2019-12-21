@@ -9,7 +9,7 @@ int isFirstLine(char* line) {
   return 0;
 }
 
-headers_t* parseHeaders(headerLine_t* headerLines, char** method, string** path, char** protokol) {
+headers_t* parseHeaders(headerLine_t* headerLines, string** method, string** path, string** protokol) {
   clock_t startTime = clock();
 
   headers_t* head = createEmptyHeaders();

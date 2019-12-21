@@ -34,7 +34,7 @@ int createServer(int port);
 int startServer(int serverFd);
 
 void addCustomPath(char* method, char* path, int (*funcPtr)(request* reqPtr, response* respPtr));
-int callCustomPath(char* method, string* path, request* reqPtr, response* respPtr);
+int callCustomPath(string* method, string* path, request* reqPtr, response* respPtr);
 
 int sendResponse(int connection, response* respPtr);
 int sendNotFound(int connection, request* reqPtr);

@@ -15,10 +15,10 @@ int comparePath(string* givenPath, char* requestedPath) {
   return 0;
 }
 
-int findPathNode(pathNode_t* head, char* method, string* path, pathNode_t** result) {
+int findPathNode(pathNode_t* head, string* method, string* path, pathNode_t** result) {
   pathNode_t* current = head;
   while (current != NULL) {
-    if (strcmp(current->method, method) == 0 && comparePath(path, current->path) == 0) {
+    if (strcmp(current->method, method->content) == 0 && comparePath(path, current->path) == 0) {
       (*result) = current;
       return 0;
     }
@@ -29,7 +29,7 @@ int findPathNode(pathNode_t* head, char* method, string* path, pathNode_t** resu
   return -1;
 }
 
-int callCustomPath(char* method, string* path, request* reqPtr, response* respPtr) {
+int callCustomPath(string* method, string* path, request* reqPtr, response* respPtr) {
   pathNode_t* node;
   int found = findPathNode(customPaths, method, path, &node);
   if (found != 0)
