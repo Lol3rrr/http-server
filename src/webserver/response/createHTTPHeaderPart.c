@@ -1,8 +1,6 @@
 #include "../headerFiles/response.h"
 
 int createHTTPHeaderPart(response* respPtr, char* spacer, char** result) {
-  clock_t startTime = clock();
-
   int spacerLength = getStringLength(spacer);
 
   int headerLength = -1;
@@ -58,12 +56,6 @@ int createHTTPHeaderPart(response* respPtr, char* spacer, char** result) {
     cleanHeaderNodePart(head);
 
     *result = headerPart;
-  }
-
-  clock_t endTime = clock();
-  if (isMeasuringEnabled()) {
-    double time_spent = (double) (endTime - startTime) / CLOCKS_PER_SEC;
-    logMeasuring("[createHTTPHeaderPart] Took %f Seconds \n", time_spent);
   }
 
   return headerLength;

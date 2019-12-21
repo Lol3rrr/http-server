@@ -41,9 +41,8 @@ headers_t* parseHeaders(headerLine_t* headerLines, char** method, char** path, c
     current = current->next;
   }
 
-  clock_t endTime = clock();
   if (isMeasuringEnabled()) {
-    double time_spent = (double) (endTime - startTime) / CLOCKS_PER_SEC;
+    double time_spent = (double) (clock() - startTime) / CLOCKS_PER_SEC;
     logMeasuring("[parseHeaders] Took %f Seconds \n", time_spent);
   }
 

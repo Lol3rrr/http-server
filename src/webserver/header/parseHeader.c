@@ -2,8 +2,6 @@
 
 // Returns 0 if worked
 int parseHeader(char* headerLine, char** keyPtr, char** valuePtr) {
-  clock_t startTime = clock();
-
   int totalLength = getStringLength(headerLine);
   int seperator = findStr(headerLine, ":", totalLength, 1);
 
@@ -34,12 +32,6 @@ int parseHeader(char* headerLine, char** keyPtr, char** valuePtr) {
 
   *keyPtr = key;
   *valuePtr = value;
-
-  clock_t endTime = clock();
-  if (isMeasuringEnabled()) {
-    double time_spent = (double) (endTime - startTime) / CLOCKS_PER_SEC;
-    logMeasuring("[parseHeader] Took %f Seconds \n", time_spent);
-  }
 
   return 0;
 }

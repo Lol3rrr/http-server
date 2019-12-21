@@ -1,8 +1,6 @@
 #include "../headerFiles/response.h"
 
 int createFirstLine(response* respPtr, char** result) {
-  clock_t startTime = clock();
-
   int protokolLength = getStringLength(respPtr->protokol);
 
   char statusCode[12];
@@ -39,12 +37,6 @@ int createFirstLine(response* respPtr, char** result) {
   firstLine[lineOffset] = '\n';
 
   *result = firstLine;
-
-  clock_t endTime = clock();
-  if (isMeasuringEnabled()) {
-    double time_spent = (double) (endTime - startTime) / CLOCKS_PER_SEC;
-    logMeasuring("[createFirstLine] Took %f Seconds \n", time_spent);
-  }
 
   return totalLength;
 }

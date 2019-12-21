@@ -33,9 +33,8 @@ int parseRequest(headerLine_t* headerLines, request** result) {
 
   *result = req;
 
-  clock_t endTime = clock();
   if (isMeasuringEnabled()) {
-    double time_spent = (double) (endTime - startTime) / CLOCKS_PER_SEC;
+    double time_spent = (double) (clock() - startTime) / CLOCKS_PER_SEC;
     logMeasuring("[parseRequest] Took %f Seconds \n", time_spent);
   }
 
