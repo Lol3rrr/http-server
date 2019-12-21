@@ -26,5 +26,9 @@ run_debug:
 	make
 	./server.out -p 9090 -d
 
+run_measure:
+	make
+	./server.out -p 9090 -m
+
 docker:
 	docker build -t c-http-server:latest .

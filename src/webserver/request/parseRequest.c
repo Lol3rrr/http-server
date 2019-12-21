@@ -1,14 +1,5 @@
 #include "../headerFiles/request.h"
 
-int isFirstLine(char* line) {
-  int seperator = findStr(line, ":", -1, 1);
-
-  if (seperator == -1)
-    return 1;
-
-  return 0;
-}
-
 // Returns 0 if worked
 int parseRequest(headerLine_t* headerLines, request** result) {
   clock_t startTime = clock();
@@ -22,32 +13,7 @@ int parseRequest(headerLine_t* headerLines, request** result) {
   req->bodyLength = -1;
   req->params = NULL;
 
-  headerLine_t* current = headerLines;
-
-  headers_t* head = createEmptyHeaders();
-
-  while (current->next != NULL) {
-    char* key = NULL;
-    char* value = NULL;
-
-    if (isFirstLine(current->line)) {
-      int worked = parseFirstLine(current->line, &(req->method), &(req->path), &(req->protokol));
-
-      if (worked != 0) {
-        logDebug("[parseRequest] Could not parse First-Line '%s' \n", current->line);
-      }
-    }else {
-      int worked = parseHeader(current->line, &key, &value);
-      if (worked == 0) {
-        pushHeader(head, key, value);
-        free(key);
-        free(value);
-      }
-    }
-
-    current = current->next;
-  }
-
+  headers_t* head = parseHeaders(headerLines, &(req->method), &(req->path), &(req->protokol));
   req->headers = head;
 
   if (hasEmptyField(req)) {

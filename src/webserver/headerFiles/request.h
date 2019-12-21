@@ -29,6 +29,7 @@ void print_request_debug(request* req);
 int parseRequest(headerLine_t* headerLines, request** reqPtr);
 int cleanRequest(request* reqPtr);
 
+headers_t* parseHeaders(headerLine_t* headerLines, char** method, char** path, char** protokol);
 int readHTTP(int socketFd, char** buffer, int bufferSize);
 headerLine_t* splitHTTPRequest(char** buffer, int bufferLength);
 int parseBody(char* rawRequest, int rawLength, char** result);
