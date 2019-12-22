@@ -1,21 +1,18 @@
 #include "../headerFiles/response.h"
 
 int createFirstLine(response* respPtr, char** result) {
-  int protokolLength = getStringLength(respPtr->protokol);
-
   char statusCode[12];
   sprintf(statusCode, "%d", respPtr->statusCode);
   int statusCodeLength = getStringLength(statusCode);
-  int statusMessageLength = getStringLength(respPtr->statusMessage);
 
-  int totalLength = protokolLength + 1 + statusCodeLength + 1 + statusMessageLength + 2;
+  int totalLength = respPtr->protokol->length + 1 + statusCodeLength + 1 + respPtr->statusMessage->length + 2;
 
   char* firstLine = createEmptyCString(totalLength);
 
   int lineOffset = 0;
 
-  for(int i = 0; i < protokolLength; i++) {
-    firstLine[lineOffset] = respPtr->protokol[i];
+  for(int i = 0; i < respPtr->protokol->length; i++) {
+    firstLine[lineOffset] = respPtr->protokol->content[i];
     lineOffset++;
   }
   firstLine[lineOffset] = ' ';
@@ -28,8 +25,8 @@ int createFirstLine(response* respPtr, char** result) {
   firstLine[lineOffset] = ' ';
   lineOffset++;
 
-  for(int i = 0; i < statusMessageLength; i++) {
-    firstLine[lineOffset] = respPtr->statusMessage[i];
+  for(int i = 0; i < respPtr->statusMessage->length; i++) {
+    firstLine[lineOffset] = respPtr->statusMessage->content[i];
     lineOffset++;
   }
   firstLine[lineOffset] = '\r';

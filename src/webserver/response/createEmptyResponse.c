@@ -4,9 +4,9 @@ response* createEmptyResponse(char* protokol) {
   response* resp = (response*) malloc(1 * sizeof(response));
   resp->headers = createEmptyHeaders();
 
-  int protokolLength = getStringLength(protokol);
-  resp->protokol = createEmptyCString(protokolLength);
-  strncpy(resp->protokol, protokol, protokolLength);
+  int protokolLength = strlen(protokol);
+  resp->protokol = createEmptyString(protokolLength);
+  strncpy(resp->protokol->content, protokol, protokolLength);
 
   resp->dataSize = -1;
 

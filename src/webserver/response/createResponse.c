@@ -4,7 +4,10 @@ response* createResponse(int statusCode, char* statusMessage, char* protokol) {
   response* resp = createEmptyResponse(protokol);
 
   resp->statusCode = statusCode;
-  resp->statusMessage = statusMessage;
+
+  int statusLength = strlen(statusMessage);
+  resp->statusMessage = createEmptyString(statusLength);
+  strncpy(resp->statusMessage->content, statusMessage, statusLength);
 
   return resp;
 }
