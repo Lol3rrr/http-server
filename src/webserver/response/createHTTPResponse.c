@@ -9,16 +9,8 @@ int createHTTPResponse(response* respPtr, char** result) {
   int totalLength = headSize + contentLength;
 
   char* resp = createEmptyCString(totalLength);
-
-  int respOffset = 0;
-  for(int i = 0; i < headSize; i++) {
-    resp[respOffset] = head[i];
-    respOffset++;
-  }
-  for(int i = 0; i < contentLength; i++) {
-    resp[respOffset] = respPtr->data[i];
-    respOffset++;
-  }
+  strncpy(resp, head, headSize);
+  strncpy(resp + headSize, respPtr->data, contentLength);
 
   free(head);
 

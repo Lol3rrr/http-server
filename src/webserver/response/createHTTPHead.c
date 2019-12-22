@@ -12,20 +12,9 @@ int createHTTPHead(response* respPtr, char** result) {
 
   int totalLength = firstLineLength + headerLength + spacerLength;
   char* head = createEmptyCString(totalLength);
-
-  int headOffset = 0;
-  for(int i = 0; i < firstLineLength; i++) {
-    head[headOffset] = firstLine[i];
-    headOffset++;
-  }
-  for(int i = 0; i < headerLength; i++) {
-    head[headOffset] = headerPart[i];
-    headOffset++;
-  }
-  for(int i = 0; i < spacerLength; i++) {
-    head[headOffset] = spacer[i];
-    headOffset++;
-  }
+  strncpy(head, firstLine, firstLineLength);
+  strncpy(head + firstLineLength, headerPart, headerLength);
+  strncpy(head + firstLineLength + headerLength, spacer, spacerLength);
 
   free(firstLine);
   free(headerPart);

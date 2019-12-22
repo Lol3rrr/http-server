@@ -8,30 +8,21 @@ int createFirstLine(response* respPtr, char** result) {
   int totalLength = respPtr->protokol->length + 1 + statusCodeLength + 1 + respPtr->statusMessage->length + 2;
 
   char* firstLine = createEmptyCString(totalLength);
-
   int lineOffset = 0;
-
-  for(int i = 0; i < respPtr->protokol->length; i++) {
-    firstLine[lineOffset] = respPtr->protokol->content[i];
-    lineOffset++;
-  }
-  firstLine[lineOffset] = ' ';
+  strncpy(firstLine + lineOffset, respPtr->protokol->content, respPtr->protokol->length);
+  lineOffset += respPtr->protokol->length;
+  strncpy(firstLine + lineOffset, " ", 1);
   lineOffset++;
-
-  for(int i = 0; i < statusCodeLength; i++) {
-    firstLine[lineOffset] = statusCode[i];
-    lineOffset++;
-  }
-  firstLine[lineOffset] = ' ';
+  strncpy(firstLine + lineOffset, statusCode, statusCodeLength);
+  lineOffset += statusCodeLength;
+  strncpy(firstLine + lineOffset, " ", 1);
   lineOffset++;
-
-  for(int i = 0; i < respPtr->statusMessage->length; i++) {
-    firstLine[lineOffset] = respPtr->statusMessage->content[i];
-    lineOffset++;
-  }
-  firstLine[lineOffset] = '\r';
+  strncpy(firstLine + lineOffset, respPtr->statusMessage->content, respPtr->statusMessage->length);
+  lineOffset += respPtr->statusMessage->length;
+  strncpy(firstLine + lineOffset, "\r", 1);
   lineOffset++;
-  firstLine[lineOffset] = '\n';
+  strncpy(firstLine + lineOffset, "\n", 1);
+  lineOffset++;
 
   *result = firstLine;
 
