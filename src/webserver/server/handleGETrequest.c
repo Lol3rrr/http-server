@@ -1,9 +1,9 @@
 #include "../server.h"
 
 int handleGETrequest(request* req, response* resp) {
-  char* fileName;
-  int fileNameLength = loadFileName(req->path, &fileName);
-  if (fileNameLength < 0) {
+  string* fileName = loadFileName(req->path);
+  if (fileName->length < 0) {
+    free(fileName->content);
     free(fileName);
 
     logError("Loading Filename \n");
@@ -11,7 +11,7 @@ int handleGETrequest(request* req, response* resp) {
     return -1;
   }
 
-  logDebug("[handleGETrequest] Loading File: '%s' \n", fileName);
+  logDebug("[handleGETrequest] Loading File: '%s' \n", fileName->content);
 
   char* data;
   int size = loadFile(fileName, &data);
@@ -24,6 +24,7 @@ int handleGETrequest(request* req, response* resp) {
     return 1;
   }
 
+  free(fileName->content);
   free(fileName);
 
   setStatus(resp, 200, "OK");

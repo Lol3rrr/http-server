@@ -7,9 +7,9 @@
 #include "templating.h"
 
 string* getFileName(string* folder, string* path);
-int loadFileName(string* path, char** fileNameReturn);
+string* loadFileName(string* path);
 
 int readRawFile(char* fileName, char** result);
-int loadFile(char* fileName, char** result);
+int loadFile(string* fileName, char** result);
 
 #endif
