@@ -13,6 +13,6 @@ typedef struct {
 } includeStatement;
 
 int parseTemplate(char* rawContent, int contentLength, char** result);
-int parseIncludeStatement(char* includeText, int length, includeStatement** statement);
+int parseIncludeStatement(string* includeText, includeStatement** statement);
 
 #endif

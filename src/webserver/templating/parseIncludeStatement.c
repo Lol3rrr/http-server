@@ -1,23 +1,18 @@
 #include "../headerFiles/templating.h"
 
-int parseIncludeStatement(char* includeText, int length, includeStatement** statement) {
-  int pathStart = findStr(includeText, "path=\"", length, 6);
+int parseIncludeStatement(string* includeText, includeStatement** statement) {
+  int pathStart = findStr(includeText->content, "path=\"", includeText->length, 6);
   if (pathStart == -1)
     return -1;
 
   pathStart += 6;
 
-  int pathEnd = findStrAfter(includeText, "\"", length, 1, pathStart);
+  int pathEnd = findStrAfter(includeText->content, "\"", includeText->length, 1, pathStart);
   if (pathEnd == -1)
     return -1;
 
-  char* rawSubstr;
   int subLength = (pathEnd - pathStart);
-  getSubstring(includeText, pathStart, subLength, &rawSubstr);
-
-  string* subStr = createEmptyString(subLength);
-  strncpy(subStr->content, rawSubstr, subLength);
-  free(rawSubstr);
+  string* subStr = getSubstring(includeText->content, pathStart, subLength);
 
   char* fileName;
   int fileNameLength = loadFileName(subStr, &fileName);

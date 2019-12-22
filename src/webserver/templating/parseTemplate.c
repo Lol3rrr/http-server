@@ -17,12 +17,12 @@ int parseTemplate(char* rawContent, int rawContentLength, char** result) {
     includeEnd += 2;
 
     int includeStrLength = (includeEnd - includeStart);
-    char* includeStr;
-    getSubstring(content, includeStart, includeStrLength, &includeStr);
+    string* includeStr = getSubstring(content, includeStart, includeStrLength);
 
     includeStatement* statement;
-    parseIncludeStatement(includeStr, includeStrLength, &statement);
+    parseIncludeStatement(includeStr, &statement);
 
+    free(includeStr->content);
     free(includeStr);
 
     char* data;

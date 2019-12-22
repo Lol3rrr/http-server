@@ -12,7 +12,7 @@ int determinContentType(string* path, char** result) {
 
   int extensionLength = path->length - dot;
   char* extension = createEmptyCString(extensionLength);
-  strncpy(extension, path->content, extensionLength);
+  strncpy(extension, path->content + dot + 1, extensionLength);
 
   if(strcmp(extension, "html") == 0) {
     (*result) = (char*) malloc(24 * sizeof(char));
