@@ -6,9 +6,8 @@ void print_headerLine_debug(headerLine_t* head) {
   }
 
   headerLine_t* current = head;
-
   while (current != NULL) {
-    logDebug("Line: '%s'\n", current->line);
+    logDebug("Line: '%s'\n", current->line->content);
     current = current->next;
   }
 }

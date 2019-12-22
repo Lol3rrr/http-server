@@ -37,4 +37,6 @@ string* replaceStr(char* src, char* replacement, int start, int lengthToReplace)
 char* createEmptyCString(int length);
 string* createEmptyString(int length);
 
+string* createString(char* content, int length);
+
 #endif
