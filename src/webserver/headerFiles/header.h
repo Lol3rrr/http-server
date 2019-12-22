@@ -23,7 +23,7 @@ void print_header_debug(headers_t* headers);
 void cleanHeader(headers_t* headers);
 int getHeader(headers_t* headers, char* key, kvNode_t** result);
 
-int parseHeader(char* headerLine, char** keyPtr, char** valuePtr);
-int parseFirstLine(char* firstLine, string** methodPtr, string** pathPtr, string** protokolPtr);
+int parseHeader(string* headerLine, char** keyPtr, char** valuePtr);
+int parseFirstLine(string* firstLine, string** methodPtr, string** pathPtr, string** protokolPtr);
 
 #endif

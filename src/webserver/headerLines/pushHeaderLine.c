@@ -1,6 +1,6 @@
 #include "../headerFiles/headerLines.h"
 
-void pushHeaderLine(headerLine_t* head, char* line) {
+void pushHeaderLine(headerLine_t* head, string* line) {
   headerLine_t* current = head;
   while (current->next != NULL) {
     current = current->next;

@@ -6,6 +6,7 @@ void cleanHeaderLines(headerLine_t* node) {
   }
 
   if (node->line != NULL) {
+    free(node->line->content);
     free(node->line);
   }
 

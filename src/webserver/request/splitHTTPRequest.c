@@ -15,11 +15,8 @@ headerLine_t* splitHTTPRequest(char** buffer, int bufferLength) {
       int end = i - 1;
       int length = end - start;
 
-      char* line = createEmptyCString(length);
-
-      for(int j = 0; j < length; j++) {
-        line[j] = message[j + start];
-      }
+      string* line = createEmptyString(length);
+      strncpy(line->content, message + start, length);
 
       if (first) {
         head->line = line;

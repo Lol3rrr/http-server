@@ -1,8 +1,7 @@
 #include "../headerFiles/request.h"
 
-int isFirstLine(char* line) {
-  int seperator = findStr(line, ":", -1, 1);
-
+int isFirstLine(string* line) {
+  int seperator = findStr(line->content, ":", line->length, 1);
   if (seperator == -1)
     return 1;
 
