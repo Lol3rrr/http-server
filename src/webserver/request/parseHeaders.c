@@ -17,8 +17,8 @@ headers_t* parseHeaders(headerLine_t* headerLines, string** method, string** pat
 
   headerLine_t* current = headerLines;
   while (current->next != NULL) {
-    char* key = NULL;
-    char* value = NULL;
+    string* key = NULL;
+    string* value = NULL;
 
     if (!hadFirstLine && isFirstLine(current->line)) {
       int worked = parseFirstLine(current->line, method, path, protokol);
@@ -31,8 +31,10 @@ headers_t* parseHeaders(headerLine_t* headerLines, string** method, string** pat
     }else {
       int worked = parseHeader(current->line, &key, &value);
       if (worked == 0) {
-        pushHeader(head, key, value);
+        pushHeader(head, key->content, value->content);
+        free(key->content);
         free(key);
+        free(value->content);
         free(value);
       }
     }
