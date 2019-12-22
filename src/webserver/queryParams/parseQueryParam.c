@@ -15,7 +15,7 @@ int parseQueryParam(char* rawParam, queryParams_t* params) {
   string* value = getSubstring(rawParam, seperator + 1, valueLength);
 
   if (params->kvNodes == NULL) {
-    params->kvNodes = createKVNode(key->content, value->content, keyLength, valueLength);
+    params->kvNodes = createKVNode(key, value);
 
     free(key);
     free(value);
@@ -23,7 +23,7 @@ int parseQueryParam(char* rawParam, queryParams_t* params) {
     return 0;
   }
 
-  pushKVNode(params->kvNodes, key->content, value->content, keyLength, valueLength);
+  pushKVNode(params->kvNodes, key, value);
 
   free(key);
   free(value);

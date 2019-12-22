@@ -1,26 +1,13 @@
 #include "../headerFiles/keyValueList.h"
 
-int createKVPair(kvNode_t* node, char** result) {
-  int keyLength = getStringLength(node->key);
-  int valueLength = getStringLength(node->value);
+string* createKVPair(kvNode_t* node) {
+  int totalLength = node->key->length + 2 + node->value->length;
 
-  int totalLength = keyLength + 2 + valueLength;
+  string* result = createEmptyString(totalLength);
+  strncpy(result->content, node->key->content, node->key->length);
+  strncpy(result->content + node->key->length + 0, ":", 1);
+  strncpy(result->content + node->key->length + 1, " ", 1);
+  strncpy(result->content + node->key->length + 2, node->value->content, node->value->length);
 
-  (*result) = createEmptyCString(totalLength);
-
-  int index = 0;
-  for(int i = 0; i < keyLength; i++) {
-    (*result)[index] = node->key[i];
-    index++;
-  }
-  (*result)[index] = ':';
-  index++;
-  (*result)[index] = ' ';
-  index++;
-  for(int i = 0; i < valueLength; i++) {
-    (*result)[index] = node->value[i];
-    index++;
-  }
-
-  return totalLength;
+  return result;
 }

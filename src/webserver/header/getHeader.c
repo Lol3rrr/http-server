@@ -1,5 +1,9 @@
 #include "../headerFiles/header.h"
 
 int getHeader(headers_t* headers, char* key, kvNode_t** result) {
-  return getKV(headers->kvNodes, key, result);
+  int keyLength = strlen(key);
+  string* keyStr = createEmptyString(keyLength);
+  strncpy(keyStr->content, key, keyLength);
+
+  return getKV(headers->kvNodes, keyStr, result);
 }

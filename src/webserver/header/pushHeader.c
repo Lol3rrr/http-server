@@ -2,10 +2,10 @@
 
 void pushHeader(headers_t* headers, string* key, string* value) {
   if (headers->kvNodes == NULL) {
-    headers->kvNodes = createKVNode(key->content, value->content, -1, -1);
+    headers->kvNodes = createKVNode(key, value);
 
     return;
   }
 
-  pushKVNode(headers->kvNodes, key->content, value->content, -1, -1);
+  pushKVNode(headers->kvNodes, key, value);
 }

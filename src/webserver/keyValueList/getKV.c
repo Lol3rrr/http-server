@@ -1,9 +1,9 @@
 #include "../headerFiles/keyValueList.h"
 
-int getKV(kvNode_t* head, char* key, kvNode_t** result) {
+int getKV(kvNode_t* head, string* key, kvNode_t** result) {
   kvNode_t* current = head;
   while (current != NULL) {
-    if (strcmp(key, current->key) == 0) {
+    if (current->key->length == key->length && strcmp(key->content, current->key->content) == 0) {
       *result = current;
 
       return 0;
