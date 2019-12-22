@@ -14,18 +14,20 @@ int parseIncludeStatement(string* includeText, includeStatement** statement) {
   int subLength = (pathEnd - pathStart);
   string* subStr = getSubstring(includeText->content, pathStart, subLength);
 
-  char* fileName;
-  int fileNameLength = loadFileName(subStr, &fileName);
+  string* fileName = loadFileName(subStr);
   free(subStr->content);
   free(subStr);
-  if (fileNameLength < 0) {
+  if (fileName->length < 0) {
+    free(fileName->content);
     free(fileName);
 
     return -1;
   }
 
   (*statement) = (includeStatement*) malloc(1 * sizeof(includeStatement));
-  (*statement)->filePath = fileName;
+  (*statement)->filePath = fileName->content;
+
+  free(fileName);
 
   return 0;
 }
