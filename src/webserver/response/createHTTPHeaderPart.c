@@ -28,6 +28,8 @@ int createHTTPHeaderPart(response* respPtr, char* spacer, char** result) {
         pushHeaderNodePart(head, result->content, result->length);
       }
 
+      free(result);
+
       currentKV = currentKV->next;
     }
 
