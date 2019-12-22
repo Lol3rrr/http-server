@@ -4,5 +4,5 @@ string* getSubstring(char* src, int start, int length) {
   string* substr = createEmptyString(length);
   strncpy(substr->content, src + start, length);
 
-  return 0;
+  return substr;
 }

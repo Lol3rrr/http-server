@@ -35,10 +35,11 @@ int parseTemplate(char* rawContent, int rawContentLength, char** result) {
       data = createEmptyCString(0);
     }
 
-    char* tmp;
-    contentLength = replaceStr(content, data, includeStart, (includeEnd - includeStart), &tmp);
+    string* nString = replaceStr(content, data, includeStart, (includeEnd - includeStart));
+    contentLength = nString->length;
     free(content);
-    content = tmp;
+    content = nString->content;
+    free(nString);
 
     free(statement->filePath);
     free(statement);

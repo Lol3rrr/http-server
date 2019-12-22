@@ -2,30 +2,19 @@
 
 #include <stdio.h>
 
-int replaceStr(char* src, char* replacement, int start, int lengthToReplace, char** result) {
+string* replaceStr(char* src, char* replacement, int start, int lengthToReplace) {
   int srcLength = getStringLength(src);
   int replacementLength = getStringLength(replacement);
 
   int totalLength = srcLength - lengthToReplace + replacementLength;
-  char* data = createEmptyCString(totalLength);
+  string* result = createEmptyString(totalLength);
 
-  int index = 0;
-  for (int i = 0; i < start; i++) {
-    data[index] = src[i];
-    index++;
-  }
+  int contentOffset = 0;
+  strncpy(result->content + contentOffset, src, start);
+  contentOffset += start;
+  strncpy(result->content + contentOffset, replacement, replacementLength);
+  contentOffset += replacementLength;
+  strncpy(result->content + contentOffset, src + start + lengthToReplace, srcLength - (start + lengthToReplace));
 
-  for (int i = 0; i < replacementLength; i++) {
-    data[index] = replacement[i];
-    index++;
-  }
-
-  for (int i = start + lengthToReplace; i < srcLength; i++) {
-    data[index] = src[i];
-    index++;
-  }
-
-  (*result) = data;
-
-  return totalLength;
+  return result;
 }

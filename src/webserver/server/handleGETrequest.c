@@ -19,6 +19,7 @@ int handleGETrequest(request* req, response* resp) {
     logError("Loading Data: '%d' Loading Filename: '%s' \n", size, fileName);
 
     free(fileName);
+    free(data);
 
     return 1;
   }

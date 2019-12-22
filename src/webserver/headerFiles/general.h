@@ -32,7 +32,7 @@ int findStr(char* src, char* key, int srcLength, int keyLength);
 int findStrAfter(char* src, char* key, int srcLength, int keyLength, int starting);
 
 string* getSubstring(char* src, int start, int length);
-int replaceStr(char* src, char* replacement, int start, int lengthToReplace, char** result);
+string* replaceStr(char* src, char* replacement, int start, int lengthToReplace);
 
 char* createEmptyCString(int length);
 string* createEmptyString(int length);

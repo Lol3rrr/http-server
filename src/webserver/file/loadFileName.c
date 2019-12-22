@@ -10,6 +10,9 @@ int loadFileName(string* path, char** fileNameReturn) {
   free(nFolder);
 
   (*fileNameReturn) = fileName->content;
+  int resultLength = fileName->length;
 
-  return fileName->length;
+  free(fileName);
+
+  return resultLength;
 }
