@@ -1,7 +1,15 @@
 #include "../headerFiles/response.h"
 
 int addHeader(response* respPtr, char* key, char* value) {
-  pushHeader(respPtr->headers, key, value);
+  int keyLength = strlen(key);
+  string* keyStr = createEmptyString(keyLength);
+  strncpy(keyStr->content, key, keyLength);
+
+  int valueLength = strlen(value);
+  string* valueStr = createEmptyString(valueLength);
+  strncpy(valueStr->content, value, valueLength);
+
+  pushHeader(respPtr->headers, keyStr, valueStr);
 
   return 0;
 }
