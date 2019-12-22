@@ -1,6 +1,6 @@
 #include "../headerFiles/file.h"
 
-int loadFileName(string* path, char** fileNameReturn) {
+string* loadFileName(string* path) {
   string* nFolder = createEmptyString(7);
   strncpy(nFolder->content, "website", 7);
 
@@ -9,10 +9,5 @@ int loadFileName(string* path, char** fileNameReturn) {
   free(nFolder->content);
   free(nFolder);
 
-  (*fileNameReturn) = fileName->content;
-  int resultLength = fileName->length;
-
-  free(fileName);
-
-  return resultLength;
+  return fileName;
 }

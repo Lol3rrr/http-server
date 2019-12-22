@@ -1,8 +1,8 @@
 #include "../headerFiles/file.h"
 
-int loadFile(char* fileName, char** result) {
+int loadFile(string* fileName, char** result) {
   char* fileData;
-  int size = readRawFile(fileName, &fileData);
+  int size = readRawFile(fileName->content, &fileData);
 
   if (isTemplateEnabled()) {
     size = parseTemplate(fileData, size, result);
