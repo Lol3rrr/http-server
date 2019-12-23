@@ -15,23 +15,29 @@ int determinContentType(string* path, char** result) {
   strncpy(extension, path->content + dot + 1, extensionLength);
 
   if(strcmp(extension, "html") == 0) {
-    (*result) = (char*) malloc(24 * sizeof(char));
-    strcpy((*result), "text/html;charset=UTF-8");
+    int size = strlen("text/html;charset=UTF-8");
+    (*result) = (char*) malloc(size * sizeof(char));
+    strncpy((*result), "text/html;charset=UTF-8", size);
   }else if(strcmp(extension, "css") == 0) {
-    (*result) = (char*) malloc(23 * sizeof(char));
-    strcpy((*result), "text/css;charset=UTF-8");
+    int size = strlen("text/css;charset=UTF-8");
+    (*result) = (char*) malloc(size * sizeof(char));
+    strncpy((*result), "text/css;charset=UTF-8", size);
   }else if(strcmp(extension, "js") == 0) {
-    (*result) = (char*) malloc(30 * sizeof(char));
-    strcpy((*result), "text/javascript;charset=UTF-8");
+    int size = strlen("text/javascript;charset=UTF-8");
+    (*result) = (char*) malloc(size * sizeof(char));
+    strncpy((*result), "text/javascript;charset=UTF-8", size);
   }else if(strcmp(extension, "jpg") == 0) {
-    (*result) = (char*) malloc(10 * sizeof(char));
-    strcpy((*result), "image/png");
+    int size = strlen("image/png");
+    (*result) = (char*) malloc(size * sizeof(char));
+    strncpy((*result), "image/png", size);
   }else if(strcmp(extension, "png") == 0) {
-    (*result) = (char*) malloc(10 * sizeof(char));
-    strcpy((*result), "image/png");
+    int size = strlen("image/png");
+    (*result) = (char*) malloc(size * sizeof(char));
+    strncpy((*result), "image/png", size);
   }else {
-    (*result) = (char*) malloc(18 * sizeof(char));
-    strcpy((*result), "text;charset=UTF-8");
+    int size = strlen("text;charset=UTF-8");
+    (*result) = (char*) malloc(size * sizeof(char));
+    strncpy((*result), "text;charset=UTF-8", size);
   }
 
   free(extension);
