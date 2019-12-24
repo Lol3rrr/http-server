@@ -34,5 +34,9 @@ run_measure:
 	make
 	./server.out -p 9090 -m
 
+run_speedTest:
+	make
+	./test.sh
+
 docker:
 	docker build -t c-http-server:latest .
