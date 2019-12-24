@@ -35,7 +35,6 @@ run_measure:
 	./server.out -p 9090 -m
 
 run_speedTest:
-	make
 	./test.sh
 
 docker:
