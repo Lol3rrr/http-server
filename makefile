@@ -35,7 +35,7 @@ run_measure:
 	./server.out -p 9090 -m
 
 run_speedTest:
-	./test.sh | grep "Max\|Min\|Average"
+	./test.sh | grep "URL\|Max\|Min\|Average"
 
 docker:
 	docker build -t c-http-server:latest .
