@@ -2,10 +2,10 @@
 
 int findCharArr(char* src, char* key, int srcLength, int keyLength) {
   if (srcLength < 0) {
-    srcLength = getStringLength(src);
+    srcLength = strlen(src);
   }
   if (keyLength < 0) {
-    keyLength = getStringLength(key);
+    keyLength = strlen(key);
   }
 
   for (int i = 0; i < srcLength; i++) {

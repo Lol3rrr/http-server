@@ -27,7 +27,6 @@ int isCachingEnabled();
 void setGeneralTemplateUsage(int value);
 int isTemplateEnabled();
 
-int getStringLength(char* src);
 int findCharArr(char* src, char* key, int srcLength, int keyLength);
 int findCharArrAfter(char* src, char* key, int srcLength, int keyLength, int starting);
 

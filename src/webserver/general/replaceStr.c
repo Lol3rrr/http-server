@@ -3,8 +3,8 @@
 #include <stdio.h>
 
 string* replaceStr(char* src, char* replacement, int start, int lengthToReplace) {
-  int srcLength = getStringLength(src);
-  int replacementLength = getStringLength(replacement);
+  int srcLength = strlen(src);
+  int replacementLength = strlen(replacement);
 
   int totalLength = srcLength - lengthToReplace + replacementLength;
   string* result = createEmptyString(totalLength);

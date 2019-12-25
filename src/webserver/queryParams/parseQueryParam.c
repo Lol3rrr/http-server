@@ -1,7 +1,7 @@
 #include "../headerFiles/queryParams.h"
 
 int parseQueryParam(char* rawParam, queryParams_t* params) {
-  int rawParamLength = getStringLength(rawParam);
+  int rawParamLength = strlen(rawParam);
 
   int seperator = findCharArr(rawParam, "=", rawParamLength, 1);
   if (seperator < 0) {

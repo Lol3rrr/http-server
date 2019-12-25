@@ -1,7 +1,7 @@
 #include "../headerFiles/response.h"
 
 int createHTTPHeaderPart(response* respPtr, char* spacer, char** result) {
-  int spacerLength = getStringLength(spacer);
+  int spacerLength = strlen(spacer);
 
   int headerLength = -1;
   char* headerPart;
