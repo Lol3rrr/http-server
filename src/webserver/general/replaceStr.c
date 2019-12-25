@@ -1,7 +1,5 @@
 #include "../headerFiles/general.h"
 
-#include <stdio.h>
-
 string* replaceStr(char* src, char* replacement, int start, int lengthToReplace) {
   int srcLength = strlen(src);
   int replacementLength = strlen(replacement);
