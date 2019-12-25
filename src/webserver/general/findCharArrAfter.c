@@ -1,6 +1,6 @@
 #include "../headerFiles/general.h"
 
-int findStr(char* src, char* key, int srcLength, int keyLength) {
+int findCharArrAfter(char* src, char* key, int srcLength, int keyLength, int starting) {
   if (srcLength < 0) {
     srcLength = getStringLength(src);
   }
@@ -8,7 +8,7 @@ int findStr(char* src, char* key, int srcLength, int keyLength) {
     keyLength = getStringLength(key);
   }
 
-  for (int i = 0; i < srcLength; i++) {
+  for (int i = starting; i < srcLength; i++) {
     for(int j = 0; j < keyLength; j++) {
       if (src[i + j] == '\0') {
         return -1;

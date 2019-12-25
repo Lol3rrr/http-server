@@ -1,7 +1,7 @@
 #include "../headerFiles/queryParams.h"
 
 queryParams_t* parseQueryParams(string* rawPath, char** resultPath) {
-  int paramStart = findStr(rawPath->content, "?", rawPath->length, 1);
+  int paramStart = findCharArr(rawPath->content, "?", rawPath->length, 1);
   if (paramStart < 0) {
     return NULL;
   }
@@ -17,7 +17,7 @@ queryParams_t* parseQueryParams(string* rawPath, char** resultPath) {
   result->kvNodes = NULL;
 
   int start = 0;
-  int paramSeperator = findStrAfter(paramStr->content, "&", paramStrLength, 1, start);
+  int paramSeperator = findCharArrAfter(paramStr->content, "&", paramStrLength, 1, start);
   while (paramSeperator != -1) {
     string* singleParam = getSubstring(paramStr->content, start, paramSeperator - start);
 
@@ -26,7 +26,7 @@ queryParams_t* parseQueryParams(string* rawPath, char** resultPath) {
     free(singleParam);
 
     start = paramSeperator + 1;
-    paramSeperator = findStrAfter(paramStr->content, "&", paramStrLength, 1, start + 1);
+    paramSeperator = findCharArrAfter(paramStr->content, "&", paramStrLength, 1, start + 1);
   }
 
   string* singleParam = getSubstring(paramStr->content, start, paramStrLength - start);

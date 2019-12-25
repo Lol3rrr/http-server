@@ -3,7 +3,7 @@
 int parseQueryParam(char* rawParam, queryParams_t* params) {
   int rawParamLength = getStringLength(rawParam);
 
-  int seperator = findStr(rawParam, "=", rawParamLength, 1);
+  int seperator = findCharArr(rawParam, "=", rawParamLength, 1);
   if (seperator < 0) {
     return -1;
   }

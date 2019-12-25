@@ -28,8 +28,8 @@ void setGeneralTemplateUsage(int value);
 int isTemplateEnabled();
 
 int getStringLength(char* src);
-int findStr(char* src, char* key, int srcLength, int keyLength);
-int findStrAfter(char* src, char* key, int srcLength, int keyLength, int starting);
+int findCharArr(char* src, char* key, int srcLength, int keyLength);
+int findCharArrAfter(char* src, char* key, int srcLength, int keyLength, int starting);
 
 string* getSubstring(char* src, int start, int length);
 string* replaceStr(char* src, char* replacement, int start, int lengthToReplace);

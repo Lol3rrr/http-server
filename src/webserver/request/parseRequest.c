@@ -25,7 +25,7 @@ int parseRequest(headerLine_t* headerLines, request** result) {
     return 1;
   }
 
-  if (findStr(req->path->content, "..", req->path->length, -1) != -1) {
+  if (findCharArr(req->path->content, "..", req->path->length, -1) != -1) {
     logDebug("[parseRequest] Found a '..' in the path \n");
 
     return 2;

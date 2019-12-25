@@ -2,7 +2,7 @@
 
 // Returns 0 if worked
 int parseHeader(string* headerLine, string** keyPtr, string** valuePtr) {
-  int seperator = findStr(headerLine->content, ":", headerLine->length, 1);
+  int seperator = findCharArr(headerLine->content, ":", headerLine->length, 1);
   if (seperator == -1) {
     return 1;
   }

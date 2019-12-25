@@ -20,7 +20,7 @@ string* getFileName(string* folder, string* path) {
     file->length = nLength;
   }
 
-  int dot = findStr(file->content, ".", file->length, 1);
+  int dot = findCharArr(file->content, ".", file->length, 1);
   if (dot == -1) {
     int nLength = file->length + 5;
     char* nFile = createEmptyCString(nLength);
