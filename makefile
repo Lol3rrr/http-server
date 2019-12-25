@@ -30,10 +30,6 @@ run_debug:
 	make
 	./server.out -p 9090 -d
 
-run_measure:
-	make
-	./server.out -p 9090 -m
-
 run_speedTest:
 	./test.sh | grep "URL\|Max\|Min\|Average"
 
