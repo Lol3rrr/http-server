@@ -1,7 +1,7 @@
 #include "../headerFiles/templating.h"
 
 int parseIncludeStatement(string* includeText, includeStatement** statement) {
-  int pathStart = findCharArr(includeText->content, "path=\"", includeText->length, 6);
+  int pathStart = findStr(includeText, "path=\"", 6);
   if (pathStart == -1)
     return -1;
 

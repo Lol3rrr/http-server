@@ -1,7 +1,7 @@
 #include "../server.h"
 
 int determinContentType(string* path, char** result) {
-  int dot = findCharArr(path->content, ".", path->length, 1);
+  int dot = findStr(path, ".", 1);
 
   if(dot == -1) {
     (*result) = (char*) malloc(24 * sizeof(char));

@@ -1,7 +1,7 @@
 #include "../headerFiles/request.h"
 
 int isFirstLine(string* line) {
-  int seperator = findCharArr(line->content, ":", line->length, 1);
+  int seperator = findStr(line, ":", 1);
   if (seperator == -1)
     return 1;
 

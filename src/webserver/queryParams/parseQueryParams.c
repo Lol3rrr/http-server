@@ -1,7 +1,7 @@
 #include "../headerFiles/queryParams.h"
 
 queryParams_t* parseQueryParams(string* rawPath, char** resultPath) {
-  int paramStart = findCharArr(rawPath->content, "?", rawPath->length, 1);
+  int paramStart = findStr(rawPath, "?", 1);
   if (paramStart < 0) {
     return NULL;
   }

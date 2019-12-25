@@ -10,11 +10,12 @@ int findCharArr(char* src, char* key, int srcLength, int keyLength) {
 
   for (int i = 0; i < srcLength; i++) {
     for(int j = 0; j < keyLength; j++) {
-      if (src[i + j] == '\0') {
+      int index = i + j;
+      if (index >= srcLength) {
         return -1;
       }
 
-      if (src[i + j] != key[j]) {
+      if (src[index] != key[j]) {
         break;
       }
 
