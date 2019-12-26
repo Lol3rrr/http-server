@@ -3,22 +3,23 @@ Flat profile:
 Each sample counts as 0.01 seconds.
  no time accumulated
 
-  %   cumulative   self              self     total
- time   seconds   seconds    calls  Ts/call  Ts/call  name
-  0.00      0.00     0.00       64     0.00     0.00  createEmptyCString
-  0.00      0.00     0.00       61     0.00     0.00  getStringLength
-  0.00      0.00     0.00       16     0.00     0.00  findStr
-  0.00      0.00     0.00       14     0.00     0.00  createKVNode
-  0.00      0.00     0.00       14     0.00     0.00  pushHeader
-  0.00      0.00     0.00       12     0.00     0.00  pushHeaderLine
-  0.00      0.00     0.00       12     0.00     0.00  pushKVNode
-  0.00      0.00     0.00       11     0.00     0.00  parseHeader
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  Ts/call  Ts/call  name    
+  0.00      0.00     0.00       32     0.00     0.00  createEmptyCString
+  0.00      0.00     0.00       27     0.00     0.00  createEmptyString
+  0.00      0.00     0.00       12     0.00     0.00  createString
+  0.00      0.00     0.00        8     0.00     0.00  findStr
+  0.00      0.00     0.00        6     0.00     0.00  createKVNode
   0.00      0.00     0.00        6     0.00     0.00  isDebugEnabled
+  0.00      0.00     0.00        6     0.00     0.00  pushHeader
   0.00      0.00     0.00        5     0.00     0.00  logDebug
   0.00      0.00     0.00        4     0.00     0.00  checkFlag
+  0.00      0.00     0.00        4     0.00     0.00  pushHeaderLine
+  0.00      0.00     0.00        4     0.00     0.00  pushKVNode
   0.00      0.00     0.00        3     0.00     0.00  addHeader
   0.00      0.00     0.00        3     0.00     0.00  createKVPair
   0.00      0.00     0.00        3     0.00     0.00  isMeasuringEnabled
+  0.00      0.00     0.00        3     0.00     0.00  parseHeader
   0.00      0.00     0.00        2     0.00     0.00  cleanHeader
   0.00      0.00     0.00        2     0.00     0.00  cleanKVNodes
   0.00      0.00     0.00        2     0.00     0.00  createEmptyHeaders
@@ -36,7 +37,7 @@ Each sample counts as 0.01 seconds.
   0.00      0.00     0.00        1     0.00     0.00  createHTTPResponse
   0.00      0.00     0.00        1     0.00     0.00  createServer
   0.00      0.00     0.00        1     0.00     0.00  determinContentType
-  0.00      0.00     0.00        1     0.00     0.00  findStrAfter
+  0.00      0.00     0.00        1     0.00     0.00  findCharArrAfter
   0.00      0.00     0.00        1     0.00     0.00  getFileName
   0.00      0.00     0.00        1     0.00     0.00  getPort
   0.00      0.00     0.00        1     0.00     0.00  handleConnection
@@ -110,339 +111,327 @@ notice and this notice are preserved.
 granularity: each sample hit covers 2 byte(s) no time propagated
 
 index % time    self  children    called     name
-                0.00    0.00       1/64          getFileName [33]
-                0.00    0.00       1/64          createEmptyResponse [25]
-                0.00    0.00       1/64          createFirstLine [26]
-                0.00    0.00       1/64          createHTTPHead [27]
-                0.00    0.00       1/64          createHTTPHeaderPart [28]
-                0.00    0.00       1/64          createHTTPResponse [29]
-                0.00    0.00       3/64          parseFirstLine [46]
-                0.00    0.00       3/64          createKVPair [13]
-                0.00    0.00      11/64          parseHeader [8]
-                0.00    0.00      13/64          splitHTTPRequest [64]
-                0.00    0.00      28/64          createKVNode [4]
-[1]      0.0    0.00    0.00      64         createEmptyCString [1]
+                0.00    0.00       1/32          getFileName [34]
+                0.00    0.00       1/32          createFirstLine [27]
+                0.00    0.00       1/32          createHTTPHead [28]
+                0.00    0.00       1/32          createHTTPHeaderPart [29]
+                0.00    0.00       1/32          createHTTPResponse [30]
+                0.00    0.00      27/32          createEmptyString [2]
+[1]      0.0    0.00    0.00      32         createEmptyCString [1]
 -----------------------------------------------
-                0.00    0.00       1/61          loadFileName [44]
-                0.00    0.00       1/61          parseQueryParams [48]
-                0.00    0.00       1/61          createEmptyResponse [25]
-                0.00    0.00       1/61          createHTTPHeaderPart [28]
-                0.00    0.00       1/61          determinContentType [31]
-                0.00    0.00       2/61          getFileName [33]
-                0.00    0.00       2/61          findStrAfter [32]
-                0.00    0.00       3/61          createFirstLine [26]
-                0.00    0.00       4/61          findStr [3]
-                0.00    0.00       6/61          createKVPair [13]
-                0.00    0.00      11/61          parseHeader [8]
-                0.00    0.00      28/61          createKVNode [4]
-[2]      0.0    0.00    0.00      61         getStringLength [2]
+                0.00    0.00       1/27          getFileName [34]
+                0.00    0.00       1/27          loadFileName [45]
+                0.00    0.00       1/27          createEmptyResponse [26]
+                0.00    0.00       1/27          setStatus [64]
+                0.00    0.00       3/27          parseFirstLine [47]
+                0.00    0.00       3/27          createKVPair [13]
+                0.00    0.00       5/27          splitHTTPRequest [65]
+                0.00    0.00       6/27          parseHeader [15]
+                0.00    0.00       6/27          addHeader [12]
+[2]      0.0    0.00    0.00      27         createEmptyString [2]
+                0.00    0.00      27/32          createEmptyCString [1]
 -----------------------------------------------
-                0.00    0.00       1/16          getFileName [33]
-                0.00    0.00       1/16          parseQueryParams [48]
-                0.00    0.00       1/16          isFirstLine [41]
-                0.00    0.00       1/16          parseRequest [49]
-                0.00    0.00       1/16          determinContentType [31]
-                0.00    0.00      11/16          parseHeader [8]
-[3]      0.0    0.00    0.00      16         findStr [3]
-                0.00    0.00       4/61          getStringLength [2]
+                0.00    0.00      12/12          createKVNode [5]
+[3]      0.0    0.00    0.00      12         createString [3]
 -----------------------------------------------
-                0.00    0.00       2/14          pushHeader [5]
-                0.00    0.00      12/14          pushKVNode [7]
-[4]      0.0    0.00    0.00      14         createKVNode [4]
-                0.00    0.00      28/61          getStringLength [2]
-                0.00    0.00      28/64          createEmptyCString [1]
+                0.00    0.00       1/8           getFileName [34]
+                0.00    0.00       1/8           parseQueryParams [49]
+                0.00    0.00       1/8           isFirstLine [42]
+                0.00    0.00       1/8           parseRequest [50]
+                0.00    0.00       1/8           determinContentType [32]
+                0.00    0.00       3/8           parseHeader [15]
+[4]      0.0    0.00    0.00       8         findStr [4]
 -----------------------------------------------
-                0.00    0.00       3/14          addHeader [12]
-                0.00    0.00      11/14          parseHeaders [47]
-[5]      0.0    0.00    0.00      14         pushHeader [5]
-                0.00    0.00      12/12          pushKVNode [7]
-                0.00    0.00       2/14          createKVNode [4]
+                0.00    0.00       2/6           pushHeader [7]
+                0.00    0.00       4/6           pushKVNode [11]
+[5]      0.0    0.00    0.00       6         createKVNode [5]
+                0.00    0.00      12/12          createString [3]
 -----------------------------------------------
-                0.00    0.00      12/12          splitHTTPRequest [64]
-[6]      0.0    0.00    0.00      12         pushHeaderLine [6]
+                0.00    0.00       1/6           print_request_debug [51]
+                0.00    0.00       5/6           logDebug [8]
+[6]      0.0    0.00    0.00       6         isDebugEnabled [6]
 -----------------------------------------------
-                0.00    0.00      12/12          pushHeader [5]
-[7]      0.0    0.00    0.00      12         pushKVNode [7]
-                0.00    0.00      12/14          createKVNode [4]
+                0.00    0.00       3/6           parseHeaders [48]
+                0.00    0.00       3/6           addHeader [12]
+[7]      0.0    0.00    0.00       6         pushHeader [7]
+                0.00    0.00       4/4           pushKVNode [11]
+                0.00    0.00       2/6           createKVNode [5]
 -----------------------------------------------
-                0.00    0.00      11/11          parseHeaders [47]
-[8]      0.0    0.00    0.00      11         parseHeader [8]
-                0.00    0.00      11/61          getStringLength [2]
-                0.00    0.00      11/16          findStr [3]
-                0.00    0.00      11/64          createEmptyCString [1]
+                0.00    0.00       1/5           receiveRequest [55]
+                0.00    0.00       1/5           handleConnection [36]
+                0.00    0.00       1/5           handleGETrequest [37]
+                0.00    0.00       2/5           handleRequest [38]
+[8]      0.0    0.00    0.00       5         logDebug [8]
+                0.00    0.00       5/6           isDebugEnabled [6]
 -----------------------------------------------
-                0.00    0.00       1/6           print_request_debug [50]
-                0.00    0.00       5/6           logDebug [10]
-[9]      0.0    0.00    0.00       6         isDebugEnabled [9]
+                0.00    0.00       4/4           main [93]
+[9]      0.0    0.00    0.00       4         checkFlag [9]
 -----------------------------------------------
-                0.00    0.00       1/5           receiveRequest [54]
-                0.00    0.00       1/5           handleConnection [35]
-                0.00    0.00       1/5           handleGETrequest [36]
-                0.00    0.00       2/5           handleRequest [37]
-[10]     0.0    0.00    0.00       5         logDebug [10]
-                0.00    0.00       5/6           isDebugEnabled [9]
+                0.00    0.00       4/4           splitHTTPRequest [65]
+[10]     0.0    0.00    0.00       4         pushHeaderLine [10]
 -----------------------------------------------
-                0.00    0.00       4/4           main [92]
-[11]     0.0    0.00    0.00       4         checkFlag [11]
+                0.00    0.00       4/4           pushHeader [7]
+[11]     0.0    0.00    0.00       4         pushKVNode [11]
+                0.00    0.00       4/6           createKVNode [5]
 -----------------------------------------------
-                0.00    0.00       1/3           createEmptyResponse [25]
-                0.00    0.00       2/3           setContentType [57]
+                0.00    0.00       1/3           createEmptyResponse [26]
+                0.00    0.00       2/3           setContentType [58]
 [12]     0.0    0.00    0.00       3         addHeader [12]
-                0.00    0.00       3/14          pushHeader [5]
+                0.00    0.00       6/27          createEmptyString [2]
+                0.00    0.00       3/6           pushHeader [7]
 -----------------------------------------------
-                0.00    0.00       3/3           createHTTPHeaderPart [28]
+                0.00    0.00       3/3           createHTTPHeaderPart [29]
 [13]     0.0    0.00    0.00       3         createKVPair [13]
-                0.00    0.00       6/61          getStringLength [2]
-                0.00    0.00       3/64          createEmptyCString [1]
+                0.00    0.00       3/27          createEmptyString [2]
 -----------------------------------------------
-                0.00    0.00       1/3           parseHeaders [47]
-                0.00    0.00       1/3           parseRequest [49]
-                0.00    0.00       1/3           handleConnection [35]
+                0.00    0.00       1/3           parseHeaders [48]
+                0.00    0.00       1/3           parseRequest [50]
+                0.00    0.00       1/3           handleConnection [36]
 [14]     0.0    0.00    0.00       3         isMeasuringEnabled [14]
 -----------------------------------------------
-                0.00    0.00       1/2           cleanRequest [22]
-                0.00    0.00       1/2           cleanResponse [23]
-[15]     0.0    0.00    0.00       2         cleanHeader [15]
-                0.00    0.00       2/2           cleanKVNodes [16]
+                0.00    0.00       3/3           parseHeaders [48]
+[15]     0.0    0.00    0.00       3         parseHeader [15]
+                0.00    0.00       6/27          createEmptyString [2]
+                0.00    0.00       3/8           findStr [4]
 -----------------------------------------------
-                                  12             cleanKVNodes [16]
-                0.00    0.00       2/2           cleanHeader [15]
-[16]     0.0    0.00    0.00       2+12      cleanKVNodes [16]
-                                  12             cleanKVNodes [16]
+                0.00    0.00       1/2           cleanRequest [23]
+                0.00    0.00       1/2           cleanResponse [24]
+[16]     0.0    0.00    0.00       2         cleanHeader [16]
+                0.00    0.00       2/2           cleanKVNodes [17]
 -----------------------------------------------
-                0.00    0.00       1/2           parseHeaders [47]
-                0.00    0.00       1/2           createEmptyResponse [25]
-[17]     0.0    0.00    0.00       2         createEmptyHeaders [17]
+                                   4             cleanKVNodes [17]
+                0.00    0.00       2/2           cleanHeader [16]
+[17]     0.0    0.00    0.00       2+4       cleanKVNodes [17]
+                                   4             cleanKVNodes [17]
 -----------------------------------------------
-                0.00    0.00       1/2           createServer [30]
-                0.00    0.00       1/2           startServer [65]
-[18]     0.0    0.00    0.00       2         logInfo [18]
+                0.00    0.00       1/2           parseHeaders [48]
+                0.00    0.00       1/2           createEmptyResponse [26]
+[18]     0.0    0.00    0.00       2         createEmptyHeaders [18]
 -----------------------------------------------
-                0.00    0.00       2/2           createHTTPHeaderPart [28]
-[19]     0.0    0.00    0.00       2         pushHeaderNodePart [19]
+                0.00    0.00       1/2           createServer [31]
+                0.00    0.00       1/2           startServer [66]
+[19]     0.0    0.00    0.00       2         logInfo [19]
 -----------------------------------------------
-                                  12             cleanHeaderLines [20]
-                0.00    0.00       1/1           receiveRequest [54]
-[20]     0.0    0.00    0.00       1+12      cleanHeaderLines [20]
-                                  12             cleanHeaderLines [20]
+                0.00    0.00       2/2           createHTTPHeaderPart [29]
+[20]     0.0    0.00    0.00       2         pushHeaderNodePart [20]
 -----------------------------------------------
-                                   2             cleanHeaderNodePart [21]
-                0.00    0.00       1/1           createHTTPHeaderPart [28]
-[21]     0.0    0.00    0.00       1+2       cleanHeaderNodePart [21]
-                                   2             cleanHeaderNodePart [21]
+                                   4             cleanHeaderLines [21]
+                0.00    0.00       1/1           receiveRequest [55]
+[21]     0.0    0.00    0.00       1+4       cleanHeaderLines [21]
+                                   4             cleanHeaderLines [21]
 -----------------------------------------------
-                0.00    0.00       1/1           cleanUp [24]
-[22]     0.0    0.00    0.00       1         cleanRequest [22]
-                0.00    0.00       1/2           cleanHeader [15]
+                                   2             cleanHeaderNodePart [22]
+                0.00    0.00       1/1           createHTTPHeaderPart [29]
+[22]     0.0    0.00    0.00       1+2       cleanHeaderNodePart [22]
+                                   2             cleanHeaderNodePart [22]
 -----------------------------------------------
-                0.00    0.00       1/1           cleanUp [24]
-[23]     0.0    0.00    0.00       1         cleanResponse [23]
-                0.00    0.00       1/2           cleanHeader [15]
+                0.00    0.00       1/1           cleanUp [25]
+[23]     0.0    0.00    0.00       1         cleanRequest [23]
+                0.00    0.00       1/2           cleanHeader [16]
 -----------------------------------------------
-                0.00    0.00       1/1           handleRequest [37]
-[24]     0.0    0.00    0.00       1         cleanUp [24]
-                0.00    0.00       1/1           cleanRequest [22]
-                0.00    0.00       1/1           cleanResponse [23]
+                0.00    0.00       1/1           cleanUp [25]
+[24]     0.0    0.00    0.00       1         cleanResponse [24]
+                0.00    0.00       1/2           cleanHeader [16]
 -----------------------------------------------
-                0.00    0.00       1/1           handleRequest [37]
-[25]     0.0    0.00    0.00       1         createEmptyResponse [25]
-                0.00    0.00       1/2           createEmptyHeaders [17]
-                0.00    0.00       1/61          getStringLength [2]
-                0.00    0.00       1/64          createEmptyCString [1]
+                0.00    0.00       1/1           handleRequest [38]
+[25]     0.0    0.00    0.00       1         cleanUp [25]
+                0.00    0.00       1/1           cleanResponse [24]
+                0.00    0.00       1/1           cleanRequest [23]
+-----------------------------------------------
+                0.00    0.00       1/1           handleRequest [38]
+[26]     0.0    0.00    0.00       1         createEmptyResponse [26]
+                0.00    0.00       1/2           createEmptyHeaders [18]
+                0.00    0.00       1/27          createEmptyString [2]
                 0.00    0.00       1/3           addHeader [12]
 -----------------------------------------------
-                0.00    0.00       1/1           createHTTPHead [27]
-[26]     0.0    0.00    0.00       1         createFirstLine [26]
-                0.00    0.00       3/61          getStringLength [2]
-                0.00    0.00       1/64          createEmptyCString [1]
+                0.00    0.00       1/1           createHTTPHead [28]
+[27]     0.0    0.00    0.00       1         createFirstLine [27]
+                0.00    0.00       1/32          createEmptyCString [1]
 -----------------------------------------------
-                0.00    0.00       1/1           createHTTPResponse [29]
-[27]     0.0    0.00    0.00       1         createHTTPHead [27]
-                0.00    0.00       1/1           createFirstLine [26]
-                0.00    0.00       1/1           createHTTPHeaderPart [28]
-                0.00    0.00       1/64          createEmptyCString [1]
+                0.00    0.00       1/1           createHTTPResponse [30]
+[28]     0.0    0.00    0.00       1         createHTTPHead [28]
+                0.00    0.00       1/1           createFirstLine [27]
+                0.00    0.00       1/1           createHTTPHeaderPart [29]
+                0.00    0.00       1/32          createEmptyCString [1]
 -----------------------------------------------
-                0.00    0.00       1/1           createHTTPHead [27]
-[28]     0.0    0.00    0.00       1         createHTTPHeaderPart [28]
+                0.00    0.00       1/1           createHTTPHead [28]
+[29]     0.0    0.00    0.00       1         createHTTPHeaderPart [29]
                 0.00    0.00       3/3           createKVPair [13]
-                0.00    0.00       2/2           pushHeaderNodePart [19]
-                0.00    0.00       1/61          getStringLength [2]
-                0.00    0.00       1/64          createEmptyCString [1]
-                0.00    0.00       1/1           cleanHeaderNodePart [21]
+                0.00    0.00       2/2           pushHeaderNodePart [20]
+                0.00    0.00       1/32          createEmptyCString [1]
+                0.00    0.00       1/1           cleanHeaderNodePart [22]
 -----------------------------------------------
-                0.00    0.00       1/1           sendResponse [55]
-[29]     0.0    0.00    0.00       1         createHTTPResponse [29]
-                0.00    0.00       1/1           createHTTPHead [27]
-                0.00    0.00       1/64          createEmptyCString [1]
+                0.00    0.00       1/1           sendResponse [56]
+[30]     0.0    0.00    0.00       1         createHTTPResponse [30]
+                0.00    0.00       1/1           createHTTPHead [28]
+                0.00    0.00       1/32          createEmptyCString [1]
 -----------------------------------------------
-                0.00    0.00       1/1           main [92]
-[30]     0.0    0.00    0.00       1         createServer [30]
-                0.00    0.00       1/2           logInfo [18]
+                0.00    0.00       1/1           main [93]
+[31]     0.0    0.00    0.00       1         createServer [31]
+                0.00    0.00       1/2           logInfo [19]
 -----------------------------------------------
-                0.00    0.00       1/1           handleGETrequest [36]
-[31]     0.0    0.00    0.00       1         determinContentType [31]
-                0.00    0.00       1/61          getStringLength [2]
-                0.00    0.00       1/16          findStr [3]
+                0.00    0.00       1/1           handleGETrequest [37]
+[32]     0.0    0.00    0.00       1         determinContentType [32]
+                0.00    0.00       1/8           findStr [4]
 -----------------------------------------------
-                0.00    0.00       1/1           parseBody [45]
-[32]     0.0    0.00    0.00       1         findStrAfter [32]
-                0.00    0.00       2/61          getStringLength [2]
+                0.00    0.00       1/1           parseBody [46]
+[33]     0.0    0.00    0.00       1         findCharArrAfter [33]
 -----------------------------------------------
-                0.00    0.00       1/1           loadFileName [44]
-[33]     0.0    0.00    0.00       1         getFileName [33]
-                0.00    0.00       2/61          getStringLength [2]
-                0.00    0.00       1/64          createEmptyCString [1]
-                0.00    0.00       1/16          findStr [3]
+                0.00    0.00       1/1           loadFileName [45]
+[34]     0.0    0.00    0.00       1         getFileName [34]
+                0.00    0.00       1/27          createEmptyString [2]
+                0.00    0.00       1/32          createEmptyCString [1]
+                0.00    0.00       1/8           findStr [4]
 -----------------------------------------------
-                0.00    0.00       1/1           main [92]
-[34]     0.0    0.00    0.00       1         getPort [34]
+                0.00    0.00       1/1           main [93]
+[35]     0.0    0.00    0.00       1         getPort [35]
 -----------------------------------------------
-                0.00    0.00       1/1           startServer [65]
-[35]     0.0    0.00    0.00       1         handleConnection [35]
-                0.00    0.00       1/1           receiveRequest [54]
-                0.00    0.00       1/1           print_request_debug [50]
-                0.00    0.00       1/1           handleRequest [37]
-                0.00    0.00       1/3           isMeasuringEnabled [14]
-                0.00    0.00       1/5           logDebug [10]
------------------------------------------------
-                0.00    0.00       1/1           handleRequest [37]
-[36]     0.0    0.00    0.00       1         handleGETrequest [36]
-                0.00    0.00       1/1           loadFileName [44]
-                0.00    0.00       1/5           logDebug [10]
-                0.00    0.00       1/1           loadFile [43]
-                0.00    0.00       1/1           setStatus [63]
-                0.00    0.00       1/1           setData [58]
-                0.00    0.00       1/1           determinContentType [31]
-                0.00    0.00       1/1           setContentType [57]
-                0.00    0.00       1/1           setCache [56]
-                0.00    0.00       1/1           print_response_debug [51]
------------------------------------------------
-                0.00    0.00       1/1           handleConnection [35]
-[37]     0.0    0.00    0.00       1         handleRequest [37]
-                0.00    0.00       2/5           logDebug [10]
-                0.00    0.00       1/1           createEmptyResponse [25]
-                0.00    0.00       1/1           handleGETrequest [36]
-                0.00    0.00       1/1           sendResponse [55]
-                0.00    0.00       1/1           cleanUp [24]
------------------------------------------------
-                0.00    0.00       1/1           parseRequest [49]
-[38]     0.0    0.00    0.00       1         hasEmptyField [38]
------------------------------------------------
-                0.00    0.00       1/1           setCache [56]
-[39]     0.0    0.00    0.00       1         isCachingAllowed [39]
-                0.00    0.00       1/1           isCachingEnabled [40]
------------------------------------------------
-                0.00    0.00       1/1           isCachingAllowed [39]
-[40]     0.0    0.00    0.00       1         isCachingEnabled [40]
------------------------------------------------
-                0.00    0.00       1/1           parseHeaders [47]
-[41]     0.0    0.00    0.00       1         isFirstLine [41]
-                0.00    0.00       1/16          findStr [3]
------------------------------------------------
-                0.00    0.00       1/1           loadFile [43]
-[42]     0.0    0.00    0.00       1         isTemplateEnabled [42]
------------------------------------------------
-                0.00    0.00       1/1           handleGETrequest [36]
-[43]     0.0    0.00    0.00       1         loadFile [43]
-                0.00    0.00       1/1           readRawFile [53]
-                0.00    0.00       1/1           isTemplateEnabled [42]
------------------------------------------------
-                0.00    0.00       1/1           handleGETrequest [36]
-[44]     0.0    0.00    0.00       1         loadFileName [44]
-                0.00    0.00       1/1           getFileName [33]
-                0.00    0.00       1/61          getStringLength [2]
------------------------------------------------
-                0.00    0.00       1/1           receiveRequest [54]
-[45]     0.0    0.00    0.00       1         parseBody [45]
-                0.00    0.00       1/1           findStrAfter [32]
------------------------------------------------
-                0.00    0.00       1/1           parseHeaders [47]
-[46]     0.0    0.00    0.00       1         parseFirstLine [46]
-                0.00    0.00       3/64          createEmptyCString [1]
------------------------------------------------
-                0.00    0.00       1/1           parseRequest [49]
-[47]     0.0    0.00    0.00       1         parseHeaders [47]
-                0.00    0.00      11/11          parseHeader [8]
-                0.00    0.00      11/14          pushHeader [5]
-                0.00    0.00       1/2           createEmptyHeaders [17]
-                0.00    0.00       1/1           isFirstLine [41]
-                0.00    0.00       1/1           parseFirstLine [46]
+                0.00    0.00       1/1           startServer [66]
+[36]     0.0    0.00    0.00       1         handleConnection [36]
+                0.00    0.00       1/1           receiveRequest [55]
+                0.00    0.00       1/1           print_request_debug [51]
+                0.00    0.00       1/1           handleRequest [38]
+                0.00    0.00       1/5           logDebug [8]
                 0.00    0.00       1/3           isMeasuringEnabled [14]
 -----------------------------------------------
-                0.00    0.00       1/1           receiveRequest [54]
-[48]     0.0    0.00    0.00       1         parseQueryParams [48]
-                0.00    0.00       1/61          getStringLength [2]
-                0.00    0.00       1/16          findStr [3]
+                0.00    0.00       1/1           handleRequest [38]
+[37]     0.0    0.00    0.00       1         handleGETrequest [37]
+                0.00    0.00       1/1           loadFileName [45]
+                0.00    0.00       1/5           logDebug [8]
+                0.00    0.00       1/1           loadFile [44]
+                0.00    0.00       1/1           setStatus [64]
+                0.00    0.00       1/1           setData [59]
+                0.00    0.00       1/1           determinContentType [32]
+                0.00    0.00       1/1           setContentType [58]
+                0.00    0.00       1/1           setCache [57]
+                0.00    0.00       1/1           print_response_debug [52]
 -----------------------------------------------
-                0.00    0.00       1/1           receiveRequest [54]
-[49]     0.0    0.00    0.00       1         parseRequest [49]
-                0.00    0.00       1/1           parseHeaders [47]
-                0.00    0.00       1/1           hasEmptyField [38]
-                0.00    0.00       1/16          findStr [3]
+                0.00    0.00       1/1           handleConnection [36]
+[38]     0.0    0.00    0.00       1         handleRequest [38]
+                0.00    0.00       2/5           logDebug [8]
+                0.00    0.00       1/1           createEmptyResponse [26]
+                0.00    0.00       1/1           handleGETrequest [37]
+                0.00    0.00       1/1           sendResponse [56]
+                0.00    0.00       1/1           cleanUp [25]
+-----------------------------------------------
+                0.00    0.00       1/1           parseRequest [50]
+[39]     0.0    0.00    0.00       1         hasEmptyField [39]
+-----------------------------------------------
+                0.00    0.00       1/1           setCache [57]
+[40]     0.0    0.00    0.00       1         isCachingAllowed [40]
+                0.00    0.00       1/1           isCachingEnabled [41]
+-----------------------------------------------
+                0.00    0.00       1/1           isCachingAllowed [40]
+[41]     0.0    0.00    0.00       1         isCachingEnabled [41]
+-----------------------------------------------
+                0.00    0.00       1/1           parseHeaders [48]
+[42]     0.0    0.00    0.00       1         isFirstLine [42]
+                0.00    0.00       1/8           findStr [4]
+-----------------------------------------------
+                0.00    0.00       1/1           loadFile [44]
+[43]     0.0    0.00    0.00       1         isTemplateEnabled [43]
+-----------------------------------------------
+                0.00    0.00       1/1           handleGETrequest [37]
+[44]     0.0    0.00    0.00       1         loadFile [44]
+                0.00    0.00       1/1           readRawFile [54]
+                0.00    0.00       1/1           isTemplateEnabled [43]
+-----------------------------------------------
+                0.00    0.00       1/1           handleGETrequest [37]
+[45]     0.0    0.00    0.00       1         loadFileName [45]
+                0.00    0.00       1/27          createEmptyString [2]
+                0.00    0.00       1/1           getFileName [34]
+-----------------------------------------------
+                0.00    0.00       1/1           receiveRequest [55]
+[46]     0.0    0.00    0.00       1         parseBody [46]
+                0.00    0.00       1/1           findCharArrAfter [33]
+-----------------------------------------------
+                0.00    0.00       1/1           parseHeaders [48]
+[47]     0.0    0.00    0.00       1         parseFirstLine [47]
+                0.00    0.00       3/27          createEmptyString [2]
+-----------------------------------------------
+                0.00    0.00       1/1           parseRequest [50]
+[48]     0.0    0.00    0.00       1         parseHeaders [48]
+                0.00    0.00       3/3           parseHeader [15]
+                0.00    0.00       3/6           pushHeader [7]
+                0.00    0.00       1/2           createEmptyHeaders [18]
+                0.00    0.00       1/1           isFirstLine [42]
+                0.00    0.00       1/1           parseFirstLine [47]
                 0.00    0.00       1/3           isMeasuringEnabled [14]
 -----------------------------------------------
-                0.00    0.00       1/1           handleConnection [35]
-[50]     0.0    0.00    0.00       1         print_request_debug [50]
-                0.00    0.00       1/6           isDebugEnabled [9]
+                0.00    0.00       1/1           receiveRequest [55]
+[49]     0.0    0.00    0.00       1         parseQueryParams [49]
+                0.00    0.00       1/8           findStr [4]
 -----------------------------------------------
-                0.00    0.00       1/1           handleGETrequest [36]
-[51]     0.0    0.00    0.00       1         print_response_debug [51]
+                0.00    0.00       1/1           receiveRequest [55]
+[50]     0.0    0.00    0.00       1         parseRequest [50]
+                0.00    0.00       1/1           parseHeaders [48]
+                0.00    0.00       1/1           hasEmptyField [39]
+                0.00    0.00       1/8           findStr [4]
+                0.00    0.00       1/3           isMeasuringEnabled [14]
 -----------------------------------------------
-                0.00    0.00       1/1           receiveRequest [54]
-[52]     0.0    0.00    0.00       1         readHTTP [52]
+                0.00    0.00       1/1           handleConnection [36]
+[51]     0.0    0.00    0.00       1         print_request_debug [51]
+                0.00    0.00       1/6           isDebugEnabled [6]
 -----------------------------------------------
-                0.00    0.00       1/1           loadFile [43]
-[53]     0.0    0.00    0.00       1         readRawFile [53]
+                0.00    0.00       1/1           handleGETrequest [37]
+[52]     0.0    0.00    0.00       1         print_response_debug [52]
 -----------------------------------------------
-                0.00    0.00       1/1           handleConnection [35]
-[54]     0.0    0.00    0.00       1         receiveRequest [54]
-                0.00    0.00       1/1           readHTTP [52]
-                0.00    0.00       1/5           logDebug [10]
-                0.00    0.00       1/1           splitHTTPRequest [64]
-                0.00    0.00       1/1           parseBody [45]
-                0.00    0.00       1/1           cleanHeaderLines [20]
-                0.00    0.00       1/1           parseRequest [49]
-                0.00    0.00       1/1           parseQueryParams [48]
+                0.00    0.00       1/1           receiveRequest [55]
+[53]     0.0    0.00    0.00       1         readHTTP [53]
 -----------------------------------------------
-                0.00    0.00       1/1           handleRequest [37]
-[55]     0.0    0.00    0.00       1         sendResponse [55]
-                0.00    0.00       1/1           createHTTPResponse [29]
+                0.00    0.00       1/1           loadFile [44]
+[54]     0.0    0.00    0.00       1         readRawFile [54]
 -----------------------------------------------
-                0.00    0.00       1/1           handleGETrequest [36]
-[56]     0.0    0.00    0.00       1         setCache [56]
-                0.00    0.00       1/1           isCachingAllowed [39]
+                0.00    0.00       1/1           handleConnection [36]
+[55]     0.0    0.00    0.00       1         receiveRequest [55]
+                0.00    0.00       1/1           readHTTP [53]
+                0.00    0.00       1/5           logDebug [8]
+                0.00    0.00       1/1           splitHTTPRequest [65]
+                0.00    0.00       1/1           parseBody [46]
+                0.00    0.00       1/1           parseRequest [50]
+                0.00    0.00       1/1           cleanHeaderLines [21]
+                0.00    0.00       1/1           parseQueryParams [49]
 -----------------------------------------------
-                0.00    0.00       1/1           handleGETrequest [36]
-[57]     0.0    0.00    0.00       1         setContentType [57]
+                0.00    0.00       1/1           handleRequest [38]
+[56]     0.0    0.00    0.00       1         sendResponse [56]
+                0.00    0.00       1/1           createHTTPResponse [30]
+-----------------------------------------------
+                0.00    0.00       1/1           handleGETrequest [37]
+[57]     0.0    0.00    0.00       1         setCache [57]
+                0.00    0.00       1/1           isCachingAllowed [40]
+-----------------------------------------------
+                0.00    0.00       1/1           handleGETrequest [37]
+[58]     0.0    0.00    0.00       1         setContentType [58]
                 0.00    0.00       2/3           addHeader [12]
 -----------------------------------------------
-                0.00    0.00       1/1           handleGETrequest [36]
-[58]     0.0    0.00    0.00       1         setData [58]
+                0.00    0.00       1/1           handleGETrequest [37]
+[59]     0.0    0.00    0.00       1         setData [59]
 -----------------------------------------------
-                0.00    0.00       1/1           main [92]
-[59]     0.0    0.00    0.00       1         setDebugMode [59]
+                0.00    0.00       1/1           main [93]
+[60]     0.0    0.00    0.00       1         setDebugMode [60]
 -----------------------------------------------
-                0.00    0.00       1/1           main [92]
-[60]     0.0    0.00    0.00       1         setGeneralCaching [60]
+                0.00    0.00       1/1           main [93]
+[61]     0.0    0.00    0.00       1         setGeneralCaching [61]
 -----------------------------------------------
-                0.00    0.00       1/1           main [92]
-[61]     0.0    0.00    0.00       1         setGeneralTemplateUsage [61]
+                0.00    0.00       1/1           main [93]
+[62]     0.0    0.00    0.00       1         setGeneralTemplateUsage [62]
 -----------------------------------------------
-                0.00    0.00       1/1           main [92]
-[62]     0.0    0.00    0.00       1         setMeasureExec [62]
+                0.00    0.00       1/1           main [93]
+[63]     0.0    0.00    0.00       1         setMeasureExec [63]
 -----------------------------------------------
-                0.00    0.00       1/1           handleGETrequest [36]
-[63]     0.0    0.00    0.00       1         setStatus [63]
+                0.00    0.00       1/1           handleGETrequest [37]
+[64]     0.0    0.00    0.00       1         setStatus [64]
+                0.00    0.00       1/27          createEmptyString [2]
 -----------------------------------------------
-                0.00    0.00       1/1           receiveRequest [54]
-[64]     0.0    0.00    0.00       1         splitHTTPRequest [64]
-                0.00    0.00      13/64          createEmptyCString [1]
-                0.00    0.00      12/12          pushHeaderLine [6]
+                0.00    0.00       1/1           receiveRequest [55]
+[65]     0.0    0.00    0.00       1         splitHTTPRequest [65]
+                0.00    0.00       5/27          createEmptyString [2]
+                0.00    0.00       4/4           pushHeaderLine [10]
 -----------------------------------------------
-                0.00    0.00       1/1           main [92]
-[65]     0.0    0.00    0.00       1         startServer [65]
-                0.00    0.00       1/2           logInfo [18]
-                0.00    0.00       1/1           handleConnection [35]
+                0.00    0.00       1/1           main [93]
+[66]     0.0    0.00    0.00       1         startServer [66]
+                0.00    0.00       1/2           logInfo [19]
+                0.00    0.00       1/1           handleConnection [36]
 -----------------------------------------------
 
  This table describes the call tree of the program, and was sorted by
@@ -535,25 +524,25 @@ notice and this notice are preserved.
 
 Index by function name
 
-  [12] addHeader              [33] getFileName            [49] parseRequest
-  [11] checkFlag              [34] getPort                [50] print_request_debug
-  [15] cleanHeader             [2] getStringLength        [51] print_response_debug
-  [20] cleanHeaderLines       [35] handleConnection        [5] pushHeader
-  [21] cleanHeaderNodePart    [36] handleGETrequest        [6] pushHeaderLine
-  [16] cleanKVNodes           [37] handleRequest          [19] pushHeaderNodePart
-  [22] cleanRequest           [38] hasEmptyField           [7] pushKVNode
-  [23] cleanResponse          [39] isCachingAllowed       [52] readHTTP
-  [24] cleanUp                [40] isCachingEnabled       [53] readRawFile
-   [1] createEmptyCString      [9] isDebugEnabled         [54] receiveRequest
-  [17] createEmptyHeaders     [41] isFirstLine            [55] sendResponse
-  [25] createEmptyResponse    [14] isMeasuringEnabled     [56] setCache
-  [26] createFirstLine        [42] isTemplateEnabled      [57] setContentType
-  [27] createHTTPHead         [43] loadFile               [58] setData
-  [28] createHTTPHeaderPart   [44] loadFileName           [59] setDebugMode
-  [29] createHTTPResponse     [10] logDebug               [60] setGeneralCaching
-   [4] createKVNode           [18] logInfo                [61] setGeneralTemplateUsage
-  [13] createKVPair           [45] parseBody              [62] setMeasureExec
-  [30] createServer           [46] parseFirstLine         [63] setStatus
-  [31] determinContentType     [8] parseHeader            [64] splitHTTPRequest
-   [3] findStr                [47] parseHeaders           [65] startServer
-  [32] findStrAfter           [48] parseQueryParams
+  [12] addHeader              [33] findCharArrAfter       [49] parseQueryParams
+   [9] checkFlag               [4] findStr                [50] parseRequest
+  [16] cleanHeader            [34] getFileName            [51] print_request_debug
+  [21] cleanHeaderLines       [35] getPort                [52] print_response_debug
+  [22] cleanHeaderNodePart    [36] handleConnection        [7] pushHeader
+  [17] cleanKVNodes           [37] handleGETrequest       [10] pushHeaderLine
+  [23] cleanRequest           [38] handleRequest          [20] pushHeaderNodePart
+  [24] cleanResponse          [39] hasEmptyField          [11] pushKVNode
+  [25] cleanUp                [40] isCachingAllowed       [53] readHTTP
+   [1] createEmptyCString     [41] isCachingEnabled       [54] readRawFile
+  [18] createEmptyHeaders      [6] isDebugEnabled         [55] receiveRequest
+  [26] createEmptyResponse    [42] isFirstLine            [56] sendResponse
+   [2] createEmptyString      [14] isMeasuringEnabled     [57] setCache
+  [27] createFirstLine        [43] isTemplateEnabled      [58] setContentType
+  [28] createHTTPHead         [44] loadFile               [59] setData
+  [29] createHTTPHeaderPart   [45] loadFileName           [60] setDebugMode
+  [30] createHTTPResponse      [8] logDebug               [61] setGeneralCaching
+   [5] createKVNode           [19] logInfo                [62] setGeneralTemplateUsage
+  [13] createKVPair           [46] parseBody              [63] setMeasureExec
+  [31] createServer           [47] parseFirstLine         [64] setStatus
+   [3] createString           [15] parseHeader            [65] splitHTTPRequest
+  [32] determinContentType    [48] parseHeaders           [66] startServer
