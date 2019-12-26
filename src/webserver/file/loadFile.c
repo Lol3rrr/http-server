@@ -8,6 +8,6 @@ int loadFile(string* fileName, char** result) {
     return parseTemplate(fileData, size, result);
   }
 
-  (*result) = fileData
+  (*result) = fileData;
   return size;
 }
