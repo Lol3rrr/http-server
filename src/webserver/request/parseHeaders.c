@@ -32,8 +32,6 @@ headers_t* parseHeaders(headerLine_t* headerLines, string** method, string** pat
       int worked = parseHeader(current->line, &key, &value);
       if (worked == 0) {
         pushHeader(head, key, value);
-        free(key);
-        free(value);
       }
     }
 

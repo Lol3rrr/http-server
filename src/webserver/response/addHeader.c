@@ -11,8 +11,5 @@ int addHeader(response* respPtr, char* key, char* value) {
 
   pushHeader(respPtr->headers, keyStr, valueStr);
 
-  free(keyStr);
-  free(valueStr);
-
   return 0;
 }
