@@ -41,4 +41,6 @@ string* createEmptyString(int length);
 
 string* createString(char* content, int length);
 
+char* itoa(int i, char b[]);
+
 #endif
