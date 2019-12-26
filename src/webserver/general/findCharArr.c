@@ -1,17 +1,10 @@
 #include "../headerFiles/general.h"
 
 int findCharArr(char* src, char* key, int srcLength, int keyLength) {
-  if (srcLength < 0) {
-    srcLength = strlen(src);
-  }
-  if (keyLength < 0) {
-    keyLength = strlen(key);
-  }
-
-  for (int i = 0; i < srcLength; i++) {
+  for (int i = 0; 1; i++) {
     for(int j = 0; j < keyLength; j++) {
       int index = i + j;
-      if (index >= srcLength) {
+      if (src[index] == '\0') {
         return -1;
       }
 
