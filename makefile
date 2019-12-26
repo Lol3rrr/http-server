@@ -19,7 +19,7 @@ memcheck_stats:
 	valgrind --leak-check=full --show-leak-kinds=all ./memcheck.out -p 9090 -t
 
 run_profile:
-	make
+	gcc -g -o server.out src/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c
 	valgrind --tool=callgrind --cache-sim=yes --branch-sim=yes --dump-instr=yes --collect-jumps=yes ./server.out -p 9090
 profile:
 	kcachegrind

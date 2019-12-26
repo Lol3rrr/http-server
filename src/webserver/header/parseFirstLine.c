@@ -3,33 +3,30 @@
 // Returns 0 if worked
 int parseFirstLine(string* firstLine, string** methodPtr, string** pathPtr, string** protokolPtr) {
   int start = 0;
-  int end = findCharArr(firstLine->content + start, " ", firstLine->length - start, 1);
+  int end = findCharArrAfter(firstLine->content, " ", firstLine->length, 1, start);
   if (end < 0) {
     return -1;
   }
-  end += start;
   int length = end - start;
   *methodPtr = createEmptyString(length);
   strncpy((*methodPtr)->content, firstLine->content + start, length);
   start = end + 1;
 
 
-  end = findCharArr(firstLine->content + start, " ", firstLine->length - start, 1);
+  end = findCharArrAfter(firstLine->content, " ", firstLine->length, 1, start);
   if (end < 0) {
     return -1;
   }
-  end += start;
   length = end - start;
   *pathPtr = createEmptyString(length);
   strncpy((*pathPtr)->content, firstLine->content + start, length);
   start = end + 1;
 
 
-  end = findCharArr(firstLine->content + start, " ", firstLine->length - start, 1);
+  end = findCharArrAfter(firstLine->content, " ", firstLine->length, 1, start);
   if (end < 0) {
-    end = firstLine->length - start;
+    end = firstLine->length;
   }
-  end += start;
   length = end - start;
   *protokolPtr = createEmptyString(length);
   strncpy((*protokolPtr)->content, firstLine->content + start, length);
