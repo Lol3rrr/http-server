@@ -3,35 +3,39 @@
 string* getFileName(string* folder, string* path) {
   int totalLength = folder->length + path->length;
 
-  string* file = createEmptyString(totalLength);
+  int length = totalLength;
+  char* content = NULL;
 
-  strncpy(file->content, folder->content, folder->length);
-  strncpy(file->content + folder->length, path->content, path->length);
+  // Check if it should default to index.html
+  if (path->length == 0 || path->content[path->length - 1] == '/') {
+    length += 10;
+    content = createEmptyCString(length);
 
-  if (file->content[file->length - 1] == '/') {
-    int nLength = file->length + 10;
-    char* nFile = createEmptyCString(nLength);
+    strncpy(content, folder->content, folder->length);
+    strncpy(content + folder->length, path->content, path->length);
 
-    strncpy(nFile, file->content, file->length);
-    strncpy(nFile + file->length, "index.html", 10);
-
-    free(file->content);
-    file->content = nFile;
-    file->length = nLength;
+    strncpy(content + totalLength, "index.html", 10);
+    
+    string* result = createString(content, length);
+    return result;
   }
 
-  int dot = findStr(file, ".", 1);
+  int dot = findStr(path, ".", 1);
   if (dot == -1) {
-    int nLength = file->length + 5;
-    char* nFile = createEmptyCString(nLength);
+    length += 5;
+    content = createEmptyCString(length);
 
-    strncpy(nFile, file->content, file->length);
-    strncpy(nFile + file->length, ".html", 5);
+    strncpy(content, folder->content, folder->length);
+    strncpy(content + folder->length, path->content, path->length);
 
-    free(file->content);
-    file->content = nFile;
-    file->length = nLength;
+    strncpy(content + totalLength, ".html", 5);
+
+    string* result = createString(content, length);
+    return result;
   }
 
+  string* file = createEmptyString(totalLength);
+  strncpy(content, folder->content, folder->length);
+  strncpy(content + folder->length, path->content, path->length);
   return file;
 }
