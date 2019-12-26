@@ -20,9 +20,11 @@ memcheck_stats:
 
 run_profile:
 	make
-	valgrind --tool=callgrind ./server.out -p 9090
+	valgrind --tool=callgrind --cache-sim=yes --branch-sim=yes --dump-instr=yes --collect-jumps=yes ./server.out -p 9090
 profile:
 	kcachegrind
+rm_profile:
+	rm -rf *.out.*
 
 run_test:
 	make

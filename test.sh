@@ -1,6 +1,6 @@
 #!/bin/bash
 
-./server.out -p 8080 & serverPid=$!
+./server.out -p 8080 -t & serverPid=$!
 speedTester -url=http://localhost:8080/1kb & speedPid=$!
 wait $speedPid
 
