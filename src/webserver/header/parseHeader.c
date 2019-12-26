@@ -15,17 +15,12 @@ int parseHeader(string* headerLine, string** keyPtr, string** valuePtr) {
 
   strncpy(key->content, headerLine->content, keyLength);
 
-  int index = 0;
-  for (int i = 0; i < value->length; i++) {
-    if (i == 0 && headerLine->content[seperator + 1 + i] == ' ') {
-      continue;
-    }
-
-    value->content[index] = headerLine->content[seperator + 1 + i];
-    index++;
+  int start = seperator + 1;
+  if (headerLine->content[start] == ' ') {
+    start++;
+    valueLength--;
   }
-  value->content[index] = '\0';
-  value->length = index;
+  strncpy(value->content, headerLine->content + start, valueLength);
 
   *keyPtr = key;
   *valuePtr = value;
