@@ -3,30 +3,36 @@
 // Returns 0 if worked
 int parseFirstLine(string* firstLine, string** methodPtr, string** pathPtr, string** protokolPtr) {
   int start = 0;
-  int partNumber = 0;
-  for (int i = 0; 1; i++) {
-    if (firstLine->content[i] == ' ' || i == firstLine->length) {
-      int end = i;
-      int length = end - start;
-      string* part = createEmptyString(length);
-      strncpy(part->content, firstLine->content + start, length);
-
-      if (partNumber == 0) {
-        *methodPtr = part;
-      }
-      if (partNumber == 1) {
-        *pathPtr = part;
-      }
-      if (partNumber == 2) {
-        *protokolPtr = part;
-
-        break;
-      }
-
-      start = i + 1;
-      partNumber++;
-    }
+  int end = findCharArr(firstLine->content + start, " ", firstLine->length - start, 1);
+  if (end < 0) {
+    return -1;
   }
+  end += start;
+  int length = end - start;
+  *methodPtr = createEmptyString(length);
+  strncpy((*methodPtr)->content, firstLine->content + start, length);
+  start = end + 1;
+
+
+  end = findCharArr(firstLine->content + start, " ", firstLine->length - start, 1);
+  if (end < 0) {
+    return -1;
+  }
+  end += start;
+  length = end - start;
+  *pathPtr = createEmptyString(length);
+  strncpy((*pathPtr)->content, firstLine->content + start, length);
+  start = end + 1;
+
+
+  end = findCharArr(firstLine->content + start, " ", firstLine->length - start, 1);
+  if (end < 0) {
+    end = firstLine->length - start;
+  }
+  end += start;
+  length = end - start;
+  *protokolPtr = createEmptyString(length);
+  strncpy((*protokolPtr)->content, firstLine->content + start, length);
 
   return 0;
 }
