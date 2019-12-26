@@ -1,8 +1,6 @@
 #include "../headerFiles/response.h"
 
-int createHTTPHeaderPart(response* respPtr, char* spacer, char** result) {
-  int spacerLength = strlen(spacer);
-
+int createHTTPHeaderPart(response* respPtr, char* spacer, int spacerLength, char** result) {
   int headerLength = -1;
   char* headerPart;
 
@@ -34,21 +32,15 @@ int createHTTPHeaderPart(response* respPtr, char* spacer, char** result) {
     }
 
     headerPart = createEmptyCString(headerLength);
-
     int offset = 0;
 
     headerPartNode_t* current = head;
     while (current != NULL) {
-      for (int i = 0; i < current->length; i++) {
-        headerPart[offset] = current->content[i];
+      strncpy(headerPart + offset, current->content, current->length);
+      offset += current->length;
 
-        offset++;
-      }
-
-      for (int i = 0; i < spacerLength; i++) {
-        headerPart[offset] = spacer[i];
-        offset++;
-      }
+      strncpy(headerPart + offset, spacer, spacerLength);
+      offset += spacerLength;
 
       current = current->next;
     }
