@@ -35,7 +35,8 @@ run_debug:
 	./server.out -p 9090 -d
 
 run_speedTest:
-	./test.sh | grep "URL\|Max\|Min\|Average"
+	./test/raw_speedTest.sh | grep "Size\|Max\|Min\|Average"
+	./test/template_speedTest.sh | grep "Size\|Max\|Min\|Average"
 
 docker:
 	docker build -t c-http-server:latest .

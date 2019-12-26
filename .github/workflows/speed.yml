@@ -1,0 +1,40 @@
+name: Speed Testing
+on: [push]
+jobs:
+  raw_speedTest:
+    name: Normal Speed Testing
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull
+        uses: actions/checkout@master
+
+      - name: Compile Binary
+        run: make build
+
+      - name: Install SpeedTester
+        run: |
+          curl -s https://api.github.com/repos/lol3rrr/speedTester/releases/latest | grep "browser_download_url" | grep "linux_x64" | cut -d '"' -f 4 | wget -O speedTester -qi -
+          chmod +x speedTester
+          sudo cp speedTester /usr/bin/speedTester
+
+      - name: Run Speed Test
+        run: ./test/raw_speedTest.sh | grep "Size\|Max\|Min\|Average"
+
+  template_speedTest:
+    name: Template Speed Testing
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull
+        uses: actions/checkout@master
+
+      - name: Compile Binary
+        run: make build
+
+      - name: Install SpeedTester
+        run: |
+          curl -s https://api.github.com/repos/lol3rrr/speedTester/releases/latest | grep "browser_download_url" | grep "linux_x64" | cut -d '"' -f 4 | wget -O speedTester -qi -
+          chmod +x speedTester
+          sudo cp speedTester /usr/bin/speedTester
+
+      - name: Run Speed Test
+        run: ./test/template_speedTest.sh | grep "Size\|Max\|Min\|Average"
