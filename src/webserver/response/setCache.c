@@ -13,7 +13,7 @@ int setCache(response* respPtr, request* reqPtr, int cacheTime) {
   }
 
   char cacheValueStr[12];
-  sprintf(cacheValueStr, "%d", cacheValue);
+  itoa(cacheValue, cacheValueStr);
   int cacheValueLength = strlen(cacheValueStr);
   int preCacheLength = 16;
 

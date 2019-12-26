@@ -12,7 +12,7 @@ int counterToString(counter_t* counter, char** result) {
   tmp[totalLength] = '\0';
 
   char tmpValue[12];
-  sprintf(tmpValue, "%d", counter->count);
+  itoa(counter->count, tmpValue);
 
 
   int offset = 0;

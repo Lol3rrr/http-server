@@ -2,7 +2,7 @@
 
 int createFirstLine(response* respPtr, char** result) {
   char statusCode[12];
-  sprintf(statusCode, "%d", respPtr->statusCode);
+  itoa(respPtr->statusCode, statusCode);
   int statusCodeLength = strlen(statusCode);
 
   int totalLength = respPtr->protokol->length + 1 + statusCodeLength + 1 + respPtr->statusMessage->length + 2;
