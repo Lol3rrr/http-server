@@ -1,3 +1,4 @@
 *.jpg
 *.out
 prof_output
+*.out.*

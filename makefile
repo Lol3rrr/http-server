@@ -18,9 +18,11 @@ memcheck_stats:
 	gcc -g -o memcheck.out -DPROMETHEUS src/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c
 	valgrind --leak-check=full --show-leak-kinds=all ./memcheck.out -p 9090 -t
 
+run_profile:
+	make
+	valgrind --tool=callgrind ./server.out -p 9090
 profile:
-	gcc -pg -o profile.out src/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c
-	./profile.out -p 9090
+	kcachegrind
 
 run_test:
 	make
