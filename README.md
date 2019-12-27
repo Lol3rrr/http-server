@@ -37,7 +37,9 @@ When a specified file can not be found it simply removes the tag.
 ## Implementing into existing project
 
 ### Adding it to the project
-'All' you need is to add the 'src/webserver' folder to your project and include the 'server.h' header, this should include everything you need
+'All' you need is to add the 'src/webserver' folder to your project and include the 'server.h' header, this should include everything you need.
+
+An example for this can be seen in the 'examples' directory, where you can also find different use cases.
 
 ### Starting the Webserver
 To create a Server you simple need to run:
@@ -55,17 +57,29 @@ Note: The `startServer()` function is going to block the Thread so if you want t
 * You can enable the Templating System by running `setGeneralTemplateUsage(1);` (this only affects the serving of static files)
 
 ### Adding custom Paths
-Note: This feature is still in development so it very likely still has some problems
+Note: This feature is still in development, so it can still have some problems or unfinished parts.
 To add a Custom Path simply run `addCustomPath(Method, Path, function);`
 This will route every Request with the same Path as specified to the given function.
 
 The function should look something like this
 `int name(request* req, response* resp);`
-and return a 0 if everything worked or a value that is not 0 if something went wrong
+and return a 0 if everything worked or a value that is smaller than 0 if something went wrong
+
+### Important Functions
+`setStatus(response, statusCode, statusMessage);`
+  * response: A pointer to the response struct
+  * statusCode: An integer that represents the Status Code for the Response (ex. 200, 404, etc.)
+  * statusMessage: The corresponding Status Message to the Status Code
+`setData(response, responseData, dataLength);`
+  * response: A pointer to the response struct
+  * responseData: A char* that contains the Response-Body, the value it points to needs to persist outside of your function and will be freed for you afterwards
+  * dataLength: The Length of the responseData, as an integer
+`setContentType(response, contentType, contentLength)`
+  * response: A pointer to the response struct
+  * contentType: A char* that contains the Content-Type, this is only used for the 'Content-Type' Header
+  * contentLength: The Length of the content itself, as an integer
+
 
 ## Future - Plans
-* Make it possible to simply add it to existing programs
-  * Parse the request body
-  * Parse the Query-params of the Request
-  * Also POST-Requests
+* Make it simpler to add it to existing programs
 * Fully add the Cache from the HTTP-Spec

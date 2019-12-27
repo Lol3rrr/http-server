@@ -20,12 +20,13 @@ int handleRequest(int conFd, request* reqPtr) {
     worked = handleGETrequest(reqPtr, respPtr);
   }
 
-  if (worked != 0) {
+  if (worked < 0) {
+    sendInternalError(conFd, reqPtr);
+    cleanUp(reqPtr, respPtr);
+    return -1;
+  }else if (worked > 0) {
     sendNotFound(conFd, reqPtr);
     cleanUp(reqPtr, respPtr);
-
-    logDebug("[handleRequest] Sent not found");
-
     return -1;
   }
 

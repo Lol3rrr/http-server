@@ -26,7 +26,7 @@ int callCustomPath(string* method, string* path, request* reqPtr, response* resp
   pathNode_t* node;
   int found = findPathNode(customPaths, method, path, &node);
   if (found != 0)
-    return -1;
+    return 1;
 
   return node->funcPtr(reqPtr, respPtr);
 }
