@@ -16,10 +16,10 @@ int handleGETrequest(request* req, response* resp) {
   char* data;
   int size = loadFile(fileName, &data);
   if (size < 0) {
-    logError("Loading Data: '%d' Loading Filename: '%s' \n", size, fileName);
+    logError("Loading Data: '%d' Loading Filename: '%s' \n", size, fileName->content);
 
+    free(fileName->content);
     free(fileName);
-    free(data);
 
     return 1;
   }
