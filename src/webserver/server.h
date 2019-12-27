@@ -37,7 +37,8 @@ void addCustomPath(char* method, char* path, int (*funcPtr)(request* reqPtr, res
 int callCustomPath(string* method, string* path, request* reqPtr, response* respPtr);
 
 int sendResponse(int connection, response* respPtr);
-int sendNotFound(int connection, request* reqPtr);
+void sendNotFound(int connection, request* reqPtr);
+void sendInternalError(int connection, request* reqPtr);
 
 int determinContentType(string* path, char** result);
 
