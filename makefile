@@ -12,11 +12,11 @@ build_prometheus_static:
 
 memcheck:
 	gcc -g -o memcheck.out src/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c
-	valgrind --leak-check=full --show-leak-kinds=all ./memcheck.out -p 9090 -t -d
+	valgrind --leak-check=full --show-leak-kinds=all ./memcheck.out -p 9090 -t -c
 
 memcheck_stats:
 	gcc -g -o memcheck.out -DPROMETHEUS src/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c
-	valgrind --leak-check=full --show-leak-kinds=all ./memcheck.out -p 9090 -t
+	valgrind --leak-check=full --show-leak-kinds=all ./memcheck.out -p 9090 -t -c
 
 run_profile:
 	gcc -g -o profile.out src/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c

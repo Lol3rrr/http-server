@@ -5,5 +5,10 @@ int getHeader(headers_t* headers, char* key, kvNode_t** result) {
   string* keyStr = createEmptyString(keyLength);
   memcpy(keyStr->content, key, keyLength);
 
-  return getKV(headers->kvNodes, keyStr, result);
+  int worked = getKV(headers->kvNodes, keyStr, result);
+
+  free(keyStr->content);
+  free(keyStr);
+
+  return worked;
 }
