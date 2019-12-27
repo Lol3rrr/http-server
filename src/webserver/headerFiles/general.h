@@ -9,6 +9,7 @@ typedef struct string {
   int length;
 } string;
 
+extern const char digit[];
 
 int debug;
 int caching;

@@ -13,7 +13,7 @@ int checkForKey(char* src, char* key, int i, int keyLength) {
 int findCharArr(char* src, char* key, int srcLength, int keyLength) {
   for (int i = 0; i < srcLength - keyLength; i++) {
     int result = checkForKey(src, key, i, keyLength);
-    if (result == -1) {
+    if (result < 0) {
       continue;
     }
 
