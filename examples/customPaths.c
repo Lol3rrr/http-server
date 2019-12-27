@@ -17,6 +17,8 @@ int handleAll(request* reqPtr, response* respPtr) {
   setStatus(respPtr, 200, "OK");
   // and by setting the Data of the Response to the Data we just created/loaded at the top
   setData(respPtr, responseData, length); // The Data needs to still exist after this function exits, so local variables will not work
+  // and by setting the Content Type
+  setContentType(respPtr, "text", length);
 
   // Returns 0 to signal that everything worked
   return 0;
@@ -36,6 +38,8 @@ int handlePing(request* reqPtr, response* respPtr) {
   setStatus(respPtr, 200, "OK");
   // and by setting the Data of the Response to the Data we just created/loaded at the top
   setData(respPtr, responseData, length); // The Data needs to still exist after this function exits, so local variables will not work
+  // and by setting the Content Type
+  setContentType(respPtr, "text", length);
 
   // Returns 0 to signal that everything worked
   return 0;
