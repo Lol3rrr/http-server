@@ -5,10 +5,12 @@ int sendResponse(int connection, response* respPtr) {
   string* bodyResponse;
   int worked = createHTTPResponse(respPtr, &headResponse, &bodyResponse);
 
-  send(connection, headResponse->content, headResponse->length, MSG_DONTWAIT | MSG_MORE);
+  int flags = (bodyResponse != NULL) ? MSG_DONTWAIT | MSG_MORE : 0;
 
-  if (bodyResponse != 0) {
-    send(connection, bodyResponse->content, bodyResponse->length, MSG_DONTWAIT);
+  send(connection, headResponse->content, headResponse->length, flags);
+
+  if (bodyResponse != NULL) {
+    send(connection, bodyResponse->content, bodyResponse->length, 0);
   }
 
   free(headResponse->content);

@@ -46,7 +46,7 @@ void createMetricsEndpoint(int port) {
       string* headResponse;
       string* bodyResponse;
       int respSize = createHTTPResponse(resp, &headResponse, &bodyResponse);
-      send(session_fd, headResponse->content, headResponse->length, MSG_MORE);
+      send(session_fd, headResponse->content, headResponse->length, MSG_DONTWAIT | MSG_MORE);
       free(headResponse->content);
       free(headResponse);
       if (bodyResponse != 0) {
