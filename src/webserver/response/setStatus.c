@@ -5,5 +5,5 @@ int setStatus(response* respPtr, int statusCode, char* statusMessage) {
 
   int statusLength = strlen(statusMessage);
   respPtr->statusMessage = createEmptyString(statusLength);
-  strncpy(respPtr->statusMessage->content, statusMessage, statusLength);
+  memcpy(respPtr->statusMessage->content, statusMessage, statusLength);
 }

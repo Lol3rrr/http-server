@@ -7,7 +7,7 @@ response* createResponse(int statusCode, char* statusMessage, char* protokol) {
 
   int statusLength = strlen(statusMessage);
   resp->statusMessage = createEmptyString(statusLength);
-  strncpy(resp->statusMessage->content, statusMessage, statusLength);
+  memcpy(resp->statusMessage->content, statusMessage, statusLength);
 
   return resp;
 }

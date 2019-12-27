@@ -8,11 +8,11 @@ string* replaceStr(char* src, char* replacement, int start, int lengthToReplace)
   string* result = createEmptyString(totalLength);
 
   int contentOffset = 0;
-  strncpy(result->content + contentOffset, src, start);
+  memcpy(result->content + contentOffset, src, start);
   contentOffset += start;
-  strncpy(result->content + contentOffset, replacement, replacementLength);
+  memcpy(result->content + contentOffset, replacement, replacementLength);
   contentOffset += replacementLength;
-  strncpy(result->content + contentOffset, src + start + lengthToReplace, srcLength - (start + lengthToReplace));
+  memcpy(result->content + contentOffset, src + start + lengthToReplace, srcLength - (start + lengthToReplace));
 
   return result;
 }

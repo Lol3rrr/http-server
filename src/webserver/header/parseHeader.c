@@ -13,14 +13,14 @@ int parseHeader(string* headerLine, string** keyPtr, string** valuePtr) {
   string* key = createEmptyString(keyLength);
   string* value = createEmptyString(valueLength);
 
-  strncpy(key->content, headerLine->content, keyLength);
+  memcpy(key->content, headerLine->content, keyLength);
 
   int start = seperator + 1;
   if (headerLine->content[start] == ' ') {
     start++;
     valueLength--;
   }
-  strncpy(value->content, headerLine->content + start, valueLength);
+  memcpy(value->content, headerLine->content + start, valueLength);
 
   *keyPtr = key;
   *valuePtr = value;

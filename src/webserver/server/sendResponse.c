@@ -1,10 +1,17 @@
 #include "../server.h"
 
 int sendResponse(int connection, response* respPtr) {
-  char* httpResponse;
-  int respSize = createHTTPResponse(respPtr, &httpResponse);
+  string* headResponse;
+  string* bodyResponse;
+  int worked = createHTTPResponse(respPtr, &headResponse, &bodyResponse);
 
-  send(connection, httpResponse, respSize, 0);
+  send(connection, headResponse->content, headResponse->length, MSG_DONTWAIT | MSG_MORE);
 
-  free(httpResponse);
+  if (bodyResponse != 0) {
+    send(connection, bodyResponse->content, bodyResponse->length, MSG_DONTWAIT);
+  }
+
+  free(headResponse->content);
+  free(headResponse);
+  free(bodyResponse);
 }

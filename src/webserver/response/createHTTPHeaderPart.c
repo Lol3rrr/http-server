@@ -36,10 +36,10 @@ int createHTTPHeaderPart(response* respPtr, char* spacer, int spacerLength, char
 
     headerPartNode_t* current = head;
     while (current != NULL) {
-      strncpy(headerPart + offset, current->content, current->length);
+      memcpy(headerPart + offset, current->content, current->length);
       offset += current->length;
 
-      strncpy(headerPart + offset, spacer, spacerLength);
+      memcpy(headerPart + offset, spacer, spacerLength);
       offset += spacerLength;
 
       current = current->next;

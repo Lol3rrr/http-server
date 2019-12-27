@@ -6,7 +6,7 @@ response* createEmptyResponse(char* protokol) {
 
   int protokolLength = strlen(protokol);
   resp->protokol = createEmptyString(protokolLength);
-  strncpy(resp->protokol->content, protokol, protokolLength);
+  memcpy(resp->protokol->content, protokol, protokolLength);
 
   resp->dataSize = -1;
 

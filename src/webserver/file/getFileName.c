@@ -11,11 +11,11 @@ string* getFileName(string* folder, string* path) {
     length += 10;
     content = createEmptyCString(length);
 
-    strncpy(content, folder->content, folder->length);
-    strncpy(content + folder->length, path->content, path->length);
+    memcpy(content, folder->content, folder->length);
+    memcpy(content + folder->length, path->content, path->length);
 
-    strncpy(content + totalLength, "index.html", 10);
-    
+    memcpy(content + totalLength, "index.html", 10);
+
     string* result = createString(content, length);
     return result;
   }
@@ -25,17 +25,19 @@ string* getFileName(string* folder, string* path) {
     length += 5;
     content = createEmptyCString(length);
 
-    strncpy(content, folder->content, folder->length);
-    strncpy(content + folder->length, path->content, path->length);
+    memcpy(content, folder->content, folder->length);
+    memcpy(content + folder->length, path->content, path->length);
 
-    strncpy(content + totalLength, ".html", 5);
+    memcpy(content + totalLength, ".html", 5);
 
     string* result = createString(content, length);
     return result;
   }
 
-  string* file = createEmptyString(totalLength);
-  strncpy(content, folder->content, folder->length);
-  strncpy(content + folder->length, path->content, path->length);
+  content = createEmptyCString(length);
+  memcpy(content, folder->content, folder->length);
+  memcpy(content + folder->length, path->content, path->length);
+
+  string* file = createString(content, length);
   return file;
 }

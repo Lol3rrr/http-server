@@ -1,20 +1,14 @@
 #include "../headerFiles/response.h"
 
-int createHTTPResponse(response* respPtr, char** result) {
+int createHTTPResponse(response* respPtr, string** headResult, string** bodyResult) {
   char* head;
   int headSize = createHTTPHead(respPtr, &head);
+  *headResult = createString(head, headSize);
 
-  int contentLength = respPtr->dataSize;
+  *bodyResult = NULL;
+  if (respPtr->dataSize > 0) {
+    *bodyResult = createString(respPtr->data, respPtr->dataSize);
+  }
 
-  int totalLength = headSize + contentLength;
-
-  char* resp = createEmptyCString(totalLength);
-  strncpy(resp, head, headSize);
-  strncpy(resp + headSize, respPtr->data, contentLength);
-
-  free(head);
-
-  *result = resp;
-
-  return totalLength;
+  return 0;
 }

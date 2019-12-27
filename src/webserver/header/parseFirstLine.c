@@ -9,7 +9,7 @@ int parseFirstLine(string* firstLine, string** methodPtr, string** pathPtr, stri
   }
   int length = end - start;
   *methodPtr = createEmptyString(length);
-  strncpy((*methodPtr)->content, firstLine->content + start, length);
+  memcpy((*methodPtr)->content, firstLine->content + start, length);
   start = end + 1;
 
 
@@ -19,7 +19,7 @@ int parseFirstLine(string* firstLine, string** methodPtr, string** pathPtr, stri
   }
   length = end - start;
   *pathPtr = createEmptyString(length);
-  strncpy((*pathPtr)->content, firstLine->content + start, length);
+  memcpy((*pathPtr)->content, firstLine->content + start, length);
   start = end + 1;
 
 
@@ -29,7 +29,7 @@ int parseFirstLine(string* firstLine, string** methodPtr, string** pathPtr, stri
   }
   length = end - start;
   *protokolPtr = createEmptyString(length);
-  strncpy((*protokolPtr)->content, firstLine->content + start, length);
+  memcpy((*protokolPtr)->content, firstLine->content + start, length);
 
   return 0;
 }
