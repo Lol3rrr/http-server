@@ -16,7 +16,7 @@ headerLine_t* splitHTTPRequest(char** buffer, int bufferLength) {
       int length = end - start;
 
       string* line = createEmptyString(length);
-      strncpy(line->content, message + start, length);
+      memcpy(line->content, message + start, length);
 
       if (first) {
         head->line = line;

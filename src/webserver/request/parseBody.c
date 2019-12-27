@@ -3,7 +3,7 @@
 int parseBody(char* rawRequest, int rawLength, char** result) {
   int length = -1;
 
-  int startOfBody = findStrAfter(rawRequest, "\r\n\r\n", -1, -1, 4);
+  int startOfBody = findCharArrAfter(rawRequest, "\r\n\r\n", rawLength, 4, 4);
   if (startOfBody == -1)
     return -1;
 

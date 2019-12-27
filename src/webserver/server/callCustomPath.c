@@ -1,24 +1,17 @@
 #include "../server.h"
 
-int comparePath(string* givenPath, char* requestedPath) {
-  int requestedLength = getStringLength(requestedPath);
-  int difference = givenPath->length - requestedLength;
-  if (difference != 0)
+int compareStringChar(string* str, char* charArr) {
+  int charArrLength = strlen(charArr);
+  if ((str->length - charArrLength) != 0)
     return -1;
 
-  int length = givenPath->length;
-  for (int i = 0; i < length; i++) {
-    if (givenPath->content[i] != requestedPath[i])
-      return -1;
-  }
-
-  return 0;
+  return strcmp(str->content, charArr);
 }
 
 int findPathNode(pathNode_t* head, string* method, string* path, pathNode_t** result) {
   pathNode_t* current = head;
   while (current != NULL) {
-    if (strcmp(current->method, method->content) == 0 && comparePath(path, current->path) == 0) {
+    if (stringCmp(method, current->method) == 0 && stringCmp(path, current->path) == 0) {
       (*result) = current;
       return 0;
     }

@@ -1,7 +1,7 @@
 #include "../server.h"
 
 int determinContentType(string* path, char** result) {
-  int dot = findStr(path->content, ".", path->length, 1);
+  int dot = findStr(path, ".", 1);
 
   if(dot == -1) {
     (*result) = (char*) malloc(24 * sizeof(char));
@@ -12,7 +12,7 @@ int determinContentType(string* path, char** result) {
 
   int extensionLength = path->length - dot;
   char* extension = createEmptyCString(extensionLength);
-  strncpy(extension, path->content + dot + 1, extensionLength);
+  memcpy(extension, path->content + dot + 1, extensionLength);
 
   if(strcmp(extension, "html") == 0) {
     int size = strlen("text/html;charset=UTF-8");

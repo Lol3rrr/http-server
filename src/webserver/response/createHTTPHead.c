@@ -8,13 +8,14 @@ int createHTTPHead(response* respPtr, char** result) {
   int firstLineLength = createFirstLine(respPtr, &firstLine);
 
   char* headerPart;
-  int headerLength = createHTTPHeaderPart(respPtr, spacer, &headerPart);
+  int headerLength = createHTTPHeaderPart(respPtr, spacer, spacerLength, &headerPart);
 
   int totalLength = firstLineLength + headerLength + spacerLength;
   char* head = createEmptyCString(totalLength);
-  strncpy(head, firstLine, firstLineLength);
-  strncpy(head + firstLineLength, headerPart, headerLength);
-  strncpy(head + firstLineLength + headerLength, spacer, spacerLength);
+
+  memcpy(head, firstLine, firstLineLength);
+  memcpy(head + firstLineLength, headerPart, headerLength);
+  memcpy(head + firstLineLength + headerLength, spacer, spacerLength);
 
   free(firstLine);
   free(headerPart);

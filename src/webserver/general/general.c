@@ -1,5 +1,7 @@
 #include "../headerFiles/general.h"
 
+char const digit[] = "0123456789";
+
 void setDebugMode(int value) {
   debug = value;
 }

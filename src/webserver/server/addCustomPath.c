@@ -1,31 +1,29 @@
 #include "../server.h"
 
-void pushPath(char* method, char* path, int (*funcPtr)(request* reqPtr, response* respPtr)) {
+void addCustomPath(char* rawMethod, char* rawPath, int (*funcPtr)(request* reqPtr, response* respPtr)) {
+  int methodLength = strlen(rawMethod);
+  string* method = createEmptyString(methodLength);
+  memcpy(method->content, rawMethod, methodLength);
+
+  int pathLength = strlen(rawPath);
+  string* path = createEmptyString(pathLength);
+  memcpy(path->content, rawPath, pathLength);
+
+  pathNode_t* nPath = (pathNode_t*) malloc(1 * sizeof(pathNode_t));
+  nPath->method = method;
+  nPath->path = path;
+  nPath->funcPtr = funcPtr;
+  nPath->next = NULL;
+
+  if (!customPathEnabled) {
+    customPaths = nPath;
+    customPathEnabled = 1;
+    return;
+  }
+
   pathNode_t* current = customPaths;
   while (current->next != NULL) {
     current = current->next;
   }
-
-  current->next = (pathNode_t*) malloc(1 * sizeof(pathNode_t));
-  current->next->method = method;
-  current->next->path = path;
-  current->next->funcPtr = funcPtr;
-  current->next->next = NULL;
-}
-
-void addPath(char* method, char* path, int (*funcPtr)(request* reqPtr, response* respPtr)) {
-  customPaths = (pathNode_t*) malloc(1 * sizeof(pathNode_t));
-  customPaths->method = method;
-  customPaths->path = path;
-  customPaths->funcPtr = funcPtr;
-  customPaths->next = NULL;
-}
-
-void addCustomPath(char* method, char* path, int (*funcPtr)(request* reqPtr, response* respPtr)) {
-  if (customPathEnabled)
-    pushPath(method, path, funcPtr);
-  else
-    addPath(method, path, funcPtr);
-
-  customPathEnabled = 1;
+  current->next = nPath;
 }

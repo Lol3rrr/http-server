@@ -1,7 +1,7 @@
 #include "../headerFiles/request.h"
 
 int isFirstLine(string* line) {
-  int seperator = findStr(line->content, ":", line->length, 1);
+  int seperator = findStr(line, ":", 1);
   if (seperator == -1)
     return 1;
 
@@ -32,8 +32,6 @@ headers_t* parseHeaders(headerLine_t* headerLines, string** method, string** pat
       int worked = parseHeader(current->line, &key, &value);
       if (worked == 0) {
         pushHeader(head, key, value);
-        free(key);
-        free(value);
       }
     }
 

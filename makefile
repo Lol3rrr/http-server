@@ -18,9 +18,13 @@ memcheck_stats:
 	gcc -g -o memcheck.out -DPROMETHEUS src/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c
 	valgrind --leak-check=full --show-leak-kinds=all ./memcheck.out -p 9090 -t
 
+run_profile:
+	gcc -g -o profile.out src/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c
+	valgrind --tool=callgrind --cache-sim=yes --branch-sim=yes --dump-instr=yes --collect-jumps=yes ./profile.out -p 9090
 profile:
-	gcc -pg -o profile.out src/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c
-	./profile.out -p 9090
+	kcachegrind
+rm_profile:
+	rm -rf *.out.*
 
 run_test:
 	make
@@ -30,12 +34,9 @@ run_debug:
 	make
 	./server.out -p 9090 -d
 
-run_measure:
-	make
-	./server.out -p 9090 -m
-
 run_speedTest:
-	./test.sh | grep "URL\|Max\|Min\|Average"
+	./test/raw_speedTest.sh | grep "Size\|Max\|Min\|Average"
+	./test/template_speedTest.sh | grep "Size\|Max\|Min\|Average"
 
 docker:
 	docker build -t c-http-server:latest .

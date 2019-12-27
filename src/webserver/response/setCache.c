@@ -13,15 +13,15 @@ int setCache(response* respPtr, request* reqPtr, int cacheTime) {
   }
 
   char cacheValueStr[12];
-  sprintf(cacheValueStr, "%d", cacheValue);
-  int cacheValueLength = getStringLength(cacheValueStr);
+  itoa(cacheValue, cacheValueStr);
+  int cacheValueLength = strlen(cacheValueStr);
   int preCacheLength = 16;
 
   int cacheHeaderLength = cacheValueLength + preCacheLength;
   char* cacheHeader = createEmptyCString(cacheHeaderLength);
 
-  strncpy(cacheHeader, "public, max-age=", 16);
-  strncpy(cacheHeader + 16, cacheValueStr, cacheValueLength);
+  memcpy(cacheHeader, "public, max-age=", 16);
+  memcpy(cacheHeader + 16, cacheValueStr, cacheValueLength);
 
   addHeader(respPtr, "Cache-Control", cacheHeader);
 }

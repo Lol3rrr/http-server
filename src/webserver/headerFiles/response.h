@@ -47,9 +47,9 @@ int cleanResponse(response* respPtr);
 
 int createFirstLine(response* respPtr, char** result);
 
-int createHTTPHeaderPart(response* respPtr, char* spacer, char** result);
+int createHTTPHeaderPart(response* respPtr, char* spacer, int spacerLength, char** result);
 
 int createHTTPHead(response* respPtr, char** result);
-int createHTTPResponse(response* respPtr, char** result);
+int createHTTPResponse(response* respPtr, string** headResult, string** bodyResult);
 
 #endif

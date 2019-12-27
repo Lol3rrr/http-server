@@ -5,10 +5,9 @@ int loadFile(string* fileName, char** result) {
   int size = readRawFile(fileName->content, &fileData);
 
   if (isTemplateEnabled()) {
-    size = parseTemplate(fileData, size, result);
-  }else {
-    (*result) = fileData;
+    return parseTemplate(fileData, size, result);
   }
 
+  (*result) = fileData;
   return size;
 }

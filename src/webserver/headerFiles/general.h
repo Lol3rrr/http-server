@@ -9,6 +9,7 @@ typedef struct string {
   int length;
 } string;
 
+extern const char digit[];
 
 int debug;
 int caching;
@@ -27,9 +28,11 @@ int isCachingEnabled();
 void setGeneralTemplateUsage(int value);
 int isTemplateEnabled();
 
-int getStringLength(char* src);
-int findStr(char* src, char* key, int srcLength, int keyLength);
-int findStrAfter(char* src, char* key, int srcLength, int keyLength, int starting);
+int findCharArr(char* src, char* key, int srcLength, int keyLength);
+int findCharArrAfter(char* src, char* key, int srcLength, int keyLength, int starting);
+
+int stringCmp(string* str1, string* str2);
+int findStr(string* src, char* key, int keyLength);
 
 string* getSubstring(char* src, int start, int length);
 string* replaceStr(char* src, char* replacement, int start, int lengthToReplace);
@@ -38,5 +41,7 @@ char* createEmptyCString(int length);
 string* createEmptyString(int length);
 
 string* createString(char* content, int length);
+
+char* itoa(int i, char b[]);
 
 #endif

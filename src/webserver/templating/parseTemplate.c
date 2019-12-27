@@ -10,10 +10,10 @@ int parseTemplate(char* rawContent, int rawContentLength, char** result) {
   if (content == NULL)
     return -1;
 
-  int includeStart = findStr(content, "<--include", contentLength, 10);
+  int includeStart = findCharArr(content, "<--include", contentLength, 10);
   while (includeStart != -1) {
     int includeInnerStart = includeStart + 10;
-    int includeEnd = findStrAfter(content, "/>", contentLength, 2, includeStart);
+    int includeEnd = findCharArrAfter(content, "/>", contentLength, 2, includeStart);
     includeEnd += 2;
 
     int includeStrLength = (includeEnd - includeStart);
@@ -45,7 +45,7 @@ int parseTemplate(char* rawContent, int rawContentLength, char** result) {
     free(statement);
     free(data);
 
-    includeStart = findStr(content, "<--include", contentLength, 10);
+    includeStart = findCharArr(content, "<--include", contentLength, 10);
   }
 
   (*result) = content;
