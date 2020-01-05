@@ -1,7 +1,7 @@
 #include "../headerFiles/request.h"
 
 // Returns 0 if worked
-int parseRequest(headerLine_t* headerLines, request** result) {
+int parseRequest(char* headerPart, int headerLength, request** result) {
   clock_t startTime = clock();
 
   request* req = (request*) malloc(1 * sizeof(request));
@@ -13,7 +13,7 @@ int parseRequest(headerLine_t* headerLines, request** result) {
   req->bodyLength = -1;
   req->params = NULL;
 
-  headers_t* head = parseHeaders(headerLines, &(req->method), &(req->path), &(req->protokol));
+  headers_t* head = parseHeaders(headerPart, headerLength, &(req->method), &(req->path), &(req->protokol));
   req->headers = head;
 
   if (hasEmptyField(req)) {
