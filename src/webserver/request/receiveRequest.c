@@ -13,15 +13,12 @@ int receiveRequest(int conFd, request** reqPtr) {
 
   logDebug("[receiveRequest] Read %d Bytes \n", readBytes);
 
-  headerLine_t* head = splitHTTPRequest(&readBuffer, readBytes);
-
   char* body;
   int bodySize = parseBody(readBuffer, readBytes, &body);
 
   request* req;
-  int worked = parseRequest(head, &req);
+  int worked = parseRequest(readBuffer, readBytes, &req);
 
-  cleanHeaderLines(head);
   free(readBuffer);
 
   if (worked != 0) {

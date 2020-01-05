@@ -24,6 +24,9 @@ void cleanHeader(headers_t* headers);
 int getHeader(headers_t* headers, char* key, kvNode_t** result);
 
 int parseHeader(string* headerLine, string** keyPtr, string** valuePtr);
-int parseFirstLine(string* firstLine, string** methodPtr, string** pathPtr, string** protokolPtr);
+
+int parseFirstLine(char* line, int length, string** methodPtr, string** pathPtr, string** protokolPtr);
+void parseLine(char* line, int length, headers_t** headers);
+headers_t* parseHeaders(char* message, int length, string** method, string** path, string** protokol);
 
 #endif
