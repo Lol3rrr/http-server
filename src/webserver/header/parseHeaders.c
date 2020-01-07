@@ -1,6 +1,6 @@
 #include "../headerFiles/header.h"
 
-headers_t* parseHeaders(char* message, int length, string** method, string** path, string** protokol) {
+headers_t* parseHeaders(char* message, int length, string** method, string** path, string** protokol, int* headerEnd) {
   headers_t* result = createEmptyHeaders();
 
   int firstLineEnd = findCharArr(message, "\r\n", length, 2);
@@ -12,19 +12,32 @@ headers_t* parseHeaders(char* message, int length, string** method, string** pat
 
   char* headers = message + firstLineEnd + 2;
   int headersLength = length - (firstLineEnd + 2);
-  int end = findCharArr(headers, "\r\n", headersLength, 2);
-  while (end > 0) {
-    char* line = headers;
-    int lineLength = end;
 
-    parseLine(line, lineLength, &result);
+  int keyStart = 0;
+  int keyEnd = 0;
+  for (int i = 0; i < headersLength - 1; i++) {
+    if (headers[i] == ':' && keyStart == keyEnd) {
+      keyEnd = i;
+      continue;
+    }
 
-    headers += end + 2;
-    headersLength -= end + 2;
+    if (headers[i] == '\r' && headers[i+1] == '\n') {
+      int keyLength = keyEnd - keyStart;
+      int valueLength = i - keyEnd - 2;
 
-    end = findCharArr(headers, "\r\n", headersLength, 2);
+      if (keyLength == 0 || valueLength == 0) {
+        *headerEnd = (firstLineEnd + 2) + (i + 2);
+        break;
+      }
+
+      string* key = getSubstring(headers, keyStart, keyLength);
+      string* value = getSubstring(headers, keyEnd + 2, valueLength);
+      pushHeader(result, key, value);
+
+      keyStart = i + 2;
+      keyEnd = keyStart;
+    }
   }
-
 
   return result;
 }
