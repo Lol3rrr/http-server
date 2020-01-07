@@ -13,24 +13,15 @@ int receiveRequest(int conFd, request** reqPtr) {
 
   logDebug("[receiveRequest] Read %d Bytes \n", readBytes);
 
-  char* body;
-  int bodySize = parseBody(readBuffer, readBytes, &body);
-
   request* req;
   int worked = parseRequest(readBuffer, readBytes, &req);
-
-  free(readBuffer);
-
   if (worked != 0) {
     logDebug("[receiveRequest] Error parsing Request \n");
 
     return 1;
   }
 
-  if (bodySize > 0) {
-    req->body = body;
-    req->bodyLength = bodySize;
-  }
+  free(readBuffer);
 
   char* nPath;
   queryParams_t* params = parseQueryParams(req->path, &nPath);

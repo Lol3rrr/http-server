@@ -13,8 +13,18 @@ int parseRequest(char* headerPart, int headerLength, request** result) {
   req->bodyLength = -1;
   req->params = NULL;
 
-  headers_t* head = parseHeaders(headerPart, headerLength, &(req->method), &(req->path), &(req->protokol));
+  int headerEnd = -1;
+  headers_t* head = parseHeaders(headerPart, headerLength, &(req->method), &(req->path), &(req->protokol), &headerEnd);
   req->headers = head;
+
+  if (headerEnd != -1 && headerEnd < headerLength) {
+    int bodySize = headerLength - headerEnd;
+    char* body = createEmptyCString(bodySize);
+    memcpy(body, headerPart + headerEnd, bodySize);
+
+    req->body = body;
+    req->bodyLength = bodySize;
+  }
 
   if (hasEmptyField(req)) {
     logDebug("[parseRequest] Not everything has been set \n");

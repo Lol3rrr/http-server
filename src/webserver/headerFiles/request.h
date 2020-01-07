@@ -29,7 +29,6 @@ int parseRequest(char* headerPart, int headerLength, request** result);
 int cleanRequest(request* reqPtr);
 
 int readHTTP(int socketFd, char** buffer, int bufferSize);
-int parseBody(char* rawRequest, int rawLength, char** result);
 
 int receiveRequest(int conFd, request** reqPtr);
 
