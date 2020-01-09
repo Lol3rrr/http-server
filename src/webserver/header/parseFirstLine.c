@@ -1,35 +1,35 @@
 #include "../headerFiles/header.h"
 
-// Returns 0 if worked
-int parseFirstLine(char* line, int lineLength, string** methodPtr, string** pathPtr, string** protokolPtr) {
-  int start = 0;
-  int end = findCharArrAfter(line, " ", lineLength, 1, start);
-  if (end < 0) {
-    return -1;
+// Returns the last index of the first Line
+// Or -1 if a problem occured
+int parseFirstLine(char* header, int headerLength, string** methodPtr, string** pathPtr, string** protokolPtr) {
+  string** parts[3] = {methodPtr, pathPtr, protokolPtr};
+
+  int currentPart = 0;
+
+  int partStart = 0;
+  int partEnd = 0;
+  for (int i = 0; i < headerLength - 1 && currentPart < 3; i++) {
+    if (header[i] == ' ' || header[i] == '\r') {
+      int partLength = i - partStart;
+      if (partLength <= 0) {
+        return -1;
+      }
+
+      string* part = createEmptyString(partLength);
+      memcpy(part->content, header + partStart, partLength);
+
+      partStart = i + 1;
+
+      *(parts[currentPart]) = part;
+
+      currentPart++;
+    }
+
+    if (header[i] == '\r' && header[i + 1] == '\n') {
+      return i + 2;
+    }
   }
-  int length = end - start;
-  *methodPtr = createEmptyString(length);
-  memcpy((*methodPtr)->content, line + start, length);
-  start = end + 1;
 
-
-  end = findCharArrAfter(line, " ", lineLength, 1, start);
-  if (end < 0) {
-    return -1;
-  }
-  length = end - start;
-  *pathPtr = createEmptyString(length);
-  memcpy((*pathPtr)->content, line + start, length);
-  start = end + 1;
-
-
-  end = findCharArrAfter(line, " ", lineLength, 1, start);
-  if (end < 0) {
-    end = lineLength;
-  }
-  length = end - start;
-  *protokolPtr = createEmptyString(length);
-  memcpy((*protokolPtr)->content, line + start, length);
-
-  return 0;
+  return -1;
 }
