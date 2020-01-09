@@ -13,9 +13,7 @@ int parseRequest(char* headerPart, int headerLength, request** result) {
   req->bodyLength = -1;
   req->params = NULL;
 
-  int headerEnd = -1;
-  headers_t* head = parseHeaders(headerPart, headerLength, &(req->method), &(req->path), &(req->protokol), &headerEnd);
-  req->headers = head;
+  int headerEnd = parseHead(headerPart, headerLength, req);
 
   if (headerEnd != -1 && headerEnd < headerLength) {
     int bodySize = headerLength - headerEnd;
