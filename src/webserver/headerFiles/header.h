@@ -25,7 +25,7 @@ int getHeader(headers_t* headers, char* key, kvNode_t** result);
 
 int parseHeader(string* headerLine, string** keyPtr, string** valuePtr);
 
-int parseFirstLine(char* line, int length, string** methodPtr, string** pathPtr, string** protokolPtr);
+int parseFirstLine(char* line, int length, string* methodPtr, string* pathPtr, string* protokolPtr);
 headers_t* parseHeaders(char* message, int length, int* headerEnd);
 
 #endif

@@ -13,9 +13,9 @@
 #include "file.h"
 
 typedef struct request {
-  string* method;
-  string* path;
-  string* protokol;
+  string method;
+  string path;
+  string protokol;
   headers_t* headers;
   queryParams_t* params;
   char* body;

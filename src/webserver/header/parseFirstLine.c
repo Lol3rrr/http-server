@@ -2,8 +2,8 @@
 
 // Returns the last index of the first Line
 // Or -1 if a problem occured
-int parseFirstLine(char* header, int headerLength, string** methodPtr, string** pathPtr, string** protokolPtr) {
-  string** parts[3] = {methodPtr, pathPtr, protokolPtr};
+int parseFirstLine(char* header, int headerLength, string* methodPtr, string* pathPtr, string* protokolPtr) {
+  string* parts[3] = {methodPtr, pathPtr, protokolPtr};
 
   int currentPart = 0;
 
@@ -16,12 +16,11 @@ int parseFirstLine(char* header, int headerLength, string** methodPtr, string** 
         return -1;
       }
 
-      string* part = createEmptyString(partLength);
-      memcpy(part->content, header + partStart, partLength);
+      parts[currentPart]->length = partLength;
+      parts[currentPart]->content = createEmptyCString(partLength);
+      memcpy(parts[currentPart]->content, header + partStart, partLength);
 
       partStart = i + 1;
-
-      *(parts[currentPart]) = part;
 
       currentPart++;
     }
