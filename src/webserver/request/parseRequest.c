@@ -5,17 +5,15 @@ int parseRequest(char* headerPart, int headerLength, request** result) {
   clock_t startTime = clock();
 
   request* req = (request*) malloc(1 * sizeof(request));
-  req->method = NULL;
-  req->path = NULL;
-  req->protokol = NULL;
+  req->method.content = NULL;
+  req->path.content = NULL;
+  req->protokol.content = NULL;
   req->headers = NULL;
   req->body = NULL;
   req->bodyLength = -1;
   req->params = NULL;
 
-  int headerEnd = -1;
-  headers_t* head = parseHeaders(headerPart, headerLength, &(req->method), &(req->path), &(req->protokol), &headerEnd);
-  req->headers = head;
+  int headerEnd = parseHead(headerPart, headerLength, req);
 
   if (headerEnd != -1 && headerEnd < headerLength) {
     int bodySize = headerLength - headerEnd;
@@ -35,7 +33,7 @@ int parseRequest(char* headerPart, int headerLength, request** result) {
     return 1;
   }
 
-  if (findStr(req->path, "..", -1) != -1) {
+  if (findStr(&(req->path), "..", -1) != -1) {
     logDebug("[parseRequest] Found a '..' in the path \n");
 
     return 2;

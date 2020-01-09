@@ -16,7 +16,7 @@ int receiveRequest(int conFd, request** reqPtr) {
   request* req;
   int worked = parseRequest(readBuffer, readBytes, &req);
   if (worked != 0) {
-    logDebug("[receiveRequest] Error parsing Request \n");
+    logError("[receiveRequest] Error parsing Request \n");
 
     return 1;
   }
@@ -24,11 +24,11 @@ int receiveRequest(int conFd, request** reqPtr) {
   free(readBuffer);
 
   char* nPath;
-  queryParams_t* params = parseQueryParams(req->path, &nPath);
+  queryParams_t* params = parseQueryParams(&(req->path), &nPath);
   if (params != NULL) {
-    free(req->path->content);
-    req->path->content = nPath;
-    req->path->length = strlen(nPath);
+    free(req->path.content);
+    req->path.content = nPath;
+    req->path.length = strlen(nPath);
     req->params = params;
   }
 

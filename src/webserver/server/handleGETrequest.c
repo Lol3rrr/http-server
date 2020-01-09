@@ -1,7 +1,7 @@
 #include "../server.h"
 
 int handleGETrequest(request* req, response* resp) {
-  string* fileName = loadFileName(req->path);
+  string* fileName = loadFileName(&(req->path));
   if (fileName->length < 0) {
     free(fileName->content);
     free(fileName);
@@ -31,7 +31,7 @@ int handleGETrequest(request* req, response* resp) {
   setData(resp, data, size);
 
   char* contentType;
-  determinContentType(req->path, &contentType);
+  determinContentType(&(req->path), &contentType);
   setContentType(resp, contentType, size);
   setCache(resp, req, -1);
 

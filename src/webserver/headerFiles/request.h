@@ -13,9 +13,9 @@
 #include "file.h"
 
 typedef struct request {
-  string* method;
-  string* path;
-  string* protokol;
+  string method;
+  string path;
+  string protokol;
   headers_t* headers;
   queryParams_t* params;
   char* body;
@@ -29,6 +29,7 @@ int parseRequest(char* headerPart, int headerLength, request** result);
 int cleanRequest(request* reqPtr);
 
 int readHTTP(int socketFd, char** buffer, int bufferSize);
+int parseHead(char* message, int messageLength, request* reqPtr);
 
 int receiveRequest(int conFd, request** reqPtr);
 
