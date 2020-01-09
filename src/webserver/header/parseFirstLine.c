@@ -3,11 +3,13 @@
 // Returns the last index of the first Line
 // Or -1 if a problem occured
 int parseFirstLine(char* header, int headerLength, string** methodPtr, string** pathPtr, string** protokolPtr) {
+  string** parts[3] = {methodPtr, pathPtr, protokolPtr};
+
   int currentPart = 0;
 
   int partStart = 0;
   int partEnd = 0;
-  for (int i = 0; i < headerLength - 1; i++) {
+  for (int i = 0; i < headerLength - 1 && currentPart < 3; i++) {
     if (header[i] == ' ' || header[i] == '\r') {
       int partLength = i - partStart;
       if (partLength <= 0) {
@@ -19,16 +21,7 @@ int parseFirstLine(char* header, int headerLength, string** methodPtr, string** 
 
       partStart = i + 1;
 
-      if (currentPart == 0) {
-        *methodPtr = part;
-      }else if (currentPart == 1) {
-        *pathPtr = part;
-      }else if (currentPart == 2) {
-        *protokolPtr = part;
-      }else {
-        free(part->content);
-        free(part);
-      }
+      *(parts[currentPart]) = part;
 
       currentPart++;
     }
