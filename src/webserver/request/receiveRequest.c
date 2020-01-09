@@ -16,7 +16,7 @@ int receiveRequest(int conFd, request** reqPtr) {
   request* req;
   int worked = parseRequest(readBuffer, readBytes, &req);
   if (worked != 0) {
-    logDebug("[receiveRequest] Error parsing Request \n");
+    logError("[receiveRequest] Error parsing Request \n");
 
     return 1;
   }
