@@ -19,5 +19,5 @@ void firstLineBench() {
 
   double duration = (double) (clockDuration) / CLOCKS_PER_SEC * 1000 * 1000 / RUNS;
   printf("-- Parse First Line --\n");
-  printf("Average: %f Micro-Seconds \n", duration);
+  printf("  Average: %f Micro-Seconds \n", duration);
 }
