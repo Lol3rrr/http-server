@@ -1,6 +1,19 @@
 name: Speed Testing
 on: [push]
 jobs:
+  benchmark:
+    name: Benchmarking
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull
+        uses: actions/checkout@master
+
+      - name: Compile Binary
+        run: make build_benchmark
+
+      - name: Run Benchmark
+        run: ./benchmark.out
+
   raw_speedTest:
     name: Normal Speed Testing
     runs-on: ubuntu-latest
