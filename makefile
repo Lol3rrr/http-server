@@ -10,6 +10,9 @@ build_static:
 build_prometheus_static:
 	gcc -O3 -o server.out -DPROMETHEUS -static src/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c
 
+build_benchmark:
+	gcc -O3 -o benchmark.out benchmarks/*.c benchmarks/*.h benchmarks/*/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c
+
 memcheck:
 	gcc -g -o memcheck.out src/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c
 	valgrind --leak-check=full --show-leak-kinds=all ./memcheck.out -p 9090 -t -c
@@ -37,6 +40,10 @@ run_debug:
 run_speedTest:
 	./test/raw_speedTest.sh | grep "Size\|Max\|Min\|Average"
 	./test/template_speedTest.sh | grep "Size\|Max\|Min\|Average"
+
+run_benchmark:
+	make build_benchmark
+	./benchmark.out
 
 docker:
 	docker build -t c-http-server:latest .
