@@ -6,13 +6,22 @@ void parseHeadBench() {
 
   request tmp;
 
-
   // Start the actual Benchmark
-  clock_t start = clock();
+  double total = 0.0;
 
   for (int i = 0; i < RUNS; i++) {
+    clock_t start = clock();
+
     parseHead(lineInput, lineLength, &tmp);
+
+    double cDuration = getDurationMicroSec(start);
+    total = total + cDuration;
+
+    free(tmp.method.content);
+    free(tmp.path.content);
+    free(tmp.protokol.content);
+    cleanHeader(tmp.headers);
   }
 
-  getAndPrintDuration("Request", "Parse Head", start);
+  printDuration("Request", "Parse Head", total);
 }

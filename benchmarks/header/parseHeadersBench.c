@@ -9,11 +9,18 @@ void parseHeadersBench() {
 
 
   // Start the actual Benchmark
-  clock_t start = clock();
+  double total = 0.0;
 
   for (int i = 0; i < RUNS; i++) {
+    clock_t start = clock();
+
     headers = parseHeaders(line, lineLength, &end);
+
+    double cDuration = getDurationMicroSec(start);
+    total = total + cDuration;
+
+    cleanHeader(headers);
   }
 
-  getAndPrintDuration("Header", "Parse Headers", start);
+  printDuration("Header", "Parse Headers", total);
 }

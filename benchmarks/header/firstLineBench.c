@@ -10,11 +10,20 @@ void firstLineBench() {
 
 
   // Start the actual Benchmark
-  clock_t start = clock();
+  double total = 0.0;
 
   for (int i = 0; i < RUNS; i++) {
+    clock_t start = clock();
+
     parseFirstLine(lineInput, lineLength, &method, &path, &protokol);
+
+    double cDuration = getDurationMicroSec(start);
+    total = total + cDuration;
+
+    free(method.content);
+    free(path.content);
+    free(protokol.content);
   }
 
-  getAndPrintDuration("Header", "Parse First Line", start);
+  printDuration("Header", "Parse First Line", total);
 }
