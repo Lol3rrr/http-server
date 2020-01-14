@@ -3,7 +3,7 @@
 int parseHead(char* message, int messageLength, request* reqPtr) {
   int firstLineEnd = parseFirstLine(message, messageLength, &(reqPtr->method), &(reqPtr->path), &(reqPtr->protokol));
   if (firstLineEnd < 0) {
-    return -1;
+    return firstLineEnd;
   }
 
   char* headers = message + firstLineEnd;

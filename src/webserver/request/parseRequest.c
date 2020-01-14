@@ -12,6 +12,11 @@ int parseRequest(char* headerPart, int headerLength, request** result) {
   req->params = NULL;
 
   int headerEnd = parseHead(headerPart, headerLength, req);
+  if (headerEnd == -2) {
+    cleanRequest(req);
+
+    return 2;
+  }
 
   if (headerEnd != -1 && headerEnd < headerLength) {
     int bodySize = headerLength - headerEnd;
@@ -29,12 +34,6 @@ int parseRequest(char* headerPart, int headerLength, request** result) {
     cleanRequest(req);
 
     return 1;
-  }
-
-  if (findStr(&(req->path), "..", -1) != -1) {
-    logDebug("[parseRequest] Found a '..' in the path \n");
-
-    return 2;
   }
 
   char* nPath;
