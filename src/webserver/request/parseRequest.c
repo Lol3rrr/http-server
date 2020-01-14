@@ -2,8 +2,6 @@
 
 // Returns 0 if worked
 int parseRequest(char* headerPart, int headerLength, request** result) {
-  clock_t startTime = clock();
-
   request* req = (request*) malloc(1 * sizeof(request));
   req->method.content = NULL;
   req->path.content = NULL;
@@ -26,7 +24,7 @@ int parseRequest(char* headerPart, int headerLength, request** result) {
 
   if (hasEmptyField(req)) {
     logDebug("[parseRequest] Not everything has been set \n");
-    logDebug("[parseRequest] Method: '%p', Path: '%p', Protokol: '%p', First Header Key: '%p' \n", req->method, req->path, req->protokol, req->headers->kvNodes);
+    logDebug("[parseRequest] Method: '%p', Path: '%p', Protokol: '%p', First Header Key: '%p' \n", req->method.content, req->path.content, req->protokol.content, req->headers->kvNodes);
 
     cleanRequest(req);
 
@@ -39,12 +37,17 @@ int parseRequest(char* headerPart, int headerLength, request** result) {
     return 2;
   }
 
-  *result = req;
-
-  if (isMeasuringEnabled()) {
-    double time_spent = (double) (clock() - startTime) / CLOCKS_PER_SEC;
-    logMeasuring("[parseRequest] Took %f Seconds \n", time_spent);
+  char* nPath;
+  int nPathLength;
+  queryParams_t* params = parseQueryParams(&(req->path), &nPath, &nPathLength);
+  if (params != NULL) {
+    free(req->path.content);
+    req->path.content = nPath;
+    req->path.length = nPathLength;
+    req->params = params;
   }
+
+  *result = req;
 
   return 0;
 }
