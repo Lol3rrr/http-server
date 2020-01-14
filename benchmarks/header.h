@@ -8,6 +8,9 @@
 #include "../src/webserver/headerFiles/general.h"
 #include "../src/webserver/headerFiles/header.h"
 
+#include "general.h"
+
 void firstLineBench();
+void parseHeadersBench();
 
 #endif

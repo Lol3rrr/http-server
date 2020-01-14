@@ -1,7 +1,5 @@
 #include "../header.h"
 
-#define RUNS 1000000
-
 void firstLineBench() {
   clock_t start = clock();
 
@@ -15,9 +13,5 @@ void firstLineBench() {
     parseFirstLine(lineInput, lineLength, &method, &path, &protokol);
   }
 
-  clock_t clockDuration = clock() - start;
-
-  double duration = (double) (clockDuration) / CLOCKS_PER_SEC * 1000 * 1000 / RUNS;
-  printf("-- Parse First Line --\n");
-  printf("  Average: %f Micro-Seconds \n", duration);
+  getAndPrintDuration("Parse First Line", start);
 }
