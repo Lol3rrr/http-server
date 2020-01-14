@@ -16,5 +16,5 @@ void firstLineBench() {
     parseFirstLine(lineInput, lineLength, &method, &path, &protokol);
   }
 
-  getAndPrintDuration("Parse First Line", start);
+  getAndPrintDuration("Header", "Parse First Line", start);
 }

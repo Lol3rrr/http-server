@@ -6,6 +6,6 @@
 #include <stdio.h>
 #include <time.h>
 
-void getAndPrintDuration(char* name, clock_t start);
+void getAndPrintDuration(char* category, char* name, clock_t start);
 
 #endif

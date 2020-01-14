@@ -13,10 +13,7 @@ void parseHeadersBench() {
 
   for (int i = 0; i < RUNS; i++) {
     headers = parseHeaders(line, lineLength, &end);
-
-    // Not wanted but it cant be prevented right now
-    free(headers);
   }
 
-  getAndPrintDuration("Parse Headers", start);
+  getAndPrintDuration("Header", "Parse Headers", start);
 }
