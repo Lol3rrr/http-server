@@ -11,5 +11,6 @@
 #include "general.h"
 
 void parseHeadBench();
+void parseRequestBench();
 
 #endif

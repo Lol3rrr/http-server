@@ -12,6 +12,7 @@ int main() {
 
   // Request Benchmarks
   parseHeadBench();
+  parseRequestBench();
 
   printf("Done \n");
 
