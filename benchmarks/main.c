@@ -6,6 +6,7 @@ int main() {
   printf("Starting Benchmark \n");
 
   firstLineBench();
+  parseHeadersBench();
 
   printf("Done \n");
 
