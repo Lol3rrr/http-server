@@ -11,32 +11,29 @@ queryParams_t* parseQueryParams(string* rawPath, char** resultPath, int* resultL
   free(resultString);
 
   int paramStrLength = (rawPath->length - paramStart - 1);
-  string* paramStr = getSubstring(rawPath->content, paramStart + 1, paramStrLength);
+  char* paramStr = rawPath->content + paramStart + 1;
 
 
   queryParams_t* result = (queryParams_t*) malloc(1 * sizeof(queryParams_t));
   result->kvNodes = NULL;
 
   int start = 0;
-  int paramSeperator = findCharArrAfter(paramStr->content, "&", paramStrLength, 1, start);
+  int paramSeperator = findCharArrAfter(paramStr, "&", paramStrLength, 1, start);
   while (paramSeperator != -1) {
-    string* singleParam = getSubstring(paramStr->content, start, paramSeperator - start);
+    string* singleParam = getSubstring(paramStr, start, paramSeperator - start);
 
     parseQueryParam(singleParam->content, result);
     free(singleParam->content);
     free(singleParam);
 
     start = paramSeperator + 1;
-    paramSeperator = findCharArrAfter(paramStr->content, "&", paramStrLength, 1, start + 1);
+    paramSeperator = findCharArrAfter(paramStr, "&", paramStrLength, 1, start + 1);
   }
 
-  string* singleParam = getSubstring(paramStr->content, start, paramStrLength - start);
+  string* singleParam = getSubstring(paramStr, start, paramStrLength - start);
   parseQueryParam(singleParam->content, result);
   free(singleParam->content);
   free(singleParam);
-
-  free(paramStr->content);
-  free(paramStr);
 
   return result;
 }
