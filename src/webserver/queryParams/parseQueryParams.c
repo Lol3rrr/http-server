@@ -20,20 +20,15 @@ queryParams_t* parseQueryParams(string* rawPath, char** resultPath, int* resultL
   int start = 0;
   int paramSeperator = findCharArrAfter(paramStr, "&", paramStrLength, 1, start);
   while (paramSeperator != -1) {
-    string* singleParam = getSubstring(paramStr, start, paramSeperator - start);
-
-    parseQueryParam(singleParam->content, result);
-    free(singleParam->content);
-    free(singleParam);
+    int singleParamLength = paramSeperator - start;
+    parseQueryParam(paramStr + start, singleParamLength, result);
 
     start = paramSeperator + 1;
     paramSeperator = findCharArrAfter(paramStr, "&", paramStrLength, 1, start + 1);
   }
 
-  string* singleParam = getSubstring(paramStr, start, paramStrLength - start);
-  parseQueryParam(singleParam->content, result);
-  free(singleParam->content);
-  free(singleParam);
+  int singleParamLength = paramStrLength - start;
+  parseQueryParam(paramStr + start, singleParamLength, result);
 
   return result;
 }

@@ -1,8 +1,6 @@
 #include "../headerFiles/queryParams.h"
 
-int parseQueryParam(char* rawParam, queryParams_t* params) {
-  int rawParamLength = strlen(rawParam);
-
+int parseQueryParam(char* rawParam, int rawParamLength, queryParams_t* params) {
   int seperator = findCharArr(rawParam, "=", rawParamLength, 1);
   if (seperator < 0) {
     return -1;
@@ -11,22 +9,19 @@ int parseQueryParam(char* rawParam, queryParams_t* params) {
   int keyLength = seperator;
   int valueLength = rawParamLength - (seperator + 1);
 
-  string* key = getSubstring(rawParam, 0, keyLength);
-  string* value = getSubstring(rawParam, seperator + 1, valueLength);
+  string* key = createEmptyString(keyLength);
+  string* value = createEmptyString(valueLength);
+
+  memcpy(key->content, rawParam, keyLength);
+  memcpy(value->content, rawParam + seperator + 1, valueLength);
 
   if (params->kvNodes == NULL) {
     params->kvNodes = createKVNode(key, value);
-
-    free(key);
-    free(value);
 
     return 0;
   }
 
   pushKVNode(params->kvNodes, key, value);
-
-  free(key);
-  free(value);
 
   return 0;
 }
