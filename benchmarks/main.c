@@ -2,6 +2,7 @@
 
 #include "header.h"
 #include "request.h"
+#include "queryparams.h"
 
 int main() {
   printf("Starting Benchmark \n");
@@ -13,6 +14,9 @@ int main() {
   // Request Benchmarks
   parseHeadBench();
   parseRequestBench();
+
+  // Queryparams Benchmarks
+  parseQueryParamsBench();
 
   printf("Done \n");
 
