@@ -14,7 +14,7 @@ typedef struct kvNode {
 
 kvNode_t* createKVNode(string* key, string* value);
 
-void pushKVNode(kvNode_t* head, string* key, string* value);
+kvNode_t* pushKVNode(kvNode_t* head, string* key, string* value);
 void print_kv_nodes(kvNode_t* head);
 int getKV(kvNode_t* head, string* key, kvNode_t** result);
 

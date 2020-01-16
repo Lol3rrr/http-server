@@ -9,7 +9,7 @@ int main() {
 
   // Header Benchmarks
   firstLineBench();
-  parseHeadersBench();
+  benchParseHeader();
 
   // Request Benchmarks
   parseHeadBench();

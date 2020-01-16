@@ -1,11 +1,11 @@
 #include "../headerFiles/header.h"
 
-void pushHeader(headers_t* headers, string* key, string* value) {
+kvNode_t* pushHeader(headers_t* headers, string* key, string* value) {
   if (headers->kvNodes == NULL) {
     headers->kvNodes = createKVNode(key, value);
 
-    return;
+    return headers->kvNodes;
   }
 
-  pushKVNode(headers->kvNodes, key, value);
+  return pushKVNode(headers->kvNodes, key, value);
 }

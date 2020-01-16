@@ -1,8 +1,7 @@
 #include "../header.h"
 
-void parseHeadersBench() {
-  char* line = "Accept: text/html\r\nDomain: test\r\n\r\n";
-  int lineLength = strlen(line);
+double parseHeadersBench(char* input) {
+  int inputLength = strlen(input);
 
   int end;
   headers_t* headers;
@@ -14,7 +13,7 @@ void parseHeadersBench() {
   for (int i = 0; i < RUNS; i++) {
     clock_t start = clock();
 
-    headers = parseHeaders(line, lineLength, &end);
+    headers = parseHeaders(input, inputLength, &end);
 
     double cDuration = getDurationMicroSec(start);
     total = total + cDuration;
@@ -22,5 +21,5 @@ void parseHeadersBench() {
     cleanHeader(headers);
   }
 
-  printDuration("Header", "Parse Headers", total);
+  return total;
 }

@@ -2,7 +2,6 @@
 
 void printDuration(char* category, char* name, double totalTime) {
   double duration = totalTime / RUNS;
-  
-  printf("[%s] -- %s --\n", category, name);
-  printf("[%s]  Average: %f Micro-Seconds \n", category, duration);
+
+  printf("[%s] %s: %f Micro-Seconds \n", category, name, duration);
 }

@@ -11,6 +11,13 @@
 #include "general.h"
 
 void firstLineBench();
-void parseHeadersBench();
+double parseHeadersBench(char* input);
+
+void parse1HeadersBench();
+void parse2HeadersBench();
+void parse5HeadersBench();
+void parse10HeadersBench();
+
+void benchParseHeader();
 
 #endif
