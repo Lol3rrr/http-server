@@ -16,7 +16,7 @@ int main() {
   parseRequestBench();
 
   // Queryparams Benchmarks
-  parseQueryParamsBench();
+  benchParseQueryParams();
 
   printf("Done \n");
 

@@ -10,6 +10,13 @@
 
 #include "general.h"
 
-void parseQueryParamsBench();
+double parseQueryParamsBench(char* input);
+
+void parse1QueryParamsBench();
+void parse2QueryParamsBench();
+void parse5QueryParamsBench();
+void parse10QueryParamsBench();
+
+void benchParseQueryParams();
 
 #endif

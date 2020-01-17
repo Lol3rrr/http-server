@@ -1,7 +1,6 @@
-#include "../request.h"
+#include "../queryparams.h"
 
-void parseQueryParamsBench() {
-  char* pathInput = "/testPage?key=value";
+double parseQueryParamsBench(char* pathInput) {
   int pathLength = strlen(pathInput);
 
   string* path = createString(pathInput, pathLength);
@@ -25,5 +24,5 @@ void parseQueryParamsBench() {
     }
   }
 
-  printDuration("QueryParams", "Parse Query Params", total);
+  return total;
 }
