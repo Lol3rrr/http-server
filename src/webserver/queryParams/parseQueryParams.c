@@ -16,6 +16,7 @@ queryParams_t* parseQueryParams(string* rawPath, char** resultPath, int* resultL
 
   queryParams_t* result = (queryParams_t*) malloc(1 * sizeof(queryParams_t));
   result->kvNodes = NULL;
+  kvNode_t* lastNode = result->kvNodes;
 
   int keyStart = 0;
   int keyEnd = 0;
@@ -40,10 +41,11 @@ queryParams_t* parseQueryParams(string* rawPath, char** resultPath, int* resultL
       memcpy(key->content, paramStr + keyStart, keyLength);
       memcpy(value->content, paramStr + valueStart, valueLength);
 
-      if (result->kvNodes == NULL) {
+      if (lastNode == NULL) {
         result->kvNodes = createKVNode(key, value);
+        lastNode = result->kvNodes;
       } else {
-        pushKVNode(result->kvNodes, key, value);
+        lastNode = pushKVNode(lastNode, key, value);
       }
 
 
