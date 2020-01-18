@@ -5,10 +5,10 @@ queryParams_t* parseQueryParams(string* rawPath, char** resultPath, int* resultL
   if (paramStart < 0) {
     return NULL;
   }
-  string* resultString = getSubstring(rawPath->content, 0, paramStart);
-  *resultPath = resultString->content;
+
+  *resultPath = createEmptyCString(paramStart - 0);
+  memcpy(*resultPath, rawPath->content + 0, paramStart);
   *resultLength = paramStart;
-  free(resultString);
 
   int paramStrLength = (rawPath->length - paramStart - 1);
   char* paramStr = rawPath->content + paramStart + 1;
@@ -26,14 +26,13 @@ queryParams_t* parseQueryParams(string* rawPath, char** resultPath, int* resultL
     }
 
     if (paramStr[i] == '&' || i == paramStrLength - 1) {
-      if (keyEnd == keyStart) {
-        continue;
-      }
-
       int valueStart = keyEnd + 1;
-
       int keyLength = keyEnd - keyStart;
       int valueLength = i - valueStart;
+
+      if (keyLength <= 0 || valueLength <= 0) {
+        continue;
+      }
 
       string* key = createEmptyString(keyLength);
       string* value = createEmptyString(valueLength);
