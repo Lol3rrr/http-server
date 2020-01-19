@@ -34,17 +34,23 @@ queryParams_t* parseQueryParams(string* rawPath, char** resultPath, int* resultL
         continue;
       }
 
-      string* key = createEmptyString(keyLength);
-      string* value = createEmptyString(valueLength);
+      string key = {
+        content: createEmptyCString(keyLength),
+        length: keyLength
+      };
+      string value = {
+        content: createEmptyCString(valueLength),
+        length: valueLength
+      };
 
-      memcpy(key->content, paramStr + keyStart, keyLength);
-      memcpy(value->content, paramStr + valueStart, valueLength);
+      memcpy(key.content, paramStr + keyStart, keyLength);
+      memcpy(value.content, paramStr + valueStart, valueLength);
 
       if (lastNode == NULL) {
-        result->kvNodes = createKVNode(key, value);
+        result->kvNodes = createKVNode(&key, &value);
         lastNode = result->kvNodes;
       } else {
-        lastNode = pushKVNode(lastNode, key, value);
+        lastNode = pushKVNode(lastNode, &key, &value);
       }
 
 

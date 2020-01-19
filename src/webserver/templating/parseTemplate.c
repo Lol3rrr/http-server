@@ -17,13 +17,16 @@ int parseTemplate(char* rawContent, int rawContentLength, char** result) {
     includeEnd += 2;
 
     int includeStrLength = (includeEnd - includeStart);
-    string* includeStr = getSubstring(content, includeStart, includeStrLength);
+    string includeStr = {
+      content: NULL,
+      length: includeStrLength
+    };
+    getSubstring(content, includeStart, includeStrLength, &(includeStr.content));
 
     includeStatement* statement;
-    parseIncludeStatement(includeStr, &statement);
+    parseIncludeStatement(&includeStr, &statement);
 
-    free(includeStr->content);
-    free(includeStr);
+    free(includeStr.content);
 
     char* data;
     int size = readRawFile(statement->filePath, &data);
@@ -35,11 +38,9 @@ int parseTemplate(char* rawContent, int rawContentLength, char** result) {
       data = createEmptyCString(0);
     }
 
-    string* nString = replaceStr(content, data, includeStart, (includeEnd - includeStart));
-    contentLength = nString->length;
+
     free(content);
-    content = nString->content;
-    free(nString);
+    replaceStr(content, data, includeStart, (includeEnd - includeStart), &content, &contentLength);
 
     free(statement->filePath);
     free(statement);

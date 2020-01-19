@@ -12,21 +12,20 @@ int createHTTPHeaderPart(response* respPtr, char* spacer, int spacerLength, char
     headerLength = 0;
 
     while (currentKV != NULL) {
-      string* result = createKVPair(currentKV);
-      headerLength += result->length;
+      string result;
+      createKVPair(currentKV, &result);
+      headerLength += result.length;
       headerLength += spacerLength;
 
 
       if (head == NULL) {
         head = (headerPartNode_t*) malloc(1 * sizeof(headerPartNode_t));
-        head->content = result->content;
-        head->length = result->length;
+        head->content = result.content;
+        head->length = result.length;
         head->next = NULL;
       }else {
-        pushHeaderNodePart(head, result->content, result->length);
+        pushHeaderNodePart(head, result.content, result.length);
       }
-
-      free(result);
 
       currentKV = currentKV->next;
     }

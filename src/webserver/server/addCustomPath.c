@@ -2,12 +2,18 @@
 
 void addCustomPath(char* rawMethod, char* rawPath, int (*funcPtr)(request* reqPtr, response* respPtr)) {
   int methodLength = strlen(rawMethod);
-  string* method = createEmptyString(methodLength);
-  memcpy(method->content, rawMethod, methodLength);
+  string method = {
+    content: createEmptyCString(methodLength),
+    length: methodLength
+  };
+  memcpy(method.content, rawMethod, methodLength);
 
   int pathLength = strlen(rawPath);
-  string* path = createEmptyString(pathLength);
-  memcpy(path->content, rawPath, pathLength);
+  string path = {
+    content: createEmptyCString(pathLength),
+    length: pathLength
+  };
+  memcpy(path.content, rawPath, pathLength);
 
   pathNode_t* nPath = (pathNode_t*) malloc(1 * sizeof(pathNode_t));
   nPath->method = method;

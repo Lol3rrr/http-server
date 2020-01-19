@@ -11,7 +11,7 @@ int compareStringChar(string* str, char* charArr) {
 int findPathNode(pathNode_t* head, string* method, string* path, pathNode_t** result) {
   pathNode_t* current = head;
   while (current != NULL) {
-    if (stringCmp(method, current->method) == 0 && stringCmp(path, current->path) == 0) {
+    if (stringCmp(method, &(current->method)) == 0 && stringCmp(path, &(current->path)) == 0) {
       (*result) = current;
       return 0;
     }

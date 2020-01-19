@@ -1,8 +1,8 @@
 #include "../headerFiles/general.h"
 
-string* getSubstring(char* src, int start, int length) {
-  string* substr = createEmptyString(length);
-  memcpy(substr->content, src + start, length);
+void getSubstring(char* src, int start, int length, char** result) {
+  char* substr = createEmptyCString(length);
+  memcpy(substr, src + start, length);
 
-  return substr;
+  *result = substr;
 }

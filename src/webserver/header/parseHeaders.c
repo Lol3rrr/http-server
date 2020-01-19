@@ -22,13 +22,21 @@ headers_t* parseHeaders(char* headers, int headersLength, int* headerEnd) {
         break;
       }
 
-      string* key = getSubstring(headers, keyStart, keyLength);
-      string* value = getSubstring(headers, keyEnd + 2, valueLength);
+      string key = {
+        content: NULL,
+        length: keyLength
+      };
+      string value = {
+        content: NULL,
+        length: valueLength
+      };
+      getSubstring(headers, keyStart, keyLength, &(key.content));
+      getSubstring(headers, keyEnd + 2, valueLength, &(value.content));
 
       if (lastHeader == NULL) {
-        lastHeader = pushHeader(result, key, value);
+        lastHeader = pushHeader(result, &key, &value);
       }else {
-        lastHeader = pushKVNode(lastHeader, key, value);
+        lastHeader = pushKVNode(lastHeader, &key, &value);
       }
 
       keyStart = i + 2;

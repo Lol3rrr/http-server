@@ -1,18 +1,21 @@
 #include "../headerFiles/general.h"
 
-string* replaceStr(char* src, char* replacement, int start, int lengthToReplace) {
+void replaceStr(char* src, char* replacement, int start, int lengthToReplace, char** result, int* resultLength) {
   int srcLength = strlen(src);
   int replacementLength = strlen(replacement);
 
   int totalLength = srcLength - lengthToReplace + replacementLength;
-  string* result = createEmptyString(totalLength);
+  char* nString = createEmptyCString(totalLength);
 
   int contentOffset = 0;
-  memcpy(result->content + contentOffset, src, start);
+  memcpy(nString + contentOffset, src, start);
   contentOffset += start;
-  memcpy(result->content + contentOffset, replacement, replacementLength);
+  memcpy(nString + contentOffset, replacement, replacementLength);
   contentOffset += replacementLength;
-  memcpy(result->content + contentOffset, src + start + lengthToReplace, srcLength - (start + lengthToReplace));
+  memcpy(nString + contentOffset, src + start + lengthToReplace, srcLength - (start + lengthToReplace));
 
-  return result;
+  *result = nString;
+  *resultLength = totalLength;
+
+  return;
 }

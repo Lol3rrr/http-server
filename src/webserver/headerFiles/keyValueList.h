@@ -7,8 +7,10 @@
 #include "logger.h"
 
 typedef struct kvNode {
-  string* key;
-  string* value;
+  char* key;
+  int keyLength;
+  char* value;
+  int valueLength;
   struct kvNode* next;
 } kvNode_t;
 
@@ -21,6 +23,6 @@ int getKV(kvNode_t* head, string* key, kvNode_t** result);
 // For starting it pass the head of the list
 void cleanKVNodes(kvNode_t* current);
 
-string* createKVPair(kvNode_t* node);
+void createKVPair(kvNode_t* node, string* result);
 
 #endif

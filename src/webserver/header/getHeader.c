@@ -2,13 +2,12 @@
 
 int getHeader(headers_t* headers, char* key, kvNode_t** result) {
   int keyLength = strlen(key);
-  string* keyStr = createEmptyString(keyLength);
-  memcpy(keyStr->content, key, keyLength);
+  string keyStr = {
+    content: key,
+    length: keyLength
+  };
 
-  int worked = getKV(headers->kvNodes, keyStr, result);
-
-  free(keyStr->content);
-  free(keyStr);
+  int worked = getKV(headers->kvNodes, &keyStr, result);
 
   return worked;
 }

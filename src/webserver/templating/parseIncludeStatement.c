@@ -12,11 +12,14 @@ int parseIncludeStatement(string* includeText, includeStatement** statement) {
     return -1;
 
   int subLength = (pathEnd - pathStart);
-  string* subStr = getSubstring(includeText->content, pathStart, subLength);
+  string subStr = {
+    content: NULL,
+    length: subLength
+  };
+  getSubstring(includeText->content, pathStart, subLength, &(subStr.content));
 
-  string* fileName = loadFileName(subStr);
-  free(subStr->content);
-  free(subStr);
+  string* fileName = loadFileName(&subStr);
+  free(subStr.content);
   if (fileName->length < 0) {
     free(fileName->content);
     free(fileName);
