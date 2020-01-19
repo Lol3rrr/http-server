@@ -39,8 +39,10 @@ int parseTemplate(char* rawContent, int rawContentLength, char** result) {
     }
 
 
+    char* nContent;
+    replaceStr(content, data, includeStart, (includeEnd - includeStart), &nContent, &contentLength);
     free(content);
-    replaceStr(content, data, includeStart, (includeEnd - includeStart), &content, &contentLength);
+    content = nContent;
 
     free(statement->filePath);
     free(statement);
