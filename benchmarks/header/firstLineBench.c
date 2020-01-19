@@ -20,9 +20,12 @@ void firstLineBench() {
     double cDuration = getDurationMicroSec(start);
     total = total + cDuration;
 
-    free(method.content);
-    free(path.content);
-    free(protokol.content);
+    if (method.content != NULL)
+      free(method.content);
+    if (path.content != NULL)
+      free(path.content);
+    if (protokol.content != NULL)
+      free(protokol.content);
   }
 
   printDuration("Header", "Parse First Line", total);
