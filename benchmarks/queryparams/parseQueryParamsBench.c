@@ -3,7 +3,10 @@
 double parseQueryParamsBench(char* pathInput) {
   int pathLength = strlen(pathInput);
 
-  string* path = createString(pathInput, pathLength);
+  string path = {
+    content: pathInput,
+    length: pathLength
+  };
 
   char* resultPath;
   int resultLength;
@@ -14,7 +17,7 @@ double parseQueryParamsBench(char* pathInput) {
   for (int i = 0; i < RUNS; i++) {
     clock_t start = clock();
 
-    queryParams_t* params = parseQueryParams(path, &resultPath, &resultLength);
+    queryParams_t* params = parseQueryParams(&path, &resultPath, &resultLength);
 
     double cDuration = getDurationMicroSec(start);
     total = total + cDuration;

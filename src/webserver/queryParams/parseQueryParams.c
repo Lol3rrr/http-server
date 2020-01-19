@@ -5,10 +5,10 @@ queryParams_t* parseQueryParams(string* rawPath, char** resultPath, int* resultL
   if (paramStart < 0) {
     return NULL;
   }
-  string* resultString = getSubstring(rawPath->content, 0, paramStart);
-  *resultPath = resultString->content;
+
+  *resultPath = createEmptyCString(paramStart - 0);
+  memcpy(*resultPath, rawPath->content + 0, paramStart);
   *resultLength = paramStart;
-  free(resultString);
 
   int paramStrLength = (rawPath->length - paramStart - 1);
   char* paramStr = rawPath->content + paramStart + 1;
@@ -16,19 +16,48 @@ queryParams_t* parseQueryParams(string* rawPath, char** resultPath, int* resultL
 
   queryParams_t* result = (queryParams_t*) malloc(1 * sizeof(queryParams_t));
   result->kvNodes = NULL;
+  kvNode_t* lastNode = result->kvNodes;
 
-  int start = 0;
-  int paramSeperator = findCharArrAfter(paramStr, "&", paramStrLength, 1, start);
-  while (paramSeperator != -1) {
-    int singleParamLength = paramSeperator - start;
-    parseQueryParam(paramStr + start, singleParamLength, result);
+  int keyStart = 0;
+  int keyEnd = 0;
+  for (int i = 0; i < paramStrLength; i++) {
+    if (paramStr[i] == '=') {
+      keyEnd = i;
+    }
 
-    start = paramSeperator + 1;
-    paramSeperator = findCharArrAfter(paramStr, "&", paramStrLength, 1, start + 1);
+    if (paramStr[i] == '&' || i == paramStrLength - 1) {
+      int valueStart = keyEnd + 1;
+      int keyLength = keyEnd - keyStart;
+      int valueLength = i - valueStart;
+
+      if (keyLength <= 0 || valueLength <= 0) {
+        continue;
+      }
+
+      string key = {
+        content: createEmptyCString(keyLength),
+        length: keyLength
+      };
+      string value = {
+        content: createEmptyCString(valueLength),
+        length: valueLength
+      };
+
+      memcpy(key.content, paramStr + keyStart, keyLength);
+      memcpy(value.content, paramStr + valueStart, valueLength);
+
+      if (lastNode == NULL) {
+        result->kvNodes = createKVNode(&key, &value);
+        lastNode = result->kvNodes;
+      } else {
+        lastNode = pushKVNode(lastNode, &key, &value);
+      }
+
+
+      keyStart = i + 1;
+      keyEnd = keyStart;
+    }
   }
-
-  int singleParamLength = paramStrLength - start;
-  parseQueryParam(paramStr + start, singleParamLength, result);
 
   return result;
 }

@@ -3,11 +3,15 @@
 int createHTTPResponse(response* respPtr, string** headResult, string** bodyResult) {
   char* head;
   int headSize = createHTTPHead(respPtr, &head);
-  *headResult = createString(head, headSize);
+  *headResult = (string*) malloc(1 * sizeof(string));
+  (*headResult)->content = head;
+  (*headResult)->length = headSize;
 
   *bodyResult = NULL;
   if (respPtr->dataSize > 0) {
-    *bodyResult = createString(respPtr->data, respPtr->dataSize);
+    *bodyResult = (string*) malloc(1 * sizeof(string));
+    (*bodyResult)->content = respPtr->data;
+    (*bodyResult)->length = respPtr->dataSize;
   }
 
   return 0;

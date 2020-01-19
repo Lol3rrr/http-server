@@ -13,8 +13,8 @@
 
 typedef struct response {
   int statusCode;
-  string* statusMessage;
-  string* protokol;
+  string statusMessage;
+  string protokol;
   headers_t* headers;
   char* data;
   int dataSize;

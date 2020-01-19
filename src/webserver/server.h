@@ -20,8 +20,8 @@
 
 
 typedef struct pathNode {
-  string* method;
-  string* path;
+  string method;
+  string path;
   int (*funcPtr)(request* reqPtr, response* respPtr);
   struct pathNode* next;
 } pathNode_t;

@@ -1,13 +1,11 @@
 #include "../headerFiles/response.h"
 
 int cleanResponse(response* respPtr) {
-  if (respPtr->statusMessage != NULL) {
-    free(respPtr->statusMessage->content);
-    free(respPtr->statusMessage);
+  if (respPtr->statusMessage.content != NULL) {
+    free(respPtr->statusMessage.content);
   }
-  if (respPtr->protokol != NULL) {
-    free(respPtr->protokol->content);
-    free(respPtr->protokol);
+  if (respPtr->protokol.content != NULL) {
+    free(respPtr->protokol.content);
   }
 
   if (respPtr->dataSize > 0)
