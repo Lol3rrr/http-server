@@ -11,9 +11,7 @@ int cleanResponse(response* respPtr) {
   if (respPtr->dataSize > 0)
     free(respPtr->data);
 
-  cleanHeader(respPtr->headers);
-
-  free(respPtr);
+  cleanHeader(&(respPtr->headers));
 
   return 0;
 }

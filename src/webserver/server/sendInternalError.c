@@ -7,4 +7,5 @@ void sendInternalError(int connection, request* reqPtr) {
   sendResponse(connection, resp);
 
   cleanResponse(resp);
+  free(resp);
 }

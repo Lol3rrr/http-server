@@ -23,6 +23,6 @@ void cleanHeader(headers_t* headers);
 int getHeader(headers_t* headers, char* key, kvNode_t** result);
 
 int parseFirstLine(char* line, int length, string* methodPtr, string* pathPtr, string* protokolPtr);
-headers_t* parseHeaders(char* message, int length, int* headerEnd);
+int parseHeaders(char* headers, int headersLength, headers_t* result, int* headerEnd);
 
 #endif

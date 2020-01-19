@@ -1,8 +1,6 @@
 #include "../headerFiles/header.h"
 
-headers_t* parseHeaders(char* headers, int headersLength, int* headerEnd) {
-  headers_t* result = createEmptyHeaders();
-
+int parseHeaders(char* headers, int headersLength, headers_t* result, int* headerEnd) {
   kvNode_t* lastHeader = NULL;
 
   int keyStart = 0;
@@ -42,5 +40,5 @@ headers_t* parseHeaders(char* headers, int headersLength, int* headerEnd) {
     }
   }
 
-  return result;
+  return 0;
 }

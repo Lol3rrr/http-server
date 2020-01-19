@@ -6,7 +6,7 @@ int isCachingAllowed(request* reqPtr) {
   }
 
   kvNode_t* result;
-  int worked = getHeader(reqPtr->headers, "Cache-Control", &result);
+  int worked = getHeader(&(reqPtr->headers), "Cache-Control", &result);
   if (worked == 0) {
     if (strcmp(result->value, "max-age=0") == 0) {
       return 0;

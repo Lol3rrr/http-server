@@ -4,8 +4,8 @@ int createHTTPHeaderPart(response* respPtr, char* spacer, int spacerLength, char
   int headerLength = -1;
   char* headerPart;
 
-  if (respPtr->headers != NULL) {
-    headers_t* headers = respPtr->headers;
+  if (respPtr->headers.kvNodes != NULL) {
+    headers_t* headers = &(respPtr->headers);
     kvNode_t* currentKV = headers->kvNodes;
     headerPartNode_t* head = NULL;
 

@@ -55,6 +55,7 @@ void createMetricsEndpoint(int port) {
       }
 
       cleanResponse(resp);
+      free(resp);
 
       exit(0);
     }else {

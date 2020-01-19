@@ -6,7 +6,7 @@ int parseRequest(char* headerPart, int headerLength, request** result) {
   req->method.content = NULL;
   req->path.content = NULL;
   req->protokol.content = NULL;
-  req->headers = NULL;
+  req->headers.kvNodes = NULL;
   req->body = NULL;
   req->bodyLength = -1;
   req->params = NULL;
@@ -14,6 +14,7 @@ int parseRequest(char* headerPart, int headerLength, request** result) {
   int headerEnd = parseHead(headerPart, headerLength, req);
   if (headerEnd == -2) {
     cleanRequest(req);
+    free(req);
 
     return 2;
   }
@@ -29,9 +30,10 @@ int parseRequest(char* headerPart, int headerLength, request** result) {
 
   if (hasEmptyField(req)) {
     logDebug("[parseRequest] Not everything has been set \n");
-    logDebug("[parseRequest] Method: '%p', Path: '%p', Protokol: '%p', First Header Key: '%p' \n", req->method.content, req->path.content, req->protokol.content, req->headers->kvNodes);
+    logDebug("[parseRequest] Method: '%p', Path: '%p', Protokol: '%p', First Header Key: '%p' \n", req->method.content, req->path.content, req->protokol.content, req->headers.kvNodes);
 
     cleanRequest(req);
+    free(req);
 
     return 1;
   }
