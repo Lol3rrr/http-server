@@ -8,7 +8,9 @@ void parseHeadBench() {
   double total = 0.0;
 
   for (int i = 0; i < RUNS; i++) {
-    request tmp;
+    request tmp = {
+      params: NULL
+    };
 
     clock_t start = clock();
 

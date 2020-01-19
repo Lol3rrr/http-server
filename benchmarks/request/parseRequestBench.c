@@ -18,6 +18,7 @@ void parseRequestBench() {
     total = total + cDuration;
 
     cleanRequest(tmp);
+    free(tmp);
   }
 
   printDuration("Request", "Parse Request", total);
