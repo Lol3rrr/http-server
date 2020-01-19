@@ -8,10 +8,8 @@ headers_t* parseHeaders(char* headers, int headersLength, int* headerEnd) {
   int keyStart = 0;
   int keyEnd = 0;
   for (int i = 0; i < headersLength - 1; i++) {
-    if (headers[i] == ':' && keyStart == keyEnd) {
-      keyEnd = i;
-      continue;
-    }
+    int is = (headers[i] == ':' && keyStart == keyEnd);
+    keyEnd = is * i + (!is) * keyEnd;
 
     if (headers[i] == '\r' && headers[i+1] == '\n') {
       int keyLength = keyEnd - keyStart;
