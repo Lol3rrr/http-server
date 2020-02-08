@@ -11,11 +11,9 @@ int cleanRequest(request* reqPtr) {
     free(reqPtr->protokol.content);
   }
 
-  cleanHeader(reqPtr->headers);
+  cleanHeader(&(reqPtr->headers));
   if (reqPtr->params != NULL)
     cleanQueryParams(reqPtr->params);
 
   free(reqPtr->body);
-
-  free(reqPtr);
 }

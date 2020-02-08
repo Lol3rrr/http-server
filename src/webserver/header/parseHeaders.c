@@ -1,17 +1,13 @@
 #include "../headerFiles/header.h"
 
-headers_t* parseHeaders(char* headers, int headersLength, int* headerEnd) {
-  headers_t* result = createEmptyHeaders();
-
+int parseHeaders(char* headers, int headersLength, headers_t* result, int* headerEnd) {
   kvNode_t* lastHeader = NULL;
 
   int keyStart = 0;
   int keyEnd = 0;
   for (int i = 0; i < headersLength - 1; i++) {
-    if (headers[i] == ':' && keyStart == keyEnd) {
-      keyEnd = i;
-      continue;
-    }
+    int is = (headers[i] == ':' && keyStart == keyEnd);
+    keyEnd = is * i + (!is) * keyEnd;
 
     if (headers[i] == '\r' && headers[i+1] == '\n') {
       int keyLength = keyEnd - keyStart;
@@ -44,5 +40,5 @@ headers_t* parseHeaders(char* headers, int headersLength, int* headerEnd) {
     }
   }
 
-  return result;
+  return 0;
 }

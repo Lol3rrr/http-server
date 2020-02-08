@@ -1,7 +1,8 @@
 #include "../headerFiles/header.h"
 
 void cleanHeader(headers_t* headers) {
-  cleanKVNodes(headers->kvNodes);
+  if (headers->kvNodes == NULL)
+    return;
 
-  free(headers);
+  cleanKVNodes(headers->kvNodes);
 }

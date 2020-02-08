@@ -23,8 +23,10 @@ double parseQueryParamsBench(char* pathInput) {
     total = total + cDuration;
 
     if (params != NULL) {
-      //cleanQueryParams(params);
+      cleanQueryParams(params);
     }
+
+    free(resultPath);
   }
 
   return total;

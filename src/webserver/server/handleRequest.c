@@ -2,7 +2,9 @@
 
 void cleanUp(request* req, response* respPtr) {
   cleanRequest(req);
+  free(req);
   cleanResponse(respPtr);
+  free(respPtr);
 }
 
 int handleRequest(int conFd, request* reqPtr) {

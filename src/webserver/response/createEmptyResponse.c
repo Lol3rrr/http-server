@@ -5,11 +5,9 @@ response* createEmptyResponse(char* protokol) {
   resp->statusCode = -1;
   resp->statusMessage.content = NULL;
   resp->protokol.content = NULL;
-  resp->headers = NULL;
+  resp->headers.kvNodes = NULL;
   resp->data = NULL;
   resp->dataSize = -1;
-
-  resp->headers = createEmptyHeaders();
 
   int protokolLength = strlen(protokol);
   string nString = {

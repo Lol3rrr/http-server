@@ -10,7 +10,7 @@ void print_request_debug(request* req) {
   logDebug("[Request] Path: '%s' \n", req->path.content);
   logDebug("[Request] Protokol: '%s' \n", req->protokol.content);
   logDebug("[Request] Headers: \n");
-  print_header_debug(req->headers);
+  print_header_debug(&(req->headers));
   logDebug("[Request] Body: '%s' \n", req->body);
   logDebug("[Request] Body-Length: %d \n", req->bodyLength);
 }

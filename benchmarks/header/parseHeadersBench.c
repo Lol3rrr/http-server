@@ -4,21 +4,23 @@ double parseHeadersBench(char* input) {
   int inputLength = strlen(input);
 
   int end;
-  headers_t* headers;
-
 
   // Start the actual Benchmark
   double total = 0.0;
 
   for (int i = 0; i < RUNS; i++) {
+    headers_t headers = {
+      kvNodes: NULL
+    };
+
     clock_t start = clock();
 
-    headers = parseHeaders(input, inputLength, &end);
+    parseHeaders(input, inputLength, &headers, &end);
 
     double cDuration = getDurationMicroSec(start);
     total = total + cDuration;
 
-    cleanHeader(headers);
+    cleanHeader(&headers);
   }
 
   return total;
