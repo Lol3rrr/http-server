@@ -21,4 +21,6 @@ COPY --from=build /root/http-server/server.out /root/http-server/server.out
 
 EXPOSE 80 9001
 
+STOPSIGNAL SIGKILL
+
 ENTRYPOINT ["./server.out"]
