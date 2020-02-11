@@ -19,6 +19,12 @@
 #endif
 
 
+#define HTMLTYPE 0
+#define CSSTYPE 1
+#define JSTYPE 2
+#define TEXTTYPE 3
+#define IMAGETYPE 4
+
 typedef struct pathNode {
   string method;
   string path;
@@ -40,7 +46,7 @@ int sendResponse(int connection, response* respPtr);
 void sendNotFound(int connection, request* reqPtr);
 void sendInternalError(int connection, request* reqPtr);
 
-int determinContentType(string* path, char** result);
+int determinContentType(string* path, char** result, int* typeID);
 
 int handleGETrequest(request* req, response* resp);
 int handleRequest(int conFd, request* req);

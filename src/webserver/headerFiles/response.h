@@ -18,6 +18,10 @@ typedef struct response {
   headers_t headers;
   char* data;
   int dataSize;
+
+  int streaming;
+  int streamSize;
+  FILE* file;
 } response;
 
 typedef struct headerPartNode {
@@ -36,6 +40,7 @@ int isCachingAllowed(request* reqPtr);
 
 int setContentType(response* respPtr, char* contentType, int contentLength);
 int setData(response* respPtr, char* data, int size);
+int setStreaming(response* respPtr, FILE* f, int size);
 int setCache(response* respPtr, request* reqPtr, int cacheTime);
 int setStatus(response* respPtr, int statusCode, char* statusMessage);
 
