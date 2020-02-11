@@ -17,7 +17,7 @@ int handleGETrequest(request* req, response* resp) {
   char* contentType;
   determinContentType(&(req->path), &contentType, &typeID);
 
-  if (typeID == 0) {
+  if (isTemplateEnabled() && typeID == 0) {
     char* data;
     int size = loadFile(fileName, &data);
     if (size < 0) {
