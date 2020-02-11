@@ -8,6 +8,9 @@ response* createEmptyResponse(char* protokol) {
   resp->headers.kvNodes = NULL;
   resp->data = NULL;
   resp->dataSize = -1;
+  resp->streaming = 0;
+  resp->streamSize = -1;
+  resp->file = NULL;
 
   int protokolLength = strlen(protokol);
   string nString = {
