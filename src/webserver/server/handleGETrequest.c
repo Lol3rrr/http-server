@@ -29,15 +29,17 @@ int handleGETrequest(request* req, response* resp) {
       return 1;
     }
 
-    free(fileName->content);
-    free(fileName);
-
     setStatus(resp, 200, "OK");
     setData(resp, data, size);
     setContentType(resp, contentType, size);
+
+    free(fileName->content);
+    free(fileName);
   } else {
     FILE *f = fopen(fileName->content, "rb");
   	if (f == NULL) {
+      free(fileName->content);
+      free(fileName);
   		return -1; // -1 means file opening fail
   	}
   	fseek(f, 0, SEEK_END);
@@ -47,6 +49,9 @@ int handleGETrequest(request* req, response* resp) {
     setStatus(resp, 200, "OK");
     setStreaming(resp, f, size);
     setContentType(resp, contentType, size);
+
+    free(fileName->content);
+    free(fileName);
   }
 
   setCache(resp, req, -1);

@@ -1,6 +1,6 @@
 #include "../server.h"
 
-#define BUFFERSIZE 1024
+#define BUFFERSIZE 512
 
 int sendResponse(int connection, response* respPtr) {
   string* headResponse;
