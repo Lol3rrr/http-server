@@ -1,6 +1,8 @@
 #include "../server.h"
 
 int handleGETrequest(request* req, response* resp) {
+  logDebug("[handleGETrequest] Loading Path: '%s' \n", req->path.content);
+
   string* fileName = loadFileName(&(req->path));
   if (fileName->length < 0) {
     free(fileName->content);
@@ -25,6 +27,7 @@ int handleGETrequest(request* req, response* resp) {
 
       free(fileName->content);
       free(fileName);
+      free(contentType);
 
       return 1;
     }
@@ -40,7 +43,10 @@ int handleGETrequest(request* req, response* resp) {
   	if (f == NULL) {
       free(fileName->content);
       free(fileName);
-  		return -1; // -1 means file opening fail
+
+      free(contentType);
+
+  		return 1;
   	}
   	fseek(f, 0, SEEK_END);
   	int size = ftell(f);
@@ -54,11 +60,11 @@ int handleGETrequest(request* req, response* resp) {
     free(fileName);
   }
 
+  free(contentType);
+
   setCache(resp, req, -1);
 
   print_response_debug(resp);
-
-  free(contentType);
 
   return 0;
 }
