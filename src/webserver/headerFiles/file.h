@@ -6,8 +6,8 @@
 #include "general.h"
 #include "templating.h"
 
-string* getFileName(string* folder, string* path);
-string* loadFileName(string* path);
+string getFileName(string* folder, string* path);
+string loadFileName(string* path);
 
 int readRawFile(char* fileName, char** result);
 int loadFile(string* fileName, char** result);

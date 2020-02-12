@@ -1,5 +1,29 @@
 #include "../headerFiles/templating.h"
 
+int handleParseIncludeStatement(string* includeStr, char** result) {
+  includeStatement statement;
+  int worked = parseIncludeStatement(includeStr, &statement);
+  if (worked != 0) {
+    free(statement.filePath);
+
+    return -1;
+  }
+
+  char* data;
+  int size = readRawFile(statement.filePath, &data);
+  if (size < 0) {
+    free(statement.filePath);
+    free(data);
+
+    return -1;
+  }
+  free(statement.filePath);
+
+  *result = data;
+
+  return size;
+}
+
 int parseTemplate(char* rawContent, int rawContentLength, char** result) {
   int contentLength = rawContentLength;
   char* content = rawContent;
@@ -18,35 +42,22 @@ int parseTemplate(char* rawContent, int rawContentLength, char** result) {
 
     int includeStrLength = (includeEnd - includeStart);
     string includeStr = {
-      content: NULL,
-      length: includeStrLength
+      content: content + includeStart,
+      length: includeStrLength,
     };
-    getSubstring(content, includeStart, includeStrLength, &(includeStr.content));
-
-    includeStatement* statement;
-    parseIncludeStatement(&includeStr, &statement);
-
-    free(includeStr.content);
 
     char* data;
-    int size = readRawFile(statement->filePath, &data);
-    if (size < 0) {
-      free(data);
-
-      logError("[parseTemplate] Could not include the file '%s' \n", statement->filePath);
-
-      data = createEmptyCString(0);
-    }
-
-
+    int dataSize = handleParseIncludeStatement(&includeStr, &data);
     char* nContent;
-    replaceStr(content, data, includeStart, (includeEnd - includeStart), &nContent, &contentLength);
+    if (dataSize < 0) {
+      replaceStr(content, "", includeStart, (includeEnd - includeStart), &nContent, &contentLength);
+    } else {
+      replaceStr(content, data, includeStart, (includeEnd - includeStart), &nContent, &contentLength);
+      free(data);
+    }
     free(content);
     content = nContent;
 
-    free(statement->filePath);
-    free(statement);
-    free(data);
 
     includeStart = findCharArr(content, "<--include", contentLength, 10);
   }

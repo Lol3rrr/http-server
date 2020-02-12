@@ -2,6 +2,9 @@
 
 #define HTMLTYPELENGTH 24
 #define CSSTYPELENGTH 23
+#define JSTYPELENGTH 30
+#define IMAGETYPELENGTH 10
+#define TEXTTYPELENGTH 19
 
 int determinContentType(string* path, char** result, int* typeID) {
   int dot = findStr(path, ".", 1);
@@ -14,9 +17,7 @@ int determinContentType(string* path, char** result, int* typeID) {
     return 0;
   }
 
-  int extensionLength = path->length - dot;
-  char* extension = createEmptyCString(extensionLength);
-  memcpy(extension, path->content + dot + 1, extensionLength);
+  char* extension = path->content + dot + 1;
 
   if(strcmp(extension, "html") == 0) {
     (*result) = createEmptyCString(HTMLTYPELENGTH);
@@ -27,27 +28,22 @@ int determinContentType(string* path, char** result, int* typeID) {
     memcpy((*result), "text/css;charset=UTF-8", CSSTYPELENGTH);
     *typeID = CSSTYPE;
   }else if(strcmp(extension, "js") == 0) {
-    int size = strlen("text/javascript;charset=UTF-8");
-    (*result) = createEmptyCString(size);
-    memcpy((*result), "text/javascript;charset=UTF-8", size);
+    (*result) = createEmptyCString(JSTYPELENGTH);
+    memcpy((*result), "text/javascript;charset=UTF-8", JSTYPELENGTH);
     *typeID = JSTYPE;
   }else if(strcmp(extension, "jpg") == 0) {
-    int size = strlen("image/png");
-    (*result) = createEmptyCString(size);
-    memcpy((*result), "image/png", size);
+    (*result) = createEmptyCString(IMAGETYPELENGTH);
+    memcpy((*result), "image/png", IMAGETYPELENGTH);
     *typeID = IMAGETYPE;
   }else if(strcmp(extension, "png") == 0) {
-    int size = strlen("image/png");
-    (*result) = createEmptyCString(size);
-    memcpy((*result), "image/png", size);
+    (*result) = createEmptyCString(IMAGETYPELENGTH);
+    memcpy((*result), "image/png", IMAGETYPELENGTH);
     *typeID = IMAGETYPE;
   }else {
-    int size = strlen("text;charset=UTF-8");
-    (*result) = createEmptyCString(size);
-    memcpy((*result), "text;charset=UTF-8", size);
+    (*result) = createEmptyCString(TEXTTYPELENGTH);
+    memcpy((*result), "text;charset=UTF-8", TEXTTYPELENGTH);
     *typeID = TEXTTYPE;
   }
 
-  free(extension);
   return 0;
 }

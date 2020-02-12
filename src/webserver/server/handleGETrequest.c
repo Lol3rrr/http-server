@@ -1,19 +1,16 @@
 #include "../server.h"
 
 int handleGETrequest(request* req, response* resp) {
-  logDebug("[handleGETrequest] Loading Path: '%s' \n", req->path.content);
+  string fileName = loadFileName(&(req->path));
+  if (fileName.length < 0) {
+    free(fileName.content);
 
-  string* fileName = loadFileName(&(req->path));
-  if (fileName->length < 0) {
-    free(fileName->content);
-    free(fileName);
-
-    logError("Loading Filename \n");
+    logError("[handleGETrequest] Loading Filename \n");
 
     return -1;
   }
 
-  logDebug("[handleGETrequest] Loading File: '%s' \n", fileName->content);
+  logDebug("[handleGETrequest] Loading File: '%s' \n", fileName.content);
 
   int typeID = 0;
   char* contentType;
@@ -21,12 +18,11 @@ int handleGETrequest(request* req, response* resp) {
 
   if (isTemplateEnabled() && typeID == 0) {
     char* data;
-    int size = loadFile(fileName, &data);
+    int size = loadFile(&fileName, &data);
     if (size < 0) {
-      logError("Loading Data: '%d' Loading Filename: '%s' \n", size, fileName->content);
+      logError("Loading Data: '%d' Loading Filename: '%s' \n", size, fileName.content);
 
-      free(fileName->content);
-      free(fileName);
+      free(fileName.content);
       free(contentType);
 
       return 1;
@@ -36,13 +32,11 @@ int handleGETrequest(request* req, response* resp) {
     setData(resp, data, size);
     setContentType(resp, contentType, size);
 
-    free(fileName->content);
-    free(fileName);
+    free(fileName.content);
   } else {
-    FILE *f = fopen(fileName->content, "rb");
+    FILE *f = fopen(fileName.content, "rb");
   	if (f == NULL) {
-      free(fileName->content);
-      free(fileName);
+      free(fileName.content);
 
       free(contentType);
 
@@ -56,8 +50,7 @@ int handleGETrequest(request* req, response* resp) {
     setStreaming(resp, f, size);
     setContentType(resp, contentType, size);
 
-    free(fileName->content);
-    free(fileName);
+    free(fileName.content);
   }
 
   free(contentType);
