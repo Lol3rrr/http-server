@@ -1,5 +1,8 @@
 #include "../headerFiles/templating.h"
 
+#define INCLUDESTARTLENGTH 10
+#define INCLUDEENDLENGTH 2
+
 int handleParseIncludeStatement(string* includeStr, char** result) {
   includeStatement statement;
   int worked = parseIncludeStatement(includeStr, &statement);
@@ -34,10 +37,10 @@ int parseTemplate(char* rawContent, int rawContentLength, char** result) {
   if (content == NULL)
     return -1;
 
-  int includeStart = findCharArr(content, "<--include", contentLength, 10);
+  int includeStart = findCharArr(content, "<--include", contentLength, INCLUDESTARTLENGTH);
   while (includeStart != -1) {
-    int includeInnerStart = includeStart + 10;
-    int includeEnd = findCharArrAfter(content, "/>", contentLength, 2, includeStart);
+    int includeInnerStart = includeStart + INCLUDESTARTLENGTH;
+    int includeEnd = findCharArrAfter(content, "/>", contentLength, INCLUDEENDLENGTH, includeStart);
     includeEnd += 2;
 
     int includeStrLength = (includeEnd - includeStart);
@@ -59,7 +62,7 @@ int parseTemplate(char* rawContent, int rawContentLength, char** result) {
     content = nContent;
 
 
-    includeStart = findCharArr(content, "<--include", contentLength, 10);
+    includeStart = findCharArrAfter(content, "<--include", contentLength, INCLUDESTARTLENGTH, includeStart);
   }
 
   (*result) = content;
