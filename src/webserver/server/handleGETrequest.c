@@ -34,21 +34,18 @@ int handleGETrequest(request* req, response* resp) {
 
     free(fileName.content);
   } else {
-    FILE *f = fopen(fileName.content, "rb");
-  	if (f == NULL) {
+    File* f = (File*) malloc(1 * sizeof(File));
+    int worked = openFile(&fileName, f);
+    if (worked != 0) {
       free(fileName.content);
-
       free(contentType);
 
   		return 1;
-  	}
-  	fseek(f, 0, SEEK_END);
-  	int size = ftell(f);
-    fseek(f, 0, SEEK_SET);
+    }
 
     setStatus(resp, 200, "OK");
-    setStreaming(resp, f, size);
-    setContentType(resp, contentType, size);
+    setStreaming(resp, f);
+    setContentType(resp, contentType, f->length);
 
     free(fileName.content);
   }

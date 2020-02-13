@@ -6,6 +6,16 @@
 #include "general.h"
 #include "templating.h"
 
+
+typedef struct File {
+  FILE* fd;
+  int length;
+} File;
+
+
+int openFile(string* path, File* result);
+int closeFile(File* f);
+
 string getFileName(string* folder, string* path);
 string loadFileName(string* path);
 
