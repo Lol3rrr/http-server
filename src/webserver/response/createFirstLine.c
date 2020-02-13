@@ -19,10 +19,8 @@ int createFirstLine(response* respPtr, char** result) {
   lineOffset++;
   memcpy(firstLine + lineOffset, respPtr->statusMessage.content, respPtr->statusMessage.length);
   lineOffset += respPtr->statusMessage.length;
-  memcpy(firstLine + lineOffset, "\r", 1);
-  lineOffset++;
-  memcpy(firstLine + lineOffset, "\n", 1);
-  lineOffset++;
+  memcpy(firstLine + lineOffset, "\r\n", 2);
+  lineOffset += 2;
 
   *result = firstLine;
 
