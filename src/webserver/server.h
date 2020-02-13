@@ -25,6 +25,8 @@
 #define TEXTTYPE 3
 #define IMAGETYPE 4
 
+#define HTTP_STATUSOK 200
+
 typedef struct pathNode {
   string method;
   string path;

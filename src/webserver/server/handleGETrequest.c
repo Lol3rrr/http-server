@@ -16,7 +16,7 @@ int handleGETrequest(request* req, response* resp) {
   char* contentType;
   determinContentType(&(req->path), &contentType, &typeID);
 
-  if (isTemplateEnabled() && typeID == 0) {
+  if (isTemplateEnabled() && typeID == HTMLTYPE) {
     char* data;
     int size = loadFile(&fileName, &data);
     if (size < 0) {
@@ -28,7 +28,7 @@ int handleGETrequest(request* req, response* resp) {
       return 1;
     }
 
-    setStatus(resp, 200, "OK");
+    setStatus(resp, HTTP_STATUSOK, "OK");
     setData(resp, data, size);
     setContentType(resp, contentType, size);
 
@@ -45,7 +45,7 @@ int handleGETrequest(request* req, response* resp) {
   		return 1;
     }
 
-    setStatus(resp, 200, "OK");
+    setStatus(resp, HTTP_STATUSOK, "OK");
     setStreaming(resp, f);
     setContentType(resp, contentType, f->length);
 
