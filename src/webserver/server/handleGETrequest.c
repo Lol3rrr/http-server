@@ -39,6 +39,8 @@ int handleGETrequest(request* req, response* resp) {
     if (worked != 0) {
       free(fileName.content);
       free(contentType);
+      closeFile(f);
+      free(f);
 
   		return 1;
     }
