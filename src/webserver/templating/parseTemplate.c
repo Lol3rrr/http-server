@@ -9,7 +9,7 @@ int handleParseIncludeStatement(string* includeStr, char** result) {
   if (worked != 0) {
     free(statement.filePath);
 
-    return -1;
+    return 0;
   }
 
   char* data;
@@ -18,7 +18,7 @@ int handleParseIncludeStatement(string* includeStr, char** result) {
     free(statement.filePath);
     free(data);
 
-    return -1;
+    return 0;
   }
   free(statement.filePath);
 
@@ -31,10 +31,7 @@ int parseTemplate(char* rawContent, int rawContentLength, char** result) {
   int contentLength = rawContentLength;
   char* content = rawContent;
 
-  if (contentLength <= 0)
-    return -1;
-
-  if (content == NULL)
+  if (contentLength <= 0 || content == NULL)
     return -1;
 
   int includeStart = findCharArr(content, "<--include", contentLength, INCLUDESTARTLENGTH);
@@ -52,10 +49,16 @@ int parseTemplate(char* rawContent, int rawContentLength, char** result) {
     char* data;
     int dataSize = handleParseIncludeStatement(&includeStr, &data);
     char* nContent;
-    if (dataSize < 0) {
-      replaceStr(content, "", includeStart, (includeEnd - includeStart), &nContent, &contentLength);
-    } else {
-      replaceStr(content, data, includeStart, (includeEnd - includeStart), &nContent, &contentLength);
+    string contentStr = {
+      content: content,
+      length: contentLength,
+    };
+    string replacementStr = {
+      content: data,
+      length: dataSize,
+    };
+    replaceStr(&contentStr, &replacementStr, includeStart, (includeEnd - includeStart), &nContent, &contentLength);
+    if (dataSize > 0) {
       free(data);
     }
     free(content);

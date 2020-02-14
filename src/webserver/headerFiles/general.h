@@ -35,7 +35,7 @@ int stringCmp(string* str1, string* str2);
 int findStr(string* src, char* key, int keyLength);
 
 void getSubstring(char* src, int start, int length, char** result);
-void replaceStr(char* src, char* replacement, int start, int lengthToReplace, char** result, int* resultLength);
+void replaceStr(string* srcStr, string* replacementStr, int start, int lengthToReplace, char** result, int* resultLength);
 
 char* createEmptyCString(int length);
 
