@@ -17,7 +17,7 @@ int handleRequest(int conFd, request* reqPtr) {
 
   int worked;
   if (customPathEnabled) {
-    worked = callCustomPath(&(reqPtr->method), &(reqPtr->path), reqPtr, respPtr);
+    worked = callCustomPath(reqPtr->method, &(reqPtr->path), reqPtr, respPtr);
   } else {
     worked = handleGETrequest(reqPtr, respPtr);
   }

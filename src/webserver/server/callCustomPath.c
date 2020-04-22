@@ -8,10 +8,14 @@ int compareStringChar(string* str, char* charArr) {
   return strcmp(str->content, charArr);
 }
 
-int findPathNode(pathNode_t* head, string* method, string* path, pathNode_t** result) {
+int findPathNode(pathNode_t* head, char method[MAX_METHOD_LENGTH + 1], string* path, pathNode_t** result) {
   pathNode_t* current = head;
   while (current != NULL) {
-    if (stringCmp(method, &(current->method)) == 0 && stringCmp(path, &(current->path)) == 0) {
+    string methodStr = {
+      .content = method,
+      .length = MAX_METHOD_LENGTH
+    };
+    if (stringCmp(&methodStr, &(current->method)) == 0 && stringCmp(path, &(current->path)) == 0) {
       (*result) = current;
       return 0;
     }
@@ -22,7 +26,7 @@ int findPathNode(pathNode_t* head, string* method, string* path, pathNode_t** re
   return -1;
 }
 
-int callCustomPath(string* method, string* path, request* reqPtr, response* respPtr) {
+int callCustomPath(char method[MAX_METHOD_LENGTH + 1], string* path, request* reqPtr, response* respPtr) {
   pathNode_t* node;
   int found = findPathNode(customPaths, method, path, &node);
   if (found != 0)
