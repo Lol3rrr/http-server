@@ -1,3 +1,4 @@
 *.out
 prof_output
 *.out.*
+.vscode/settings.json
