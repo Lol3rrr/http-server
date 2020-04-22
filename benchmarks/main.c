@@ -3,6 +3,7 @@
 #include "header.h"
 #include "request.h"
 #include "queryparams.h"
+#include "response.h"
 
 int main() {
   printf("Starting Benchmark \n");
@@ -17,6 +18,9 @@ int main() {
 
   // Queryparams Benchmarks
   benchParseQueryParams();
+
+  // Response Benchmarks
+  createHTTPHeaderPartBench();
 
   printf("Done \n");
 
