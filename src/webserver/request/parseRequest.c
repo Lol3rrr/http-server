@@ -6,7 +6,7 @@ int parseRequest(char* headerPart, int headerLength, request** result) {
   req->method[MAX_METHOD_LENGTH] = '\0';
   req->path.content = NULL;
   req->protokol.content = NULL;
-  req->headers.kvNodes = NULL;
+  req->headers = createEmptyHeaders();
   req->body = NULL;
   req->bodyLength = -1;
   req->params = NULL;

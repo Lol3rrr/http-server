@@ -9,7 +9,8 @@ void parseHeadBench() {
 
   for (int i = 0; i < RUNS; i++) {
     request tmp = {
-      params: NULL
+      params: NULL,
+      headers: createEmptyHeaders()
     };
 
     clock_t start = clock();

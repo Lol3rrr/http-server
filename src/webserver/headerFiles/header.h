@@ -14,10 +14,10 @@
 int debug;
 
 typedef struct headers {
-  kvNode_t* kvNodes;
+  kvNode_t kvNodes;
 } headers_t;
 
-headers_t* createEmptyHeaders();
+headers_t createEmptyHeaders();
 
 kvNode_t* pushHeader(headers_t* headers, string* key, string* value);
 void print_header_debug(headers_t* headers);

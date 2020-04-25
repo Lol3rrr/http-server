@@ -15,12 +15,12 @@ int createHTTPHeaderPart(response* respPtr, char* spacer, int spacerLength, char
   int headerLength = -1;
   char* headerPart;
 
-  if (respPtr->headers.kvNodes != NULL) {
+  if (respPtr->headers.kvNodes.next != NULL) {
     headers_t* headers = &(respPtr->headers);
-    kvNode_t* currentKV = headers->kvNodes;
+    kvNode_t* currentKV = headers->kvNodes.next;
     headerPartNode_t* head = NULL;
 
-    headerLength = getHeaderPartLength(headers->kvNodes, spacerLength);
+    headerLength = getHeaderPartLength(headers->kvNodes.next, spacerLength);
     headerPart = createEmptyCString(headerLength);
 
     char* buffer = headerPart;
