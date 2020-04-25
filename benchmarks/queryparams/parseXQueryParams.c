@@ -1,25 +1,30 @@
 #include "../queryparams.h"
 
-void parse1QueryParamsBench() {
-  double total = parseQueryParamsBench("/testPage?key=value");
+void parseXQueryParamsBench(int count) {
+  int length = 9 + count * 14 + 1; 
+  char* buffer = malloc(length * sizeof(char));
 
-  printDuration("QueryParams", "Parse 01-Parameters", total);
-}
+  memcpy(buffer, "/testpage", 9);
+  char* currentBuffer = buffer + 9;
+  for (int i = 0; i < count; i++) {
+    if (i == 0) {
+      currentBuffer[0] = '?';
+    } else {
+      currentBuffer[0] = '&';
+    }
+    currentBuffer++;
 
-void parse2QueryParamsBench() {
-  double total = parseQueryParamsBench("/testPage?key=value&key=value");
+    int writeLength = sprintf(currentBuffer, "%06d=%06d", i, rand() % 1000000);
+    currentBuffer += writeLength;
+  }
+  buffer[length - 1] = '\0';
 
-  printDuration("QueryParams", "Parse 02-Parameters", total);
-}
+  double total = parseQueryParamsBench(buffer);
 
-void parse5QueryParamsBench() {
-  double total = parseQueryParamsBench("/testPage?key=value&key=value&key=value&key=value&key=value");
+  char nameBuffer[24];
+  sprintf(nameBuffer, "Parse %06d-Parameters", count);
+  nameBuffer[23] = '\0';
+  printDuration("QueryParams", nameBuffer, total);
 
-  printDuration("QueryParams", "Parse 05-Parameters", total);
-}
-
-void parse10QueryParamsBench() {
-  double total = parseQueryParamsBench("/testPage?key=value&key=value&key=value&key=value&key=value&key=value&key=value&key=value&key=value&key=value");
-
-  printDuration("QueryParams", "Parse 10-Parameters", total);
+  free(buffer);
 }

@@ -1,7 +1,7 @@
 #ifndef BENCH_GENERAL_H
 #define BENCH_GENERAL_H
 
-#define RUNS 1000000
+#define RUNS 100000
 
 #include <stdio.h>
 #include <time.h>

@@ -1,8 +1,11 @@
 #include "../header.h"
 
 void benchParseHeader() {
-  parse1HeadersBench();
-  parse2HeadersBench();
-  parse5HeadersBench();
-  parse10HeadersBench();
+  parseXHeadersBench(1);
+  parseXHeadersBench(2);
+  parseXHeadersBench(5);
+  parseXHeadersBench(10);
+  parseXHeadersBench(25);
+  parseXHeadersBench(50);
+  parseXHeadersBench(100);
 }
