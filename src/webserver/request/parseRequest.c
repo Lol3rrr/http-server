@@ -3,10 +3,10 @@
 // Returns 0 if worked
 int parseRequest(char* headerPart, int headerLength, request** result) {
   request* req = (request*) malloc(1 * sizeof(request));
-  req->method.content = NULL;
+  req->method[MAX_METHOD_LENGTH] = '\0';
   req->path.content = NULL;
   req->protokol.content = NULL;
-  req->headers.kvNodes = NULL;
+  req->headers = createEmptyHeaders();
   req->body = NULL;
   req->bodyLength = -1;
   req->params = NULL;
@@ -30,7 +30,7 @@ int parseRequest(char* headerPart, int headerLength, request** result) {
 
   if (hasEmptyField(req)) {
     logDebug("[parseRequest] Not everything has been set \n");
-    logDebug("[parseRequest] Method: '%p', Path: '%p', Protokol: '%p', First Header Key: '%p' \n", req->method.content, req->path.content, req->protokol.content, req->headers.kvNodes);
+    logDebug("[parseRequest] Path: '%p', Protokol: '%p', First Header Key: '%p' \n", req->path.content, req->protokol.content, req->headers.kvNodes);
 
     cleanRequest(req);
     free(req);

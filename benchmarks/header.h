@@ -13,10 +13,7 @@
 void firstLineBench();
 double parseHeadersBench(char* input);
 
-void parse1HeadersBench();
-void parse2HeadersBench();
-void parse5HeadersBench();
-void parse10HeadersBench();
+void parseXHeadersBench(int count);
 
 void benchParseHeader();
 

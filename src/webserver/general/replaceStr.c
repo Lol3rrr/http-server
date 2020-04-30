@@ -1,8 +1,11 @@
 #include "../headerFiles/general.h"
 
-void replaceStr(char* src, char* replacement, int start, int lengthToReplace, char** result, int* resultLength) {
-  int srcLength = strlen(src);
-  int replacementLength = strlen(replacement);
+void replaceStr(string* srcStr, string* replacementStr, int start, int lengthToReplace, char** result, int* resultLength) {
+  char* src = srcStr->content;
+  char* replacement = replacementStr->content;
+
+  int srcLength = srcStr->length;
+  int replacementLength = replacementStr->length;
 
   int totalLength = srcLength - lengthToReplace + replacementLength;
   char* nString = createEmptyCString(totalLength);

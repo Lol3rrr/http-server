@@ -6,6 +6,7 @@
 #include <string.h>
 #include <time.h>
 
+#include "file.h"
 #include "general.h"
 #include "header.h"
 #include "logger.h"
@@ -21,7 +22,7 @@ typedef struct response {
 
   int streaming;
   int streamSize;
-  FILE* file;
+  File* file;
 } response;
 
 typedef struct headerPartNode {
@@ -40,7 +41,7 @@ int isCachingAllowed(request* reqPtr);
 
 int setContentType(response* respPtr, char* contentType, int contentLength);
 int setData(response* respPtr, char* data, int size);
-int setStreaming(response* respPtr, FILE* f, int size);
+int setStreaming(response* respPtr, File* f);
 int setCache(response* respPtr, request* reqPtr, int cacheTime);
 int setStatus(response* respPtr, int statusCode, char* statusMessage);
 

@@ -8,6 +8,11 @@ int cleanResponse(response* respPtr) {
     free(respPtr->protokol.content);
   }
 
+  if (respPtr->streamSize > 0) {
+    closeFile(respPtr->file);
+    free(respPtr->file);
+  }
+
   if (respPtr->dataSize > 0)
     free(respPtr->data);
 

@@ -24,5 +24,6 @@ int getKV(kvNode_t* head, string* key, kvNode_t** result);
 void cleanKVNodes(kvNode_t* current);
 
 void createKVPair(kvNode_t* node, string* result);
+int getKVPairLength(kvNode_t* node);
 
 #endif

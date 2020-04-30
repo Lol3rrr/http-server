@@ -6,7 +6,7 @@ void print_request_debug(request* req) {
   }
 
   logDebug("[Request] Printing Request: \n");
-  logDebug("[Request] Method: '%s' \n", req->method.content);
+  logDebug("[Request] Method: '%s' \n", req->method);
   logDebug("[Request] Path: '%s' \n", req->path.content);
   logDebug("[Request] Protokol: '%s' \n", req->protokol.content);
   logDebug("[Request] Headers: \n");

@@ -1,54 +1,71 @@
 #include "../headerFiles/templating.h"
 
+#define INCLUDESTARTLENGTH 10
+#define INCLUDEENDLENGTH 2
+
+int handleParseIncludeStatement(string* includeStr, char** result) {
+  includeStatement statement;
+  int worked = parseIncludeStatement(includeStr, &statement);
+  if (worked != 0) {
+    free(statement.filePath);
+
+    return 0;
+  }
+
+  char* data;
+  int size = readRawFile(statement.filePath, &data);
+  if (size < 0) {
+    free(statement.filePath);
+    free(data);
+
+    return 0;
+  }
+  free(statement.filePath);
+
+  *result = data;
+
+  return size;
+}
+
 int parseTemplate(char* rawContent, int rawContentLength, char** result) {
   int contentLength = rawContentLength;
   char* content = rawContent;
 
-  if (contentLength <= 0)
+  if (contentLength <= 0 || content == NULL)
     return -1;
 
-  if (content == NULL)
-    return -1;
-
-  int includeStart = findCharArr(content, "<--include", contentLength, 10);
+  int includeStart = findCharArr(content, "<--include", contentLength, INCLUDESTARTLENGTH);
   while (includeStart != -1) {
-    int includeInnerStart = includeStart + 10;
-    int includeEnd = findCharArrAfter(content, "/>", contentLength, 2, includeStart);
+    int includeInnerStart = includeStart + INCLUDESTARTLENGTH;
+    int includeEnd = findCharArrAfter(content, "/>", contentLength, INCLUDEENDLENGTH, includeStart);
     includeEnd += 2;
 
     int includeStrLength = (includeEnd - includeStart);
     string includeStr = {
-      content: NULL,
-      length: includeStrLength
+      content: content + includeStart,
+      length: includeStrLength,
     };
-    getSubstring(content, includeStart, includeStrLength, &(includeStr.content));
-
-    includeStatement* statement;
-    parseIncludeStatement(&includeStr, &statement);
-
-    free(includeStr.content);
 
     char* data;
-    int size = readRawFile(statement->filePath, &data);
-    if (size < 0) {
-      free(data);
-
-      logError("[parseTemplate] Could not include the file '%s' \n", statement->filePath);
-
-      data = createEmptyCString(0);
-    }
-
-
+    int dataSize = handleParseIncludeStatement(&includeStr, &data);
     char* nContent;
-    replaceStr(content, data, includeStart, (includeEnd - includeStart), &nContent, &contentLength);
+    string contentStr = {
+      content: content,
+      length: contentLength,
+    };
+    string replacementStr = {
+      content: data,
+      length: dataSize,
+    };
+    replaceStr(&contentStr, &replacementStr, includeStart, (includeEnd - includeStart), &nContent, &contentLength);
+    if (dataSize > 0) {
+      free(data);
+    }
     free(content);
     content = nContent;
 
-    free(statement->filePath);
-    free(statement);
-    free(data);
 
-    includeStart = findCharArr(content, "<--include", contentLength, 10);
+    includeStart = findCharArrAfter(content, "<--include", contentLength, INCLUDESTARTLENGTH, includeStart);
   }
 
   (*result) = content;

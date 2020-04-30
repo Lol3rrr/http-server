@@ -5,5 +5,5 @@ void print_header_debug(headers_t* headers) {
     return;
   }
 
-  print_kv_nodes(headers->kvNodes);
+  print_kv_nodes(headers->kvNodes.next);
 }

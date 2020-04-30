@@ -13,6 +13,9 @@ build_prometheus_static:
 build_benchmark:
 	gcc -O3 -o benchmark.out benchmarks/*.c benchmarks/*.h benchmarks/*/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c
 
+build_profile_benchmark:
+	gcc -g -o benchmark.out benchmarks/*.c benchmarks/*.h benchmarks/*/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c
+
 memcheck:
 	gcc -g -o memcheck.out src/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c
 	valgrind --leak-check=full --show-leak-kinds=all ./memcheck.out -p 9090 -t -c
@@ -44,6 +47,10 @@ run_speedTest:
 run_benchmark:
 	make build_benchmark
 	./benchmark.out
+
+run_profile_benchmark:
+	make build_profile_benchmark
+	valgrind --tool=callgrind --cache-sim=yes --branch-sim=yes --dump-instr=yes --collect-jumps=yes ./benchmark.out
 
 docker:
 	docker build -t c-http-server:latest .

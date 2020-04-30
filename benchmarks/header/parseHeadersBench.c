@@ -9,9 +9,7 @@ double parseHeadersBench(char* input) {
   double total = 0.0;
 
   for (int i = 0; i < RUNS; i++) {
-    headers_t headers = {
-      kvNodes: NULL
-    };
+    headers_t headers = createEmptyHeaders();
 
     clock_t start = clock();
 

@@ -1,25 +1,23 @@
 #include "../header.h"
 
-void parse1HeadersBench() {
-  double total = parseHeadersBench("Accept: text/html\r\n\r\n");
+void parseXHeadersBench(int count) {
+  int length = 16 * count + 2 + 1;
+  char* buffer = malloc(length * sizeof(char));
+  char* currentBuffer = buffer;
+  for (int i = 0; i < count; i++) {
+    int writeLength = sprintf(currentBuffer, "%06d: %06d\r\n", i, rand() % 1000000);
+    currentBuffer += writeLength;
+  }
+  buffer[length - 3] = '\r';
+  buffer[length - 2] = '\n';
+  buffer[length - 1] = '\0';
 
-  printDuration("Header", "Parse 01-Headers", total);
-}
+  double total = parseHeadersBench(buffer);
 
-void parse2HeadersBench() {
-  double total = parseHeadersBench("Accept: text/html\r\nAccept: text/html\r\n\r\n");
+  char nameBuffer[21];
+  sprintf(nameBuffer, "Parse %06d-Headers", count);
+  nameBuffer[20] = '\0';
+  printDuration("Header", nameBuffer, total);
 
-  printDuration("Header", "Parse 02-Headers", total);
-}
-
-void parse5HeadersBench() {
-  double total = parseHeadersBench("Accept: text/html\r\nAccept: text/html\r\nAccept: text/html\r\nAccept: text/html\r\nAccept: text/html\r\n\r\n");
-
-  printDuration("Header", "Parse 05-Headers", total);
-}
-
-void parse10HeadersBench() {
-  double total = parseHeadersBench("Accept: text/html\r\nAccept: text/html\r\nAccept: text/html\r\nAccept: text/html\r\nAccept: text/html\r\nAccept: text/html\r\nAccept: text/html\r\nAccept: text/html\r\nAccept: text/html\r\nAccept: text/html\r\n\r\n");
-
-  printDuration("Header", "Parse 10-Headers", total);
+  free(buffer);
 }

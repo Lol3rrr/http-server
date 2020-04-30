@@ -5,7 +5,7 @@ response* createEmptyResponse(char* protokol) {
   resp->statusCode = -1;
   resp->statusMessage.content = NULL;
   resp->protokol.content = NULL;
-  resp->headers.kvNodes = NULL;
+  resp->headers = createEmptyHeaders();
   resp->data = NULL;
   resp->dataSize = -1;
   resp->streaming = 0;
@@ -20,7 +20,7 @@ response* createEmptyResponse(char* protokol) {
   resp->protokol = nString;
   memcpy(resp->protokol.content, protokol, protokolLength);
 
-  addHeader(resp, "Server", "Lol3r-C/0.1");
+  addHeader(resp, "Server", "Lol3r-C/1.0");
 
   return resp;
 }

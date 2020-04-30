@@ -5,5 +5,5 @@ int stringCmp(string* str1, string* str2) {
     return -1;
   }
 
-  return strcmp(str1->content, str2->content);
+  return memcmp(str1->content, str2->content, str1->length);
 }

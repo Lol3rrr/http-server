@@ -13,7 +13,7 @@
 #include "file.h"
 
 typedef struct request {
-  string method;
+  char method[MAX_METHOD_LENGTH + 1];
   string path;
   string protokol;
   headers_t headers;

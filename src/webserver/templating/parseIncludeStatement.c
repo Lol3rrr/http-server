@@ -1,6 +1,6 @@
 #include "../headerFiles/templating.h"
 
-int parseIncludeStatement(string* includeText, includeStatement** statement) {
+int parseIncludeStatement(string* includeText, includeStatement* statement) {
   int pathStart = findStr(includeText, "path=\"", 6);
   if (pathStart == -1)
     return -1;
@@ -13,24 +13,18 @@ int parseIncludeStatement(string* includeText, includeStatement** statement) {
 
   int subLength = (pathEnd - pathStart);
   string subStr = {
-    content: NULL,
+    content: includeText->content + pathStart,
     length: subLength
   };
-  getSubstring(includeText->content, pathStart, subLength, &(subStr.content));
 
-  string* fileName = loadFileName(&subStr);
-  free(subStr.content);
-  if (fileName->length < 0) {
-    free(fileName->content);
-    free(fileName);
+  string fileName = loadFileName(&subStr);
+  if (fileName.length < 0) {
+    free(fileName.content);
 
     return -1;
   }
 
-  (*statement) = (includeStatement*) malloc(1 * sizeof(includeStatement));
-  (*statement)->filePath = fileName->content;
-
-  free(fileName);
+  (*statement).filePath = fileName.content;
 
   return 0;
 }
