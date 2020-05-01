@@ -14,8 +14,8 @@ response* createEmptyResponse(char* protokol) {
 
   int protokolLength = strlen(protokol);
   string nString = {
-    content: createEmptyCString(protokolLength),
-    length: protokolLength
+    .content = createEmptyCString(protokolLength),
+    .length = protokolLength
   };
   resp->protokol = nString;
   memcpy(resp->protokol.content, protokol, protokolLength);

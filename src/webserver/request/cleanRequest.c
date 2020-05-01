@@ -1,10 +1,10 @@
 #include "../headerFiles/request.h"
 
 int cleanRequest(request* reqPtr) {
-  if (reqPtr->path.content != NULL) {
+  if (reqPtr->path.length > -1) {
     free(reqPtr->path.content);
   }
-  if (reqPtr->protokol.content != NULL) {
+  if (reqPtr->protokol.length > -1) {
     free(reqPtr->protokol.content);
   }
 
@@ -13,4 +13,6 @@ int cleanRequest(request* reqPtr) {
     cleanQueryParams(reqPtr->params);
 
   free(reqPtr->body);
+
+  return 0;
 }

@@ -26,4 +26,6 @@ int setCache(response* respPtr, request* reqPtr, int cacheTime) {
   addHeader(respPtr, "Cache-Control", cacheHeader);
 
   free(cacheHeader);
+
+  return 0;
 }

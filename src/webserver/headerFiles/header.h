@@ -11,8 +11,6 @@
 
 #define MAX_METHOD_LENGTH 7
 
-int debug;
-
 typedef struct headers {
   kvNode_t kvNodes;
 } headers_t;

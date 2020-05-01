@@ -35,12 +35,12 @@ queryParams_t* parseQueryParams(string* rawPath, char** resultPath, int* resultL
       }
 
       string key = {
-        content: createEmptyCString(keyLength),
-        length: keyLength
+        .content = createEmptyCString(keyLength),
+        .length = keyLength
       };
       string value = {
-        content: createEmptyCString(valueLength),
-        length: valueLength
+        .content = createEmptyCString(valueLength),
+        .length = valueLength
       };
 
       memcpy(key.content, paramStr + keyStart, keyLength);

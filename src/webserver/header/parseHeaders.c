@@ -19,12 +19,12 @@ int parseHeaders(char* headers, int headersLength, headers_t* result, int* heade
       }
 
       string key = {
-        content: NULL,
-        length: keyLength
+        .content = NULL,
+        .length = keyLength
       };
       string value = {
-        content: NULL,
-        length: valueLength
+        .content = NULL,
+        .length = valueLength
       };
       getSubstring(headers, keyStart, keyLength, &(key.content));
       getSubstring(headers, keyEnd + 2, valueLength, &(value.content));
