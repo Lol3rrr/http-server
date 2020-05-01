@@ -2,3 +2,4 @@
 prof_output
 *.out.*
 .vscode/settings.json
+*.h.gch
