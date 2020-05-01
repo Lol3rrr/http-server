@@ -7,7 +7,5 @@ int getHeader(headers_t* headers, char* key, kvNode_t** result) {
     .length = keyLength
   };
 
-  int worked = getKV(headers->kvNodes.next, &keyStr, result);
-
-  return worked;
+  return getKV(headers->kvNodes.next, &keyStr, result);
 }
