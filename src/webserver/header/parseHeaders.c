@@ -13,7 +13,7 @@ int parseHeaders(char* headers, int headersLength, headers_t* result, int* heade
       int keyLength = keyEnd - keyStart;
       int valueLength = i - keyEnd - 2;
 
-      if (keyLength == 0 || valueLength == 0) {
+      if (keyLength <= 0 || valueLength <= 0) {
         *headerEnd = i + 2;
         break;
       }
