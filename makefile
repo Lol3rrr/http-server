@@ -1,36 +1,37 @@
 build:
-	gcc -O3 -o server.out src/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c
+	gcc -O3 -o server.out src/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c -lpthread
 
 build_prometheus:
-	gcc -O3 -o server.out -DPROMETHEUS src/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c
+	gcc -O3 -o server.out -DPROMETHEUS src/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c -lpthread
 
 build_static:
-	gcc -O3 -o server.out -static src/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c
+	gcc -O3 -o server.out -static src/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c -lpthread
 
 build_prometheus_static:
-	gcc -O3 -o server.out -DPROMETHEUS -static src/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c
+	gcc -O3 -o server.out -DPROMETHEUS -static src/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c -lpthread
 
 build_benchmark:
-	gcc -O3 -o benchmark.out benchmarks/*.c benchmarks/*.h benchmarks/*/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c
+	gcc -O3 -o benchmark.out benchmarks/*.c benchmarks/*.h benchmarks/*/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c -lpthread
 
 build_profile_benchmark:
-	gcc -g -o benchmark.out benchmarks/*.c benchmarks/*.h benchmarks/*/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c
+	gcc -g -o benchmark.out benchmarks/*.c benchmarks/*.h benchmarks/*/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c -lpthread
 
 memcheck:
-	gcc -g -o memcheck.out src/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c
+	gcc -g -o memcheck.out src/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c -lpthread
 	valgrind --leak-check=full --show-leak-kinds=all ./memcheck.out -p 9090 -t -c
 
 fuzztesting:
-	clang -g -fsanitize=address,undefined,fuzzer src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c fuzzTesting/parseRequest.c
+	clang -g -fsanitize=address,undefined,fuzzer src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c fuzzTesting/parseRequest.c -lpthread
 	./a.out -jobs=5
 
 memcheck_stats:
-	gcc -g -o memcheck.out -DPROMETHEUS src/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c
+	gcc -g -o memcheck.out -DPROMETHEUS src/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c -lpthread
 	valgrind --leak-check=full --show-leak-kinds=all ./memcheck.out -p 9090 -t -c
 
 run_profile:
-	gcc -g -o profile.out src/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c
+	gcc -g -o profile.out src/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c -lpthread
 	valgrind --tool=callgrind --cache-sim=yes --branch-sim=yes --dump-instr=yes --collect-jumps=yes ./profile.out -p 9090
+
 profile:
 	kcachegrind
 rm_profile:
