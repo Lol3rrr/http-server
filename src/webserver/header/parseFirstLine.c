@@ -1,8 +1,5 @@
 #include "../headerFiles/header.h"
 
-// Returns the last index of the first Line
-// Or -1 if a problem occured
-// Or -2 if a '..' has been found
 int parseFirstLine(char* header, int headerLength, char (*methodPtr)[MAX_METHOD_LENGTH + 1], string* pathPtr, string* protokolPtr) {
   string* parts[2] = {pathPtr, protokolPtr};
 
