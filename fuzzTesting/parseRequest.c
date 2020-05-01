@@ -9,6 +9,7 @@ int LLVMFuzzerTestOneInput(const char *Data, int size) {
   int result = parseRequest(data, size, &tmp);
   if (result == 0) {
     cleanRequest(tmp);
+    free(tmp);
   }
 
   free(data);
