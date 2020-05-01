@@ -7,3 +7,4 @@ prof_output
 leak-*
 crash-*
 timeout-*
+fuzz-*.log
