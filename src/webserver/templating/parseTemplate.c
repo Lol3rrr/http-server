@@ -42,20 +42,20 @@ int parseTemplate(char* rawContent, int rawContentLength, char** result) {
 
     int includeStrLength = (includeEnd - includeStart);
     string includeStr = {
-      content: content + includeStart,
-      length: includeStrLength,
+      .content = content + includeStart,
+      .length = includeStrLength,
     };
 
     char* data;
     int dataSize = handleParseIncludeStatement(&includeStr, &data);
     char* nContent;
     string contentStr = {
-      content: content,
-      length: contentLength,
+      .content = content,
+      .length = contentLength,
     };
     string replacementStr = {
-      content: data,
-      length: dataSize,
+      .content = data,
+      .length = dataSize,
     };
     replaceStr(&contentStr, &replacementStr, includeStart, (includeEnd - includeStart), &nContent, &contentLength);
     if (dataSize > 0) {

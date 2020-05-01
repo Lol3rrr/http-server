@@ -3,15 +3,15 @@
 void addCustomPath(char* rawMethod, char* rawPath, int (*funcPtr)(request* reqPtr, response* respPtr)) {
   int methodLength = strlen(rawMethod);
   string method = {
-    content: createEmptyCString(methodLength),
-    length: methodLength
+    .content = createEmptyCString(methodLength),
+    .length = methodLength
   };
   memcpy(method.content, rawMethod, methodLength);
 
   int pathLength = strlen(rawPath);
   string path = {
-    content: createEmptyCString(pathLength),
-    length: pathLength
+    .content = createEmptyCString(pathLength),
+    .length = pathLength
   };
   memcpy(path.content, rawPath, pathLength);
 

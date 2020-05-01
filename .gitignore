@@ -2,3 +2,9 @@
 prof_output
 *.out.*
 .vscode/settings.json
+*.h.gch
+
+leak-*
+crash-*
+timeout-*
+fuzz-*.log

@@ -5,7 +5,9 @@ int parseRequest(char* headerPart, int headerLength, request** result) {
   request* req = (request*) malloc(1 * sizeof(request));
   req->method[MAX_METHOD_LENGTH] = '\0';
   req->path.content = NULL;
+  req->path.length = -1;
   req->protokol.content = NULL;
+  req->protokol.length = -1;
   req->headers = createEmptyHeaders();
   req->body = NULL;
   req->bodyLength = -1;

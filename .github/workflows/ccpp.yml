@@ -2,14 +2,14 @@ name: C/C++ CI
 on: [push]
 jobs:
   compile_normal:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
     - name: Pull
       uses: actions/checkout@v1
     - name: Compile to binary
       run: make build
   compile_prometheus:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
     - name: Pull
       uses: actions/checkout@v1

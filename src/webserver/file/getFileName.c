@@ -17,8 +17,8 @@ string getFileName(string* folder, string* path) {
     memcpy(content + totalLength, "index.html", 10);
 
     string result = {
-      content: content,
-      length: length,
+      .content = content,
+      .length = length,
     };
 
     return result;
@@ -35,8 +35,8 @@ string getFileName(string* folder, string* path) {
     memcpy(content + totalLength, ".html", 5);
 
     string result = {
-      content: content,
-      length: length,
+      .content = content,
+      .length = length,
     };
 
     return result;
@@ -47,8 +47,8 @@ string getFileName(string* folder, string* path) {
   memcpy(content + folder->length, path->content, path->length);
 
   string file = {
-    content: content,
-    length: length,
+    .content = content,
+    .length = length,
   };
 
   return file;

@@ -13,8 +13,8 @@ int parseIncludeStatement(string* includeText, includeStatement* statement) {
 
   int subLength = (pathEnd - pathStart);
   string subStr = {
-    content: includeText->content + pathStart,
-    length: subLength
+    .content = includeText->content + pathStart,
+    .length = subLength
   };
 
   string fileName = loadFileName(&subStr);

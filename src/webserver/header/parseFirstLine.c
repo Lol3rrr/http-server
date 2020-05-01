@@ -22,6 +22,9 @@ int parseFirstLine(char* header, int headerLength, char (*methodPtr)[MAX_METHOD_
       }
 
       if (currentPart == 0) {
+        if (partLength > MAX_METHOD_LENGTH) {
+          return -1;
+        }
         memcpy(methodPtr, header + partStart, partLength);
       } else {
         parts[currentPart - 1]->length = partLength;
