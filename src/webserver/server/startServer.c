@@ -28,9 +28,7 @@ int startServer(int serverFd) {
 
   logInfo("Now waiting for connections \n");
   while (1) {
-    logInfo("Waiting... \n");
     pthread_mutex_lock(&lock->mutex);
-    logInfo("Locked Mutex \n");
 
     if (fork() == 0) {
       int session_fd = accept(serverFd, 0, 0);
