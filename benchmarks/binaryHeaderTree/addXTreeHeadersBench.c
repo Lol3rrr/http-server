@@ -4,6 +4,8 @@ void addXTreeHeadersBench(int count) {
   string* keys = (string*) malloc(count * sizeof(string));
   string* values = (string*) malloc(count * sizeof(string));
 
+  srand(1398071239);
+
   for (int i = 0; i < count; i++) {
     int length = 2 + 13;
     string tmpKey = {
@@ -15,8 +17,8 @@ void addXTreeHeadersBench(int count) {
       .content = createEmptyCString(length)
     };
 
-    sprintf(tmpKey.content, "K-%06d", rand());
-    sprintf(tmpValue.content, "V-%06d", rand());
+    sprintf(tmpKey.content, "%06d-K", rand());
+    sprintf(tmpValue.content, "%06d-V", rand());
 
     keys[i] = tmpKey;
     values[i] = tmpValue;
