@@ -5,7 +5,7 @@ response* createEmptyResponse(char* protokol) {
   resp->statusCode = -1;
   resp->statusMessage.content = NULL;
   resp->protokol.content = NULL;
-  resp->headers = createEmptyHeaders();
+  resp->bTreeHeaders = NULL;
   resp->data = NULL;
   resp->dataSize = -1;
   resp->streaming = 0;

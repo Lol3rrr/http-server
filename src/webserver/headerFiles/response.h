@@ -11,12 +11,13 @@
 #include "header.h"
 #include "logger.h"
 #include "request.h"
+#include "binaryHeaderTree.h"
 
 typedef struct response {
   int statusCode;
   string statusMessage;
   string protokol;
-  headers_t headers;
+  BTreeNode_t* bTreeHeaders;
   char* data;
   int dataSize;
 
@@ -24,15 +25,6 @@ typedef struct response {
   int streamSize;
   File* file;
 } response;
-
-typedef struct headerPartNode {
-  int length;
-  char* content;
-  struct headerPartNode* next;
-} headerPartNode_t;
-
-void pushHeaderNodePart(headerPartNode_t* head, char* content, int length);
-void cleanHeaderNodePart(headerPartNode_t* node);
 
 
 int addHeader(response* respPtr, char* key, char* value);

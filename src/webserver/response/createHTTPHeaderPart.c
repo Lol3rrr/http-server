@@ -1,47 +1,71 @@
 #include "../headerFiles/response.h"
 
-static int getHeaderPartLength(kvNode_t* node, int spacerLength) {
-  int length = getKVPairLength(node);
-  length += spacerLength;
+typedef struct {
+  int length;
+  int spacerLength;
+} HeaderLengthHelper_t;
 
-  if (node->next) {
-    length += getHeaderPartLength(node->next, spacerLength);
-  }
+typedef struct {
+  char* buffer;
+  char* spacer;
+  int spacerLength;
+} HeaderPartHelper_t;
 
-  return length;
+static void addHeaderNode(BTreeNode_t* node, void** data) {
+  HeaderLengthHelper_t* tmpData = (HeaderLengthHelper_t*) *data;
+
+  tmpData->length += getHeaderPairLength(node);
+  tmpData->length += tmpData->spacerLength;
+}
+
+static int getHeaderPartLength(BTreeNode_t* node, int spacerLength) {
+  HeaderLengthHelper_t helperData = {
+    .length = 0,
+    .spacerLength = spacerLength
+  };
+
+  HeaderLengthHelper_t* tmpPointer = &helperData;
+  void** dataPointer = (void**) &tmpPointer;
+  forEach(node, dataPointer, &addHeaderNode);
+
+  return helperData.length;
+}
+
+static void addHeaderToBuffer(BTreeNode_t* node, void** data) {
+  HeaderPartHelper_t* helper = (HeaderPartHelper_t*) *data;
+
+  string result;
+  createHeaderPair(node, &result);
+
+  memcpy(helper->buffer, result.content, result.length);
+  helper->buffer += result.length;
+
+  memcpy(helper->buffer, helper->spacer, helper->spacerLength);
+  helper->buffer += helper->spacerLength;
+
+  free(result.content);
 }
 
 int createHTTPHeaderPart(response* respPtr, char* spacer, int spacerLength, char** result) {
   int headerLength = -1;
   char* headerPart;
 
-  if (respPtr->headers.kvNodes.next != NULL) {
-    headers_t* headers = &(respPtr->headers);
-    kvNode_t* currentKV = headers->kvNodes.next;
-    headerPartNode_t* head = NULL;
-
-    headerLength = getHeaderPartLength(headers->kvNodes.next, spacerLength);
+  if (respPtr->bTreeHeaders != NULL) {
+    headerLength = getHeaderPartLength(respPtr->bTreeHeaders, spacerLength);
     headerPart = createEmptyCString(headerLength);
 
-    char* buffer = headerPart;
+    HeaderPartHelper_t helperData = {
+      .buffer = headerPart,
+      .spacer = spacer,
+      .spacerLength = spacerLength
+    };
 
-    while (currentKV != NULL) {
-      string result;
-      createKVPair(currentKV, &result);
-
-      memcpy(buffer, result.content, result.length);
-      buffer += result.length;
-
-      memcpy(buffer, spacer, spacerLength);
-      buffer += spacerLength;
-
-      free(result.content);
-
-      currentKV = currentKV->next;
-    }
-
-    *result = headerPart;
+    HeaderPartHelper_t* helperPtr = &helperData;
+    void** dataPointer = (void**) &helperPtr;
+    forEach(respPtr->bTreeHeaders, dataPointer, &addHeaderToBuffer);
   }
+
+  *result = headerPart;
 
   return headerLength;
 }

@@ -16,7 +16,7 @@ int cleanResponse(response* respPtr) {
   if (respPtr->dataSize > 0)
     free(respPtr->data);
 
-  cleanHeader(&(respPtr->headers));
+  cleanUpTree(respPtr->bTreeHeaders);
 
   return 0;
 }
