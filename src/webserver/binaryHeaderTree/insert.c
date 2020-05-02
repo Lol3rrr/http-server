@@ -17,6 +17,7 @@ static void insert_recursive(BTreeNode_t** root, string key, int keyHash, string
     free((*root)->value.content);
     (*root)->value.content = value.content;
     (*root)->value.length = value.length;
+    (*root)->keyHash = keyHash;
 
     return;
   } else if (cmpValue < 0) {
