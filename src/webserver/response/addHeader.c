@@ -15,7 +15,7 @@ int addHeader(response* respPtr, char* key, char* value) {
   };
   memcpy(valueStr.content, value, valueLength);
 
-  pushHeader(&(respPtr->headers), &keyStr, &valueStr);
+  insert(&(respPtr->bTreeHeaders), keyStr, valueStr);
 
   return 0;
 }

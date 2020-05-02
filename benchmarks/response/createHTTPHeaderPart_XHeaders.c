@@ -2,9 +2,7 @@
 
 void createHTTPHeaderPartBench_1Header() {
   response tmpResp = {
-    .headers = {
-      .kvNodes = NULL
-    }
+    .bTreeHeaders = NULL
   };
   addHeader(&tmpResp, "Header1", "Value1");
 
@@ -15,9 +13,7 @@ void createHTTPHeaderPartBench_1Header() {
 
 void createHTTPHeaderPartBench_2Header() {
   response tmpResp = {
-    .headers = {
-      .kvNodes = NULL
-    }
+    .bTreeHeaders = NULL
   };
   addHeader(&tmpResp, "Header1", "Value1");
   addHeader(&tmpResp, "Header2", "Value2");
@@ -29,9 +25,7 @@ void createHTTPHeaderPartBench_2Header() {
 
 void createHTTPHeaderPartBench_5Header() {
   response tmpResp = {
-    .headers = {
-      .kvNodes = NULL
-    }
+    .bTreeHeaders = NULL
   };
   addHeader(&tmpResp, "Header1", "Value1");
   addHeader(&tmpResp, "Header2", "Value2");
@@ -46,9 +40,7 @@ void createHTTPHeaderPartBench_5Header() {
 
 void createHTTPHeaderPartBench_10Header() {
   response tmpResp = {
-    .headers = {
-      .kvNodes = NULL
-    }
+    .bTreeHeaders = NULL
   };
   addHeader(&tmpResp, "Header1", "Value1");
   addHeader(&tmpResp, "Header2", "Value2");

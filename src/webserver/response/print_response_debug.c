@@ -10,5 +10,6 @@ void print_response_debug(response* respPtr) {
   logDebug("[Response] Statusmessage: %s \n", respPtr->statusMessage.content);
   logDebug("[Response] Protokol: %s \n", respPtr->protokol.content);
   logDebug("[Response] Headers: \n");
-  print_header_debug(&(respPtr->headers));
+
+  printTree(respPtr->bTreeHeaders);
 }

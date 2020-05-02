@@ -4,6 +4,8 @@
 #include "request.h"
 #include "queryparams.h"
 #include "response.h"
+#include "keyValueList.h"
+#include "binaryHeaderTree.h"
 
 int main() {
   printf("Starting Benchmark \n");
@@ -21,6 +23,12 @@ int main() {
 
   // Response Benchmarks
   createHTTPHeaderPartBench();
+
+  // Key-Value List Benchmarks
+  benchAddKV();
+
+  // Binary Header Tree Benchmarks
+  benchAddTreeHeader();
 
   printf("Done \n");
 
