@@ -13,5 +13,5 @@ int parseHead(char* message, int messageLength, request* reqPtr) {
 
   parseHeaders(headers, headersLength, &(reqPtr->headers), &headerEnd);
 
-  return headerEnd;
+  return headerEnd + firstLineEnd;
 }

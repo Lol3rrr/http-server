@@ -1,18 +1,18 @@
 #include "../headerFiles/request.h"
 
 int cleanRequest(request* reqPtr) {
-  if (reqPtr->path.length > -1) {
-    free(reqPtr->path.content);
-  }
-  if (reqPtr->protokol.length > -1) {
-    free(reqPtr->protokol.content);
-  }
+  cleanString(reqPtr->method);
+  cleanString(reqPtr->path);
+  cleanString(reqPtr->protokol);
+  cleanString(reqPtr->body);
 
   cleanHeader(&(reqPtr->headers));
   if (reqPtr->params != NULL)
     cleanQueryParams(reqPtr->params);
 
-  free(reqPtr->body);
+
+  if (reqPtr->initialContent)
+    free(reqPtr->initialContent);
 
   return 0;
 }

@@ -34,16 +34,11 @@ static int getHeaderPartLength(BTreeNode_t* node, int spacerLength) {
 static void addHeaderToBuffer(BTreeNode_t* node, void** data) {
   HeaderPartHelper_t* helper = (HeaderPartHelper_t*) *data;
 
-  string result;
-  createHeaderPair(node, &result);
-
-  memcpy(helper->buffer, result.content, result.length);
-  helper->buffer += result.length;
+  int pairLength = createHeaderPair(node, helper->buffer);
+  helper->buffer += pairLength;
 
   memcpy(helper->buffer, helper->spacer, helper->spacerLength);
   helper->buffer += helper->spacerLength;
-
-  free(result.content);
 }
 
 int createHTTPHeaderPart(response* respPtr, char* spacer, int spacerLength, char** result) {

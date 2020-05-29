@@ -13,11 +13,11 @@ int handleRequest(int conFd, request* reqPtr) {
   incCounterByName("total_requests", &counterRegistry);
 #endif
 
-  response* respPtr = createEmptyResponse(reqPtr->protokol.content);
+  response* respPtr = createEmptyResponse(reqPtr->protokol);
 
   int worked;
   if (customPathEnabled) {
-    worked = callCustomPath(reqPtr->method, &(reqPtr->path), reqPtr, respPtr);
+    worked = callCustomPath(&(reqPtr->method), &(reqPtr->path), reqPtr, respPtr);
   } else {
     worked = handleGETrequest(reqPtr, respPtr);
   }

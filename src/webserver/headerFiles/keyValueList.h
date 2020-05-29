@@ -9,8 +9,10 @@
 typedef struct kvNode {
   char* key;
   int keyLength;
+  int keyFree;
   char* value;
   int valueLength;
+  int valueFree;
   struct kvNode* next;
 } kvNode_t;
 

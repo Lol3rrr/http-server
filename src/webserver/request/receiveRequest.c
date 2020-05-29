@@ -21,8 +21,6 @@ int receiveRequest(int conFd, request** reqPtr) {
     return 1;
   }
 
-  free(readBuffer);
-
   *reqPtr = req;
 
   return 0;

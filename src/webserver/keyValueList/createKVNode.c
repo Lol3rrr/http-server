@@ -5,8 +5,10 @@ kvNode_t* createKVNode(string* key, string* value) {
 
   node->key = key->content;
   node->keyLength = key->length;
+  node->keyFree = key->needsFree;
   node->value = value->content;
   node->valueLength = value->length;
+  node->valueFree = value->needsFree;
 
   node->next = NULL;
 

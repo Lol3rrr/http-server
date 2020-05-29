@@ -13,13 +13,13 @@
 #include "file.h"
 
 typedef struct request {
-  char method[MAX_METHOD_LENGTH + 1];
+  char* initialContent;
+  string method;
   string path;
   string protokol;
   headers_t headers;
   queryParams_t* params;
-  char* body;
-  int bodyLength;
+  string body;
 } request;
 
 void print_request_debug(request* req);

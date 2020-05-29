@@ -4,9 +4,8 @@ int cleanResponse(response* respPtr) {
   if (respPtr->statusMessage.content != NULL) {
     free(respPtr->statusMessage.content);
   }
-  if (respPtr->protokol.content != NULL) {
-    free(respPtr->protokol.content);
-  }
+
+  cleanString(respPtr->protokol);
 
   if (respPtr->streamSize > 0) {
     closeFile(respPtr->file);

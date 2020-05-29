@@ -55,6 +55,6 @@ void forEach(BTreeNode_t* root, void** extraData, void (*callBack)(BTreeNode_t* 
 // Returns the Size of the Header Pair
 int getHeaderPairLength(BTreeNode_t* node);
 // Actually creates the Header Pair and stores it in the given result string
-void createHeaderPair(BTreeNode_t* node, string* result);
+int createHeaderPair(BTreeNode_t* node, char* destination);
 
 #endif

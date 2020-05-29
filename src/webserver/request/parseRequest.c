@@ -3,14 +3,14 @@
 // Returns 0 if worked
 int parseRequest(char* headerPart, int headerLength, request** result) {
   request* req = (request*) malloc(1 * sizeof(request));
-  req->method[MAX_METHOD_LENGTH] = '\0';
+  req->initialContent = headerPart;
+  req->path.content = NULL;
   req->path.content = NULL;
   req->path.length = -1;
   req->protokol.content = NULL;
   req->protokol.length = -1;
   req->headers = createEmptyHeaders();
-  req->body = NULL;
-  req->bodyLength = -1;
+  req->body.content = NULL;
   req->params = NULL;
 
   int headerEnd = parseHead(headerPart, headerLength, req);
@@ -23,11 +23,10 @@ int parseRequest(char* headerPart, int headerLength, request** result) {
 
   if (headerEnd != -1 && headerEnd < headerLength) {
     int bodySize = headerLength - headerEnd;
-    char* body = createEmptyCString(bodySize);
-    memcpy(body, headerPart + headerEnd, bodySize);
 
-    req->body = body;
-    req->bodyLength = bodySize;
+    req->body.content = headerPart + headerEnd;
+    req->body.length = bodySize;
+    req->body.needsFree = 0;
   }
 
   if (hasEmptyField(req)) {

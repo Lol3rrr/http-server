@@ -18,24 +18,25 @@ int determinContentType(string* path, char** result, int* typeID) {
   }
 
   char* extension = path->content + dot + 1;
+  int length = path->length - dot - 1;
 
-  if(strcmp(extension, "html") == 0) {
+  if(strncmp(extension, "html", length) == 0) {
     (*result) = createEmptyCString(HTMLTYPELENGTH);
     memcpy((*result), "text/html;charset=UTF-8", HTMLTYPELENGTH);
     *typeID = HTMLTYPE;
-  }else if(strcmp(extension, "css") == 0) {
+  }else if(strncmp(extension, "css", length) == 0) {
     (*result) = createEmptyCString(CSSTYPELENGTH);
     memcpy((*result), "text/css;charset=UTF-8", CSSTYPELENGTH);
     *typeID = CSSTYPE;
-  }else if(strcmp(extension, "js") == 0) {
+  }else if(strncmp(extension, "js", length) == 0) {
     (*result) = createEmptyCString(JSTYPELENGTH);
     memcpy((*result), "text/javascript;charset=UTF-8", JSTYPELENGTH);
     *typeID = JSTYPE;
-  }else if(strcmp(extension, "jpg") == 0) {
+  }else if(strncmp(extension, "jpg", length) == 0) {
     (*result) = createEmptyCString(IMAGETYPELENGTH);
     memcpy((*result), "image/png", IMAGETYPELENGTH);
     *typeID = IMAGETYPE;
-  }else if(strcmp(extension, "png") == 0) {
+  }else if(strncmp(extension, "png", length) == 0) {
     (*result) = createEmptyCString(IMAGETYPELENGTH);
     memcpy((*result), "image/png", IMAGETYPELENGTH);
     *typeID = IMAGETYPE;

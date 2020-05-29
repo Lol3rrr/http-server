@@ -7,6 +7,7 @@
 typedef struct string {
   char* content;
   int length;
+  int needsFree;
 } string;
 
 extern const char digit[];
@@ -38,6 +39,7 @@ void getSubstring(char* src, int start, int length, char** result);
 void replaceStr(string* srcStr, string* replacementStr, int start, int lengthToReplace, char** result, int* resultLength);
 
 char* createEmptyCString(int length);
+void cleanString(string str);
 
 char* itoa(int i, char b[]);
 

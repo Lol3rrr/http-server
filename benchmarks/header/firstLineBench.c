@@ -4,7 +4,7 @@ void firstLineBench() {
   char* lineInput = "GET / HTTP/1.1\r\n";
   int lineLength = strlen(lineInput);
 
-  char method[MAX_METHOD_LENGTH + 1];
+  string method;
   string path;
   string protokol;
 
@@ -20,9 +20,11 @@ void firstLineBench() {
     double cDuration = getDurationMicroSec(start);
     total = total + cDuration;
 
-    if (path.content != NULL)
+    if (method.content != NULL && method.needsFree)
+      free(method.content);
+    if (path.content != NULL && path.needsFree)
       free(path.content);
-    if (protokol.content != NULL)
+    if (protokol.content != NULL && protokol.needsFree)
       free(protokol.content);
   }
 

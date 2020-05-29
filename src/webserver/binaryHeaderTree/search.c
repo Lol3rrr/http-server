@@ -16,5 +16,5 @@ static BTreeNode_t* search_recursive(BTreeNode_t* root, string key, int keyHash)
 }
 
 BTreeNode_t* search(BTreeNode_t* root, string key) {
-  search_recursive(root, key, calculateKeyHash(key));
+  return search_recursive(root, key, calculateKeyHash(key));
 }

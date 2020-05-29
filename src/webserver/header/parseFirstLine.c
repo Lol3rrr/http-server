@@ -1,7 +1,7 @@
 #include "../headerFiles/header.h"
 
-int parseFirstLine(char* header, int headerLength, char (*methodPtr)[MAX_METHOD_LENGTH + 1], string* pathPtr, string* protokolPtr) {
-  string* parts[2] = {pathPtr, protokolPtr};
+int parseFirstLine(char* header, int headerLength, string* method, string* pathPtr, string* protokolPtr) {
+  string* parts[3] = {method, pathPtr, protokolPtr};
 
   int currentPart = 0;
 
@@ -18,16 +18,9 @@ int parseFirstLine(char* header, int headerLength, char (*methodPtr)[MAX_METHOD_
         return -1;
       }
 
-      if (currentPart == 0) {
-        if (partLength > MAX_METHOD_LENGTH) {
-          return -1;
-        }
-        memcpy(methodPtr, header + partStart, partLength);
-      } else {
-        parts[currentPart - 1]->length = partLength;
-        parts[currentPart - 1]->content = createEmptyCString(partLength);
-        memcpy(parts[currentPart - 1]->content, header + partStart, partLength);
-      }
+      parts[currentPart]->length = partLength;
+      parts[currentPart]->content = header + partStart;
+      parts[currentPart]->needsFree = 0;
 
       partStart = i + 1;
 
