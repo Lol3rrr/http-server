@@ -12,7 +12,7 @@ response* createEmptyResponse(string protokol) {
   resp->streamSize = -1;
   resp->file = NULL;
 
-  addHeader(resp, "Server", "Lol3r-C/1.0");
+  addHeader(resp, "Server", "Lol3r-C/2.0");
 
   return resp;
 }
