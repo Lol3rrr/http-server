@@ -8,9 +8,9 @@ void cleanKVNodes(kvNode_t* current) {
   if (current->next != NULL)
     cleanKVNodes(current->next);
 
-  if (current->key)
+  if (current->keyFree && current->key)
     free(current->key);
-  if (current->value)
+  if (current->valueFree && current->value)
     free(current->value);
   free(current);
 }

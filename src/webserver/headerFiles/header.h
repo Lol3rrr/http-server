@@ -35,7 +35,7 @@ int getHeader(headers_t* headers, char* key, kvNode_t** result);
 // -1: if a problem occured
 // -2: if a '..' has been found
 // otherwise: the last index of the first Line
-int parseFirstLine(char* line, int length, char (*methodPtr)[MAX_METHOD_LENGTH + 1], string* pathPtr, string* protokolPtr);
+int parseFirstLine(char* line, int length, string* method, string* pathPtr, string* protokolPtr);
 // Parses the Headers of a request
 // Returns
 // 0: Worked

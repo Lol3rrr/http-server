@@ -10,9 +10,12 @@ void parseRequestBench() {
   double total = 0.0;
 
   for (int i = 0; i < RUNS; i++) {
+    char* line = malloc(lineLength * sizeof(char));
+    memcpy(line, lineInput, lineLength);
+
     clock_t start = clock();
 
-    parseRequest(lineInput, lineLength, &tmp);
+    parseRequest(line, lineLength, &tmp);
 
     double cDuration = getDurationMicroSec(start);
     total = total + cDuration;

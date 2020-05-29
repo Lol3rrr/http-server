@@ -35,16 +35,15 @@ queryParams_t* parseQueryParams(string* rawPath, char** resultPath, int* resultL
       }
 
       string key = {
-        .content = createEmptyCString(keyLength),
-        .length = keyLength
+        .content = paramStr + keyStart,
+        .length = keyLength,
+        .needsFree = 0
       };
       string value = {
-        .content = createEmptyCString(valueLength),
-        .length = valueLength
+        .content = paramStr + valueStart,
+        .length = valueLength,
+        .needsFree = 0
       };
-
-      memcpy(key.content, paramStr + keyStart, keyLength);
-      memcpy(value.content, paramStr + valueStart, valueLength);
 
       if (lastNode == NULL) {
         result->kvNodes = createKVNode(&key, &value);

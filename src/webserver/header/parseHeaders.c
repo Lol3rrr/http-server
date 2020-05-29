@@ -19,15 +19,15 @@ int parseHeaders(char* headers, int headersLength, headers_t* result, int* heade
       }
 
       string key = {
-        .content = NULL,
-        .length = keyLength
+        .content = headers + keyStart,
+        .length = keyLength,
+        .needsFree = 0
       };
       string value = {
-        .content = NULL,
-        .length = valueLength
+        .content = headers + (keyEnd + 2),
+        .length = valueLength,
+        .needsFree = 0
       };
-      getSubstring(headers, keyStart, keyLength, &(key.content));
-      getSubstring(headers, keyEnd + 2, valueLength, &(value.content));
 
       lastHeader = pushKVNode(lastHeader, &key, &value);
 
