@@ -1,7 +1,15 @@
 #include "../headerFiles/response.h"
 
 response* createResponse(int statusCode, char* statusMessage, char* protokol) {
-  response* resp = createEmptyResponse(protokol);
+  int protokolLength = strlen(protokol);
+  string protokolStr = {
+    .content = createEmptyCString(protokolLength),
+    .length = protokolLength,
+    .needsFree = 1
+  };
+  memcpy(protokolStr.content, protokol, protokolLength);
+
+  response* resp = createEmptyResponse(protokolStr);
 
   resp->statusCode = statusCode;
 

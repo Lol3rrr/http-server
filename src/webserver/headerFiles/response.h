@@ -39,7 +39,7 @@ int setStatus(response* respPtr, int statusCode, char* statusMessage);
 
 void print_response_debug(response* respPtr);
 
-response* createEmptyResponse(char* protokol);
+response* createEmptyResponse(string protokol);
 response* createResponse(int statusCode, char* statusMessage, char* protokol);
 int cleanResponse(response* respPtr);
 
