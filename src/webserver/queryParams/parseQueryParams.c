@@ -6,8 +6,7 @@ queryParams_t* parseQueryParams(string* rawPath, char** resultPath, int* resultL
     return NULL;
   }
 
-  *resultPath = createEmptyCString(paramStart - 0);
-  memcpy(*resultPath, rawPath->content + 0, paramStart);
+  *resultPath = rawPath->content + 0;
   *resultLength = paramStart;
 
   int paramStrLength = (rawPath->length - paramStart - 1);
