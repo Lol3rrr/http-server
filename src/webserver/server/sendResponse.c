@@ -3,15 +3,14 @@
 #define BUFFERSIZE 2048
 
 int sendResponse(int connection, response* respPtr) {
-  string* headResponse;
-  string* bodyResponse;
+  string headResponse;
+  string bodyResponse;
   int worked = createHTTPResponse(respPtr, &headResponse, &bodyResponse);
 
-  int flags = (bodyResponse != NULL || respPtr->streaming) ? MSG_DONTWAIT | MSG_MORE : 0;
+  int flags = (bodyResponse.content != NULL || respPtr->streaming) ? MSG_DONTWAIT | MSG_MORE : 0;
 
-  send(connection, headResponse->content, headResponse->length, flags);
-  free(headResponse->content);
-  free(headResponse);
+  send(connection, headResponse.content, headResponse.length, flags);
+  cleanString(headResponse);
 
   if (respPtr->streaming) {
     int hasMore = 1;
@@ -29,9 +28,8 @@ int sendResponse(int connection, response* respPtr) {
   }
 
 
-  if (bodyResponse != NULL) {
-    send(connection, bodyResponse->content, bodyResponse->length, 0);
-    free(bodyResponse);
+  if (bodyResponse.content != NULL) {
+    send(connection, bodyResponse.content, bodyResponse.length, 0);
   }
 
   return 0;

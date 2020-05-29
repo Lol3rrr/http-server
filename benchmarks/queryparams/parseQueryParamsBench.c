@@ -25,8 +25,6 @@ double parseQueryParamsBench(char* pathInput) {
     if (params != NULL) {
       cleanQueryParams(params);
     }
-
-    free(resultPath);
   }
 
   return total;
