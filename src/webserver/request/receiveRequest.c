@@ -1,10 +1,8 @@
 #include "../headerFiles/request.h"
 
 int receiveRequest(int conFd, request** reqPtr) {
-  int bufferSize = 4096;
-  char* readBuffer = (char*) malloc(bufferSize * sizeof(char));
-
-  int readBytes = readHTTP(conFd, &readBuffer, bufferSize);
+  char* readBuffer;
+  int readBytes = readHTTP(conFd, &readBuffer);
   if (readBytes < 0) {
     free(readBuffer);
 

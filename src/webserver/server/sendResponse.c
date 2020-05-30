@@ -17,7 +17,7 @@ int sendResponse(int connection, response* respPtr) {
     char content[BUFFERSIZE];
 
     while (hasMore) {
-      int read = fread(content, sizeof(char), BUFFERSIZE, respPtr->file->fd);
+      int read = fread(content, sizeof(char), BUFFERSIZE, respPtr->file.fd);
       hasMore = read >= BUFFERSIZE;
 
       int tmpFlag = (hasMore) ? MSG_DONTWAIT | MSG_MORE : 0;

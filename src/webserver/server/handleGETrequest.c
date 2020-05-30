@@ -34,19 +34,18 @@ int handleGETrequest(request* req, response* resp) {
 
     free(fileName.content);
   } else {
-    File* f = (File*) malloc(1 * sizeof(File));
-    int worked = openFile(fileName, f);
+    File f;
+    int worked = openFile(fileName, &f);
     if (worked != 0) {
       free(fileName.content);
       free(contentType);
-      free(f);
 
   		return 1;
     }
 
     setStatus(resp, HTTP_STATUSOK, "OK");
     setStreaming(resp, f);
-    setContentType(resp, contentType, f->length);
+    setContentType(resp, contentType, f.length);
 
     free(fileName.content);
   }
