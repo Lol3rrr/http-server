@@ -16,16 +16,16 @@ typedef struct File {
 // Returns
 // < 0: An error occured
 // 0: Worked
-int openFile(string* path, File* result);
+int openFile(string path, File* result);
 // Returns
 // 0: Worked
 int closeFile(File* f);
 
 // Returns a string struct with the path as the content
-string getFileName(string* folder, string* path);
+string getFileName(string folder, string path);
 // Returns a string struct with the path, 
 // relative to the website dir, as content
-string loadFileName(string* path);
+string loadFileName(string path);
 
 // Loads the content of the file into result
 // Returns
@@ -35,6 +35,6 @@ int readRawFile(char* fileName, char** result);
 // Loads the file and already applies the template parsing
 // to the content loaded
 // Returns the size of the data loaded
-int loadFile(string* fileName, char** result);
+int loadFile(string fileName, char** result);
 
 #endif

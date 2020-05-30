@@ -1,7 +1,7 @@
 #include "../headerFiles/file.h"
 
-int openFile(string* path, File* result) {
-  FILE *f = fopen(path->content, "rb");
+int openFile(string path, File* result) {
+  FILE *f = fopen(path.content, "rb");
   if (f == NULL) {
     return -1;
   }

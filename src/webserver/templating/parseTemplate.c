@@ -3,7 +3,7 @@
 #define INCLUDESTARTLENGTH 10
 #define INCLUDEENDLENGTH 2
 
-int handleParseIncludeStatement(string* includeStr, char** result) {
+int handleParseIncludeStatement(string includeStr, char** result) {
   includeStatement statement;
   int worked = parseIncludeStatement(includeStr, &statement);
   if (worked != 0) {
@@ -47,7 +47,7 @@ int parseTemplate(char* rawContent, int rawContentLength, char** result) {
     };
 
     char* data;
-    int dataSize = handleParseIncludeStatement(&includeStr, &data);
+    int dataSize = handleParseIncludeStatement(includeStr, &data);
     char* nContent;
     string contentStr = {
       .content = content,

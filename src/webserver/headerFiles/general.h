@@ -33,7 +33,7 @@ int findCharArr(char* src, char* key, int srcLength, int keyLength);
 int findCharArrAfter(char* src, char* key, int srcLength, int keyLength, int starting);
 
 int stringCmp(string* str1, string* str2);
-int findStr(string* src, char* key, int keyLength);
+int findStr(string src, char* key, int keyLength);
 
 void getSubstring(char* src, int start, int length, char** result);
 void replaceStr(string* srcStr, string* replacementStr, int start, int lengthToReplace, char** result, int* resultLength);

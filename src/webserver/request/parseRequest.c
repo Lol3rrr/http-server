@@ -42,7 +42,7 @@ int parseRequest(char* headerPart, int headerLength, request** result) {
 
   char* nPath;
   int nPathLength;
-  queryParams_t* params = parseQueryParams(&(req->path), &nPath, &nPathLength);
+  queryParams_t* params = parseQueryParams(req->path, &nPath, &nPathLength);
   if (params != NULL) {
     req->path.content = nPath;
     req->path.length = nPathLength;
