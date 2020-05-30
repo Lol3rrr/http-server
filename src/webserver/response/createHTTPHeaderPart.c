@@ -41,13 +41,15 @@ static void addHeaderToBuffer(BTreeNode_t* node, void** data) {
   helper->buffer += helper->spacerLength;
 }
 
-int createHTTPHeaderPart(response* respPtr, char* spacer, int spacerLength, char** result) {
-  int headerLength = -1;
-  char* headerPart;
+int getHTTPHeaderPartLength(response* respPtr, int spacerLength) {
+  return getHeaderPartLength(respPtr->bTreeHeaders, spacerLength);
+}
+
+int createHTTPHeaderPart(response* respPtr, char* spacer, int spacerLength, char* headerPart) {
+  int headerLength = 0;
 
   if (respPtr->bTreeHeaders != NULL) {
     headerLength = getHeaderPartLength(respPtr->bTreeHeaders, spacerLength);
-    headerPart = createEmptyCString(headerLength);
 
     HeaderPartHelper_t helperData = {
       .buffer = headerPart,
@@ -59,8 +61,6 @@ int createHTTPHeaderPart(response* respPtr, char* spacer, int spacerLength, char
     void** dataPointer = (void**) &helperPtr;
     forEach(respPtr->bTreeHeaders, dataPointer, &addHeaderToBuffer);
   }
-
-  *result = headerPart;
 
   return headerLength;
 }

@@ -43,9 +43,11 @@ response* createEmptyResponse(string protokol);
 response* createResponse(int statusCode, char* statusMessage, char* protokol);
 int cleanResponse(response* respPtr);
 
-int createFirstLine(response* respPtr, char** result);
+int getFirstLineLength(response* respPtr);
+int createFirstLine(response* respPtr, char* result);
 
-int createHTTPHeaderPart(response* respPtr, char* spacer, int spacerLength, char** result);
+int getHTTPHeaderPartLength(response* respPtr, int spacerLength);
+int createHTTPHeaderPart(response* respPtr, char* spacer, int spacerLength, char* result);
 
 int createHTTPHead(response* respPtr, char** result);
 int createHTTPResponse(response* respPtr, string* headResult, string* bodyResult);

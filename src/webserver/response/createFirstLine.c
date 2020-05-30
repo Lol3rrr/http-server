@@ -1,13 +1,22 @@
 #include "../headerFiles/response.h"
 
-int createFirstLine(response* respPtr, char** result) {
+int getFirstLineLength(response* respPtr) {
   char statusCode[12];
   itoa(respPtr->statusCode, statusCode);
   int statusCodeLength = strlen(statusCode);
 
   int totalLength = respPtr->protokol.length + 1 + statusCodeLength + 1 + respPtr->statusMessage.length + 2;
 
-  char* firstLine = createEmptyCString(totalLength);
+  return totalLength;
+}
+
+int createFirstLine(response* respPtr, char* firstLine) {
+  char statusCode[12];
+  itoa(respPtr->statusCode, statusCode);
+  int statusCodeLength = strlen(statusCode);
+
+  int totalLength = respPtr->protokol.length + 1 + statusCodeLength + 1 + respPtr->statusMessage.length + 2;
+
   int lineOffset = 0;
   memcpy(firstLine + lineOffset, respPtr->protokol.content, respPtr->protokol.length);
   lineOffset += respPtr->protokol.length;
@@ -21,8 +30,6 @@ int createFirstLine(response* respPtr, char** result) {
   lineOffset += respPtr->statusMessage.length;
   memcpy(firstLine + lineOffset, "\r\n", 2);
   lineOffset += 2;
-
-  *result = firstLine;
 
   return totalLength;
 }
