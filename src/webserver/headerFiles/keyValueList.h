@@ -7,12 +7,8 @@
 #include "logger.h"
 
 typedef struct kvNode {
-  char* key;
-  int keyLength;
-  int keyFree;
-  char* value;
-  int valueLength;
-  int valueFree;
+  string key;
+  string value;
   struct kvNode* next;
 } kvNode_t;
 
