@@ -25,10 +25,10 @@ int parseFirstLine(char* header, int headerLength, string* method, string* pathP
       partStart = i + 1;
 
       currentPart++;
-    }
 
-    if (header[i] == '\r' && header[i + 1] == '\n') {
-      return i + 2;
+      if (currentPart == 3 && header[i + 1] == '\n') {
+        return i + 2;
+      }
     }
   }
 
