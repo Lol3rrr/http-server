@@ -8,14 +8,14 @@ int parseFirstLine(char* header, int headerLength, string* method, string* pathP
   int partStart = 0;
   int partEnd = 0;
   for (int i = 0; i < headerLength - 1 && currentPart < 3; i++) {
-    if (header[i] == '.' && header[i + 1] == '.') {
-      return -2;
-    }
-
     if (header[i] == ' ' || header[i] == '\r') {
       int partLength = i - partStart;
       if (partLength <= 0) {
         return -1;
+      }
+
+      if (currentPart == 1 && header[i] == '.' && header[i+1] == '.') {
+        return -2;
       }
 
       parts[currentPart]->length = partLength;
