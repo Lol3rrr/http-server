@@ -1,6 +1,6 @@
-#include "../headerFiles/binaryHeaderTree.h"
+#include "../headerFiles/keyValueList.h"
 
-int createHeaderPair(BTreeNode_t* node, char* destination) {
+int createHeaderPair(kvNode_t* node, char* destination) {
   int totalLength = node->key.length + 2 + node->value.length;
 
   memcpy(destination, node->key.content, node->key.length);

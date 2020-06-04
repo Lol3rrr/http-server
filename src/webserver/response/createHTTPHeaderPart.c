@@ -11,14 +11,14 @@ typedef struct {
   int spacerLength;
 } HeaderPartHelper_t;
 
-static void addHeaderNode(BTreeNode_t* node, void** data) {
+static void addHeaderNode(kvNode_t* node, void** data) {
   HeaderLengthHelper_t* tmpData = (HeaderLengthHelper_t*) *data;
 
   tmpData->length += getHeaderPairLength(node);
   tmpData->length += tmpData->spacerLength;
 }
 
-static int getHeaderPartLength(BTreeNode_t* node, int spacerLength) {
+static int getHeaderPartLength(kvList_t list, int spacerLength) {
   HeaderLengthHelper_t helperData = {
     .length = 0,
     .spacerLength = spacerLength
@@ -26,12 +26,12 @@ static int getHeaderPartLength(BTreeNode_t* node, int spacerLength) {
 
   HeaderLengthHelper_t* tmpPointer = &helperData;
   void** dataPointer = (void**) &tmpPointer;
-  forEach(node, dataPointer, &addHeaderNode);
+  forEach(list, dataPointer, &addHeaderNode);
 
   return helperData.length;
 }
 
-static void addHeaderToBuffer(BTreeNode_t* node, void** data) {
+static void addHeaderToBuffer(kvNode_t* node, void** data) {
   HeaderPartHelper_t* helper = (HeaderPartHelper_t*) *data;
 
   int pairLength = createHeaderPair(node, helper->buffer);
@@ -42,25 +42,23 @@ static void addHeaderToBuffer(BTreeNode_t* node, void** data) {
 }
 
 int getHTTPHeaderPartLength(response* respPtr, int spacerLength) {
-  return getHeaderPartLength(respPtr->bTreeHeaders, spacerLength);
+  return getHeaderPartLength(respPtr->headerList, spacerLength);
 }
 
 int createHTTPHeaderPart(response* respPtr, char* spacer, int spacerLength, char* headerPart) {
   int headerLength = 0;
 
-  if (respPtr->bTreeHeaders != NULL) {
-    headerLength = getHeaderPartLength(respPtr->bTreeHeaders, spacerLength);
+  headerLength = getHeaderPartLength(respPtr->headerList, spacerLength);
 
-    HeaderPartHelper_t helperData = {
-      .buffer = headerPart,
-      .spacer = spacer,
-      .spacerLength = spacerLength
-    };
+  HeaderPartHelper_t helperData = {
+    .buffer = headerPart,
+    .spacer = spacer,
+    .spacerLength = spacerLength
+  };
 
-    HeaderPartHelper_t* helperPtr = &helperData;
-    void** dataPointer = (void**) &helperPtr;
-    forEach(respPtr->bTreeHeaders, dataPointer, &addHeaderToBuffer);
-  }
+  HeaderPartHelper_t* helperPtr = &helperData;
+  void** dataPointer = (void**) &helperPtr;
+  forEach(respPtr->headerList, dataPointer, &addHeaderToBuffer);
 
   return headerLength;
 }

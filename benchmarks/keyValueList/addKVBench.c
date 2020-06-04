@@ -4,21 +4,21 @@ double addKVBench(int pairs, string* keys, string* values) {
   // Start the actual Benchmark
   double total = 0.0;
 
+  const int bufferSize = 25;
+
   for (int i = 0; i < RUNS; i++) {
-    kvNode_t current = {
-      .next = NULL
-    };
+    kvList_t test = createKVList(bufferSize);
 
     clock_t start = clock();
 
     for (int i = 0; i < pairs; i++) {
-      pushKVNode(&current, &(keys[i]), &(values[i]));
+      pushKVList(&test, keys[i], values[i]);
     }    
 
     double cDuration = getDurationMicroSec(start);
     total = total + cDuration;
 
-    //cleanKVNodes(current.next);
+    cleanKVList(test);
   }
 
   return total;

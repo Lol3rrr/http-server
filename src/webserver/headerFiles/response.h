@@ -11,13 +11,13 @@
 #include "header.h"
 #include "logger.h"
 #include "request.h"
-#include "binaryHeaderTree.h"
+#include "keyValueList.h"
 
 typedef struct response {
   int statusCode;
   string statusMessage;
   string protokol;
-  BTreeNode_t* bTreeHeaders;
+  kvList_t headerList;
   char* data;
   int dataSize;
 

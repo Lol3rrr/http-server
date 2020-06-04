@@ -11,5 +11,5 @@ void print_response_debug(response* respPtr) {
   logDebug("[Response] Protokol: %.*s \n", respPtr->protokol.length, respPtr->protokol.content);
   logDebug("[Response] Headers: \n");
 
-  printTree(respPtr->bTreeHeaders);
+  print_kv_list(respPtr->headerList);
 }

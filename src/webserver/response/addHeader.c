@@ -13,7 +13,7 @@ int addHeader(response* respPtr, string key, string value) {
   };
   memcpy(valueStr.content, value.content, value.length);
 
-  insert(&(respPtr->bTreeHeaders), keyStr, valueStr);
+  pushKVList(&(respPtr->headerList), keyStr, valueStr);
 
   return 0;
 }

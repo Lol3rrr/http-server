@@ -21,16 +21,21 @@ typedef struct kvList {
 } kvList_t;
 
 kvList_t createKVList(int bufferSize);
-kvNode_t* pushKVList(kvList_t list, string key, string value);
+kvNode_t* pushKVList(kvList_t* list, string key, string value);
 void cleanKVList(kvList_t list);
 int findKV(kvList_t list, string key, kvNode_t** result);
 void print_kv_list(kvList_t list);
+
+void forEach(kvList_t list, void** extraData, void (*callBack)(kvNode_t* node, void** data));
 
 kvNode_t* createKVNode(string* key, string* value);
 
 kvNode_t* pushKVNode(kvNode_t* head, string* key, string* value);
 void print_kv_nodes(kvNode_t* head);
-int getKV(kvNode_t* head, string* key, kvNode_t** result);
+int getKV(kvNode_t* head, string key, kvNode_t** result);
+
+int getHeaderPairLength(kvNode_t* node);
+int createHeaderPair(kvNode_t* node, char* destination);
 
 // For starting it pass the head of the list
 void cleanKVNodes(kvNode_t* current);
