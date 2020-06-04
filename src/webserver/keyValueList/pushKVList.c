@@ -1,26 +1,24 @@
 #include "../headerFiles/keyValueList.h"
 
 kvNode_t* pushKVList(kvList_t list, string key, string value) {
-  for (int i = 0; i < list.bufferSize; i++) {
-    if (list.buffer[i].key.content == NULL) {
-      list.buffer[i].key.content = key.content;
-      list.buffer[i].key.length = key.length;
-      list.buffer[i].key.needsFree = key.needsFree;
+  if (list.currentIndex < list.bufferSize) {
+    int index = list.currentIndex;
+
+    list.buffer[index].key.content = key.content;
+    list.buffer[index].key.length = key.length;
+    list.buffer[index].key.needsFree = key.needsFree;
       
-      list.buffer[i].value.content = value.content;
-      list.buffer[i].value.length = value.length;
-      list.buffer[i].value.needsFree = value.needsFree;
+    list.buffer[index].value.content = value.content;
+    list.buffer[index].value.length = value.length;
+    list.buffer[index].value.needsFree = value.needsFree;
 
-      return &(list.buffer[i]);
-    }
+    list.currentIndex++;
+
+    return &(list.buffer[index]);
   }
 
-  kvNode_t* current = &(list.additional);
-  while (current->next) {
-    current = current->next;
-  }
+  list.last->next = createKVNode(&key, &value);
+  list.last = list.last->next;
 
-  current->next = createKVNode(&key, &value);
-
-  return current->next;
+  return list.last;
 }

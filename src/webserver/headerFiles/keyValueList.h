@@ -14,8 +14,10 @@ typedef struct kvNode {
 
 typedef struct kvList {
   int bufferSize;
+  int currentIndex;
   kvNode_t* buffer;
   kvNode_t additional;
+  kvNode_t* last;
 } kvList_t;
 
 kvList_t createKVList(int bufferSize);
