@@ -22,7 +22,15 @@ int setCache(response* respPtr, request* reqPtr, int cacheTime) {
   memcpy(cacheHeader, "public, max-age=", 16);
   memcpy(cacheHeader + 16, cacheValueStr, cacheValueLength);
 
-  addHeader(respPtr, "Cache-Control", cacheHeader);
+  string key = {
+    .content = "Cache-Control",
+    .length = 13
+  };
+  string value = {
+    .content = cacheHeader,
+    .length = 16 + cacheValueLength
+  };
+  addHeader(respPtr, key, value);
 
   return 0;
 }

@@ -27,7 +27,7 @@ typedef struct response {
 } response;
 
 
-int addHeader(response* respPtr, char* key, char* value);
+int addHeader(response* respPtr, string key, string value);
 
 int isCachingAllowed(request* reqPtr);
 

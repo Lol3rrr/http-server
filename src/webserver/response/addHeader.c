@@ -1,19 +1,17 @@
 #include "../headerFiles/response.h"
 
-int addHeader(response* respPtr, char* key, char* value) {
-  int keyLength = strlen(key);
+int addHeader(response* respPtr, string key, string value) {
   string keyStr = {
-    .content = createEmptyCString(keyLength),
-    .length = keyLength
+    .content = createEmptyCString(key.length),
+    .length = key.length
   };
-  memcpy(keyStr.content, key, keyLength);
+  memcpy(keyStr.content, key.content, key.length);
 
-  int valueLength = strlen(value);
   string valueStr = {
-    .content = createEmptyCString(valueLength),
-    .length = valueLength
+    .content = createEmptyCString(value.length),
+    .length = value.length
   };
-  memcpy(valueStr.content, value, valueLength);
+  memcpy(valueStr.content, value.content, value.length);
 
   insert(&(respPtr->bTreeHeaders), keyStr, valueStr);
 
