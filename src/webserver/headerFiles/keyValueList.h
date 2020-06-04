@@ -12,6 +12,18 @@ typedef struct kvNode {
   struct kvNode* next;
 } kvNode_t;
 
+typedef struct kvList {
+  int bufferSize;
+  kvNode_t* buffer;
+  kvNode_t additional;
+} kvList_t;
+
+kvList_t createKVList(int bufferSize);
+kvNode_t* pushKVList(kvList_t list, string key, string value);
+void cleanKVList(kvList_t list);
+int findKV(kvList_t list, string key, kvNode_t** result);
+void print_kv_list(kvList_t list);
+
 kvNode_t* createKVNode(string* key, string* value);
 
 kvNode_t* pushKVNode(kvNode_t* head, string* key, string* value);

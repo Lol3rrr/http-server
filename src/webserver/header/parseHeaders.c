@@ -1,8 +1,6 @@
 #include "../headerFiles/header.h"
 
 int parseHeaders(char* headers, int headersLength, headers_t* result, int* headerEnd) {
-  kvNode_t* lastHeader = &(result->kvNodes);
-
   int keyStart = 0;
   int keyEnd = 0;
   for (int i = 0; i < headersLength - 1; i++) {
@@ -29,7 +27,7 @@ int parseHeaders(char* headers, int headersLength, headers_t* result, int* heade
         .needsFree = 0
       };
 
-      lastHeader = pushKVNode(lastHeader, &key, &value);
+      pushKVList(result->list, key, value);
 
       keyStart = i + 2;
       keyEnd = keyStart;

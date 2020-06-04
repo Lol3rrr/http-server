@@ -32,7 +32,7 @@ int parseRequest(char* headerPart, int headerLength, request** result) {
 
   if (hasEmptyField(req)) {
     logDebug("[parseRequest] Not everything has been set \n");
-    logDebug("[parseRequest] Path: '%p', Protokol: '%p', First Header Key: '%p' \n", req->path.content, req->protokol.content, req->headers.kvNodes);
+    logDebug("[parseRequest] Path: '%p', Protokol: '%p' \n", req->path.content, req->protokol.content);
 
     cleanRequest(req);
     free(req);

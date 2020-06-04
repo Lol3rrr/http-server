@@ -7,8 +7,5 @@ int hasEmptyField(request* reqPtr) {
   if (reqPtr->protokol.content == NULL)
     return 1;
 
-  if (reqPtr->headers.kvNodes.next == NULL)
-    return 1;
-
   return 0;
 }
