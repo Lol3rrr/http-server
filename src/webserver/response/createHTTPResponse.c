@@ -1,17 +1,18 @@
 #include "../headerFiles/response.h"
 
-int createHTTPResponse(response* respPtr, string** headResult, string** bodyResult) {
+int createHTTPResponse(response* respPtr, string* headResult, string* bodyResult) {
   char* head;
   int headSize = createHTTPHead(respPtr, &head);
-  *headResult = (string*) malloc(1 * sizeof(string));
-  (*headResult)->content = head;
-  (*headResult)->length = headSize;
+  (*headResult).content = head;
+  (*headResult).length = headSize;
+  (*headResult).needsFree = 1;
 
-  *bodyResult = NULL;
+  (*bodyResult).content = NULL;
+  (*bodyResult).length = -1;
+  (*bodyResult).needsFree = 0;
   if (respPtr->dataSize > 0) {
-    *bodyResult = (string*) malloc(1 * sizeof(string));
-    (*bodyResult)->content = respPtr->data;
-    (*bodyResult)->length = respPtr->dataSize;
+    (*bodyResult).content = respPtr->data;
+    (*bodyResult).length = respPtr->dataSize;
   }
 
   return 0;

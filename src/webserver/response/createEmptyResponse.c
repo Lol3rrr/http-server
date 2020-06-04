@@ -10,9 +10,17 @@ response* createEmptyResponse(string protokol) {
   resp->dataSize = -1;
   resp->streaming = 0;
   resp->streamSize = -1;
-  resp->file = NULL;
+  resp->file.length = -1;
 
-  addHeader(resp, "Server", "Lol3r-C/2.0");
+  string serverKey = {
+    .content = "Server",
+    .length = 6
+  };
+  string serverValue = {
+    .content = "Lol3r-C/2.1",
+    .length = 11
+  };
+  addHeader(resp, serverKey, serverValue);
 
   return resp;
 }

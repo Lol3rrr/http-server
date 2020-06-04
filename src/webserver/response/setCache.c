@@ -17,15 +17,20 @@ int setCache(response* respPtr, request* reqPtr, int cacheTime) {
   int cacheValueLength = strlen(cacheValueStr);
   int preCacheLength = 16;
 
-  int cacheHeaderLength = cacheValueLength + preCacheLength;
-  char* cacheHeader = createEmptyCString(cacheHeaderLength);
+  char cacheHeader[28];
 
   memcpy(cacheHeader, "public, max-age=", 16);
   memcpy(cacheHeader + 16, cacheValueStr, cacheValueLength);
 
-  addHeader(respPtr, "Cache-Control", cacheHeader);
-
-  free(cacheHeader);
+  string key = {
+    .content = "Cache-Control",
+    .length = 13
+  };
+  string value = {
+    .content = cacheHeader,
+    .length = 16 + cacheValueLength
+  };
+  addHeader(respPtr, key, value);
 
   return 0;
 }

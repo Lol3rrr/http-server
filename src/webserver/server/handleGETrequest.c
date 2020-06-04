@@ -1,7 +1,7 @@
 #include "../server.h"
 
 int handleGETrequest(request* req, response* resp) {
-  string fileName = loadFileName(&(req->path));
+  string fileName = loadFileName((req->path));
   if (fileName.length < 0) {
     free(fileName.content);
 
@@ -14,11 +14,11 @@ int handleGETrequest(request* req, response* resp) {
 
   int typeID = 0;
   char* contentType;
-  determinContentType(&(req->path), &contentType, &typeID);
+  determinContentType(req->path, &contentType, &typeID);
 
   if (isTemplateEnabled() && typeID == HTMLTYPE) {
     char* data;
-    int size = loadFile(&fileName, &data);
+    int size = loadFile(fileName, &data);
     if (size < 0) {
       logError("Loading Data: '%d' Loading Filename: '%s' \n", size, fileName.content);
 
@@ -34,19 +34,18 @@ int handleGETrequest(request* req, response* resp) {
 
     free(fileName.content);
   } else {
-    File* f = (File*) malloc(1 * sizeof(File));
-    int worked = openFile(&fileName, f);
+    File f;
+    int worked = openFile(fileName, &f);
     if (worked != 0) {
       free(fileName.content);
       free(contentType);
-      free(f);
 
   		return 1;
     }
 
     setStatus(resp, HTTP_STATUSOK, "OK");
     setStreaming(resp, f);
-    setContentType(resp, contentType, f->length);
+    setContentType(resp, contentType, f.length);
 
     free(fileName.content);
   }

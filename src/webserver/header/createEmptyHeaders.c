@@ -3,9 +3,7 @@
 headers_t createEmptyHeaders() {
   headers_t result;
 
-  result.kvNodes.key = NULL;
-  result.kvNodes.value = NULL;
-  result.kvNodes.next = NULL;
+  result.list = createKVList(HEADER_BUFFER);
 
   return result;
 }

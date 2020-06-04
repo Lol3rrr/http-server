@@ -10,16 +10,17 @@
 #include "keyValueList.h"
 
 #define MAX_METHOD_LENGTH 7
+#define HEADER_BUFFER 25
 
 typedef struct headers {
-  kvNode_t kvNodes;
+  kvList_t list;
 } headers_t;
 
 headers_t createEmptyHeaders();
 
 // Adds a new Header
 // Returns the Node of the new Header
-kvNode_t* pushHeader(headers_t* headers, string* key, string* value);
+kvNode_t* pushHeader(headers_t* headers, string key, string value);
 // Prints all the Headers, mainly used for debugging
 void print_header_debug(headers_t* headers);
 // Frees all the Headers and the Data they hold

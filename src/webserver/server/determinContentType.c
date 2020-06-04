@@ -6,7 +6,7 @@
 #define IMAGETYPELENGTH 10
 #define TEXTTYPELENGTH 19
 
-int determinContentType(string* path, char** result, int* typeID) {
+int determinContentType(string path, char** result, int* typeID) {
   int dot = findStr(path, ".", 1);
 
   if(dot == -1) {
@@ -17,8 +17,8 @@ int determinContentType(string* path, char** result, int* typeID) {
     return 0;
   }
 
-  char* extension = path->content + dot + 1;
-  int length = path->length - dot - 1;
+  char* extension = path.content + dot + 1;
+  int length = path.length - dot - 1;
 
   if(strncmp(extension, "html", length) == 0) {
     (*result) = createEmptyCString(HTMLTYPELENGTH);

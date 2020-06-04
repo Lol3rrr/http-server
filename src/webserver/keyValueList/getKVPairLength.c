@@ -1,5 +1,5 @@
 #include "../headerFiles/keyValueList.h"
 
 int getKVPairLength(kvNode_t* node) {
-  return node->keyLength + 2 + node->valueLength;
+  return node->key.length + 2 + node->value.length;
 }

@@ -43,15 +43,14 @@ void createMetricsEndpoint(int port) {
       setData(resp, str, length);
       setContentType(resp, "text/plain; version=0.0.4", length);
 
-      string* headResponse;
-      string* bodyResponse;
+      string headResponse;
+      string bodyResponse;
       int respSize = createHTTPResponse(resp, &headResponse, &bodyResponse);
-      send(session_fd, headResponse->content, headResponse->length, MSG_DONTWAIT | MSG_MORE);
-      free(headResponse->content);
-      free(headResponse);
-      if (bodyResponse != 0) {
-        send(session_fd, bodyResponse->content, bodyResponse->length, 0);
-        free(bodyResponse);
+      send(session_fd, headResponse.content, headResponse.length, MSG_DONTWAIT | MSG_MORE);
+      cleanString(headResponse);
+      if (bodyResponse.content != NULL) {
+        send(session_fd, bodyResponse.content, bodyResponse.length, 0);
+        cleanString(headResponse);
       }
 
       cleanResponse(resp);
