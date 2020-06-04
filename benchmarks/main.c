@@ -5,7 +5,6 @@
 #include "queryparams.h"
 #include "response.h"
 #include "keyValueList.h"
-#include "binaryHeaderTree.h"
 
 int main() {
   printf("Starting Benchmark \n");
@@ -26,9 +25,6 @@ int main() {
 
   // Key-Value List Benchmarks
   benchAddKV();
-
-  // Binary Header Tree Benchmarks
-  benchAddTreeHeader();
 
   printf("Done \n");
 

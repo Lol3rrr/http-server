@@ -27,7 +27,7 @@ int parseHeaders(char* headers, int headersLength, headers_t* result, int* heade
         .needsFree = 0
       };
 
-      pushKVList(result->list, key, value);
+      pushKVList(&(result->list), key, value);
 
       keyStart = i + 2;
       keyEnd = keyStart;

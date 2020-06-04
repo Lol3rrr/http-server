@@ -12,13 +12,13 @@ double addKVBench(int pairs, string* keys, string* values) {
     clock_t start = clock();
 
     for (int i = 0; i < pairs; i++) {
-      pushKVList(test, keys[i], values[i]);
+      pushKVList(&test, keys[i], values[i]);
     }    
 
     double cDuration = getDurationMicroSec(start);
     total = total + cDuration;
 
-    //cleanKVNodes(current.next);
+    cleanKVList(test);
   }
 
   return total;

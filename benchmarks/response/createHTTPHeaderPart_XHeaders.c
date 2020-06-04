@@ -20,9 +20,11 @@ void addHeaders(response* resp, int count) {
   }
 }
 
+const int bufferSize = 25;
+
 void createHTTPHeaderPartBench_1Header() {
   response tmpResp = {
-    .bTreeHeaders = NULL
+    .headerList = createKVList(bufferSize)
   };
 
   addHeaders(&tmpResp, 1);
@@ -36,7 +38,7 @@ void createHTTPHeaderPartBench_1Header() {
 
 void createHTTPHeaderPartBench_2Header() {
   response tmpResp = {
-    .bTreeHeaders = NULL
+    .headerList = createKVList(bufferSize)
   };
   addHeaders(&tmpResp, 2);
 
@@ -49,7 +51,7 @@ void createHTTPHeaderPartBench_2Header() {
 
 void createHTTPHeaderPartBench_5Header() {
   response tmpResp = {
-    .bTreeHeaders = NULL
+    .headerList = createKVList(bufferSize)
   };
   addHeaders(&tmpResp, 5);
 
@@ -62,7 +64,7 @@ void createHTTPHeaderPartBench_5Header() {
 
 void createHTTPHeaderPartBench_10Header() {
   response tmpResp = {
-    .bTreeHeaders = NULL
+    .headerList = createKVList(bufferSize)
   };
 
   addHeaders(&tmpResp, 10);
