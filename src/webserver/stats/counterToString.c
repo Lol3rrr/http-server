@@ -1,12 +1,11 @@
 #include "../headerFiles/stats.h"
 
 int counterToString(counter_t* counter, char** result) {
-  int nameLength = strlen(counter->name);
   int valueLength = 12;
 
   // the 1 is for the space between the two parts
   // the 1 is for the endline
-  int totalLength = nameLength + 1 + valueLength + 1;
+  int totalLength = counter->name.length + 1 + valueLength + 1;
 
   char* tmp = (char*) malloc((totalLength + 1) * sizeof(char));
   tmp[totalLength] = '\0';
@@ -16,10 +15,9 @@ int counterToString(counter_t* counter, char** result) {
 
 
   int offset = 0;
-  for (int i = 0; i < nameLength; i++) {
-    tmp[offset] = counter->name[i];
-    offset++;
-  }
+  memcpy(tmp, counter->name.content, counter->name.length);
+  offset += counter->name.length;
+
   tmp[offset] = ' ';
   offset++;
 

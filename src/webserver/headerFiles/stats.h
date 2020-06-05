@@ -14,22 +14,23 @@
 #include <netinet/in.h>
 
 #include "logger.h"
+#include "general.h"
 
 typedef struct counter {
   int id;
   int count;
-  char* name;
+  string name;
   struct counter* next;
 } counter_t;
 
 extern counter_t* counterRegistry;
 
 counter_t* findCounterByID(int counterID, counter_t** registry);
-counter_t* findCounterByName(char* name, counter_t** registry);
+counter_t* findCounterByName(string name, counter_t** registry);
 
-int createCounter(char* name, counter_t** registry);
+int createCounter(string name, counter_t** registry);
 int incCounterByID(int counterID, counter_t** registry);
-int incCounterByName(char* name, counter_t** registry);
+int incCounterByName(string name, counter_t** registry);
 
 int counterRegistryToString(counter_t** registry, char** result);
 int counterToTypeStringLength(counter_t* counter);
