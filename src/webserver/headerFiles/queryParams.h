@@ -10,15 +10,18 @@
 #include "logger.h"
 #include "keyValueList.h"
 
+#define QUERYPARAMS_BUFFER 10
+
 typedef struct queryParams {
-  kvNode_t* kvNodes;
+  int exists;
+  kvList_t list;
 } queryParams_t;
 
 
-queryParams_t* parseQueryParams(string rawPath, char** resultPath, int* resultLength);
+queryParams_t parseQueryParams(string rawPath, string* resultPath);
 
-int getQueryParam(queryParams_t* params, char* key, kvNode_t** result);
+int getQueryParam(queryParams_t params, char* key, kvNode_t** result);
 
-void cleanQueryParams(queryParams_t* params);
+void cleanQueryParams(queryParams_t params);
 
 #endif

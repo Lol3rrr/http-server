@@ -12,7 +12,6 @@ int parseRequest(char* headerPart, int headerLength, request** result) {
   req->headers = createEmptyHeaders();
   req->body.content = NULL;
   req->body.needsFree = 0;
-  req->params = NULL;
 
   int headerEnd = parseHead(headerPart, headerLength, req);
   if (headerEnd == -2) {
@@ -40,16 +39,8 @@ int parseRequest(char* headerPart, int headerLength, request** result) {
     return 1;
   }
 
-  char* nPath;
-  int nPathLength;
-  queryParams_t* params = parseQueryParams(req->path, &nPath, &nPathLength);
-  if (params != NULL) {
-    req->path.content = nPath;
-    req->path.length = nPathLength;
-    req->path.needsFree = 0;
-    req->params = params;
-  }
-
+  req->params = parseQueryParams(req->path, &(req->path));
+  
   *result = req;
 
   return 0;

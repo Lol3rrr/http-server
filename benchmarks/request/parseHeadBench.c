@@ -10,7 +10,6 @@ void parseHeadBench() {
   for (int i = 0; i < RUNS; i++) {
     request tmp = {
       initialContent: NULL,
-      params: NULL,
       headers: createEmptyHeaders()
     };
 

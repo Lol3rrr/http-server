@@ -7,7 +7,7 @@ int cleanRequest(request* reqPtr) {
   cleanString(reqPtr->body);
 
   cleanHeader(&(reqPtr->headers));
-  if (reqPtr->params != NULL)
+  if (reqPtr->params.exists)
     cleanQueryParams(reqPtr->params);
 
 

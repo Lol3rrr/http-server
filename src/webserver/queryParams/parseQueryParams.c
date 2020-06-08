@@ -1,21 +1,23 @@
 #include "../headerFiles/queryParams.h"
 
-queryParams_t* parseQueryParams(string rawPath, char** resultPath, int* resultLength) {
+queryParams_t parseQueryParams(string rawPath, string* resultPath) {
+  queryParams_t result;
+
   int paramStart = findStr(rawPath, "?", 1);
   if (paramStart < 0) {
-    return NULL;
+    result.exists = 0;
+    return result;
   }
 
-  *resultPath = rawPath.content + 0;
-  *resultLength = paramStart;
+  resultPath->content = rawPath.content;
+  resultPath->length = paramStart;
+  resultPath->needsFree = 0;
 
   int paramStrLength = (rawPath.length - paramStart - 1);
   char* paramStr = rawPath.content + paramStart + 1;
 
-
-  queryParams_t* result = (queryParams_t*) malloc(1 * sizeof(queryParams_t));
-  result->kvNodes = NULL;
-  kvNode_t* lastNode = result->kvNodes;
+  result.exists = 1;
+  result.list = createKVList(QUERYPARAMS_BUFFER);
 
   int keyStart = 0;
   int keyEnd = 0;
@@ -23,7 +25,7 @@ queryParams_t* parseQueryParams(string rawPath, char** resultPath, int* resultLe
     if (paramStr[i] == '=') {
       keyEnd = i;
     }
-
+    
     if (paramStr[i] == '&' || i == paramStrLength - 1) {
       int valueStart = keyEnd + 1;
       int keyLength = keyEnd - keyStart;
@@ -44,13 +46,7 @@ queryParams_t* parseQueryParams(string rawPath, char** resultPath, int* resultLe
         .needsFree = 0
       };
 
-      if (lastNode == NULL) {
-        result->kvNodes = createKVNode(&key, &value);
-        lastNode = result->kvNodes;
-      } else {
-        lastNode = pushKVNode(lastNode, &key, &value);
-      }
-
+      pushKVList(&(result.list), key, value);
 
       keyStart = i + 1;
       keyEnd = keyStart;

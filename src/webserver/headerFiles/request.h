@@ -18,7 +18,7 @@ typedef struct request {
   string path;
   string protokol;
   headers_t headers;
-  queryParams_t* params;
+  queryParams_t params;
   string body;
 } request;
 
