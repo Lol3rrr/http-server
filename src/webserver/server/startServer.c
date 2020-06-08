@@ -31,12 +31,12 @@ int startServer(int serverFd) {
     pthread_mutex_lock(&lock->mutex);
 
     if (fork() == 0) {
-      request* tmp = createEmptyRequest();
+      request tmp = createEmptyRequest();
 
       int session_fd = accept(serverFd, 0, 0);
       pthread_mutex_unlock(&lock->mutex);
 
-      handleConnection(session_fd, tmp);
+      handleConnection(session_fd, &tmp);
 
       int worked = close(session_fd);
       if (worked < 0) {

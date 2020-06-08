@@ -21,7 +21,7 @@ typedef struct request {
   string body;
 } request;
 
-request* createEmptyRequest();
+request createEmptyRequest();
 
 void print_request_debug(request* req);
 
