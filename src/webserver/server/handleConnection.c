@@ -1,11 +1,10 @@
 #include "../server.h"
 
-int handleConnection(int conFd) {
+int handleConnection(int conFd, request* req) {
   clock_t startTime = clock();
 
   // Receiving and parsing the Request
-  request* req;
-  int worked = receiveRequest(conFd, &req);
+  int worked = receiveRequest(conFd, req);
   if (worked != 0) {
     logError("Receiving Request: %d \n", worked);
 

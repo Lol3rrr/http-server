@@ -55,7 +55,7 @@ int determinContentType(string path, char** result, int* typeID);
 
 int handleGETrequest(request* req, response* resp);
 int handleRequest(int conFd, request* req);
-int handleConnection(int conFd);
+int handleConnection(int conFd, request* req);
 
 
 #endif

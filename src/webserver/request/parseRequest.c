@@ -1,17 +1,8 @@
 #include "../headerFiles/request.h"
 
 // Returns 0 if worked
-int parseRequest(char* headerPart, int headerLength, request** result) {
-  request* req = (request*) malloc(1 * sizeof(request));
+int parseRequest(char* headerPart, int headerLength, request* req) {
   req->initialContent = headerPart;
-  req->path.content = NULL;
-  req->path.content = NULL;
-  req->path.length = -1;
-  req->protokol.content = NULL;
-  req->protokol.length = -1;
-  req->headers = createEmptyHeaders();
-  req->body.content = NULL;
-  req->body.needsFree = 0;
 
   int headerEnd = parseHead(headerPart, headerLength, req);
   if (headerEnd == -2) {
@@ -29,19 +20,7 @@ int parseRequest(char* headerPart, int headerLength, request** result) {
     req->body.needsFree = 0;
   }
 
-  if (hasEmptyField(req)) {
-    logDebug("[parseRequest] Not everything has been set \n");
-    logDebug("[parseRequest] Path: '%p', Protokol: '%p' \n", req->path.content, req->protokol.content);
-
-    cleanRequest(req);
-    free(req);
-
-    return 1;
-  }
-
   req->params = parseQueryParams(req->path, &(req->path));
-  
-  *result = req;
 
   return 0;
 }
