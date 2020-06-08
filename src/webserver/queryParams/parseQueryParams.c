@@ -24,9 +24,7 @@ queryParams_t parseQueryParams(string rawPath, string* resultPath) {
   for (int i = 0; i < paramStrLength; i++) {
     if (paramStr[i] == '=') {
       keyEnd = i;
-    }
-    
-    if (paramStr[i] == '&' || i == paramStrLength - 1) {
+    } else if (paramStr[i] == '&' || i == paramStrLength - 1) {
       int valueStart = keyEnd + 1;
       int keyLength = keyEnd - keyStart;
       int valueLength = i - valueStart;
