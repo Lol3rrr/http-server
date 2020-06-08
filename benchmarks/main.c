@@ -5,6 +5,7 @@
 #include "queryparams.h"
 #include "response.h"
 #include "keyValueList.h"
+#include "server.h"
 
 int main() {
   printf("Starting Benchmark \n");
@@ -25,6 +26,8 @@ int main() {
 
   // Key-Value List Benchmarks
   benchAddKV();
+
+  determinContentTypeBench();
 
   printf("Done \n");
 
