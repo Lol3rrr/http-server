@@ -6,7 +6,5 @@ string loadFileName(string path) {
     .length = 7
   };
 
-  string fileName = getFileName(nFolder, path);
-
-  return fileName;
+  return getFileName(nFolder, path);
 }
