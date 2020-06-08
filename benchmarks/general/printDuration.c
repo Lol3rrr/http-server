@@ -1,7 +1,7 @@
 #include "../general.h"
 
-void printDuration(char* category, char* name, double totalTime) {
-  double duration = totalTime / RUNS;
+void printDuration(char* category, char* name, long int totalTime) {
+  long int duration = totalTime / RUNS;
 
-  printf("[%s] %s: %f Micro-Seconds \n", category, name, duration);
+  printf("[%s] %s: %ld Nano-Seconds \n", category, name, duration);
 }

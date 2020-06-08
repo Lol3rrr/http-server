@@ -10,7 +10,7 @@
 
 #include "general.h"
 
-double parseQueryParamsBench(char* input);
+clock_t parseQueryParamsBench(char* input);
 
 void parseXQueryParamsBench(int count);
 

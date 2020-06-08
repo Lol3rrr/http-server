@@ -22,7 +22,7 @@ void addXKVsBench(int count) {
     values[i] = tmpValue;
   }
 
-  double total = addKVBench(count, keys, values);
+  long int total = addKVBench(count, keys, values);
 
   char nameBuffer[21];
   sprintf(nameBuffer, "Push %06d-KV-Pairs", count);

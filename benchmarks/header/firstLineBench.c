@@ -10,22 +10,19 @@ void firstLineBench() {
 
 
   // Start the actual Benchmark
-  double total = 0.0;
+  long int total = 0;
 
   for (int i = 0; i < RUNS; i++) {
-    clock_t start = clock();
+    struct timespec startTime;
+    timespec_get(&startTime, TIME_UTC);
 
     parseFirstLine(lineInput, lineLength, &method, &path, &protokol);
 
-    double cDuration = getDurationMicroSec(start);
-    total = total + cDuration;
+    total = total + getDurationNanoSec(startTime);
 
-    if (method.content != NULL && method.needsFree)
-      free(method.content);
-    if (path.content != NULL && path.needsFree)
-      free(path.content);
-    if (protokol.content != NULL && protokol.needsFree)
-      free(protokol.content);
+    cleanString(method);
+    cleanString(path);
+    cleanString(protokol);
   }
 
   printDuration("Header", "Parse First Line", total);

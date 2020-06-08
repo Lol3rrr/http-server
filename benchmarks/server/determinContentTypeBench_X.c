@@ -1,21 +1,20 @@
 #include "../server.h"
 
-double benchDeterminContentType(string path) {
-  double total = 0.0;
+long int benchDeterminContentType(string path) {
+  long int total = 0;
 
   for (int i = 0; i < RUNS; i++) {
     // Setup stuff for each run
     string result;
     int id;
 
-    clock_t start = clock();
+    struct timespec startTime;
+    timespec_get(&startTime, TIME_UTC);
 
     // Do the stuff itself
     determinContentType(path, &result, &id);
 
-
-    double cDuration = getDurationMicroSec(start);
-    total = total + cDuration;
+    total = total + getDurationNanoSec(startTime);
 
     cleanString(result);
   }
@@ -30,8 +29,7 @@ void determinContentTypeBench_NoExtension() {
     .length = 6
   };
 
-  double total = benchDeterminContentType(tmpPath);
-
+  long int total = benchDeterminContentType(tmpPath);
   printDuration("Server", "DeterminContentType - No Extension", total);
 }
 void determinContentTypeBench_HTML() {
@@ -40,8 +38,7 @@ void determinContentTypeBench_HTML() {
     .length = 11
   };
 
-  double total = benchDeterminContentType(tmpPath);
-
+  long int total = benchDeterminContentType(tmpPath);
   printDuration("Server", "DeterminContentType - HTML", total);
 }
 void determinContentTypeBench_JS() {
@@ -50,8 +47,7 @@ void determinContentTypeBench_JS() {
     .length = 9
   };
 
-  double total = benchDeterminContentType(tmpPath);
-
+  long int total = benchDeterminContentType(tmpPath);
   printDuration("Server", "DeterminContentType - JS", total);
 }
 void determinContentTypeBench_CSS() {
@@ -60,8 +56,7 @@ void determinContentTypeBench_CSS() {
     .length = 10
   };
 
-  double total = benchDeterminContentType(tmpPath);
-
+  long int total = benchDeterminContentType(tmpPath);
   printDuration("Server", "DeterminContentType - CSS", total);
 }
 void determinContentTypeBench_IMAGE() {
@@ -70,8 +65,7 @@ void determinContentTypeBench_IMAGE() {
     .length = 10
   };
 
-  double total = benchDeterminContentType(tmpPath);
-
+  long int total = benchDeterminContentType(tmpPath);
   printDuration("Server", "DeterminContentType - IMAGE", total);
 }
 void determinContentTypeBench_OTHER() {
@@ -80,7 +74,6 @@ void determinContentTypeBench_OTHER() {
     .length = 10
   };
 
-  double total = benchDeterminContentType(tmpPath);
-
+  long int total = benchDeterminContentType(tmpPath);
   printDuration("Server", "DeterminContentType - OTHER", total);
 }

@@ -29,7 +29,7 @@ void createHTTPHeaderPartBench_1Header() {
 
   addHeaders(&tmpResp, 1);
 
-  double total = benchCreateHTTPHeaderPart(&tmpResp);
+  long int total = benchCreateHTTPHeaderPart(&tmpResp);
 
   cleanResponse(&tmpResp);
 
@@ -42,7 +42,7 @@ void createHTTPHeaderPartBench_2Header() {
   };
   addHeaders(&tmpResp, 2);
 
-  double total = benchCreateHTTPHeaderPart(&tmpResp);
+  long int total = benchCreateHTTPHeaderPart(&tmpResp);
 
   cleanResponse(&tmpResp);
 
@@ -55,7 +55,7 @@ void createHTTPHeaderPartBench_5Header() {
   };
   addHeaders(&tmpResp, 5);
 
-  double total = benchCreateHTTPHeaderPart(&tmpResp);
+  long int total = benchCreateHTTPHeaderPart(&tmpResp);
 
   cleanResponse(&tmpResp);
 
@@ -69,7 +69,7 @@ void createHTTPHeaderPartBench_10Header() {
 
   addHeaders(&tmpResp, 10);
 
-  double total = benchCreateHTTPHeaderPart(&tmpResp);
+  long int total = benchCreateHTTPHeaderPart(&tmpResp);
 
   cleanResponse(&tmpResp);
 

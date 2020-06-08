@@ -11,7 +11,7 @@
 #include "general.h"
 
 void firstLineBench();
-double parseHeadersBench(char* input);
+clock_t parseHeadersBench(char* input);
 
 void parseXHeadersBench(int count);
 

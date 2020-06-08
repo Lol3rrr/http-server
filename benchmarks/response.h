@@ -13,7 +13,7 @@
 
 void createHTTPHeaderPartBench();
 
-double benchCreateHTTPHeaderPart(response* respPtr);
+clock_t benchCreateHTTPHeaderPart(response* respPtr);
 void createHTTPHeaderPartBench_1Header();
 void createHTTPHeaderPartBench_2Header();
 void createHTTPHeaderPartBench_5Header();

@@ -1,6 +1,6 @@
 #include "../queryparams.h"
 
-double parseQueryParamsBench(char* pathInput) {
+long int parseQueryParamsBench(char* pathInput) {
   int pathLength = strlen(pathInput);
 
   string path = {
@@ -11,15 +11,15 @@ double parseQueryParamsBench(char* pathInput) {
   string resultPath;
 
   // Start the actual Benchmark
-  double total = 0.0;
+  long int total = 0;
 
   for (int i = 0; i < RUNS; i++) {
-    clock_t start = clock();
+    struct timespec startTime;
+    timespec_get(&startTime, TIME_UTC);
 
     queryParams_t params = parseQueryParams(path, &resultPath);
 
-    double cDuration = getDurationMicroSec(start);
-    total = total + cDuration;
+    total = total + getDurationNanoSec(startTime);
 
     if (params.exists) {
       cleanQueryParams(params);
