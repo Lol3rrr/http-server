@@ -1,11 +1,8 @@
 #include "../server.h"
 
-int handleConnection(int conFd) {
-  clock_t startTime = clock();
-
+int handleConnection(int conFd, request* req) {
   // Receiving and parsing the Request
-  request* req;
-  int worked = receiveRequest(conFd, &req);
+  int worked = receiveRequest(conFd, req);
   if (worked != 0) {
     logError("Receiving Request: %d \n", worked);
 
@@ -17,12 +14,6 @@ int handleConnection(int conFd) {
   int handled = handleRequest(conFd, req);
 
   logDebug("[handleConnection] Request has been handled \n");
-
-  if (isMeasuringEnabled()) {
-    double time_spent = (double)(clock() - startTime) / CLOCKS_PER_SEC;
-
-    logMeasuring("[handleConnection] Took %f Seconds \n", time_spent);
-  }
 
   return 0;
 }

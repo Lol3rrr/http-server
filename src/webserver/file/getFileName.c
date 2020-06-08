@@ -19,6 +19,7 @@ string getFileName(string folder, string path) {
     string result = {
       .content = content,
       .length = length,
+      .needsFree = 1
     };
 
     return result;
@@ -37,6 +38,7 @@ string getFileName(string folder, string path) {
     string result = {
       .content = content,
       .length = length,
+      .needsFree = 1
     };
 
     return result;

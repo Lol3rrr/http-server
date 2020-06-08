@@ -24,9 +24,17 @@ int createServer(int port) {
 
 
 #ifdef PROMETHEUS
+  string requestStat = {
+    .content = "total_requests",
+    .length = 14
+  };
+  string errorStat = {
+    .content = "total_errors",
+    .length = 12
+  };
   // Create All the needed Metrics
-  createCounter("total_requests", &counterRegistry);
-  createCounter("total_errors", &counterRegistry);
+  createCounter(requestStat, &counterRegistry);
+  createCounter(errorStat, &counterRegistry);
 
   if (fork() == 0) {
     createMetricsEndpoint(9001);

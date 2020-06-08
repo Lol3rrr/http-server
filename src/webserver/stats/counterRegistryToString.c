@@ -4,11 +4,8 @@ int counterRegistryToString(counter_t** registry, char** result) {
   int totalLength = 0;
   counter_t* lengthCurrent = (*registry);
   while (lengthCurrent != NULL) {
-    char* tmp;
-    int tmpLength = counterToString(lengthCurrent, &tmp);
-    free(tmp);
-    int tmpTypeLength = counterToTypeString(lengthCurrent, &tmp);
-    free(tmp);
+    int tmpLength = counterToStringLength(lengthCurrent);
+    int tmpTypeLength = counterToTypeStringLength(lengthCurrent);
 
     totalLength += tmpLength;
     totalLength += tmpTypeLength;

@@ -16,7 +16,7 @@ void* sharedMalloc(size_t size) {
 
 
 // Retruns the ID of the new Counter or the ID of the already existing one if one is found
-int createCounter(char* pName, counter_t** registry) {
+int createCounter(string pName, counter_t** registry) {
   counter_t* found = findCounterByName(pName, registry);
   if (found != NULL) {
     return found->id;

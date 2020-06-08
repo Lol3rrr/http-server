@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/socket.h>
-#include <time.h>
 
 #include "general.h"
 #include "header.h"
@@ -18,21 +17,21 @@ typedef struct request {
   string path;
   string protokol;
   headers_t headers;
-  queryParams_t* params;
+  queryParams_t params;
   string body;
 } request;
+
+request* createEmptyRequest();
 
 void print_request_debug(request* req);
 
 // Returns 0 if worked
-int parseRequest(char* headerPart, int headerLength, request** result);
+int parseRequest(char* headerPart, int headerLength, request* result);
 int cleanRequest(request* reqPtr);
 
 int readHTTP(int socketFd, char** buffer);
 int parseHead(char* message, int messageLength, request* reqPtr);
 
-int receiveRequest(int conFd, request** reqPtr);
-
-int hasEmptyField(request* reqPtr);
+int receiveRequest(int conFd, request* reqPtr);
 
 #endif
