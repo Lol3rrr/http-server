@@ -7,6 +7,7 @@ long int parseHeadersBench(char* input) {
 
   // Start the actual Benchmark
   long int total = 0;
+  int t = 1;
 
   for (int i = 0; i < RUNS; i++) {
     headers_t headers = createEmptyHeaders();
@@ -16,7 +17,8 @@ long int parseHeadersBench(char* input) {
 
     parseHeaders(input, inputLength, &headers, &end);
 
-    total += getDurationNanoSec(startTime);
+    long int duration = getDurationNanoSec(startTime);
+    total += (duration - total) / t;
 
     cleanHeader(&headers);
   }

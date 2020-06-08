@@ -9,6 +9,7 @@
 long int getDurationNanoSec(struct timespec start);
 
 void printDuration(char* category, char* name, long int totalTime);
+void printRawDuration(char* category, char* name, long int duration);
 void getAndPrintDuration(char* category, char* name, clock_t start);
 
 #endif

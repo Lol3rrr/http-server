@@ -17,7 +17,7 @@ void parseXHeadersBench(int count) {
   char nameBuffer[21];
   sprintf(nameBuffer, "Parse %06d-Headers", count);
   nameBuffer[20] = '\0';
-  printDuration("Header", nameBuffer, total);
+  printRawDuration("Header", nameBuffer, total);
 
   free(buffer);
 }
