@@ -24,27 +24,27 @@ int determinContentType(string path, string* result, int* typeID) {
 
   result->needsFree = 1;
 
-  if(strncmp(extension, "html", length) == 0) {
+  if(memcmp(extension, "html", length) == 0) {
     result->content = (char*) malloc(HTMLTYPELENGTH * sizeof(char));
     result->length = HTMLTYPELENGTH;
     memcpy(result->content, "text/html;charset=UTF-8", HTMLTYPELENGTH);
     *typeID = HTMLTYPE;
-  }else if(strncmp(extension, "css", length) == 0) {
+  }else if(memcmp(extension, "css", length) == 0) {
     result->content = (char*) malloc(CSSTYPELENGTH * sizeof(char));
     result->length = CSSTYPELENGTH;
     memcpy(result->content, "text/css;charset=UTF-8", CSSTYPELENGTH);
     *typeID = CSSTYPE;
-  }else if(strncmp(extension, "js", length) == 0) {
+  }else if(memcmp(extension, "js", length) == 0) {
     result->content = (char*) malloc(JSTYPELENGTH * sizeof(char));
     result->length = JSTYPELENGTH;
     memcpy(result->content, "text/javascript;charset=UTF-8", JSTYPELENGTH);
     *typeID = JSTYPE;
-  }else if(strncmp(extension, "jpg", length) == 0) {
+  }else if(memcmp(extension, "jpg", length) == 0) {
     result->content = (char*) malloc(IMAGETYPELENGTH * sizeof(char));
     result->length = IMAGETYPELENGTH;
     memcpy(result->content, "image/png", IMAGETYPELENGTH);
     *typeID = IMAGETYPE;
-  }else if(strncmp(extension, "png", length) == 0) {
+  }else if(memcmp(extension, "png", length) == 0) {
     result->content = (char*) malloc(IMAGETYPELENGTH * sizeof(char));
     result->length = IMAGETYPELENGTH;
     memcpy(result->content, "image/png", IMAGETYPELENGTH);
