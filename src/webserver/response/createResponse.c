@@ -1,6 +1,6 @@
 #include "../headerFiles/response.h"
 
-response* createResponse(int statusCode, char* statusMessage, char* protokol) {
+response createResponse(int statusCode, char* statusMessage, char* protokol) {
   int protokolLength = strlen(protokol);
   string protokolStr = {
     .content = createEmptyCString(protokolLength),
@@ -9,17 +9,18 @@ response* createResponse(int statusCode, char* statusMessage, char* protokol) {
   };
   memcpy(protokolStr.content, protokol, protokolLength);
 
-  response* resp = createEmptyResponse(protokolStr);
+  response resp = createEmptyResponse();
+  setResponse(&resp, protokolStr);
 
-  resp->statusCode = statusCode;
+  resp.statusCode = statusCode;
 
   int statusLength = strlen(statusMessage);
   string nString = {
     .content = createEmptyCString(statusLength),
     .length = statusLength
   };
-  resp->statusMessage = nString;
-  memcpy(resp->statusMessage.content, statusMessage, statusLength);
+  resp.statusMessage = nString;
+  memcpy(resp.statusMessage.content, statusMessage, statusLength);
 
   return resp;
 }

@@ -8,20 +8,19 @@ void parseRequestBench() {
   double total = 0.0;
 
   for (int i = 0; i < RUNS; i++) {
-    request* tmp = createEmptyRequest();
+    request tmp = createEmptyRequest();
 
     char* line = malloc(lineLength * sizeof(char));
     memcpy(line, lineInput, lineLength);
 
     clock_t start = clock();
 
-    parseRequest(line, lineLength, tmp);
+    parseRequest(line, lineLength, &tmp);
 
     double cDuration = getDurationMicroSec(start);
     total = total + cDuration;
 
-    cleanRequest(tmp);
-    free(tmp);
+    cleanRequest(&tmp);
   }
 
   printDuration("Request", "Parse Request", total);

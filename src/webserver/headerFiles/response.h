@@ -38,8 +38,9 @@ int setStatus(response* respPtr, int statusCode, char* statusMessage);
 
 void print_response_debug(response* respPtr);
 
-response* createEmptyResponse(string protokol);
-response* createResponse(int statusCode, char* statusMessage, char* protokol);
+response createEmptyResponse();
+response createResponse(int statusCode, char* statusMessage, char* protokol);
+void setResponse(response* tmpResp, string protokol);
 int cleanResponse(response* respPtr);
 
 int getFirstLineLength(response* respPtr);
