@@ -39,6 +39,9 @@ int startServer(int serverFd) {
 
       handleConnection(session_fd, &tmpReq, &tmpResp);
 
+      cleanRequest(&tmpReq);
+      cleanResponse(&tmpResp);
+
       int worked = close(session_fd);
       if (worked < 0) {
         logError("Closing connection \n");

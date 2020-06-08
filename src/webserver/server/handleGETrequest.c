@@ -13,8 +13,14 @@ int handleGETrequest(request* req, response* resp) {
   logDebug("[handleGETrequest] Loading File: '%s' \n", fileName.content);
 
   int typeID = 0;
-  char* contentType;
+  string contentType;
   determinContentType(req->path, &contentType, &typeID);
+
+  string okStatus = {
+    .content = "OK",
+    .length = 2,
+    .needsFree = 0
+  };
 
   if (isTemplateEnabled() && typeID == HTMLTYPE) {
     char* data;
@@ -23,12 +29,12 @@ int handleGETrequest(request* req, response* resp) {
       logError("Loading Data: '%d' Loading Filename: '%s' \n", size, fileName.content);
 
       free(fileName.content);
-      free(contentType);
+      cleanString(contentType);
 
       return 1;
     }
 
-    setStatus(resp, HTTP_STATUSOK, "OK");
+    setStatus(resp, HTTP_STATUSOK, okStatus);
     setData(resp, data, size);
     setContentType(resp, contentType, size);
 
@@ -38,19 +44,19 @@ int handleGETrequest(request* req, response* resp) {
     int worked = openFile(fileName, &f);
     if (worked != 0) {
       free(fileName.content);
-      free(contentType);
+      cleanString(contentType);
 
   		return 1;
     }
 
-    setStatus(resp, HTTP_STATUSOK, "OK");
+    setStatus(resp, HTTP_STATUSOK, okStatus);
     setStreaming(resp, f);
     setContentType(resp, contentType, f.length);
 
     free(fileName.content);
   }
 
-  free(contentType);
+  cleanString(contentType);
 
   setCache(resp, req, -1);
 

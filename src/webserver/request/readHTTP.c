@@ -6,6 +6,7 @@ int readHTTP(int socketFd, char** buffer) {
   int received = recv(socketFd, readBuffer, HTTP_BUFFER_SIZE, 0);
   if (received < 1) {
     logDebug("[readHTTP] Connection Closed \n");
+    free(readBuffer);
 
     return -1;
   }

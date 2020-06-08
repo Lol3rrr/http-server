@@ -3,7 +3,7 @@
 int getFirstLineLength(response* respPtr) {
   char statusCode[12];
   itoa(respPtr->statusCode, statusCode);
-  int statusCodeLength = strlen(statusCode);
+  int statusCodeLength = 3;
 
   int totalLength = respPtr->protokol.length + 1 + statusCodeLength + 1 + respPtr->statusMessage.length + 2;
 
@@ -13,7 +13,7 @@ int getFirstLineLength(response* respPtr) {
 int createFirstLine(response* respPtr, char* firstLine) {
   char statusCode[12];
   itoa(respPtr->statusCode, statusCode);
-  int statusCodeLength = strlen(statusCode);
+  int statusCodeLength = 3;
 
   int totalLength = respPtr->protokol.length + 1 + statusCodeLength + 1 + respPtr->statusMessage.length + 2;
 

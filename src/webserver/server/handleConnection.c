@@ -12,8 +12,6 @@ int handleConnection(int conFd, request* req, response* resp) {
   print_request_debug(req);
 
   int handled = handleRequest(conFd, req, resp);
-  cleanRequest(req);
-  cleanResponse(resp);
 
   logDebug("[handleConnection] Request has been handled \n");
 

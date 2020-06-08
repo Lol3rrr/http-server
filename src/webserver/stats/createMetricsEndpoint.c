@@ -39,9 +39,25 @@ void createMetricsEndpoint(int port) {
       char* str;
       int length = counterRegistryToString(&counterRegistry, &str);
 
-      response resp = createResponse(200, "OK", "HTTP/1.1");
+      string statusMessage = {
+        .content = "OK",
+        .length = 2,
+        .needsFree = 0
+      };
+      string protokol = {
+        .content = "HTTP/1.1",
+        .length = 8,
+        .needsFree = 0
+      };
+      response resp = createResponse(200, statusMessage, protokol);
       setData(&resp, str, length);
-      setContentType(&resp, "text/plain; version=0.0.4", length);
+
+      string contentType = {
+        .content = "text/plain; version=0.0.4",
+        .length = 25,
+        .needsFree = 0
+      };
+      setContentType(&resp, contentType, length);
 
       string headResponse;
       string bodyResponse;
