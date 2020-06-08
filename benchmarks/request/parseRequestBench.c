@@ -5,7 +5,8 @@ void parseRequestBench() {
   int lineLength = strlen(lineInput);
 
   // Start the actual Benchmark
-  long int total = 0.0;
+  long int total = 0;
+  int t = 1;
 
   for (int i = 0; i < RUNS; i++) {
     request tmp = createEmptyRequest();
@@ -18,10 +19,12 @@ void parseRequestBench() {
 
     parseRequest(line, lineLength, &tmp);
 
-    total = total + getDurationNanoSec(startTime);
+    long int duration = getDurationNanoSec(startTime);
+    total += (duration - total) / t;
+    ++t;
 
     cleanRequest(&tmp);
   }
 
-  printDuration("Request", "Parse Request", total);
+  printRawDuration("Request", "Parse Request", total);
 }

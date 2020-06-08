@@ -24,7 +24,7 @@ void parseXQueryParamsBench(int count) {
   char nameBuffer[24];
   sprintf(nameBuffer, "Parse %06d-Parameters", count);
   nameBuffer[23] = '\0';
-  printDuration("QueryParams", nameBuffer, total);
+  printRawDuration("QueryParams", nameBuffer, total);
 
   free(buffer);
 }

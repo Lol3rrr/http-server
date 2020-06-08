@@ -12,6 +12,7 @@ long int parseQueryParamsBench(char* pathInput) {
 
   // Start the actual Benchmark
   long int total = 0;
+  int t = 1;
 
   for (int i = 0; i < RUNS; i++) {
     struct timespec startTime;
@@ -19,7 +20,9 @@ long int parseQueryParamsBench(char* pathInput) {
 
     queryParams_t params = parseQueryParams(path, &resultPath);
 
-    total = total + getDurationNanoSec(startTime);
+    long int duration = getDurationNanoSec(startTime);
+    total += (duration - total) / t;
+    ++t;
 
     if (params.exists) {
       cleanQueryParams(params);

@@ -19,6 +19,7 @@ long int parseHeadersBench(char* input) {
 
     long int duration = getDurationNanoSec(startTime);
     total += (duration - total) / t;
+    ++t;
 
     cleanHeader(&headers);
   }

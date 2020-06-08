@@ -33,7 +33,7 @@ void createHTTPHeaderPartBench_1Header() {
 
   cleanResponse(&tmpResp);
 
-  printDuration("Response", "CreateHTTPHeaderPart - 01 Header", total);
+  printRawDuration("Response", "CreateHTTPHeaderPart - 01 Header", total);
 }
 
 void createHTTPHeaderPartBench_2Header() {
@@ -46,7 +46,7 @@ void createHTTPHeaderPartBench_2Header() {
 
   cleanResponse(&tmpResp);
 
-  printDuration("Response", "CreateHTTPHeaderPart - 02 Header", total);
+  printRawDuration("Response", "CreateHTTPHeaderPart - 02 Header", total);
 }
 
 void createHTTPHeaderPartBench_5Header() {
@@ -59,7 +59,7 @@ void createHTTPHeaderPartBench_5Header() {
 
   cleanResponse(&tmpResp);
 
-  printDuration("Response", "CreateHTTPHeaderPart - 05 Header", total);
+  printRawDuration("Response", "CreateHTTPHeaderPart - 05 Header", total);
 }
 
 void createHTTPHeaderPartBench_10Header() {
@@ -73,5 +73,5 @@ void createHTTPHeaderPartBench_10Header() {
 
   cleanResponse(&tmpResp);
 
-  printDuration("Response", "CreateHTTPHeaderPart - 10 Header", total);
+  printRawDuration("Response", "CreateHTTPHeaderPart - 10 Header", total);
 }

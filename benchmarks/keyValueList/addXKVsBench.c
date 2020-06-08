@@ -27,5 +27,5 @@ void addXKVsBench(int count) {
   char nameBuffer[21];
   sprintf(nameBuffer, "Push %06d-KV-Pairs", count);
   nameBuffer[20] = '\0';
-  printDuration("Key Value List", nameBuffer, total);
+  printRawDuration("Key Value List", nameBuffer, total);
 }

@@ -2,6 +2,7 @@
 
 long int benchCreateHTTPHeaderPart(response* respPtr) {
   long int total = 0;
+  int t = 1;
 
   for (int i = 0; i < RUNS; i++) {
     // Setup stuff for each run
@@ -14,7 +15,9 @@ long int benchCreateHTTPHeaderPart(response* respPtr) {
     // Do the stuff itself
     createHTTPHeaderPart(respPtr, "\r\n", 2, result);
 
-    total = total + getDurationNanoSec(startTime);
+    long int duration = getDurationNanoSec(startTime);
+    total += (duration - total) / t;
+    ++t;
 
     free(result);
   }

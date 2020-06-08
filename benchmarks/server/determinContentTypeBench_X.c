@@ -2,6 +2,7 @@
 
 long int benchDeterminContentType(string path) {
   long int total = 0;
+  int t = 1;
 
   for (int i = 0; i < RUNS; i++) {
     // Setup stuff for each run
@@ -14,7 +15,9 @@ long int benchDeterminContentType(string path) {
     // Do the stuff itself
     determinContentType(path, &result, &id);
 
-    total = total + getDurationNanoSec(startTime);
+    long int duration = getDurationNanoSec(startTime);
+    total += (duration - total) / t;
+    ++t;
 
     cleanString(result);
   }
@@ -30,7 +33,7 @@ void determinContentTypeBench_NoExtension() {
   };
 
   long int total = benchDeterminContentType(tmpPath);
-  printDuration("Server", "DeterminContentType - No Extension", total);
+  printRawDuration("Server", "DeterminContentType - No Extension", total);
 }
 void determinContentTypeBench_HTML() {
   string tmpPath = {
@@ -39,7 +42,7 @@ void determinContentTypeBench_HTML() {
   };
 
   long int total = benchDeterminContentType(tmpPath);
-  printDuration("Server", "DeterminContentType - HTML", total);
+  printRawDuration("Server", "DeterminContentType - HTML", total);
 }
 void determinContentTypeBench_JS() {
   string tmpPath = {
@@ -48,7 +51,7 @@ void determinContentTypeBench_JS() {
   };
 
   long int total = benchDeterminContentType(tmpPath);
-  printDuration("Server", "DeterminContentType - JS", total);
+  printRawDuration("Server", "DeterminContentType - JS", total);
 }
 void determinContentTypeBench_CSS() {
   string tmpPath = {
@@ -57,7 +60,7 @@ void determinContentTypeBench_CSS() {
   };
 
   long int total = benchDeterminContentType(tmpPath);
-  printDuration("Server", "DeterminContentType - CSS", total);
+  printRawDuration("Server", "DeterminContentType - CSS", total);
 }
 void determinContentTypeBench_IMAGE() {
   string tmpPath = {
@@ -66,7 +69,7 @@ void determinContentTypeBench_IMAGE() {
   };
 
   long int total = benchDeterminContentType(tmpPath);
-  printDuration("Server", "DeterminContentType - IMAGE", total);
+  printRawDuration("Server", "DeterminContentType - IMAGE", total);
 }
 void determinContentTypeBench_OTHER() {
   string tmpPath = {
@@ -75,5 +78,5 @@ void determinContentTypeBench_OTHER() {
   };
 
   long int total = benchDeterminContentType(tmpPath);
-  printDuration("Server", "DeterminContentType - OTHER", total);
+  printRawDuration("Server", "DeterminContentType - OTHER", total);
 }

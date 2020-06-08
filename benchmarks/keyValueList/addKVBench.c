@@ -3,6 +3,7 @@
 long int addKVBench(int pairs, string* keys, string* values) {
   // Start the actual Benchmark
   long int total = 0;
+  int t = 1;
 
   const int bufferSize = 25;
 
@@ -16,7 +17,9 @@ long int addKVBench(int pairs, string* keys, string* values) {
       pushKVList(&test, keys[i], values[i]);
     }    
 
-    total = total + getDurationNanoSec(startTime);
+    long int duration = getDurationNanoSec(startTime);
+    total += (duration - total) / t;
+    ++t;
 
     cleanKVList(test);
   }
