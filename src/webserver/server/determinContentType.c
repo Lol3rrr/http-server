@@ -6,14 +6,20 @@
 #define IMAGETYPELENGTH 9
 #define TEXTTYPELENGTH 18
 
+char* htmlType = "text/html;charset=UTF-8";
+char* cssType = "text/css;charset=UTF-8";
+char* jsType = "text/javascript;charset=UTF-8";
+char* imageType = "image/png";
+char* textType = "text;charset=UTF-8";
+
 int determinContentType(string path, string* result, int* typeID) {
   int dot = findStr(path, ".", 1);
 
+  result->needsFree = 0;
+
   if(dot == -1) {
-    result->content = (char*) malloc(HTMLTYPELENGTH * sizeof(char));
+    result->content = htmlType;
     result->length = HTMLTYPELENGTH;
-    result->needsFree = 1;
-    memcpy(result->content, "text/html;charset=UTF-8", HTMLTYPELENGTH);
     *typeID = HTMLTYPE;
 
     return 0;
@@ -22,37 +28,29 @@ int determinContentType(string path, string* result, int* typeID) {
   char* extension = path.content + dot + 1;
   int length = path.length - dot - 1;
 
-  result->needsFree = 1;
-
   if(memcmp(extension, "html", length) == 0) {
-    result->content = (char*) malloc(HTMLTYPELENGTH * sizeof(char));
+    result->content = htmlType;
     result->length = HTMLTYPELENGTH;
-    memcpy(result->content, "text/html;charset=UTF-8", HTMLTYPELENGTH);
     *typeID = HTMLTYPE;
   }else if(memcmp(extension, "css", length) == 0) {
-    result->content = (char*) malloc(CSSTYPELENGTH * sizeof(char));
+    result->content = cssType;
     result->length = CSSTYPELENGTH;
-    memcpy(result->content, "text/css;charset=UTF-8", CSSTYPELENGTH);
     *typeID = CSSTYPE;
   }else if(memcmp(extension, "js", length) == 0) {
-    result->content = (char*) malloc(JSTYPELENGTH * sizeof(char));
+    result->content = jsType;
     result->length = JSTYPELENGTH;
-    memcpy(result->content, "text/javascript;charset=UTF-8", JSTYPELENGTH);
     *typeID = JSTYPE;
   }else if(memcmp(extension, "jpg", length) == 0) {
-    result->content = (char*) malloc(IMAGETYPELENGTH * sizeof(char));
+    result->content = imageType;
     result->length = IMAGETYPELENGTH;
-    memcpy(result->content, "image/png", IMAGETYPELENGTH);
     *typeID = IMAGETYPE;
   }else if(memcmp(extension, "png", length) == 0) {
-    result->content = (char*) malloc(IMAGETYPELENGTH * sizeof(char));
+    result->content = imageType;
     result->length = IMAGETYPELENGTH;
-    memcpy(result->content, "image/png", IMAGETYPELENGTH);
     *typeID = IMAGETYPE;
   }else {
-    result->content = (char*) malloc(TEXTTYPELENGTH * sizeof(char));
+    result->content = textType;
     result->length = TEXTTYPELENGTH;
-    memcpy(result->content, "text;charset=UTF-8", TEXTTYPELENGTH);
     *typeID = TEXTTYPE;
   }
 
