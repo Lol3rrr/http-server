@@ -7,5 +7,4 @@ void benchParseHeader() {
   parseXHeadersBench(10);
   parseXHeadersBench(25);
   parseXHeadersBench(50);
-  parseXHeadersBench(100);
 }

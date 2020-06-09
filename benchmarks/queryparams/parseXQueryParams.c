@@ -19,12 +19,12 @@ void parseXQueryParamsBench(int count) {
   }
   buffer[length - 1] = '\0';
 
-  double total = parseQueryParamsBench(buffer);
+  long int total = parseQueryParamsBench(buffer);
 
   char nameBuffer[24];
   sprintf(nameBuffer, "Parse %06d-Parameters", count);
   nameBuffer[23] = '\0';
-  printDuration("QueryParams", nameBuffer, total);
+  printRawDuration("QueryParams", nameBuffer, total);
 
   free(buffer);
 }

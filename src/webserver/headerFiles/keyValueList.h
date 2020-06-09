@@ -28,9 +28,9 @@ void print_kv_list(kvList_t list);
 
 void forEach(kvList_t list, void** extraData, void (*callBack)(kvNode_t* node, void** data));
 
-kvNode_t* createKVNode(string* key, string* value);
+kvNode_t* createKVNode(string key, string value);
 
-kvNode_t* pushKVNode(kvNode_t* head, string* key, string* value);
+kvNode_t* pushKVNode(kvNode_t* head, string key, string value);
 void print_kv_nodes(kvNode_t* head);
 int getKV(kvNode_t* head, string key, kvNode_t** result);
 

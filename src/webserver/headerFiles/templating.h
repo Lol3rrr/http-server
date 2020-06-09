@@ -9,7 +9,7 @@
 #include "file.h"
 
 typedef struct {
-  char* filePath;
+  string filePath;
 } includeStatement;
 
 int parseTemplate(char* rawContent, int contentLength, char** result);

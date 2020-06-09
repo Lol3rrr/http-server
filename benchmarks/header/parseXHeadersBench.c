@@ -12,12 +12,12 @@ void parseXHeadersBench(int count) {
   buffer[length - 2] = '\n';
   buffer[length - 1] = '\0';
 
-  double total = parseHeadersBench(buffer);
+  long int total = parseHeadersBench(buffer);
 
   char nameBuffer[21];
   sprintf(nameBuffer, "Parse %06d-Headers", count);
   nameBuffer[20] = '\0';
-  printDuration("Header", nameBuffer, total);
+  printRawDuration("Header", nameBuffer, total);
 
   free(buffer);
 }

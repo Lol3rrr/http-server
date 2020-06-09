@@ -1,15 +1,19 @@
 #include "../headerFiles/response.h"
 
-int setStatus(response* respPtr, int statusCode, char* statusMessage) {
+int setStatus(response* respPtr, int statusCode, string statusMessage) {
+  if (statusCode < 100 || statusCode > 999) {
+    return -1;
+  }
+
   respPtr->statusCode = statusCode;
 
-  int statusLength = strlen(statusMessage);
   string nString = {
-    .content = createEmptyCString(statusLength),
-    .length = statusLength
+    .content = createEmptyCString(statusMessage.length),
+    .length = statusMessage.length,
+    .needsFree = 1
   };
   respPtr->statusMessage = nString;
-  memcpy(respPtr->statusMessage.content, statusMessage, statusLength);
+  memcpy(respPtr->statusMessage.content, statusMessage.content, statusMessage.length);
 
   return 0;
 }

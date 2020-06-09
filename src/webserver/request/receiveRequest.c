@@ -4,8 +4,6 @@ int receiveRequest(int conFd, request* reqPtr) {
   char* readBuffer;
   int readBytes = readHTTP(conFd, &readBuffer);
   if (readBytes < 0) {
-    free(readBuffer);
-
     return 1;
   }
 

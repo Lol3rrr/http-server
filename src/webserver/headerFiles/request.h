@@ -11,6 +11,8 @@
 #include "logger.h"
 #include "file.h"
 
+#define HTTP_BUFFER_SIZE 16 * 1024
+
 typedef struct request {
   char* initialContent;
   string method;
@@ -21,7 +23,7 @@ typedef struct request {
   string body;
 } request;
 
-request* createEmptyRequest();
+request createEmptyRequest();
 
 void print_request_debug(request* req);
 

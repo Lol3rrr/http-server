@@ -7,5 +7,4 @@ void benchParseQueryParams() {
   parseXQueryParamsBench(10);
   parseXQueryParamsBench(25);
   parseXQueryParamsBench(50);
-  parseXQueryParamsBench(100);
 }

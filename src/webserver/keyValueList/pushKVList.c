@@ -17,7 +17,7 @@ kvNode_t* pushKVList(kvList_t* list, string key, string value) {
     return &(list->buffer[index]);
   }
 
-  list->last->next = createKVNode(&key, &value);
+  list->last->next = createKVNode(key, value);
   list->last = list->last->next;
 
   return list->last;

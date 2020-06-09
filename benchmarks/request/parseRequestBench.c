@@ -5,24 +5,26 @@ void parseRequestBench() {
   int lineLength = strlen(lineInput);
 
   // Start the actual Benchmark
-  double total = 0.0;
+  long int total = 0;
+  int t = 1;
 
   for (int i = 0; i < RUNS; i++) {
-    request* tmp = createEmptyRequest();
+    request tmp = createEmptyRequest();
 
     char* line = malloc(lineLength * sizeof(char));
     memcpy(line, lineInput, lineLength);
 
-    clock_t start = clock();
+    struct timespec startTime;
+    timespec_get(&startTime, TIME_UTC);
 
-    parseRequest(line, lineLength, tmp);
+    parseRequest(line, lineLength, &tmp);
 
-    double cDuration = getDurationMicroSec(start);
-    total = total + cDuration;
+    long int duration = getDurationNanoSec(startTime);
+    total += (duration - total) / t;
+    ++t;
 
-    cleanRequest(tmp);
-    free(tmp);
+    cleanRequest(&tmp);
   }
 
-  printDuration("Request", "Parse Request", total);
+  printRawDuration("Request", "Parse Request", total);
 }

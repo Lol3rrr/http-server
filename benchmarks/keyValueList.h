@@ -10,7 +10,7 @@
 
 #include "general.h"
 
-double addKVBench(int pairs, string* keys, string* values);
+clock_t addKVBench(int pairs, string* keys, string* values);
 void addXKVsBench(int count);
 
 void benchAddKV();

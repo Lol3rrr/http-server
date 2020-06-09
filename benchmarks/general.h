@@ -1,14 +1,15 @@
 #ifndef BENCH_GENERAL_H
 #define BENCH_GENERAL_H
 
-#define RUNS 100000
+#define RUNS 10000
 
 #include <stdio.h>
 #include <time.h>
 
-double getDurationMicroSec(clock_t start);
+long int getDurationNanoSec(struct timespec start);
 
-void printDuration(char* category, char* name, double totalTime);
+void printDuration(char* category, char* name, long int totalTime);
+void printRawDuration(char* category, char* name, long int duration);
 void getAndPrintDuration(char* category, char* name, clock_t start);
 
 #endif

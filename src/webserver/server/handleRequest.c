@@ -1,13 +1,6 @@
 #include "../server.h"
 
-void cleanUp(request* req, response* respPtr) {
-  cleanRequest(req);
-  free(req);
-  cleanResponse(respPtr);
-  free(respPtr);
-}
-
-int handleRequest(int conFd, request* reqPtr) {
+int handleRequest(int conFd, request* reqPtr, response* respPtr) {
   logDebug("[handleRequest] Handling Request... \n");
 #ifdef PROMETHEUS
   string counter = {
@@ -17,7 +10,7 @@ int handleRequest(int conFd, request* reqPtr) {
   incCounterByName(counter, &counterRegistry);
 #endif
 
-  response* respPtr = createEmptyResponse(reqPtr->protokol);
+  setResponse(respPtr, reqPtr->protokol);
 
   int worked;
   if (customPathEnabled) {
@@ -28,16 +21,13 @@ int handleRequest(int conFd, request* reqPtr) {
 
   if (worked < 0) {
     sendInternalError(conFd, reqPtr);
-    cleanUp(reqPtr, respPtr);
     return -1;
   }else if (worked > 0) {
     sendNotFound(conFd, reqPtr);
-    cleanUp(reqPtr, respPtr);
     return -1;
   }
 
   sendResponse(conFd, respPtr);
-  cleanUp(reqPtr, respPtr);
 
   logDebug("[handleRequest] Sent Response \n");
 

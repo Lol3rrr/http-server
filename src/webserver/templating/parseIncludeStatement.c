@@ -19,12 +19,12 @@ int parseIncludeStatement(string includeText, includeStatement* statement) {
 
   string fileName = loadFileName(subStr);
   if (fileName.length < 0) {
-    free(fileName.content);
+    cleanString(fileName);
 
     return -1;
   }
 
-  (*statement).filePath = fileName.content;
+  (*statement).filePath = fileName;
 
   return 0;
 }
