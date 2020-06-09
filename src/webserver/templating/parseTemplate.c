@@ -3,25 +3,52 @@
 #define INCLUDESTARTLENGTH 10
 #define INCLUDEENDLENGTH 2
 
-int handleParseIncludeStatement(string includeStr, char** result) {
+int removeIncludePartOnError(int start, int length, char* data, int dataLength) {
+  // Copies the part after the include string
+  memcpy(data + start, data + start + length, dataLength - start - length);
+
+  return dataLength - length;
+}
+
+// TODO: Read the File-Data directly into the new array to avoid another malloc and memcpy call
+int handleIncludeStatement(string includeStr, int includeStart, char** data, int rawDataLength) {
   includeStatement statement;
   int worked = parseIncludeStatement(includeStr, &statement);
   if (worked != 0) {
-    return 0;
+    return rawDataLength;
   }
 
-  char* data;
-  int size = readRawFile(statement.filePath, &data);
-  free(statement.filePath);
-  if (size < 0) {
-    free(data);
-
-    return 0;
+  File f;
+  worked = openFile(statement.filePath, &f);
+  cleanString(statement.filePath);
+  if (worked != 0) {
+    int nLength = removeIncludePartOnError(includeStart, includeStr.length, *data, rawDataLength);
+    return nLength;
   }
 
-  *result = data;
+  int dataLength = rawDataLength - includeStr.length;
+  int nContentLength = dataLength + f.length;
 
-  return size;
+  char* nContent = malloc((nContentLength) * sizeof(char));
+  if (f.length != fread(nContent + includeStart, sizeof(char), f.length, f.fd)) {
+    closeFile(&f);
+    free(nContent);
+
+    int nLength = removeIncludePartOnError(includeStart, includeStr.length, *data, rawDataLength);
+    return nLength;
+  }
+
+  closeFile(&f);
+
+  // Copies the part before the include string
+  memcpy(nContent, (*data), includeStart);
+  // Copies the part after the include string
+  memcpy(nContent + includeStart + f.length, (*data) + includeStart + includeStr.length, nContentLength - includeStart - f.length);
+
+  free(*data);
+  *data = nContent;
+
+  return nContentLength;
 }
 
 // TODO:
@@ -47,24 +74,7 @@ int parseTemplate(char* rawContent, int rawContentLength, char** result) {
       .length = includeStrLength,
     };
 
-    char* data;
-    int dataSize = handleParseIncludeStatement(includeStr, &data);
-    char* nContent;
-    string contentStr = {
-      .content = content,
-      .length = contentLength,
-    };
-    string replacementStr = {
-      .content = data,
-      .length = dataSize,
-    };
-    replaceStr(&contentStr, &replacementStr, includeStart, (includeEnd - includeStart), &nContent, &contentLength);
-    if (dataSize > 0) {
-      free(data);
-    }
-    free(content);
-    content = nContent;
-
+    contentLength = handleIncludeStatement(includeStr, includeStart, &content, contentLength);
 
     includeStart = findCharArrAfter(content, "<--include", contentLength, INCLUDESTARTLENGTH, includeStart);
   }

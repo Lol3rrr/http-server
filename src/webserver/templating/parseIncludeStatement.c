@@ -24,7 +24,7 @@ int parseIncludeStatement(string includeText, includeStatement* statement) {
     return -1;
   }
 
-  (*statement).filePath = fileName.content;
+  (*statement).filePath = fileName;
 
   return 0;
 }
