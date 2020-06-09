@@ -7,26 +7,27 @@ int handleParseIncludeStatement(string includeStr, char** result) {
   includeStatement statement;
   int worked = parseIncludeStatement(includeStr, &statement);
   if (worked != 0) {
-    free(statement.filePath);
-
     return 0;
   }
 
   char* data;
   int size = readRawFile(statement.filePath, &data);
+  free(statement.filePath);
   if (size < 0) {
-    free(statement.filePath);
     free(data);
 
     return 0;
   }
-  free(statement.filePath);
 
   *result = data;
 
   return size;
 }
 
+// TODO:
+// Reduce the amount of calls to malloc, like a lot
+// Use the KV-List to store each part (before and after each include + the text to include)
+// then at the end malloc new block once and copy it all into that one
 int parseTemplate(char* rawContent, int rawContentLength, char** result) {
   int contentLength = rawContentLength;
   char* content = rawContent;
