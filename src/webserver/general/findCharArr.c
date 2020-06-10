@@ -1,23 +1,23 @@
 #include "../headerFiles/general.h"
 
-int checkForKey(char* src, char* key, int i, int keyLength) {
-  for(int j = 0; j < keyLength; j++) {
-    if (src[i + j] != key[j]) {
+int findCharArr(char* src, char* key, int srcLength, int keyLength) {
+  int searchLength = srcLength;
+  
+  char* firstResult = memchr(src, *key, searchLength);
+  int position = firstResult - src;
+  searchLength -= position;
+  while (firstResult) {
+    if (position + keyLength >= srcLength) {
       return -1;
     }
-  }
 
-  return 0;
-}
-
-int findCharArr(char* src, char* key, int srcLength, int keyLength) {
-  for (int i = 0; i < srcLength - keyLength; i++) {
-    int result = checkForKey(src, key, i, keyLength);
-    if (result != 0) {
-      continue;
+    if (keyLength == 1 || memcmp(src + position, key, keyLength) == 0) {
+      return position;
     }
 
-    return i;
+    firstResult = memchr(src + position + 1, *key, searchLength);
+    position = firstResult - src;
+    searchLength -= position;
   }
 
   return -1;
