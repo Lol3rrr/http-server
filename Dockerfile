@@ -23,4 +23,4 @@ EXPOSE 80 9001
 
 STOPSIGNAL SIGKILL
 
-ENTRYPOINT ["./server.out"]
+ENTRYPOINT ["./server.out", "-ic", "-t", "-c"]

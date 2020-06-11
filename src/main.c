@@ -33,11 +33,13 @@ int main(int argc, char *argv[]) {
   int caching = checkFlag(argv, argc, "-c");
   int measureExec = checkFlag(argv, argc, "-m");
   int template = checkFlag(argv, argc, "-t");
+  int internalCache = checkFlag(argv, argc, "-ic");
 
   setDebugMode(debug);
   setGeneralCaching(caching);
   setMeasureExec(measureExec);
   setGeneralTemplateUsage(template);
+  setInternalCacheUsage(internalCache);
 
   int port = getPort(argv, argc);
 

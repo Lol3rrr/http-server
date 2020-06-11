@@ -25,6 +25,11 @@ int startServer(int serverFd) {
   signal(SIGCHLD,SIG_IGN);
 
   initSharedLock();
+  fileManager_t* fManager = NULL;
+  if (isInternalCacheEnabled()) {
+    fManager = createFileManager("website", 7);
+    populateCache(fManager);
+  }
 
   logInfo("Now waiting for connections \n");
   while (1) {
@@ -37,7 +42,7 @@ int startServer(int serverFd) {
       int session_fd = accept(serverFd, 0, 0);
       pthread_mutex_unlock(&lock->mutex);
 
-      handleConnection(session_fd, &tmpReq, &tmpResp);
+      handleConnection(session_fd, &tmpReq, &tmpResp, fManager);
 
       cleanRequest(&tmpReq);
       cleanResponse(&tmpResp);

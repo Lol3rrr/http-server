@@ -6,7 +6,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <signal.h>
-#include <sys/mman.h>
 
 // Socket stuff
 #include <unistd.h>

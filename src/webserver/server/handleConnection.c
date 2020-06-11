@@ -1,6 +1,6 @@
 #include "../server.h"
 
-int handleConnection(int conFd, request* req, response* resp) {
+int handleConnection(int conFd, request* req, response* resp, fileManager_t* fManager) {
   // Receiving and parsing the Request
   int worked = receiveRequest(conFd, req);
   if (worked != 0) {
@@ -11,7 +11,7 @@ int handleConnection(int conFd, request* req, response* resp) {
 
   print_request_debug(req);
 
-  int handled = handleRequest(conFd, req, resp);
+  int handled = handleRequest(conFd, req, resp, fManager);
 
   logDebug("[handleConnection] Request has been handled \n");
 

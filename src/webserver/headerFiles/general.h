@@ -3,6 +3,13 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <sys/mman.h>
+
+#define HTMLTYPE 0
+#define CSSTYPE 1
+#define JSTYPE 2
+#define TEXTTYPE 3
+#define IMAGETYPE 4
 
 typedef struct string {
   char* content;
@@ -16,6 +23,7 @@ int debug;
 int caching;
 int measuring;
 int templating;
+int internalCache;
 
 void setDebugMode(int value);
 int isDebugEnabled();
@@ -29,6 +37,9 @@ int isCachingEnabled();
 void setGeneralTemplateUsage(int value);
 int isTemplateEnabled();
 
+void setInternalCacheUsage(int value);
+int isInternalCacheEnabled();
+
 int findCharArr(char* src, char* key, int srcLength, int keyLength);
 int findCharArrAfter(char* src, char* key, int srcLength, int keyLength, int starting);
 
@@ -41,5 +52,9 @@ char* createEmptyCString(int length);
 void cleanString(string str);
 
 char* itoa(int i, char b[]);
+
+void* sharedMalloc(size_t size);
+void sharedFree(void* ptr, size_t size);
+void* sharedRealloc(void* ptr, size_t old, size_t new);
 
 #endif

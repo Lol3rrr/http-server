@@ -1,6 +1,6 @@
 #include "../server.h"
 
-int handleRequest(int conFd, request* reqPtr, response* respPtr) {
+int handleRequest(int conFd, request* reqPtr, response* respPtr, fileManager_t* fManage) {
   logDebug("[handleRequest] Handling Request... \n");
 #ifdef PROMETHEUS
   string counter = {
@@ -16,7 +16,7 @@ int handleRequest(int conFd, request* reqPtr, response* respPtr) {
   if (customPathEnabled) {
     worked = callCustomPath(reqPtr->method, reqPtr->path, reqPtr, respPtr);
   } else {
-    worked = handleGETrequest(reqPtr, respPtr);
+    worked = handleGETrequest(reqPtr, respPtr, fManage);
   }
 
   if (worked < 0) {

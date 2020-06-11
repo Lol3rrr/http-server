@@ -51,6 +51,7 @@ string getFileName(string folder, string path) {
   string file = {
     .content = content,
     .length = length,
+    .needsFree = 1
   };
 
   return file;

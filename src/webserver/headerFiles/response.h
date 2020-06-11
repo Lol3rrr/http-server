@@ -19,10 +19,6 @@ typedef struct response {
   kvList_t headerList;
   char* data;
   int dataSize;
-
-  int streaming;
-  int streamSize;
-  File file;
 } response;
 
 
@@ -32,7 +28,6 @@ int isCachingAllowed(request* reqPtr);
 
 int setContentType(response* respPtr, string contentType, int contentLength);
 int setData(response* respPtr, char* data, int size);
-int setStreaming(response* respPtr, File f);
 int setCache(response* respPtr, request* reqPtr, int cacheTime);
 int setStatus(response* respPtr, int statusCode, string statusMessage);
 
