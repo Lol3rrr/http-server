@@ -30,7 +30,7 @@ memcheck_stats:
 
 run_profile:
 	gcc -g -o profile.out src/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c -lpthread
-	valgrind --tool=callgrind --cache-sim=yes --branch-sim=yes --dump-instr=yes --collect-jumps=yes ./profile.out -p 9090 -t
+	valgrind --tool=callgrind --cache-sim=yes --branch-sim=yes --dump-instr=yes --collect-jumps=yes ./profile.out -p 9090 -t -ic
 
 profile:
 	kcachegrind
