@@ -24,6 +24,8 @@
 
 #define HTTP_STATUSOK 200
 
+#define BUFFERSIZE 8192
+
 typedef struct pathNode {
   string method;
   string path;

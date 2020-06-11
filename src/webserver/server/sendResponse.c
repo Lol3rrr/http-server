@@ -1,7 +1,5 @@
 #include "../server.h"
 
-#define BUFFERSIZE 2048
-
 int sendResponse(int connection, response* respPtr) {
   string headResponse;
   int worked = createHTTPResponse(respPtr, &headResponse);
