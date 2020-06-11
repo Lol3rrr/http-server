@@ -7,7 +7,7 @@ int findCharArr(char* src, char* key, int srcLength, int keyLength) {
   int position = firstResult - src;
   searchLength -= position;
   while (firstResult) {
-    if (position + keyLength >= srcLength) {
+    if (position + keyLength > srcLength) {
       return -1;
     }
 
