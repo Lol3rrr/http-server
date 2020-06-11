@@ -60,12 +60,11 @@ void createMetricsEndpoint(int port) {
       setContentType(&resp, contentType, length);
 
       string headResponse;
-      string bodyResponse;
-      int respSize = createHTTPResponse(&resp, &headResponse, &bodyResponse);
+      int respSize = createHTTPResponse(&resp, &headResponse);
       send(session_fd, headResponse.content, headResponse.length, MSG_DONTWAIT | MSG_MORE);
       cleanString(headResponse);
-      if (bodyResponse.content != NULL) {
-        send(session_fd, bodyResponse.content, bodyResponse.length, 0);
+      if (resp.dataSize > 0) {
+        send(session_fd, resp.data, resp.dataSize, 0);
         cleanString(headResponse);
       }
 
