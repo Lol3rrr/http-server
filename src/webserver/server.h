@@ -16,17 +16,11 @@
 #include "headerFiles/logger.h"
 #include "headerFiles/request.h"
 #include "headerFiles/response.h"
+#include "headerFiles/fileManager.h"
 
 #ifdef PROMETHEUS
 #include "headerFiles/stats.h"
 #endif
-
-
-#define HTMLTYPE 0
-#define CSSTYPE 1
-#define JSTYPE 2
-#define TEXTTYPE 3
-#define IMAGETYPE 4
 
 #define HTTP_STATUSOK 200
 
@@ -53,9 +47,9 @@ void sendInternalError(int connection, request* reqPtr);
 
 int determinContentType(string path, string* result, int* typeID);
 
-int handleGETrequest(request* req, response* resp);
-int handleRequest(int conFd, request* req, response* resp);
-int handleConnection(int conFd, request* req, response* resp);
+int handleGETrequest(request* req, response* resp, fileManager_t* fManager);
+int handleRequest(int conFd, request* req, response* resp, fileManager_t* fManager);
+int handleConnection(int conFd, request* req, response* resp, fileManager_t* fManager);
 
 
 #endif
