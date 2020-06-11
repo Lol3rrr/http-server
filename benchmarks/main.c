@@ -6,6 +6,7 @@
 #include "response.h"
 #include "keyValueList.h"
 #include "server.h"
+#include "sharedMap.h"
 
 int main() {
   printf("Starting Benchmark \n");
@@ -27,7 +28,12 @@ int main() {
   // Key-Value List Benchmarks
   benchAddKV();
 
+  // Server Benchmarks
   determinContentTypeBench();
+
+  // Hash-Map Benchmarks
+  calculateHashBench();
+  getBucketIndexBench();
 
   printf("Done \n");
 
