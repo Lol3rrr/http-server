@@ -1,10 +1,9 @@
 #include "../headerFiles/sharedMap.h"
 
-static unsigned calcHash(char* str, int length) {
+static unsigned calcHash(char* str) {
   unsigned hash = 5381;
-  while (length) {
+  while (*str) {
     hash = ((hash << 5) + hash) ^ *str++;
-    length--;
   }
   return hash;
 }
@@ -42,7 +41,7 @@ sharedMap_t* initShared(int buckets) {
 }
 
 void setMap(sharedMap_t* map, char* key, int keyLength, void* data, int dataSize) {
-  unsigned hash = calcHash(key, keyLength);
+  unsigned hash = calcHash(key);
   int index = bucketIndex(map->bucketCount, hash);
 
   bucketEntry_t* entry = map->buckets[index];
@@ -58,7 +57,7 @@ void setMap(sharedMap_t* map, char* key, int keyLength, void* data, int dataSize
 }
 
 void* getMap(sharedMap_t* map, char* key, int keyLength) {
-  unsigned hash = calcHash(key, keyLength);
+  unsigned hash = calcHash(key);
   int index = bucketIndex(map->bucketCount, hash);
 
   bucketEntry_t* entry = map->buckets[index];
