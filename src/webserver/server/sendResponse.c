@@ -4,16 +4,37 @@
 
 int sendResponse(int connection, response* respPtr) {
   string headResponse;
-  string bodyResponse;
-  int worked = createHTTPResponse(respPtr, &headResponse, &bodyResponse);
+  int worked = createHTTPResponse(respPtr, &headResponse);
 
-  int flags = (bodyResponse.content != NULL) ? MSG_DONTWAIT | MSG_MORE : 0;
+  int flags = (respPtr->dataSize > 0) ? MSG_DONTWAIT | MSG_MORE : 0;
 
   send(connection, headResponse.content, headResponse.length, flags);
   cleanString(headResponse);
 
-  if (bodyResponse.content != NULL) {
-    send(connection, bodyResponse.content, bodyResponse.length, 0);
+  if (respPtr->streamingFd) {
+    int fd = fileno(respPtr->streamingFd);
+
+    char buffer[BUFFERSIZE];
+    int currentOffset = 0;
+    int totalSize = respPtr->dataSize;
+
+    while (totalSize > 0) {
+      int readSize = (totalSize < BUFFERSIZE) ? totalSize : BUFFERSIZE;
+      flags = (totalSize < BUFFERSIZE) ? 0 : MSG_DONTWAIT | MSG_MORE;
+      
+      int read = pread(fd, buffer, readSize, currentOffset);
+      
+      send(connection, buffer, read, flags);
+
+      currentOffset += read;
+      totalSize -= read;
+    }
+
+    if (respPtr->closeFile) {
+      fclose(respPtr->streamingFd);
+    }
+  } else if (respPtr->data != NULL) {
+    send(connection, respPtr->data, respPtr->dataSize, 0);
   }
 
   return 0;

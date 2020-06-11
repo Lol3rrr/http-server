@@ -25,9 +25,8 @@ int startServer(int serverFd) {
   signal(SIGCHLD,SIG_IGN);
 
   initSharedLock();
-  fileManager_t* fManager = NULL;
+  fileManager_t* fManager = createFileManager("website", 7, isInternalCacheEnabled());
   if (isInternalCacheEnabled()) {
-    fManager = createFileManager("website", 7);
     populateCache(fManager);
   }
 
