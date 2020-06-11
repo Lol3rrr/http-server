@@ -1,6 +1,19 @@
 #include "../server.h"
 
-int createServer(int port) {
+static sharedLock* initSharedLock() {
+  int prot = PROT_READ | PROT_WRITE;
+  int flags = MAP_SHARED | MAP_ANONYMOUS;
+  sharedLock* lock = mmap(NULL, sizeof(sharedLock), prot, flags, -1, 0);
+
+  pthread_mutexattr_t attr;
+  pthread_mutexattr_init(&attr);
+  pthread_mutexattr_setpshared(&attr, PTHREAD_PROCESS_SHARED);
+  pthread_mutex_init(&lock->mutex, &attr);
+
+  return lock;
+}
+
+int createServer(int port, server_t** result) {
   struct sockaddr_in addr;
   int fd;
 
@@ -41,5 +54,16 @@ int createServer(int port) {
   }
 #endif
 
-  return fd;
+  server_t* tmp = sharedMalloc(sizeof(server_t));
+
+  tmp->fd = fd;
+  tmp->lock = initSharedLock();
+  tmp->fManager = createFileManager("website", 7, isInternalCacheEnabled());
+  if (isInternalCacheEnabled()) {
+    populateCache(tmp->fManager);
+  }
+
+  *result = tmp;
+
+  return 0;
 }

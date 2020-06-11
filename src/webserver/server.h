@@ -33,12 +33,21 @@ typedef struct pathNode {
   struct pathNode* next;
 } pathNode_t;
 
+typedef struct {
+  pthread_mutex_t mutex;
+} sharedLock;
+
+typedef struct {
+  int fd;
+  sharedLock* lock;
+  fileManager_t* fManager;
+} server_t;
 
 int customPathEnabled;
 pathNode_t* customPaths;
 
-int createServer(int port);
-int startServer(int serverFd);
+int createServer(int port, server_t** result);
+int startServer(server_t* server);
 
 void addCustomPath(char* method, char* path, int (*funcPtr)(request* reqPtr, response* respPtr));
 int callCustomPath(string method, string path, request* reqPtr, response* respPtr);
