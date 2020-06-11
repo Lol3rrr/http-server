@@ -29,3 +29,10 @@ void setGeneralTemplateUsage(int value) {
 int isTemplateEnabled() {
   return templating;
 }
+
+void setInternalCacheUsage(int value) {
+  internalCache = value;
+}
+int isInternalCacheEnabled() {
+  return internalCache;
+}

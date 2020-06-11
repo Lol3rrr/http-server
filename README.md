@@ -15,10 +15,11 @@ Simply compile the code and execute the resulting binary to start a simple Webse
 
 ### Command line Arguments
 * "-p [port]" sets the port where it should listen on (default is 80)
-* "-c" enables the Cache-Control-Header with a default Cache time of 1 Day
-* "-d" enables the Debug mode
-* "-m" enables the measuring of the performance of the most important functions (should only be used for optimization)
-* "-t" enables the Templating System
+* "-c"        enables the Cache-Control-Header with a default Cache time of 1 Day
+* "-d"        enables the Debug mode
+* "-m"        enables the measuring of the performance of the most important functions (should only be used for optimization)
+* "-t"        enables the Templating System
+* "-ic"       enables the internal caching system, loads all files in the website/ directory on startup. Needs restart to reload them
 
 ### Templating System
 
@@ -78,8 +79,3 @@ and return a 0 if everything worked or a value that is smaller than 0 if somethi
   * response: A pointer to the response struct
   * contentType: A char* that contains the Content-Type, this is only used for the 'Content-Type' Header
   * contentLength: The Length of the content itself, as an integer
-
-
-## Future - Plans
-* Make it simpler to add it to existing programs
-* Fully add the Cache from the HTTP-Spec

@@ -25,8 +25,11 @@ int startServer(int serverFd) {
   signal(SIGCHLD,SIG_IGN);
 
   initSharedLock();
-  fileManager_t* fManager = createFileManager("website", 7);
-  populateCache(fManager);
+  fileManager_t* fManager = NULL;
+  if (isInternalCacheEnabled()) {
+    fManager = createFileManager("website", 7);
+    populateCache(fManager);
+  }
 
   logInfo("Now waiting for connections \n");
   while (1) {

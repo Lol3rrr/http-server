@@ -3,15 +3,17 @@
 void loadContent(fileManager_t* manager, string path, string* result, int typeID) {
   string fileName = getFileName(manager->rootPath, path);
 
-  fileEntry_t* data = (fileEntry_t*) getMap(manager->files, fileName.content, fileName.length);
-  if (data != NULL) {
-    result->length = data->length;
-    result->content = data->data;
-    result->needsFree = 0;
-    
-    cleanString(fileName);
-    
-    return;
+  if (manager) {
+    fileEntry_t* data = (fileEntry_t*) getMap(manager->files, fileName.content, fileName.length);
+    if (data != NULL) {
+      result->length = data->length;
+      result->content = data->data;
+      result->needsFree = 0;
+      
+      cleanString(fileName);
+      
+      return;
+    }
   }
 
   int length = 0;

@@ -23,6 +23,7 @@ int debug;
 int caching;
 int measuring;
 int templating;
+int internalCache;
 
 void setDebugMode(int value);
 int isDebugEnabled();
@@ -35,6 +36,9 @@ int isCachingEnabled();
 
 void setGeneralTemplateUsage(int value);
 int isTemplateEnabled();
+
+void setInternalCacheUsage(int value);
+int isInternalCacheEnabled();
 
 int findCharArr(char* src, char* key, int srcLength, int keyLength);
 int findCharArrAfter(char* src, char* key, int srcLength, int keyLength, int starting);
