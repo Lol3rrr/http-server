@@ -1,15 +1,15 @@
 #include "../headerFiles/sharedMap.h"
 
-static unsigned calcHash(char* str) {
+unsigned calcHash(char* str) {
   unsigned hash = 5381;
   while (*str) {
-    hash = ((hash << 5) + hash) ^ *str++;
+    hash = ((hash << 5) + hash) ^ *(str++);
   }
   return hash;
 }
 
-static int bucketIndex(int bucketCount, unsigned hash) {
-  return hash % (bucketCount - 1);
+int bucketIndex(int bucketCount, unsigned hash) {
+  return hash & (bucketCount - 1);
 }
 
 static bucketEntry_t* newNode(char* key, int keyLength, unsigned hash, void* data, int dataSize) {

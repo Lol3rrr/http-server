@@ -23,4 +23,7 @@ sharedMap_t* initShared(int buckets);
 void setMap(sharedMap_t* map, char* key, int keyLength, void* data, int dataSize);
 void* getMap(sharedMap_t* map, char* key, int keyLength);
 
+unsigned calcHash(char* str);
+int bucketIndex(int bucketCount, unsigned hash);
+
 #endif
