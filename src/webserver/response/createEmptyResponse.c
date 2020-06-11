@@ -9,6 +9,8 @@ response createEmptyResponse() {
   resp.headerList = createKVList(HEADER_BUFFER);
   resp.data = NULL;
   resp.dataSize = -1;
+  resp.streamingFd = NULL;
+  resp.closeFile = 0;
 
   string serverKey = {
     .content = "Server",

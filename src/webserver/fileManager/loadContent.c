@@ -1,32 +1,39 @@
 #include "../headerFiles/fileManager.h"
 
-void loadContent(fileManager_t* manager, string path, string* result, int typeID) {
+int loadContent(fileManager_t* manager, string path, char** result, FILE** fd, int* closeFile, int typeID) {
   string fileName = getFileName(manager->rootPath, path);
 
-  if (manager) {
-    fileEntry_t* data = (fileEntry_t*) getMap(manager->files, fileName.content, fileName.length);
+  *fd = NULL;
+  *result = NULL;
+  *closeFile = 0;
+
+  if (manager->useCache) {
+    fileEntry_t* data = getMap(manager->files, fileName.content, fileName.length);
     if (data != NULL) {
-      result->length = data->length;
-      result->content = data->data;
-      result->needsFree = 0;
+      *fd = data->fd;
       
       cleanString(fileName);
       
-      return;
+      return data->length;
     }
   }
 
-  int length = 0;
   if (isTemplateEnabled() && typeID == HTMLTYPE) {
-    length = loadFile(fileName, &(result->content));
-  } else {
-    length = readRawFile(fileName.content, &(result->content));
+    int length = loadFile(fileName, result);
+    cleanString(fileName);
+
+    return length;
   }
 
+  File f;
+  int worked = openFile(fileName, &f);
   cleanString(fileName);
+  if (worked != 0) {
+    return -1;
+  }
 
-  result->length = length;
-  result->needsFree = 1;
+  *fd = f.fd;
+  *closeFile = 1;
 
-  return;
+  return f.length;
 }

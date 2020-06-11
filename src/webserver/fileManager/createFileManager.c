@@ -1,7 +1,9 @@
 #include "../headerFiles/fileManager.h"
 
-fileManager_t* createFileManager(char* root, int rootLength) {
+fileManager_t* createFileManager(char* root, int rootLength, int useCache) {
   fileManager_t* result = sharedMalloc(sizeof(fileManager_t));
+
+  result->useCache = useCache;
 
   result->rootPath.content = sharedMalloc(rootLength * sizeof(char));
   memcpy(result->rootPath.content, root, rootLength);

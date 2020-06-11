@@ -18,6 +18,9 @@ typedef struct response {
   string protokol;
   kvList_t headerList;
   char* data;
+
+  FILE* streamingFd;
+  int closeFile;
   int dataSize;
 } response;
 
@@ -28,6 +31,7 @@ int isCachingAllowed(request* reqPtr);
 
 int setContentType(response* respPtr, string contentType, int contentLength);
 int setData(response* respPtr, char* data, int size);
+int setStreaming(response* respPtr, FILE* fd, int size, int closeFile);
 int setCache(response* respPtr, request* reqPtr, int cacheTime);
 int setStatus(response* respPtr, int statusCode, string statusMessage);
 
@@ -45,6 +49,6 @@ int getHTTPHeaderPartLength(response* respPtr, int spacerLength);
 int createHTTPHeaderPart(response* respPtr, char* spacer, int spacerLength, char* result);
 
 int createHTTPHead(response* respPtr, char** result);
-int createHTTPResponse(response* respPtr, string* headResult, string* bodyResult);
+int createHTTPResponse(response* respPtr, string* headResult);
 
 #endif

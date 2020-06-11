@@ -13,15 +13,21 @@ int handleGETrequest(request* req, response* resp, fileManager_t* fManager) {
     .needsFree = 0
   };
 
-  string result;
-  loadContent(fManager, req->path, &result, typeID);
+  FILE* fd;
+  char* content;
+  int closeFile;
+  int length = loadContent(fManager, req->path, &content, &fd, &closeFile, typeID);
 
   setStatus(resp, HTTP_STATUSOK, okStatus);
-  setData(resp, result.content, result.length);
-  setContentType(resp, contentType, result.length);
+  setContentType(resp, contentType, length);
+
+  if (fd) {
+    setStreaming(resp, fd, length, closeFile);
+  } else if (content) {
+    setData(resp, content, length);
+  }
 
   cleanString(contentType);
-  cleanString(result);
 
   setCache(resp, req, -1);
 

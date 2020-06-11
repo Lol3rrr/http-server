@@ -9,18 +9,19 @@
 #include "sharedMap.h"
 
 typedef struct fileEntry {
-  char* data;
+  FILE* fd;
   int length;
 } fileEntry_t;
 
 typedef struct fileManager {
+  int useCache;
   string rootPath;
   sharedMap_t* files;
 } fileManager_t;
 
-fileManager_t* createFileManager(char* root, int rootLength);
+fileManager_t* createFileManager(char* root, int rootLength, int useCache);
 
 void populateCache(fileManager_t* manager);
-void loadContent(fileManager_t* manager, string path, string* result, int typeID);
+int loadContent(fileManager_t* manager, string path, char** result, FILE** fd, int* closeFile, int typeID);
 
 #endif

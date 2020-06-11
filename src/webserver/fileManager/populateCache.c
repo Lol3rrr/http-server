@@ -30,16 +30,32 @@ static void addFilesToCache(fileManager_t* manager, char* directory) {
         .length = pathLength
       };
 
-      char* content;
+      FILE* fd;
+
       int length = -1;
       if (isTemplateEnabled() && html) {
+        char* content;
         length = loadFile(fileName, &content);
+
+        FILE* tmpFd = tmpfile();
+        fprintf(tmpFd, "%.*s", length, content);
+        rewind(tmpFd);
+
+        free(content);
+
+        fd = tmpFd;
       } else {
-        length = readRawFile(fileName.content, &content);
+        File f;
+        int worked = openFile(fileName, &f);
+        if (worked != 0) {
+          continue;
+        }
+        fd = f.fd;
+        length = f.length;
       }
 
       fileEntry_t nFile;
-      nFile.data = content;
+      nFile.fd = fd;
       nFile.length = length;
       setMap(manager->files, path, pathLength, &nFile, sizeof(nFile));
     } else if (dir->d_type == DT_DIR) {

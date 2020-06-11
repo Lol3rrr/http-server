@@ -2,6 +2,7 @@
 #define FILE_H
 
 #include <stdio.h>
+#include <unistd.h>
 
 #include "general.h"
 #include "templating.h"
