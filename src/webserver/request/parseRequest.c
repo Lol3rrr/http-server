@@ -7,7 +7,6 @@ int parseRequest(char* headerPart, int headerLength, request* req) {
   int headerEnd = parseHead(headerPart, headerLength, req);
   if (headerEnd == -2) {
     cleanRequest(req);
-    free(req);
 
     return 2;
   }
