@@ -7,8 +7,12 @@ int cleanResponse(response* respPtr) {
 
   cleanString(respPtr->protokol);
 
-  if (respPtr->dataSize > 0)
-    free(respPtr->data);
+  if (respPtr->dataSize > 0) {
+    if (respPtr->data)
+      free(respPtr->data);
+    if (respPtr->closeFile)
+      fclose(respPtr->streamingFd);
+  }
 
   cleanKVList(respPtr->headerList);
 

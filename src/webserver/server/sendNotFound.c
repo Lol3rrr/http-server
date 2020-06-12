@@ -7,7 +7,6 @@ void sendNotFound(int connection, request* reqPtr) {
     .needsFree = 0
   };
   response resp = createResponse(404, statusMessage, reqPtr->protokol);
-  setData(&resp, "", 0);
 
   sendResponse(connection, &resp);
 

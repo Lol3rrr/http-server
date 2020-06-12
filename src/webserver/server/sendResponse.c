@@ -27,10 +27,6 @@ int sendResponse(int connection, response* respPtr) {
       currentOffset += read;
       totalSize -= read;
     }
-
-    if (respPtr->closeFile) {
-      fclose(respPtr->streamingFd);
-    }
   } else if (respPtr->data != NULL) {
     send(connection, respPtr->data, respPtr->dataSize, 0);
   }

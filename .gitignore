@@ -3,6 +3,7 @@ prof_output
 *.out.*
 .vscode/settings.json
 *.h.gch
+memcheckDockerfile
 
 leak-*
 crash-*
