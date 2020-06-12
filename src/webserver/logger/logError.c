@@ -12,7 +12,8 @@ void logError(const char *fmt, ...) {
 #ifdef PROMETHEUS
   string stat = {
     .content = "total_errors",
-    .length = 12
+    .length = 12,
+    .needsFree = 0
   };
   incCounterByName(stat, &counterRegistry);
 #endif
