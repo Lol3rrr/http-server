@@ -45,14 +45,15 @@ int main(int argc, char *argv[]) {
 
   printf("[Info] Starting on Port %d... \n", port);
 
-  int serverFd = createServer(port);
+  server_t* server;
+  int serverFd = createServer(port, &server);
   if (serverFd < 0) {
     return 0;
   }
 
   //addCustomPath("GET", "/", handleGETrequest);
 
-  startServer(serverFd);
+  startServer(server);
 
   return 0;
 }

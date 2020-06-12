@@ -1,58 +1,44 @@
 #include "../server.h"
 
-typedef struct {
-  pthread_mutex_t mutex;
-} sharedLock;
+void* acceptCon(void* serverData) {
+  server_t* server = (server_t*) serverData;
 
-static sharedLock* lock = NULL;
+  request tmpReq = createEmptyRequest();
+  response tmpResp = createEmptyResponse();
 
-void initSharedLock() {
-  int prot = PROT_READ | PROT_WRITE;
-  int flags = MAP_SHARED | MAP_ANONYMOUS;
-  lock = mmap(NULL, sizeof(sharedLock), prot, flags, -1, 0);
+  int session_fd = accept(server->fd, 0, 0);
+  pthread_mutex_unlock(&(server->lock->mutex));
 
-  pthread_mutexattr_t attr;
-  pthread_mutexattr_init(&attr);
-  pthread_mutexattr_setpshared(&attr, PTHREAD_PROCESS_SHARED);
-  pthread_mutex_init(&lock->mutex, &attr);
+  handleConnection(session_fd, &tmpReq, &tmpResp, server->fManager);
+
+  cleanRequest(&tmpReq);
+  cleanResponse(&tmpResp);
+
+  int worked = close(session_fd);
+  if (worked < 0) {
+    logError("Closing connection \n");
+  }
 }
 
-int startServer(int serverFd) {
-  if (listen(serverFd, SOMAXCONN)) {
+int startServer(server_t* server) {
+  if (listen(server->fd, SOMAXCONN)) {
     logError("Failed to listen for connections \n");
   }
 
   signal(SIGCHLD,SIG_IGN);
 
-  initSharedLock();
-  fileManager_t* fManager = createFileManager("website", 7, isInternalCacheEnabled());
-  if (isInternalCacheEnabled()) {
-    populateCache(fManager);
-  }
-
   logInfo("Now waiting for connections \n");
   while (1) {
-    pthread_mutex_lock(&lock->mutex);
+    pthread_mutex_lock(&(server->lock->mutex));
 
-    if (fork() == 0) {
-      request tmpReq = createEmptyRequest();
-      response tmpResp = createEmptyResponse();
+    pthread_attr_t attr;
+    pthread_attr_init(&attr);
+    pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
 
-      int session_fd = accept(serverFd, 0, 0);
-      pthread_mutex_unlock(&lock->mutex);
+    pthread_t thread_id;
+    pthread_create(&thread_id, &attr, acceptCon, server);
 
-      handleConnection(session_fd, &tmpReq, &tmpResp, fManager);
-
-      cleanRequest(&tmpReq);
-      cleanResponse(&tmpResp);
-
-      int worked = close(session_fd);
-      if (worked < 0) {
-        logError("Closing connection \n");
-      }
-
-      exit(0);
-    }
+    pthread_attr_destroy(&attr);
   }
 
   return 0;

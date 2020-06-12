@@ -1,26 +1,25 @@
 #include "../headerFiles/sharedMap.h"
 
-static unsigned calcHash(char* str, int length) {
+unsigned calcHash(char* str) {
   unsigned hash = 5381;
-  while (length) {
-    hash = ((hash << 5) + hash) ^ *str++;
-    length--;
+  while (*str) {
+    hash = ((hash << 5) + hash) ^ *(str++);
   }
   return hash;
 }
 
-static int bucketIndex(int bucketCount, unsigned hash) {
-  return hash % (bucketCount - 1);
+int bucketIndex(int bucketCount, unsigned hash) {
+  return hash & (bucketCount - 1);
 }
 
 static bucketEntry_t* newNode(char* key, int keyLength, unsigned hash, void* data, int dataSize) {
-  bucketEntry_t* result = sharedMalloc(sizeof(bucketEntry_t));
+  bucketEntry_t* result = malloc(sizeof(bucketEntry_t));
 
-  result->key = sharedMalloc(keyLength * sizeof(char));
+  result->key = malloc(keyLength * sizeof(char));
   memcpy(result->key, key, keyLength);
   result->keyLength = keyLength;
   result->hash = hash;
-  result->data = sharedMalloc(dataSize);
+  result->data = malloc(dataSize);
   memcpy(result->data, data, dataSize);
   result->next = NULL;
 
@@ -29,10 +28,10 @@ static bucketEntry_t* newNode(char* key, int keyLength, unsigned hash, void* dat
 
 
 sharedMap_t* initShared(int buckets) {
-  sharedMap_t* result = sharedMalloc(sizeof(sharedMap_t));
+  sharedMap_t* result = malloc(sizeof(sharedMap_t));
 
   result->bucketCount = buckets;
-  result->buckets = sharedMalloc(buckets * sizeof(bucketEntry_t*));
+  result->buckets = malloc(buckets * sizeof(bucketEntry_t*));
 
   for (int i = 0; i < buckets; i++) {
     result->buckets[i] = NULL;
@@ -42,7 +41,7 @@ sharedMap_t* initShared(int buckets) {
 }
 
 void setMap(sharedMap_t* map, char* key, int keyLength, void* data, int dataSize) {
-  unsigned hash = calcHash(key, keyLength);
+  unsigned hash = calcHash(key);
   int index = bucketIndex(map->bucketCount, hash);
 
   bucketEntry_t* entry = map->buckets[index];
@@ -58,7 +57,7 @@ void setMap(sharedMap_t* map, char* key, int keyLength, void* data, int dataSize
 }
 
 void* getMap(sharedMap_t* map, char* key, int keyLength) {
-  unsigned hash = calcHash(key, keyLength);
+  unsigned hash = calcHash(key);
   int index = bucketIndex(map->bucketCount, hash);
 
   bucketEntry_t* entry = map->buckets[index];

@@ -10,7 +10,7 @@ fileManager_t* createFileManager(char* root, int rootLength, int useCache) {
   result->rootPath.length = rootLength;
   result->rootPath.needsFree = 1;
 
-  result->files = initShared(50);
+  result->files = initShared(64);
 
   return result;
 }
