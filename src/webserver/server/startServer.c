@@ -7,7 +7,7 @@ void* acceptCon(void* serverData) {
   response tmpResp = createEmptyResponse();
 
   int session_fd = accept(server->fd, 0, 0);
-  pthread_mutex_unlock(&(server->lock->mutex));
+  pthread_mutex_unlock(&(server->mutex));
 
   handleConnection(session_fd, &tmpReq, &tmpResp, server->fManager);
 
@@ -35,7 +35,7 @@ int startServer(server_t* server) {
 
   logInfo("Now waiting for connections \n");
   while (1) {
-    pthread_mutex_lock(&(server->lock->mutex));
+    pthread_mutex_lock(&(server->mutex));
 
     pthread_t thread_id;
     pthread_create(&thread_id, &attr, acceptCon, server);
