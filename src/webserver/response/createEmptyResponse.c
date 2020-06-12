@@ -5,7 +5,9 @@ response createEmptyResponse() {
 
   resp.statusCode = -1;
   resp.statusMessage.content = NULL;
+  resp.statusMessage.needsFree = 0;
   resp.protokol.content = NULL;
+  resp.protokol.needsFree = 0;
   resp.headerList = createKVList(HEADER_BUFFER);
   resp.data = NULL;
   resp.dataSize = -1;

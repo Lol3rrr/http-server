@@ -1,11 +1,12 @@
 #include "../headerFiles/queryParams.h"
 
 queryParams_t parseQueryParams(string rawPath, string* resultPath) {
-  queryParams_t result;
+  queryParams_t result = {
+    .exists = 0,
+  };
 
   int paramStart = findStr(rawPath, "?", 1);
   if (paramStart < 0) {
-    result.exists = 0;
     return result;
   }
 

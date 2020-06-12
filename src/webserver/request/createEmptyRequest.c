@@ -3,6 +3,9 @@
 request createEmptyRequest() {
   request req;
   req.initialContent = NULL;
+  req.method.content = NULL;
+  req.method.length = -1;
+  req.method.needsFree = 0;
   req.path.content = NULL;
   req.path.length = -1;
   req.path.needsFree = 0;
@@ -13,6 +16,7 @@ request createEmptyRequest() {
   req.body.content = NULL;
   req.body.length = -1;
   req.body.needsFree = 0;
+  req.params.exists = 0;
 
   return req;
 }
