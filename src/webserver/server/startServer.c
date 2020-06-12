@@ -18,6 +18,8 @@ void* acceptCon(void* serverData) {
   if (worked < 0) {
     logError("Closing connection \n");
   }
+
+  pthread_exit(NULL);
 }
 
 int startServer(server_t* server) {
