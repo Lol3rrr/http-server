@@ -11,19 +11,19 @@ int parseHeaders(char* headers, int headersLength, headers_t* result, int* heade
   char* end = tmpHeaders + headersLength - 3;
   while (tmpHeaders < end) {
     keyEnd = keyStart;
-    while (*tmpHeaders != ':') {
+    while (*tmpHeaders != ' ') {
       keyEnd++;
       tmpHeaders++;
     }
-    tmpHeaders += 2;
-    valueStart = keyEnd + 2;
+    tmpHeaders += 1;
+    valueStart = keyEnd + 1;
     valueEnd = valueStart;
     while (*tmpHeaders != '\r') {
       valueEnd++;
       tmpHeaders++;
     }
 
-    int keyLength = keyEnd - keyStart;
+    int keyLength = keyEnd - keyStart - 1;
     int valueLength = valueEnd - valueStart;
 
     string key = {
