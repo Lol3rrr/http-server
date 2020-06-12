@@ -54,7 +54,5 @@ void cleanString(string str);
 char* itoa(int i, char b[]);
 
 void* sharedMalloc(size_t size);
-void sharedFree(void* ptr, size_t size);
-void* sharedRealloc(void* ptr, size_t old, size_t new);
 
 #endif
