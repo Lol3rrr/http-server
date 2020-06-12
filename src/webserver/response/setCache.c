@@ -24,11 +24,13 @@ int setCache(response* respPtr, request* reqPtr, int cacheTime) {
 
   string key = {
     .content = "Cache-Control",
-    .length = 13
+    .length = 13,
+    .needsFree = 0
   };
   string value = {
     .content = cacheHeader,
-    .length = 16 + cacheValueLength
+    .length = 16 + cacheValueLength,
+    .needsFree = 0
   };
   addHeader(respPtr, key, value);
 

@@ -22,7 +22,7 @@ int setContentType(response* respPtr, string contentType, int contentLength) {
   string typeValue = {
     .content = contentType.content,
     .length = contentType.length,
-    .needsFree = 1
+    .needsFree = 0
   };
   addHeader(respPtr, typeKey, typeValue);
 

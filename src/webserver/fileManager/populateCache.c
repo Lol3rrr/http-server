@@ -27,7 +27,8 @@ static void addFilesToCache(fileManager_t* manager, char* directory) {
 
       string fileName = {
         .content = path,
-        .length = pathLength
+        .length = pathLength,
+        .needsFree = 1
       };
 
       FILE* fd;

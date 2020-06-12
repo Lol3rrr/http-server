@@ -4,14 +4,16 @@ void addCustomPath(char* rawMethod, char* rawPath, int (*funcPtr)(request* reqPt
   int methodLength = strlen(rawMethod);
   string method = {
     .content = createEmptyCString(methodLength),
-    .length = methodLength
+    .length = methodLength,
+    .needsFree = 1
   };
   memcpy(method.content, rawMethod, methodLength);
 
   int pathLength = strlen(rawPath);
   string path = {
     .content = createEmptyCString(pathLength),
-    .length = pathLength
+    .length = pathLength,
+    .needsFree = 1
   };
   memcpy(path.content, rawPath, pathLength);
 

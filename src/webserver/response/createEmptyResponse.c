@@ -14,11 +14,13 @@ response createEmptyResponse() {
 
   string serverKey = {
     .content = "Server",
-    .length = 6
+    .length = 6,
+    .needsFree = 0
   };
   string serverValue = {
     .content = "Lol3r-C/2.1",
-    .length = 11
+    .length = 11,
+    .needsFree = 0
   };
   addHeader(&resp, serverKey, serverValue);
 
