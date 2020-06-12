@@ -34,12 +34,8 @@ typedef struct pathNode {
 } pathNode_t;
 
 typedef struct {
-  pthread_mutex_t mutex;
-} sharedLock;
-
-typedef struct {
   int fd;
-  sharedLock* lock;
+  pthread_mutex_t mutex;
   fileManager_t* fManager;
 } server_t;
 
