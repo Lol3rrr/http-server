@@ -103,9 +103,6 @@ tpool_t* createThreadPool(size_t num, fileManager_t* fManager) {
 
 int tpool_addWork(tpool_t* tp, int con) {
   tpool_work_t* work;
-  
-  if (tp == NULL)
-    return 0;
 
   work = tpool_work_create(con);
   if (work == NULL)
