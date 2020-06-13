@@ -24,6 +24,7 @@ typedef struct request {
 } request;
 
 request createEmptyRequest();
+int resetRequest(request* reqPtr);
 
 void print_request_debug(request* req);
 

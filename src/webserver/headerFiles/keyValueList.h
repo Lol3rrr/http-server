@@ -22,6 +22,7 @@ typedef struct kvList {
 
 kvList_t createKVList(int bufferSize);
 kvNode_t* pushKVList(kvList_t* list, string key, string value);
+void resetKVList(kvList_t* list);
 void cleanKVList(kvList_t list);
 int findKV(kvList_t list, string key, kvNode_t** result);
 void print_kv_list(kvList_t list);

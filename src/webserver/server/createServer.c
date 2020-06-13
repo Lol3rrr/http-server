@@ -8,7 +8,7 @@ static void initLock(pthread_mutex_t* mutex) {
   return;
 }
 
-int createServer(int port, server_t** result) {
+int createServer(int port, int threadCount, server_t** result) {
   struct sockaddr_in addr;
   int fd;
 
@@ -52,6 +52,7 @@ int createServer(int port, server_t** result) {
   server_t* tmp = sharedMalloc(sizeof(server_t));
 
   tmp->fd = fd;
+  tmp->threadCount = threadCount;
   tmp->fManager = createFileManager("website", 7, isInternalCacheEnabled());
   if (isInternalCacheEnabled()) {
     populateCache(tmp->fManager);
