@@ -67,13 +67,9 @@ static void* threadFuncion(void* arg) {
       logError("Closing connection \n");
     }
 
-    // Clean up old request/respones
-    cleanRequest(&tmpReq);
-    cleanResponse(&tmpResp);
-
-    // prep for next one
-    tmpReq = createEmptyRequest();
-    tmpResp = createEmptyResponse();
+    // Reset the request/response for another use
+    resetRequest(&tmpReq);
+    resetResponse(&tmpResp);
   }
 
   return NULL;

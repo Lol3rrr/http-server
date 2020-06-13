@@ -3,19 +3,19 @@
 
 #include "webserver/server.h"
 
-int getPort(char** args, int argCount) {
+int getNumber(char** args, int argCount, char* flag, int defaultValue) {
   for (int i = 0; i < argCount; i++) {
-    if(strcmp(args[i], "-p") == 0) {
+    if(strcmp(args[i], flag) == 0) {
       if (i < argCount - 1) {
-        int port;
-        sscanf(args[i + 1], "%d", &port);
+        int value;
+        sscanf(args[i + 1], "%d", &value);
 
-        return port;
+        return value;
       }
     }
   }
 
-  return 80;
+  return defaultValue;
 }
 
 int checkFlag(char** args, int argCount, char* flag) {
@@ -41,12 +41,13 @@ int main(int argc, char *argv[]) {
   setGeneralTemplateUsage(template);
   setInternalCacheUsage(internalCache);
 
-  int port = getPort(argv, argc);
+  int port = getNumber(argv, argc, "-p", 80);
+  int threads = getNumber(argv, argc, "-t", DEFAULT_THREAD_COUNT);
 
   printf("[Info] Starting on Port %d... \n", port);
 
   server_t* server;
-  int serverFd = createServer(port, &server);
+  int serverFd = createServer(port, threads, &server);
   if (serverFd < 0) {
     return 0;
   }

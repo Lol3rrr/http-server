@@ -5,7 +5,7 @@ int startServer(server_t* server) {
     logError("Failed to listen for connections \n");
   }
 
-  tpool_t* threadPool = createThreadPool(10, server->fManager);
+  tpool_t* threadPool = createThreadPool(server->threadCount, server->fManager);
 
   signal(SIGCHLD,SIG_IGN);
 

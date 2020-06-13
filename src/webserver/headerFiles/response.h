@@ -39,6 +39,7 @@ void print_response_debug(response* respPtr);
 
 response createEmptyResponse();
 response createResponse(int statusCode, string statusMessage, string protokol);
+int resetResponse(response* respPtr);
 void setResponse(response* tmpResp, string protokol);
 int cleanResponse(response* respPtr);
 

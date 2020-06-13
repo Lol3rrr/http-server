@@ -25,6 +25,7 @@
 #define HTTP_STATUSOK 200
 
 #define BUFFERSIZE 8192
+#define DEFAULT_THREAD_COUNT 100
 
 typedef struct tpool_work {
   int connection;
@@ -54,6 +55,7 @@ typedef struct pathNode {
 
 typedef struct {
   int fd;
+  int threadCount;
   pthread_mutex_t mutex;
   fileManager_t* fManager;
 } server_t;
@@ -61,7 +63,7 @@ typedef struct {
 int customPathEnabled;
 pathNode_t* customPaths;
 
-int createServer(int port, server_t** result);
+int createServer(int port, int threadCount, server_t** result);
 int startServer(server_t* server);
 
 void addCustomPath(char* method, char* path, int (*funcPtr)(request* reqPtr, response* respPtr));
