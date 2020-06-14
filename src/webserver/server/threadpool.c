@@ -113,7 +113,7 @@ int tpool_addWork(tpool_t* tp, int con) {
     tp->work_last = work;
   }
 
-  pthread_cond_broadcast(&(tp->work_cond));
+  pthread_cond_signal(&(tp->work_cond));
   pthread_mutex_unlock(&(tp->work_mutex));
 
   return 1;

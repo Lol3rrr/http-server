@@ -18,7 +18,7 @@ int sendResponse(int connection, response* respPtr) {
 
     while (totalSize > 0) {
       int readSize = (totalSize < BUFFERSIZE) ? totalSize : BUFFERSIZE;
-      flags = (totalSize < BUFFERSIZE) ? 0 : MSG_DONTWAIT | MSG_MORE;
+      flags = (totalSize < BUFFERSIZE) * (MSG_DONTWAIT | MSG_MORE);
       
       int read = pread(fd, buffer, readSize, currentOffset);
       
