@@ -31,7 +31,7 @@ void BM_DeterminContentType(benchmark::State& state) {
 
   for (auto _ : state) {
     state.PauseTiming();
-    int index = rand() % typeCount;
+    int index = rand_r() % typeCount;
     string path = {
       .content = types[index],
       .length = 9,
