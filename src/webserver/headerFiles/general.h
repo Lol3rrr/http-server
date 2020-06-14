@@ -19,11 +19,11 @@ typedef struct string {
 
 extern const char digit[];
 
-int debug;
-int caching;
-int measuring;
-int templating;
-int internalCache;
+extern int debug;
+extern int caching;
+extern int measuring;
+extern int templating;
+extern int internalCache;
 
 void setDebugMode(int value);
 int isDebugEnabled();

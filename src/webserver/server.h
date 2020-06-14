@@ -25,6 +25,26 @@
 #define HTTP_STATUSOK 200
 
 #define BUFFERSIZE 8192
+#define DEFAULT_THREAD_COUNT 100
+
+typedef struct tpool_work {
+  int connection;
+  struct tpool_work* next;
+} tpool_work_t;
+
+typedef struct tpool {
+  tpool_work_t* work_first;
+  tpool_work_t* work_last;
+  pthread_mutex_t work_mutex;
+  pthread_cond_t work_cond;
+  size_t thread_cnt;
+  fileManager_t* fManager;
+} tpool_t;
+
+
+tpool_t* createThreadPool(size_t num, fileManager_t* fManager);
+int tpool_addWork(tpool_t* tp, int con);
+
 
 typedef struct pathNode {
   string method;
@@ -35,14 +55,15 @@ typedef struct pathNode {
 
 typedef struct {
   int fd;
+  int threadCount;
   pthread_mutex_t mutex;
   fileManager_t* fManager;
 } server_t;
 
-int customPathEnabled;
-pathNode_t* customPaths;
+extern int customPathEnabled;
+extern pathNode_t* customPaths;
 
-int createServer(int port, server_t** result);
+int createServer(int port, int threadCount, server_t** result);
 int startServer(server_t* server);
 
 void addCustomPath(char* method, char* path, int (*funcPtr)(request* reqPtr, response* respPtr));

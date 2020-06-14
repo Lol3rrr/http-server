@@ -47,7 +47,6 @@ int getHTTPHeaderPartLength(response* respPtr, int spacerLength) {
 
 int createHTTPHeaderPart(response* respPtr, char* spacer, int spacerLength, char* headerPart) {
   int headerLength = 0;
-
   headerLength = getHeaderPartLength(respPtr->headerList, spacerLength);
 
   HeaderPartHelper_t helperData = {

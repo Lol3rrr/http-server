@@ -13,9 +13,9 @@ int bucketIndex(int bucketCount, unsigned hash) {
 }
 
 static bucketEntry_t* newNode(char* key, int keyLength, unsigned hash, void* data, int dataSize) {
-  bucketEntry_t* result = malloc(sizeof(bucketEntry_t));
+  bucketEntry_t* result = (bucketEntry_t*) malloc(sizeof(bucketEntry_t));
 
-  result->key = malloc(keyLength * sizeof(char));
+  result->key = (char*) malloc(keyLength * sizeof(char));
   memcpy(result->key, key, keyLength);
   result->keyLength = keyLength;
   result->hash = hash;
@@ -28,10 +28,10 @@ static bucketEntry_t* newNode(char* key, int keyLength, unsigned hash, void* dat
 
 
 sharedMap_t* initShared(int buckets) {
-  sharedMap_t* result = malloc(sizeof(sharedMap_t));
+  sharedMap_t* result = (sharedMap_t*) malloc(sizeof(sharedMap_t));
 
   result->bucketCount = buckets;
-  result->buckets = malloc(buckets * sizeof(bucketEntry_t*));
+  result->buckets = (bucketEntry_t**) malloc(buckets * sizeof(bucketEntry_t*));
 
   for (int i = 0; i < buckets; i++) {
     result->buckets[i] = NULL;

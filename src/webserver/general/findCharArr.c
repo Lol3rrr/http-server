@@ -3,7 +3,7 @@
 int findCharArr(char* src, char* key, int srcLength, int keyLength) {
   int searchLength = srcLength;
   
-  char* firstResult = memchr(src, *key, searchLength);
+  char* firstResult = (char*) memchr(src, *key, searchLength);
   int position = firstResult - src;
   searchLength -= position;
   while (firstResult) {
@@ -15,7 +15,7 @@ int findCharArr(char* src, char* key, int srcLength, int keyLength) {
       return position;
     }
 
-    firstResult = memchr(src + position + 1, *key, searchLength);
+    firstResult = (char*) memchr(src + position + 1, *key, searchLength);
     position = firstResult - src;
     searchLength -= position;
   }

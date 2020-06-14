@@ -22,5 +22,6 @@ queryParams_t parseQueryParams(string rawPath, string* resultPath);
 int getQueryParam(queryParams_t params, char* key, kvNode_t** result);
 
 void cleanQueryParams(queryParams_t params);
+void resetQueryParams(queryParams_t* params);
 
 #endif

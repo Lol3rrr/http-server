@@ -23,6 +23,9 @@ headers_t createEmptyHeaders();
 kvNode_t* pushHeader(headers_t* headers, string key, string value);
 // Prints all the Headers, mainly used for debugging
 void print_header_debug(headers_t* headers);
+// Resets the headers to their initial state as if it were
+// a new instance, but tries to keep as many ressources as possible.
+void resetHeader(headers_t* headers);
 // Frees all the Headers and the Data they hold
 void cleanHeader(headers_t* headers);
 // Searches for a Header that matches the given Key
