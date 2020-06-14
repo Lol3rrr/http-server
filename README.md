@@ -4,6 +4,7 @@ Though it only works on linux at the moment.
 
 ## Code-Checks
 [![CodeFactor](https://www.codefactor.io/repository/github/lol3rrr/http-server/badge)](https://www.codefactor.io/repository/github/lol3rrr/http-server)
+[Benchmark Results](https://lol3rrr.github.io/http-server/master/bench/)
 
 ## Features
 * Serve static Files
