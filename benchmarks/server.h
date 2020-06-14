@@ -23,15 +23,14 @@ void BM_DeterminContentType(benchmark::State& state) {
   memcpy(types[4], "-test.png", 9);
   memcpy(types[5], "-test.bin", 9);
 
-  srand(time(NULL));
-
+  unsigned int seed = time(NULL);
 
   string typeResult;
   int typeIDResult;
 
   for (auto _ : state) {
     state.PauseTiming();
-    int index = rand_r() % typeCount;
+    int index = rand_r(&seed) % typeCount;
     string path = {
       .content = types[index],
       .length = 9,
