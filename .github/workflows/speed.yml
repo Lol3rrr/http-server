@@ -20,11 +20,11 @@ jobs:
           tool: 'googlecpp'
           output-file-path: benchmark_result.json
           # Use personal access token instead of GITHUB_TOKEN due to https://github.community/t5/GitHub-Actions/Github-action-not-triggering-gh-pages-upon-push/td-p/26869/highlight/false
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
           # Show alert with commit comment on detecting possible performance regression
           alert-threshold: '150%'
           comment-always: true
           comment-on-alert: true
-          always-push: true
+          auto-push: true
           fail-on-alert: true
           alert-comment-cc-users: '@lol3rrr'
