@@ -7,8 +7,6 @@ int startServer(server_t* server) {
 
   tpool_t* threadPool = createThreadPool(server->threadCount, server->fManager);
 
-  signal(SIGCHLD,SIG_IGN);
-
   logInfo("Now waiting for connections \n");
   while (1) {
     int session_fd = accept(server->fd, 0, 0);

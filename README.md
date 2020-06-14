@@ -15,13 +15,13 @@ Though it only works on linux at the moment.
 Simply compile the code and execute the resulting binary to start a simple Webserver
 
 ### Command line Arguments
-* "-p [port]"  sets the port where it should listen on (default is 80)
-* "-t [count]" sets the number of threads used to handle requests (default is 100)
-* "-c"         enables the Cache-Control-Header with a default Cache time of 1 Day
-* "-d"         enables the Debug mode
-* "-m"         enables the measuring of the performance of the most important functions (should only be used for optimization)
-* "-t"         enables the Templating System
-* "-ic"        enables the internal caching system, loads all files in the website/ directory on startup. Needs restart to reload them
+* "-p [port]"   sets the port where it should listen on (default is 80)
+* "-tc [count]" sets the number of threads used to handle requests (default is 100)
+* "-c"          enables the Cache-Control-Header with a default Cache time of 1 Day
+* "-d"          enables the Debug mode
+* "-m"          enables the measuring of the performance of the most important functions (should only be used for optimization)
+* "-t"          enables the Templating System
+* "-ic"         enables the internal caching system, loads all files in the website/ directory on startup. Needs restart to reload them
 
 ### Templating System
 
