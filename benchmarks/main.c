@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+
 #include "header.h"
 #include "request.h"
 #include "queryparams.h"
@@ -8,34 +9,19 @@
 #include "server.h"
 #include "sharedMap.h"
 
-int main() {
-  printf("Starting Benchmark \n");
+#include <benchmark/benchmark.h>
 
-  // Header Benchmarks
-  firstLineBench();
-  benchParseHeader();
+// Header Benchmarks
+BENCHMARK(BM_ParseFirstLine);
+BENCHMARK(BM_ParseHeaders)->Arg(1)->Arg(2)->Arg(5)->Arg(10)->Arg(25);
 
-  // Request Benchmarks
-  parseHeadBench();
-  parseRequestBench();
+// Queryparams Benchmarks
+BENCHMARK(BM_ParseQueryParams)->Arg(1)->Arg(2)->Arg(5)->Arg(10)->Arg(25);
 
-  // Queryparams Benchmarks
-  benchParseQueryParams();
+// Response Benchmarks
+BENCHMARK(BM_CreateHTTPHeaderPart)->Arg(1)->Arg(2)->Arg(5)->Arg(10);
 
-  // Response Benchmarks
-  createHTTPHeaderPartBench();
+// Server Benchmarks
+BENCHMARK(BM_DeterminContentType);
 
-  // Key-Value List Benchmarks
-  benchAddKV();
-
-  // Server Benchmarks
-  determinContentTypeBench();
-
-  // Hash-Map Benchmarks
-  calculateHashBench();
-  getBucketIndexBench();
-
-  printf("Done \n");
-
-  return 0;
-}
+BENCHMARK_MAIN();

@@ -6,7 +6,7 @@ static tpool_work_t* tpool_work_create(int con) {
   if (con < 0)
     return NULL;
 
-  work = malloc(sizeof(tpool_work_t));
+  work = (tpool_work_t*) malloc(sizeof(tpool_work_t));
   work->connection = con;
   work->next = NULL;
   
@@ -41,7 +41,7 @@ static tpool_work_t* getWork(tpool_t* tp) {
 }
 
 static void* threadFuncion(void* arg) {
-  tpool_t* tp = arg;
+  tpool_t* tp = (tpool_t*) arg;
   tpool_work_t* work;
 
   request tmpReq = createEmptyRequest();
@@ -79,7 +79,7 @@ tpool_t* createThreadPool(size_t num, fileManager_t* fManager) {
   tpool_t* tp;
   pthread_t thread;
 
-  tp = calloc(1, sizeof(tpool_t));
+  tp = (tpool_t*) calloc(1, sizeof(tpool_t));
   tp->thread_cnt = num;
   tp->fManager = fManager;
 

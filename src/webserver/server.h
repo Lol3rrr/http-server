@@ -60,8 +60,8 @@ typedef struct {
   fileManager_t* fManager;
 } server_t;
 
-int customPathEnabled;
-pathNode_t* customPaths;
+extern int customPathEnabled;
+extern pathNode_t* customPaths;
 
 int createServer(int port, int threadCount, server_t** result);
 int startServer(server_t* server);

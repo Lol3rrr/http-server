@@ -29,7 +29,7 @@ int handleIncludeStatement(string includeStr, int includeStart, char** data, int
   int dataLength = rawDataLength - includeStr.length;
   int nContentLength = dataLength + f.length;
 
-  char* nContent = malloc((nContentLength) * sizeof(char));
+  char* nContent = (char*) malloc((nContentLength) * sizeof(char));
   if (f.length != fread(nContent + includeStart, sizeof(char), f.length, f.fd)) {
     closeFile(&f);
     free(nContent);

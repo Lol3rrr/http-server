@@ -49,7 +49,7 @@ int createServer(int port, int threadCount, server_t** result) {
   }
 #endif
 
-  server_t* tmp = sharedMalloc(sizeof(server_t));
+  server_t* tmp = (server_t*) sharedMalloc(sizeof(server_t));
 
   tmp->fd = fd;
   tmp->threadCount = threadCount;

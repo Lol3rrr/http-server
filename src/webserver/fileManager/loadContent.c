@@ -8,7 +8,7 @@ int loadContent(fileManager_t* manager, string path, char** result, FILE** fd, i
   *closeFile = 0;
 
   if (manager->useCache) {
-    fileEntry_t* data = getMap(manager->files, fileName.content, fileName.length);
+    fileEntry_t* data = (fileEntry_t*) getMap(manager->files, fileName.content, fileName.length);
     if (data != NULL) {
       *fd = data->fd;
       

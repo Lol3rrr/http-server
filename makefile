@@ -59,3 +59,34 @@ run_profile_benchmark:
 
 docker:
 	docker build -t c-http-server:latest .
+
+
+
+run_bench: bench.out
+	./bench.out
+	rm bench.out
+
+json: bench.out
+	./bench.out --benchmark_format=json | tee benchmark_result.json
+	rm bench.out
+
+bench.out: libs/benchmark/build/src/libbenchmark.a
+	g++ -O3 \
+	benchmarks/main.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c \
+	-std=c++11 -isystem ./libs/benchmark/include -L./libs/benchmark/build/src -lbenchmark -lpthread \
+	-Wno-write-strings \
+	-o bench.out
+
+libs/benchmark/build/src/libbenchmark.a: libs/benchmark/build libs/benchmark/googletest
+	cd ./libs/benchmark/build && \
+	cmake -DCMAKE_BUILD_TYPE=Release -DBENCHMARK_ENABLE_TESTING=true ../ && \
+	make -j
+
+libs/benchmark/build: benchmark
+	mkdir -p libs/benchmark/build
+
+benchmark:
+	[ -d libs/benchmark ] || git clone --depth=1 --single-branch --branch v1.5.0 https://github.com/google/benchmark.git libs/benchmark
+
+libs/benchmark/googletest: benchmark
+	[ -d libs/benchmark/googletest ] || git clone --depth=1 --single-branch --branch release-1.10.0 https://github.com/google/googletest.git libs/benchmark/googletest
