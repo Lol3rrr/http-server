@@ -6,11 +6,8 @@
 int getNumber(char** args, int argCount, char* flag, int defaultValue) {
   for (int i = 0; i < argCount; i++) {
     if(strcmp(args[i], flag) == 0) {
-      if (i < argCount - 1) {
-        int value;
-        sscanf(args[i + 1], "%d", &value);
-
-        return value;
+      if (i + 1 < argCount) {
+        return atoi(args[i + 1]);
       }
     }
   }
@@ -42,13 +39,14 @@ int main(int argc, char *argv[]) {
   setInternalCacheUsage(internalCache);
 
   int port = getNumber(argv, argc, "-p", 80);
-  int threads = getNumber(argv, argc, "-t", DEFAULT_THREAD_COUNT);
+  int threads = getNumber(argv, argc, "-tc", DEFAULT_THREAD_COUNT);
 
-  printf("[Info] Starting on Port %d... \n", port);
+  printf("Starting on Port %d... \n", port);
 
   server_t* server;
   int serverFd = createServer(port, threads, &server);
   if (serverFd < 0) {
+    logError("Could not create Server \n");
     return 0;
   }
 
