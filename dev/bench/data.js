@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1592101808811,
+  "lastUpdate": 1592102405419,
   "repoUrl": "https://github.com/Lol3rrr/http-server",
   "entries": {
     "C++ Benchmark": [
@@ -240,6 +240,126 @@ window.BENCHMARK_DATA = {
             "value": 1722.6539090863785,
             "unit": "ns/iter",
             "extra": "iterations: 403394\ncpu: 1733.2932418417251 ns\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "s.loler03@gmail.com",
+            "name": "lol3rrr",
+            "username": "Lol3rrr"
+          },
+          "committer": {
+            "email": "s.loler03@gmail.com",
+            "name": "lol3rrr",
+            "username": "Lol3rrr"
+          },
+          "distinct": true,
+          "id": "6e49da11684cc85f5927d3da4fa6be3f5ebd5654",
+          "message": "fixed problem with rand_r",
+          "timestamp": "2020-06-14T04:39:12+02:00",
+          "tree_id": "f809fd382a2dc8063259598b7d9c1f9e97289f4f",
+          "url": "https://github.com/Lol3rrr/http-server/commit/6e49da11684cc85f5927d3da4fa6be3f5ebd5654"
+        },
+        "date": 1592102404747,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "BM_ParseFirstLine",
+            "value": 14.943408376178356,
+            "unit": "ns/iter",
+            "extra": "iterations: 46639623\ncpu: 14.940332558005453 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_ParseHeaders/1",
+            "value": 586.5077328613481,
+            "unit": "ns/iter",
+            "extra": "iterations: 1194642\ncpu: 590.7055770682227 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_ParseHeaders/2",
+            "value": 590.1575457329644,
+            "unit": "ns/iter",
+            "extra": "iterations: 1191965\ncpu: 588.934996413531 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_ParseHeaders/5",
+            "value": 624.4789458431646,
+            "unit": "ns/iter",
+            "extra": "iterations: 1134479\ncpu: 633.083610185634 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_ParseHeaders/10",
+            "value": 660.6670540456357,
+            "unit": "ns/iter",
+            "extra": "iterations: 1048065\ncpu: 666.5374380407065 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_ParseHeaders/25",
+            "value": 807.5255280857156,
+            "unit": "ns/iter",
+            "extra": "iterations: 861933\ncpu: 811.3206467328296 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_ParseQueryParams/1",
+            "value": 615.5768598043884,
+            "unit": "ns/iter",
+            "extra": "iterations: 1142255\ncpu: 619.965136507229 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_ParseQueryParams/2",
+            "value": 639.2948000720029,
+            "unit": "ns/iter",
+            "extra": "iterations: 1134881\ncpu: 644.0044454004978 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_ParseQueryParams/5",
+            "value": 685.3276958601598,
+            "unit": "ns/iter",
+            "extra": "iterations: 1021499\ncpu: 684.3906690067851 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_ParseQueryParams/10",
+            "value": 799.8705649944619,
+            "unit": "ns/iter",
+            "extra": "iterations: 869842\ncpu: 809.2647078442859 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_ParseQueryParams/25",
+            "value": 1823.3692640011113,
+            "unit": "ns/iter",
+            "extra": "iterations: 378247\ncpu: 1816.0439897728363 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_CreateHTTPHeaderPart/1",
+            "value": 100.1800871598616,
+            "unit": "ns/iter",
+            "extra": "iterations: 6955954\ncpu: 100.13892760072869 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_CreateHTTPHeaderPart/2",
+            "value": 128.28959970061302,
+            "unit": "ns/iter",
+            "extra": "iterations: 5472554\ncpu: 128.22616551613743 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_CreateHTTPHeaderPart/5",
+            "value": 179.6130746186914,
+            "unit": "ns/iter",
+            "extra": "iterations: 3826146\ncpu: 179.60269315389434 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_CreateHTTPHeaderPart/10",
+            "value": 278.94071318088305,
+            "unit": "ns/iter",
+            "extra": "iterations: 2610614\ncpu: 278.86562624731215 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_DeterminContentType",
+            "value": 1222.705993700847,
+            "unit": "ns/iter",
+            "extra": "iterations: 588603\ncpu: 1225.6230464294104 ns\nthreads: 1"
           }
         ]
       }
