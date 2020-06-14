@@ -9,3 +9,5 @@ leak-*
 crash-*
 timeout-*
 fuzz-*.log
+
+libs/*
