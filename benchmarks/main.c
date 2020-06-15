@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-
+#include "general.h"
 #include "header.h"
 #include "request.h"
 #include "queryparams.h"
@@ -10,6 +10,9 @@
 #include "sharedMap.h"
 
 #include <benchmark/benchmark.h>
+
+// General Benchmarks
+BENCHMARK(BM_Itoa);
 
 // Header Benchmarks
 BENCHMARK(BM_ParseFirstLine);
