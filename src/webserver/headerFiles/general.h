@@ -51,7 +51,7 @@ void replaceStr(string* srcStr, string* replacementStr, int start, int lengthToR
 char* createEmptyCString(int length);
 void cleanString(string str);
 
-char* itoa(int i, char b[]);
+int citoa(int i, char b[]);
 
 void* sharedMalloc(size_t size);
 

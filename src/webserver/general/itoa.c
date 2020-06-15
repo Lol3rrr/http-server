@@ -15,13 +15,14 @@ static int digits10(int numb) {
   return 0;
 }
 
-char* itoa(int i, char b[]){
+int citoa(int i, char b[]){
   const int result = digits10(i);
   int pos = result;
   if(i < 0){
-    b[pos--] = '-';
+    b[pos] = '-';
     i *= -1;
   }
+  pos--;
 
   while (i >= 10) {
     const int q = i / 10;
@@ -30,9 +31,7 @@ char* itoa(int i, char b[]){
     i = q;
   }
 
-  if (pos != 0) {
-    b[0] = '0' + i;
-  }
+  b[0] = '0' + i;
 
-  return b;
+  return result;
 }

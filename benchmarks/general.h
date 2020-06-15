@@ -22,7 +22,7 @@ void BM_Itoa(benchmark::State& state) {
   char result[12];
 
   for (auto _ : state) {
-    itoa(number, result);
+    citoa(number, result);
   }
 }
 
