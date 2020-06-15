@@ -11,7 +11,7 @@ int counterToString(counter_t* counter, char** result) {
   tmp[totalLength] = '\0';
 
   char tmpValue[12];
-  itoa(counter->count, tmpValue);
+  int counterLength = citoa(counter->count, tmpValue);
 
 
   int offset = 0;
@@ -23,7 +23,7 @@ int counterToString(counter_t* counter, char** result) {
 
   // 12 is the length of the char array that holds the String Version of the Value
   int numbersWritten = 0;
-  for (int i = 0; i < 12; i++) {
+  for (int i = 0; i < counterLength; i++) {
     tmp[offset] = tmpValue[i];
     if (tmp[offset] == '\0') {
       break;
