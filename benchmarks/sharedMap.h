@@ -15,9 +15,7 @@ void BM_BucketIndex(benchmark::State& state) {
   
   unsigned int seed = time(NULL);
   for (auto _ : state) {
-    state.PauseTiming();
     unsigned int hash = rand_r(&seed);
-    state.ResumeTiming();
 
     bucketIndex(size, hash);
   }

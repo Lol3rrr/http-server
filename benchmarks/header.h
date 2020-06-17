@@ -43,10 +43,7 @@ void BM_ParseHeaders(benchmark::State& state) {
   for (auto _ : state) {
     parseHeaders(buffer, length, &headers, &end);
 
-    state.PauseTiming();
-    cleanHeader(&headers);
-    headers = createEmptyHeaders();
-    state.ResumeTiming();
+    resetHeader(&headers);
   }
 }
 
