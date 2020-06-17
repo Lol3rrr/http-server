@@ -9,8 +9,9 @@ int startServer(server_t* server) {
 
   logInfo("Now waiting for connections \n");
   while (1) {
+    tpool_work_t* work = tpool_createWork();
     int session_fd = accept(server->fd, 0, 0);
-    tpool_addWork(threadPool, session_fd);
+    tpool_addWork(threadPool, work, session_fd);
   }
 
   return 0;

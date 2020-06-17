@@ -29,20 +29,16 @@ void BM_DeterminContentType(benchmark::State& state) {
   int typeIDResult;
 
   for (auto _ : state) {
-    state.PauseTiming();
     int index = rand_r(&seed) % typeCount;
     string path = {
       .content = types[index],
       .length = 9,
       .needsFree = 0
     };
-    state.ResumeTiming();
 
     determinContentType(path, &typeResult, &typeIDResult);
 
-    state.PauseTiming();
     cleanString(typeResult);
-    state.ResumeTiming();
   }
 }
 

@@ -31,17 +31,13 @@ void BM_AddKV(benchmark::State& state) {
   };
   
   for (auto _ : state) {
-    state.PauseTiming();
     kvList_t tmpList = createKVList(size);
-    state.ResumeTiming();
 
     for (int i = 0; i < count; i++) {
       pushKVList(&tmpList, tmpKey, tmpValue);
     }
     
-    state.PauseTiming();
     cleanKVList(tmpList);
-    state.ResumeTiming();
   }
 }
 

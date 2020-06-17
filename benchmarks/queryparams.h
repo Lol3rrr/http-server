@@ -37,15 +37,12 @@ void BM_ParseQueryParams(benchmark::State& state) {
   };
 
   string resultPath;
+  queryParams_t params = createEmptyQueryParams();
 
   for (auto _ : state) {
-    queryParams_t params = parseQueryParams(path, &resultPath);
+    parseQueryParams(path, &resultPath, &params);
 
-    state.PauseTiming();
-    if (params.exists) {
-      cleanQueryParams(params);
-    }
-    state.ResumeTiming();
+    resetQueryParams(&params);
   }
 
   free(buffer);

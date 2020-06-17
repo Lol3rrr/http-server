@@ -1,8 +1,6 @@
 #include "../headerFiles/queryParams.h"
 
 void resetQueryParams(queryParams_t* params) {
-  if (params->exists)
-    return
-
+  params->exists = 0;
   resetKVList(&(params->list));
 }
