@@ -1,13 +1,10 @@
 #include "../headerFiles/queryParams.h"
 
-queryParams_t parseQueryParams(string rawPath, string* resultPath) {
-  queryParams_t result = {
-    .exists = 0,
-  };
-
+void parseQueryParams(string rawPath, string* resultPath, queryParams_t* params) {
   int paramStart = findStr(rawPath, "?", 1);
   if (paramStart < 0) {
-    return result;
+    params->exists = 0;
+    return;
   }
 
   resultPath->content = rawPath.content;
@@ -17,8 +14,7 @@ queryParams_t parseQueryParams(string rawPath, string* resultPath) {
   int paramStrLength = (rawPath.length - paramStart - 1);
   char* paramStr = rawPath.content + paramStart + 1;
 
-  result.exists = 1;
-  result.list = createKVList(QUERYPARAMS_BUFFER);
+  params->exists = 1;
 
   int keyStart = 0;
   int keyEnd = 0;
@@ -45,12 +41,12 @@ queryParams_t parseQueryParams(string rawPath, string* resultPath) {
         .needsFree = 0
       };
 
-      pushKVList(&(result.list), key, value);
+      pushKVList(&(params->list), key, value);
 
       keyStart = i + 1;
       keyEnd = keyStart;
     }
   }
 
-  return result;
+  return;
 }

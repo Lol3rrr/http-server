@@ -1,18 +1,5 @@
 #include "../server.h"
 
-static tpool_work_t* tpool_work_create(int con) {
-  tpool_work_t* work;
-
-  if (con < 0)
-    return NULL;
-
-  work = (tpool_work_t*) malloc(sizeof(tpool_work_t));
-  work->connection = con;
-  work->next = NULL;
-  
-  return work;
-}
-
 static void tpool_work_destroy(tpool_work_t* work) {
   if (work == NULL)
     return;
@@ -97,12 +84,17 @@ tpool_t* createThreadPool(size_t num, fileManager_t* fManager) {
   return tp;
 }
 
-int tpool_addWork(tpool_t* tp, int con) {
+tpool_work_t* tpool_createWork() {
   tpool_work_t* work;
 
-  work = tpool_work_create(con);
-  if (work == NULL)
-    return 0;
+  work = (tpool_work_t*) malloc(sizeof(tpool_work_t));
+  work->next = NULL;
+  
+  return work;
+}
+
+int tpool_addWork(tpool_t* tp, tpool_work_t* work, int con) {
+  work->connection = con;
 
   pthread_mutex_lock(&(tp->work_mutex));
   if (tp->work_first == NULL) {

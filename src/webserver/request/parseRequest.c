@@ -17,7 +17,7 @@ int parseRequest(char* headerPart, int headerLength, request* req) {
     req->body.needsFree = 0;
   }
 
-  req->params = parseQueryParams(req->path, &(req->path));
+  parseQueryParams(req->path, &(req->path), &(req->params));
 
   return 0;
 }
