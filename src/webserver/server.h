@@ -30,8 +30,8 @@ typedef struct tpool_work {
 typedef struct tpool {
   tpool_work_t* work_first;
   tpool_work_t* work_last;
-  pthread_mutex_t work_mutex;
-  pthread_cond_t work_cond;
+  c_mutex work_mutex;
+  c_cond work_cond;
   size_t thread_cnt;
   fileManager_t* fManager;
 } tpool_t;
@@ -52,7 +52,6 @@ typedef struct pathNode {
 typedef struct {
   c_socket fd;
   int threadCount;
-  pthread_mutex_t mutex;
   fileManager_t* fManager;
 } server_t;
 

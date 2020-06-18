@@ -35,13 +35,13 @@ static void* threadFuncion(void* arg) {
   response tmpResp = createEmptyResponse();
 
   for(;;) {
-    pthread_mutex_lock(&(tp->work_mutex));
+    c_mutex_lock(&(tp->work_mutex));
 
     while(tp->work_first == NULL)
-      pthread_cond_wait(&(tp->work_cond), &(tp->work_mutex));
+      c_cond_wait(&(tp->work_cond), &(tp->work_mutex));
 
     work = getWork(tp);
-    pthread_mutex_unlock(&(tp->work_mutex));
+    c_mutex_unlock(&(tp->work_mutex));
 
     if (work == NULL) {
       continue;
@@ -69,8 +69,8 @@ tpool_t* createThreadPool(size_t num, fileManager_t* fManager) {
   tp->thread_cnt = num;
   tp->fManager = fManager;
 
-  pthread_mutex_init(&(tp->work_mutex), NULL);
-  pthread_cond_init(&(tp->work_cond), NULL);
+  c_mutex_init(&(tp->work_mutex));
+  c_cond_init(&(tp->work_cond));
 
   tp->work_first = NULL;
   tp->work_last = NULL;
@@ -96,7 +96,7 @@ tpool_work_t* tpool_createWork() {
 int tpool_addWork(tpool_t* tp, tpool_work_t* work, c_socket con) {
   work->connection = con;
 
-  pthread_mutex_lock(&(tp->work_mutex));
+  c_mutex_lock(&(tp->work_mutex));
   if (tp->work_first == NULL) {
     tp->work_first = work;
     tp->work_last = tp->work_first;
@@ -105,8 +105,8 @@ int tpool_addWork(tpool_t* tp, tpool_work_t* work, c_socket con) {
     tp->work_last = work;
   }
 
-  pthread_cond_signal(&(tp->work_cond));
-  pthread_mutex_unlock(&(tp->work_mutex));
+  c_cond_signal(&(tp->work_cond));
+  c_mutex_unlock(&(tp->work_mutex));
 
   return 1;
 }

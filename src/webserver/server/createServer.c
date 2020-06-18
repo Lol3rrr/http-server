@@ -1,13 +1,5 @@
 #include "../server.h"
 
-static void initLock(pthread_mutex_t* mutex) {
-  pthread_mutexattr_t attr;
-  pthread_mutexattr_init(&attr);
-  pthread_mutexattr_setpshared(&attr, PTHREAD_PROCESS_SHARED);
-  pthread_mutex_init(mutex, &attr);
-  return;
-}
-
 int createServer(int port, int threadCount, server_t** result) {
   c_socket fd = c_createSocket(port);
 
@@ -40,7 +32,6 @@ int createServer(int port, int threadCount, server_t** result) {
   if (isInternalCacheEnabled()) {
     populateCache(tmp->fManager);
   }
-  initLock(&(tmp->mutex));
 
   *result = tmp;
 
