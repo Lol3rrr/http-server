@@ -4,12 +4,6 @@
 #include <stdio.h>
 #include <signal.h>
 
-// Socket stuff
-#include <unistd.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-
-#include <pthread.h>
 #include <sys/mman.h>
 
 #include "headerFiles/general.h"
@@ -17,6 +11,7 @@
 #include "headerFiles/request.h"
 #include "headerFiles/response.h"
 #include "headerFiles/fileManager.h"
+#include "headerFiles/cross.h"
 
 #ifdef PROMETHEUS
 #include "headerFiles/stats.h"
@@ -28,7 +23,7 @@
 #define DEFAULT_THREAD_COUNT 100
 
 typedef struct tpool_work {
-  int connection;
+  c_socket connection;
   struct tpool_work* next;
 } tpool_work_t;
 
@@ -45,7 +40,7 @@ typedef struct tpool {
 tpool_t* createThreadPool(size_t num, fileManager_t* fManager);
 void startThreadPool(tpool_t* tp);
 tpool_work_t* tpool_createWork();
-int tpool_addWork(tpool_t* tp, tpool_work_t* work, int con);
+int tpool_addWork(tpool_t* tp, tpool_work_t* work, c_socket con);
 
 typedef struct pathNode {
   string method;
@@ -55,7 +50,7 @@ typedef struct pathNode {
 } pathNode_t;
 
 typedef struct {
-  int fd;
+  c_socket fd;
   int threadCount;
   pthread_mutex_t mutex;
   fileManager_t* fManager;

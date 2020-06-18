@@ -1,7 +1,7 @@
 #include "../server.h"
 
 int startServer(server_t* server) {
-  if (listen(server->fd, SOMAXCONN)) {
+  if (c_listen(server->fd)) {
     logError("Failed to listen for connections \n");
   }
 
@@ -11,7 +11,7 @@ int startServer(server_t* server) {
   logInfo("Now waiting for connections \n");
   while (1) {
     tpool_work_t* work = tpool_createWork();
-    int session_fd = accept(server->fd, 0, 0);
+    c_socket session_fd = c_accept(server->fd);
     tpool_addWork(threadPool, work, session_fd);
   }
 

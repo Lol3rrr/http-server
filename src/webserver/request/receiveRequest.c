@@ -1,6 +1,6 @@
 #include "../headerFiles/request.h"
 
-int receiveRequest(int conFd, request* reqPtr) {
+int receiveRequest(c_socket conFd, request* reqPtr) {
   char* readBuffer;
   int readBytes = readHTTP(conFd, &readBuffer);
   if (readBytes < 0) {

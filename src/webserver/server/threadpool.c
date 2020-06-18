@@ -79,10 +79,8 @@ tpool_t* createThreadPool(size_t num, fileManager_t* fManager) {
 }
 
 void startThreadPool(tpool_t* tp) {
-  pthread_t thread;
   for (int i = 0; i < tp->thread_cnt; i++) {
-    pthread_create(&thread, NULL, threadFuncion, tp);
-    pthread_detach(thread);
+    c_createDetachedThread(threadFuncion, tp);
   }
 }
 
@@ -95,7 +93,7 @@ tpool_work_t* tpool_createWork() {
   return work;
 }
 
-int tpool_addWork(tpool_t* tp, tpool_work_t* work, int con) {
+int tpool_addWork(tpool_t* tp, tpool_work_t* work, c_socket con) {
   work->connection = con;
 
   pthread_mutex_lock(&(tp->work_mutex));

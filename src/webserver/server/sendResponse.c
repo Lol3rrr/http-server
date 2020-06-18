@@ -6,7 +6,7 @@ int sendResponse(int connection, response* respPtr) {
 
   int flags = (respPtr->dataSize > 0) ? MSG_DONTWAIT | MSG_MORE : 0;
 
-  send(connection, headResponse.content, headResponse.length, flags);
+  c_send(connection, headResponse.content, headResponse.length, flags);
   cleanString(headResponse);
 
   if (respPtr->streamingFd) {
@@ -22,13 +22,13 @@ int sendResponse(int connection, response* respPtr) {
       
       int read = pread(fd, buffer, readSize, currentOffset);
       
-      send(connection, buffer, read, flags);
+      c_send(connection, buffer, read, flags);
 
       currentOffset += read;
       totalSize -= read;
     }
   } else if (respPtr->data != NULL) {
-    send(connection, respPtr->data, respPtr->dataSize, 0);
+    c_send(connection, respPtr->data, respPtr->dataSize, 0);
   }
 
   return 0;

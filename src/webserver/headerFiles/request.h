@@ -3,13 +3,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/socket.h>
 
 #include "general.h"
 #include "header.h"
 #include "queryParams.h"
 #include "logger.h"
 #include "file.h"
+#include "cross.h"
 
 #define HTTP_BUFFER_SIZE 16 * 1024
 
@@ -32,9 +32,9 @@ void print_request_debug(request* req);
 int parseRequest(char* headerPart, int headerLength, request* result);
 int cleanRequest(request* reqPtr);
 
-int readHTTP(int socketFd, char** buffer);
+int readHTTP(c_socket socketFd, char** buffer);
 int parseHead(char* message, int messageLength, request* reqPtr);
 
-int receiveRequest(int conFd, request* reqPtr);
+int receiveRequest(c_socket conFd, request* reqPtr);
 
 #endif

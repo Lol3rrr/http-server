@@ -7,11 +7,6 @@
 #include <string.h>
 #include <signal.h>
 
-// Socket stuff
-#include <unistd.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-
 #include "logger.h"
 #include "general.h"
 
