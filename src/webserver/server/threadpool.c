@@ -49,7 +49,7 @@ static void* threadFuncion(void* arg) {
 
     // Actually handle the work
     handleConnection(work->connection, &tmpReq, &tmpResp, tp->fManager);
-    int worked = close(work->connection);
+    int worked = c_close(work->connection);
     if (worked < 0) {
       logError("Closing connection \n");
     }

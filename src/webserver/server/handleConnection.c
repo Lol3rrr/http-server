@@ -12,7 +12,6 @@ int handleConnection(int conFd, request* req, response* resp, fileManager_t* fMa
   print_request_debug(req);
 
   int handled = handleRequest(conFd, req, resp, fManager);
-  c_close(conFd);
 
   logDebug("[handleConnection] Request has been handled \n");
 

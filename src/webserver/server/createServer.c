@@ -10,10 +10,6 @@ static void initLock(pthread_mutex_t* mutex) {
 
 int createServer(int port, int threadCount, server_t** result) {
   c_socket fd = c_createSocket(port);
-  if (fd < 0) {
-    logError("Creating Socket \n");
-    return -1;
-  }
 
   logInfo("Successfully bound to port %u \n", port);
 
@@ -31,9 +27,9 @@ int createServer(int port, int threadCount, server_t** result) {
   createCounter(requestStat, &counterRegistry);
   createCounter(errorStat, &counterRegistry);
 
-  if (fork() == 0) {
-    createMetricsEndpoint(9001);
-  }
+  int* port = malloc(sizeof(int));
+  *port = 9001:
+  createHTTPHeaderPart(createMetricsEndpoint, port)
 #endif
 
   server_t* tmp = (server_t*) sharedMalloc(sizeof(server_t));

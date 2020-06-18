@@ -32,6 +32,6 @@ int counterToTypeString(counter_t* counter, char** result);
 int counterToStringLength(counter_t* counter);
 int counterToString(counter_t* counter, char** result);
 
-void createMetricsEndpoint(int port);
+void* createMetricsEndpoint(void* port);
 
 #endif
