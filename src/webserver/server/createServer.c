@@ -19,9 +19,9 @@ int createServer(int port, int threadCount, server_t** result) {
   createCounter(requestStat, &counterRegistry);
   createCounter(errorStat, &counterRegistry);
 
-  int* port = malloc(sizeof(int));
-  *port = 9001:
-  createHTTPHeaderPart(createMetricsEndpoint, port)
+  int* metricsPort = (int*) malloc(sizeof(int));
+  *metricsPort = 9001;
+  c_createDetachedThread(createMetricsEndpoint, metricsPort);
 #endif
 
   server_t* tmp = (server_t*) sharedMalloc(sizeof(server_t));
