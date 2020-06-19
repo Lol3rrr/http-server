@@ -24,6 +24,7 @@ int resetResponse(response* respPtr) {
   respPtr->closeFile = 0;
 
   resetKVList(&(respPtr->headerList));
+  respPtr->headerResponseSize = 0;
 
   string serverKey = {
     .content = "Server",

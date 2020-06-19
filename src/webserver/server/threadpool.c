@@ -64,7 +64,6 @@ static void* threadFuncion(void* arg) {
 
 tpool_t* createThreadPool(size_t num, fileManager_t* fManager) {
   tpool_t* tp;
-  pthread_t thread;
 
   tp = (tpool_t*) calloc(1, sizeof(tpool_t));
   tp->thread_cnt = num;
@@ -76,12 +75,15 @@ tpool_t* createThreadPool(size_t num, fileManager_t* fManager) {
   tp->work_first = NULL;
   tp->work_last = NULL;
 
-  for (int i = 0; i < num; i++) {
+  return tp;
+}
+
+void startThreadPool(tpool_t* tp) {
+  pthread_t thread;
+  for (int i = 0; i < tp->thread_cnt; i++) {
     pthread_create(&thread, NULL, threadFuncion, tp);
     pthread_detach(thread);
   }
-
-  return tp;
 }
 
 tpool_work_t* tpool_createWork() {

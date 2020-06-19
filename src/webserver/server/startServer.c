@@ -6,6 +6,7 @@ int startServer(server_t* server) {
   }
 
   tpool_t* threadPool = createThreadPool(server->threadCount, server->fManager);
+  startThreadPool(threadPool);
 
   logInfo("Now waiting for connections \n");
   while (1) {

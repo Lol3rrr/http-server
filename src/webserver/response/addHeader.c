@@ -16,6 +16,7 @@ int addHeader(response* respPtr, string key, string value) {
   memcpy(valueStr.content, value.content, value.length);
 
   pushKVList(&(respPtr->headerList), keyStr, valueStr);
+  respPtr->headerResponseSize += key.length + 2 + value.length + 2;
 
   return 0;
 }

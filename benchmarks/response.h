@@ -36,7 +36,7 @@ void BM_CreateHTTPHeaderPart(benchmark::State& state) {
     addHeader(&tmpResp, keyStr, valueStr);
   }
 
-  int headerLength = getHTTPHeaderPartLength(&tmpResp, 2);
+  int headerLength = tmpResp.headerResponseSize;
   char* result = (char*) malloc(headerLength * sizeof(char));
 
   for (auto _ : state) {

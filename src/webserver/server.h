@@ -43,6 +43,7 @@ typedef struct tpool {
 
 
 tpool_t* createThreadPool(size_t num, fileManager_t* fManager);
+void startThreadPool(tpool_t* tp);
 tpool_work_t* tpool_createWork();
 int tpool_addWork(tpool_t* tp, tpool_work_t* work, int con);
 

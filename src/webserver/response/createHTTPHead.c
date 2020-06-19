@@ -5,7 +5,7 @@ int createHTTPHead(response* respPtr, char** result) {
   int spacerLength = 2;
 
   int firstLineLength = getFirstLineLength(respPtr);
-  int headerLength = getHTTPHeaderPartLength(respPtr, spacerLength);
+  int headerLength = respPtr->headerResponseSize;
 
   int totalLength = firstLineLength + headerLength + spacerLength;
   char* head = createEmptyCString(totalLength);
