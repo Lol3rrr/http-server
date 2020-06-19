@@ -13,9 +13,6 @@ build_prometheus_static:
 build_benchmark:
 	gcc -O3 -o benchmark.out benchmarks/*.c benchmarks/*.h benchmarks/*/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c -lpthread
 
-build_profile_benchmark:
-	gcc -g -o benchmark.out benchmarks/*.c benchmarks/*.h benchmarks/*/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c -lpthread
-
 memcheck:
 	gcc -g -o memcheck.out src/*.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c -lpthread
 	valgrind --leak-check=full --show-leak-kinds=all ./memcheck.out -p 9090 -t -c
@@ -37,10 +34,6 @@ profile:
 rm_profile:
 	rm -rf *.out.*
 
-run_test:
-	make
-	./server.out -p 9090
-
 run_debug:
 	make
 	./server.out -p 9090 -d
@@ -49,18 +42,18 @@ run_speedTest:
 	./test/raw_speedTest.sh | grep "Size\|Max\|Min\|Average"
 	./test/template_speedTest.sh | grep "Size\|Max\|Min\|Average"
 
-run_benchmark:
-	make build_benchmark
-	./benchmark.out
-
-run_profile_benchmark:
-	make build_profile_benchmark
-	valgrind --tool=callgrind --cache-sim=yes --branch-sim=yes --dump-instr=yes --collect-jumps=yes ./benchmark.out
-
 docker:
 	docker build -t c-http-server:latest .
 
 
+run_test: test.out
+	./test.out
+	rm test.out
+
+test.out:
+	gcc -O3 \
+	test/main.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c -lpthread \
+	-o test.out
 
 run_bench: bench.out
 	./bench.out

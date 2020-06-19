@@ -8,8 +8,8 @@ int parseFirstLine(char* header, int headerLength, string* method, string* pathP
   char* tmpHeader = header;
   char* end = header + headerLength;
   int start = 0;
-  while (tmpHeader < end && currentPart < 3) {
-    while(*tmpHeader != ' ' && *tmpHeader != '\r') {
+  for (;tmpHeader < end && currentPart < 3;) {
+    for(;*tmpHeader != ' ' && *tmpHeader != '\r';) {
       tmpHeader++;
     }
 
