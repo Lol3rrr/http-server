@@ -17,6 +17,7 @@ typedef struct response {
   string statusMessage;
   string protokol;
   kvList_t headerList;
+  int headerResponseSize;
   char* data;
 
   FILE* streamingFd;

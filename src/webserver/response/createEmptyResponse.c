@@ -9,6 +9,7 @@ response createEmptyResponse() {
   resp.protokol.content = NULL;
   resp.protokol.needsFree = 0;
   resp.headerList = createKVList(HEADER_BUFFER);
+  resp.headerResponseSize = 0;
   resp.data = NULL;
   resp.dataSize = -1;
   resp.streamingFd = NULL;
