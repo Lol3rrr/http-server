@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1592573126208,
+  "lastUpdate": 1592585990727,
   "repoUrl": "https://github.com/Lol3rrr/http-server",
   "entries": {
     "C++ Benchmark": [
@@ -5484,6 +5484,242 @@ window.BENCHMARK_DATA = {
             "value": 787.5215869873651,
             "unit": "ns/iter",
             "extra": "iterations: 830454\ncpu: 787.2199014033275 ns\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "Lol3rrr",
+            "username": "Lol3rrr"
+          },
+          "committer": {
+            "name": "Lol3rrr",
+            "username": "Lol3rrr"
+          },
+          "id": "66b801c050d70023df095c36ac886fed4796d9af",
+          "message": "Dev",
+          "timestamp": "2020-06-19T10:54:47Z",
+          "url": "https://github.com/Lol3rrr/http-server/pull/68/commits/66b801c050d70023df095c36ac886fed4796d9af"
+        },
+        "date": 1592585987804,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "BM_Itoa",
+            "value": 8.507458953604925,
+            "unit": "ns/iter",
+            "extra": "iterations: 82260332\ncpu: 8.507523978872344 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_ParseFirstLine",
+            "value": 21.797197707178896,
+            "unit": "ns/iter",
+            "extra": "iterations: 32011073\ncpu: 21.797240910981017 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_ParseHeaders/1",
+            "value": 69.5233346810659,
+            "unit": "ns/iter",
+            "extra": "iterations: 10053855\ncpu: 69.5222256537418 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_ParseHeaders/2",
+            "value": 89.05290967866756,
+            "unit": "ns/iter",
+            "extra": "iterations: 7974042\ncpu: 89.05085777075165 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_ParseHeaders/5",
+            "value": 138.36928441648942,
+            "unit": "ns/iter",
+            "extra": "iterations: 5059829\ncpu: 138.36287906172322 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_ParseHeaders/10",
+            "value": 244.97323485109553,
+            "unit": "ns/iter",
+            "extra": "iterations: 2858045\ncpu: 244.97065301631002 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_ParseHeaders/25",
+            "value": 592.7821774692896,
+            "unit": "ns/iter",
+            "extra": "iterations: 1177229\ncpu: 592.7760435735104 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_ParseQueryParams/1",
+            "value": 61.51490660080354,
+            "unit": "ns/iter",
+            "extra": "iterations: 11250687\ncpu: 61.51463266198764 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_ParseQueryParams/2",
+            "value": 92.41718825662949,
+            "unit": "ns/iter",
+            "extra": "iterations: 7572519\ncpu: 92.41522761448331 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_ParseQueryParams/5",
+            "value": 183.8248780432575,
+            "unit": "ns/iter",
+            "extra": "iterations: 3808523\ncpu: 183.82257006193714 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_ParseQueryParams/10",
+            "value": 349.86111023640854,
+            "unit": "ns/iter",
+            "extra": "iterations: 2000601\ncpu: 349.8575648017767 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_ParseQueryParams/25",
+            "value": 1403.132199068189,
+            "unit": "ns/iter",
+            "extra": "iterations: 498884\ncpu: 1403.1164619430547 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_CreateHTTPHeaderPart/1",
+            "value": 58.916018828478535,
+            "unit": "ns/iter",
+            "extra": "iterations: 11882854\ncpu: 58.91360737075453 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_CreateHTTPHeaderPart/2",
+            "value": 82.97498393389388,
+            "unit": "ns/iter",
+            "extra": "iterations: 8437018\ncpu: 82.97258948600087 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_CreateHTTPHeaderPart/5",
+            "value": 155.91932905676722,
+            "unit": "ns/iter",
+            "extra": "iterations: 4489262\ncpu: 155.91845207519623 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_CreateHTTPHeaderPart/10",
+            "value": 294.58852587900867,
+            "unit": "ns/iter",
+            "extra": "iterations: 2375938\ncpu: 294.5846608791982 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_DeterminContentType",
+            "value": 50.1861469925564,
+            "unit": "ns/iter",
+            "extra": "iterations: 13954053\ncpu: 50.18577197607028 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_CalculateHash/5",
+            "value": 8.006811369150652,
+            "unit": "ns/iter",
+            "extra": "iterations: 87424714\ncpu: 8.006777763093393 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_CalculateHash/10",
+            "value": 3.002612252599349,
+            "unit": "ns/iter",
+            "extra": "iterations: 233134422\ncpu: 3.0026073026659383 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_CalculateHash/25",
+            "value": 51.071390945683,
+            "unit": "ns/iter",
+            "extra": "iterations: 233119254\ncpu: 51.07083177265143 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_CalculateHash/50",
+            "value": 73.33203288340106,
+            "unit": "ns/iter",
+            "extra": "iterations: 9544389\ncpu: 73.331338234433 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_BucketIndex/32",
+            "value": 8.59534632113368,
+            "unit": "ns/iter",
+            "extra": "iterations: 81348587\ncpu: 8.595253670478618 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_BucketIndex/64",
+            "value": 8.59985449367342,
+            "unit": "ns/iter",
+            "extra": "iterations: 81427387\ncpu: 8.599428519055877 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_BucketIndex/128",
+            "value": 8.6000735442451,
+            "unit": "ns/iter",
+            "extra": "iterations: 81417657\ncpu: 8.59998341637365 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_BucketIndex/256",
+            "value": 8.600929297510428,
+            "unit": "ns/iter",
+            "extra": "iterations: 81376738\ncpu: 8.600864709027784 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_BucketIndex/512",
+            "value": 8.60210369816385,
+            "unit": "ns/iter",
+            "extra": "iterations: 81396753\ncpu: 8.602025464087074 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_AddKV/0/2",
+            "value": 95.04716104130293,
+            "unit": "ns/iter",
+            "extra": "iterations: 7365359\ncpu: 95.04513846507726 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_AddKV/0/4",
+            "value": 157.56626939397086,
+            "unit": "ns/iter",
+            "extra": "iterations: 4442624\ncpu: 157.56499379645976 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_AddKV/0/8",
+            "value": 293.3517088824738,
+            "unit": "ns/iter",
+            "extra": "iterations: 2386033\ncpu: 293.3466284833458 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_AddKV/0/16",
+            "value": 646.5867607142459,
+            "unit": "ns/iter",
+            "extra": "iterations: 1083140\ncpu: 646.5875057702663 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_AddKV/0/32",
+            "value": 1594.350576163493,
+            "unit": "ns/iter",
+            "extra": "iterations: 439719\ncpu: 1594.3351617737692 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_AddKV/10/2",
+            "value": 65.37879912618703,
+            "unit": "ns/iter",
+            "extra": "iterations: 10729737\ncpu: 65.37730076701753 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_AddKV/10/4",
+            "value": 87.99289595340025,
+            "unit": "ns/iter",
+            "extra": "iterations: 7954762\ncpu: 87.99231705486656 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_AddKV/10/8",
+            "value": 148.48718321911284,
+            "unit": "ns/iter",
+            "extra": "iterations: 4713274\ncpu: 148.48550837485837 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_AddKV/10/16",
+            "value": 360.79362933936477,
+            "unit": "ns/iter",
+            "extra": "iterations: 1939893\ncpu: 360.7911544605796 ns\nthreads: 1"
+          },
+          {
+            "name": "BM_AddKV/10/32",
+            "value": 1154.69532394996,
+            "unit": "ns/iter",
+            "extra": "iterations: 605896\ncpu: 1154.6817325085435 ns\nthreads: 1"
           }
         ]
       }
