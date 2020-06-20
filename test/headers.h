@@ -7,8 +7,8 @@
 #define HEADERS_TEST_H
 
 UTEST(header, parseFirstLine) {
-  char* firstLine = "GET / HTTP/1.1\r\n\0";
-  int lineLength = strlen(firstLine);
+  char firstLine[] = "GET / HTTP/1.1\r\n\0";
+  int lineLength = sizeof(firstLine) - 1;
   char* method = "GET";
   char* path = "/";
   char* protocol = "HTTP/1.1";
@@ -20,9 +20,9 @@ UTEST(header, parseFirstLine) {
   int output = parseFirstLine(firstLine, lineLength, &methodStr, &pathStr, &protocolStr);
   int result = lineLength - 1;
 
-  ASSERT_FALSE(memcmp(method, methodStr.content, methodStr.length));
-  ASSERT_FALSE(memcmp(path, pathStr.content, pathStr.length));
-  ASSERT_FALSE(memcmp(protocol, protocolStr.content, protocolStr.length));
+  ASSERT_STREQ(method, methodStr.content, methodStr.length);
+  ASSERT_STREQ(path, pathStr.content, pathStr.length);
+  ASSERT_STREQ(protocol, protocolStr.content, protocolStr.length);
   ASSERT_EQ(output, result);
 }
 
