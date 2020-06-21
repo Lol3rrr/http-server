@@ -457,11 +457,11 @@ utest_type_printer(long long unsigned int i) {
 #define EXPECT_GT(x, y) UTEST_EXPECT(x, y, >)
 #define EXPECT_GE(x, y) UTEST_EXPECT(x, y, >=)
 
-#define EXPECT_STREQ(x, y)                                                     \
-  if (0 != strcmp(x, y)) {                                                     \
+#define EXPECT_STREQ(x, y, l)                                                     \
+  if (0 != strncmp(x, y, l)) {                                                     \
     UTEST_PRINTF("%s:%u: Failure\n", __FILE__, __LINE__);                      \
-    UTEST_PRINTF("  Expected : \"%s\"\n", x);                                  \
-    UTEST_PRINTF("    Actual : \"%s\"\n", y);                                  \
+    UTEST_PRINTF("  Expected : \"%.*s\"\n", l, x);                                  \
+    UTEST_PRINTF("    Actual : \"%.*s\"\n", l, y);                                  \
     *utest_result = 1;                                                         \
   }
 
@@ -548,12 +548,12 @@ utest_type_printer(long long unsigned int i) {
 #define ASSERT_GT(x, y) UTEST_ASSERT(x, y, >)
 #define ASSERT_GE(x, y) UTEST_ASSERT(x, y, >=)
 
-#define ASSERT_STREQ(x, y)                                                     \
-  EXPECT_STREQ(x, y);                                                          \
-  if (0 != strcmp(x, y)) {                                                     \
+#define ASSERT_STREQ(x, y, l)                                                     \
+  EXPECT_STREQ(x, y, l);                                                          \
+  if (0 != strncmp(x, y, l)) {                                                     \
     UTEST_PRINTF("%s:%u: Failure\n", __FILE__, __LINE__);                      \
-    UTEST_PRINTF("  Expected : \"%s\"\n", x);                                  \
-    UTEST_PRINTF("    Actual : \"%s\"\n", y);                                  \
+    UTEST_PRINTF("  Expected : \"%.*s\"\n", l, x);                                  \
+    UTEST_PRINTF("    Actual : \"%.*s\"\n", l, y);                                  \
     *utest_result = 1;                                                         \
     return;                                                                    \
   }

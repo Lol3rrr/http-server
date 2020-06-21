@@ -23,5 +23,5 @@ int parseFirstLine(char* header, int headerLength, string* method, string* pathP
     start = tmpHeader - header;
   }
 
-  return (currentPart == 3) ? tmpHeader - header : -1;
+  return (currentPart == 3) ? tmpHeader - header + 1 : -1;
 }

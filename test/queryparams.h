@@ -35,8 +35,8 @@ UTEST(queryparams, parseQueryParams) {
   for (int i = 0; i < pairs; i++) {
     if (i < QUERYPARAMS_BUFFER) {
       kvNode_t entry = resultParams.list.buffer[i];
-      ASSERT_FALSE(memcmp(params[i], entry.key.content, entry.key.length));
-      ASSERT_FALSE(memcmp(values[i], entry.value.content, entry.value.length));
+      ASSERT_STREQ(params[i], entry.key.content, entry.key.length);
+      ASSERT_STREQ(values[i], entry.value.content, entry.value.length);
     }
   }
 }
