@@ -1,15 +1,14 @@
 #include "../headerFiles/request.h"
 
 int receiveRequest(int conFd, request* reqPtr) {
-  char* readBuffer;
-  int readBytes = readHTTP(conFd, &readBuffer);
+  int readBytes = readHTTP(conFd, &(reqPtr->initialContent), reqPtr->initalBufferSize, &(reqPtr->initalBufferSize));
   if (readBytes < 0) {
     return 1;
   }
 
   logDebug("[receiveRequest] Read %d Bytes \n", readBytes);
 
-  int worked = parseRequest(readBuffer, readBytes, reqPtr);
+  int worked = parseRequest(reqPtr, readBytes);
   if (worked != 0) {
     logError("[receiveRequest] Error parsing Request \n");
 

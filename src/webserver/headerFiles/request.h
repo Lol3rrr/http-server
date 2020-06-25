@@ -15,6 +15,7 @@
 
 typedef struct request {
   char* initialContent;
+  int initalBufferSize;
   string method;
   string path;
   string protokol;
@@ -29,10 +30,10 @@ int resetRequest(request* reqPtr);
 void print_request_debug(request* req);
 
 // Returns 0 if worked
-int parseRequest(char* headerPart, int headerLength, request* result);
+int parseRequest(request* req, int headerLength);
 int cleanRequest(request* reqPtr);
 
-int readHTTP(int socketFd, char** buffer);
+int readHTTP(int socketFd, char** buffer, int preBufferLength, int* resultBufferLength);
 int parseHead(char* message, int messageLength, request* reqPtr);
 
 int receiveRequest(int conFd, request* reqPtr);

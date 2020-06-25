@@ -1,39 +1,36 @@
 #include "../headerFiles/request.h"
 
-int readHTTP(int socketFd, char** buffer) {
-  char* readBuffer = (char*) malloc(HTTP_BUFFER_SIZE * sizeof(char));
-
-  int received = recv(socketFd, readBuffer, HTTP_BUFFER_SIZE, 0);
+int readHTTP(int socketFd, char** buffer, int preBufferLength, int* resultBufferLength) {
+  int received = recv(socketFd, *buffer, preBufferLength, 0);
   if (received < 1) {
     logDebug("[readHTTP] Connection Closed \n");
-    free(readBuffer);
 
     return -1;
   }
 
-  int totalLength = received;
+  int totalLength = preBufferLength;
+  int bufferSize = preBufferLength;
 
   while (received == HTTP_BUFFER_SIZE) {
-    char* nBuffer = (char*) malloc((totalLength + HTTP_BUFFER_SIZE) * sizeof(char));
-    memcpy(nBuffer, readBuffer, totalLength);
+    char* nBuffer = (char*) malloc((bufferSize + HTTP_BUFFER_SIZE) * sizeof(char));
 
-    received = recv(socketFd, nBuffer + totalLength, HTTP_BUFFER_SIZE, 0);
+    received = recv(socketFd, nBuffer + bufferSize, HTTP_BUFFER_SIZE, 0);
     if (received < 1) {
       logDebug("[readHTTP] Connection Closed \n");
+      free(nBuffer);
+      *resultBufferLength = bufferSize;
 
       return -1;
     }
+    memcpy(nBuffer, *buffer, bufferSize);
 
-    free(readBuffer);
-    readBuffer = nBuffer;
+    free(*buffer);
+    *buffer = nBuffer;
     totalLength += received;
+    bufferSize += HTTP_BUFFER_SIZE;
   }
 
-  if (totalLength < HTTP_BUFFER_SIZE) {
-    readBuffer[totalLength] = '\0';
-  }
-
-  (*buffer) = readBuffer;
+  *resultBufferLength = bufferSize;
 
   return totalLength;
 }
