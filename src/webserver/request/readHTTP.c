@@ -1,7 +1,8 @@
 #include "../headerFiles/request.h"
 
 int readHTTP(int socketFd, char** buffer, int preBufferLength, int* resultBufferLength) {
-  int received = recv(socketFd, *buffer, preBufferLength, 0);
+  int readGoal = preBufferLength;
+  int received = recv(socketFd, *buffer, readGoal, 0);
   if (received < 1) {
     logDebug("[readHTTP] Connection Closed \n");
 
@@ -11,10 +12,11 @@ int readHTTP(int socketFd, char** buffer, int preBufferLength, int* resultBuffer
   int totalLength = preBufferLength;
   int bufferSize = preBufferLength;
 
-  while (received == HTTP_BUFFER_SIZE) {
+  while (received == readGoal) {
     char* nBuffer = (char*) malloc((bufferSize + HTTP_BUFFER_SIZE) * sizeof(char));
 
-    received = recv(socketFd, nBuffer + bufferSize, HTTP_BUFFER_SIZE, 0);
+    readGoal = HTTP_BUFFER_SIZE;
+    received = recv(socketFd, nBuffer + bufferSize, readGoal, 0);
     if (received < 1) {
       logDebug("[readHTTP] Connection Closed \n");
       free(nBuffer);
