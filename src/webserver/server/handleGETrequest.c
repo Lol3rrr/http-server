@@ -17,6 +17,9 @@ int handleGETrequest(request* req, response* resp, fileManager_t* fManager) {
   char* content;
   int closeFile;
   int length = loadContent(fManager, req->path, &content, &fd, &closeFile, typeID);
+  if (length <= 0) {
+    return 1;
+  }
 
   setStatus(resp, HTTP_STATUSOK, okStatus);
   setContentType(resp, contentType, length);
