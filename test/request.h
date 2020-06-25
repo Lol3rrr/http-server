@@ -11,7 +11,8 @@ UTEST(request, parseRequest) {
   int requestCharLength = sizeof(requestChar) - 1;
 
   request resultReq = createEmptyRequest();
-  int result = parseRequest(requestChar, requestCharLength, &resultReq);
+  memcpy(resultReq.initialContent, requestChar, requestCharLength);
+  int result = parseRequest(&resultReq, requestCharLength);
 
   ASSERT_FALSE(result);
   ASSERT_FALSE(memcmp("GET", resultReq.method.content, resultReq.method.length));

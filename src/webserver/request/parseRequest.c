@@ -1,10 +1,8 @@
 #include "../headerFiles/request.h"
 
 // Returns 0 if worked
-int parseRequest(char* headerPart, int headerLength, request* req) {
-  req->initialContent = headerPart;
-
-  int headerEnd = parseHead(headerPart, headerLength, req);
+int parseRequest(request* req, int headerLength) {
+  int headerEnd = parseHead(req->initialContent, headerLength, req);
   if (headerEnd == -2) {
     return 2;
   }
@@ -12,7 +10,7 @@ int parseRequest(char* headerPart, int headerLength, request* req) {
   if (headerEnd != -1 && headerEnd < headerLength) {
     int bodySize = headerLength - headerEnd;
 
-    req->body.content = headerPart + headerEnd;
+    req->body.content = req->initialContent + headerEnd;
     req->body.length = bodySize;
     req->body.needsFree = 0;
   }

@@ -2,7 +2,8 @@
 
 request createEmptyRequest() {
   request req;
-  req.initialContent = NULL;
+  req.initialContent = (char*) malloc(HTTP_BUFFER_SIZE * sizeof(char));
+  req.initalBufferSize = HTTP_BUFFER_SIZE;
   req.method.content = NULL;
   req.method.length = -1;
   req.method.needsFree = 0;

@@ -21,7 +21,5 @@ int resetRequest(request* reqPtr) {
   resetHeader(&(reqPtr->headers));
   resetQueryParams(&(reqPtr->params));
 
-  if (reqPtr->initialContent)
-    free(reqPtr->initialContent);
-  reqPtr->initialContent = NULL;
+  memset(reqPtr->initialContent, 0, reqPtr->initalBufferSize);
 }
