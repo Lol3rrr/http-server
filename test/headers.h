@@ -43,13 +43,11 @@ UTEST(header, parseHeaders) {
     values[i][5] = '0' + i;
   }
 
-  int outputEnd = -1;
   headers_t headerResult = createEmptyHeaders();
 
-  int result = parseHeaders(headerLine, headerLength, &headerResult, &outputEnd);
+  int outputEnd = parseHeaders(headerLine, headerLength, &headerResult);
 
   ASSERT_EQ(resultEnd, outputEnd);
-  ASSERT_FALSE(result);
 
   for (int i = 0; i < pairs; i++) {
     if (i < HEADER_BUFFER) {

@@ -38,10 +38,9 @@ void BM_ParseHeaders(benchmark::State& state) {
   buffer[length - 1] = '\n';
 
   headers_t headers = createEmptyHeaders();
-  int end;
 
   for (auto _ : state) {
-    parseHeaders(buffer, length, &headers, &end);
+    int end = parseHeaders(buffer, length, &headers);
 
     resetHeader(&headers);
   }

@@ -1,27 +1,25 @@
 #include "../headerFiles/header.h"
 
-int parseHeaders(char* headers, int headersLength, headers_t* result, int* headerEnd) {
-  char* tmpHeaders = headers;
-
-  int keyStart = 0;
-  int keyEnd = 0;
-  int valueStart = 0;
-  int valueEnd = 0;
+int parseHeaders(char* headers, int headersLength, headers_t* result) {
+  int index = 0;
   
-  char* end = tmpHeaders + headersLength - 3;
-  while (tmpHeaders < end) {
-    keyEnd = keyStart;
-    while (*tmpHeaders != ' ') {
-      keyEnd++;
-      tmpHeaders++;
+  kvList_t* headerList = &(result->list);
+
+  int end = headersLength - 3;
+  while (index < end) {
+    int keyStart = index;
+    while (headers[index] != ' ') {
+      index++;
     }
-    tmpHeaders += 1;
-    valueStart = keyEnd + 1;
-    valueEnd = valueStart;
-    while (*tmpHeaders != '\r') {
-      valueEnd++;
-      tmpHeaders++;
+    int keyEnd = index;
+
+    index++;
+
+    int valueStart = index;
+    while (headers[index] != '\r') {
+      index++;
     }
+    int valueEnd = index;
 
     int keyLength = keyEnd - keyStart - 1;
     int valueLength = valueEnd - valueStart;
@@ -36,16 +34,14 @@ int parseHeaders(char* headers, int headersLength, headers_t* result, int* heade
       .length = valueLength,
       .needsFree = 0
     };
-    pushKVList(&(result->list), key, value);
+    pushKVList(headerList, key, value);
 
-    tmpHeaders += 2;
-    keyStart = valueEnd + 2;
+    index += 2;
 
-    if (*tmpHeaders == '\r') {
-      *headerEnd = (int) ((tmpHeaders + 2) - headers);
-      return 0;
+    if (headers[index] == '\r') {
+      return index + 2;
     }
   }
 
-  return 0;
+  return -1;
 }

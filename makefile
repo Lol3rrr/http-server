@@ -64,10 +64,11 @@ json: bench.out
 	rm bench.out
 
 bench.out: libs/benchmark/build/src/libbenchmark.a
-	g++ -O3 \
+	g++ \
 	benchmarks/main.c src/webserver/*.h src/webserver/*/*.h src/webserver/*/*.c \
 	-std=c++11 -isystem ./libs/benchmark/include -L./libs/benchmark/build/src -lbenchmark -lpthread \
 	-Wno-write-strings \
+	-O3 \
 	-o bench.out
 
 libs/benchmark/build/src/libbenchmark.a: libs/benchmark/build libs/benchmark/googletest

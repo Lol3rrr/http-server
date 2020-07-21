@@ -42,7 +42,8 @@ int getHeader(headers_t* headers, char* key, kvNode_t** result);
 int parseFirstLine(char* line, int length, string* method, string* pathPtr, string* protokolPtr);
 // Parses the Headers of a request
 // Returns
-// 0: Worked
-int parseHeaders(char* headers, int headersLength, headers_t* result, int* headerEnd);
+// 0<: Error
+// >0: The headers end
+int parseHeaders(char* headers, int headersLength, headers_t* result);
 
 #endif

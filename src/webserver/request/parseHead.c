@@ -9,8 +9,7 @@ int parseHead(char* message, int messageLength, request* reqPtr) {
   char* headers = message + firstLineEnd;
   int headersLength = messageLength - firstLineEnd;
 
-  int headerEnd = -1;
-  parseHeaders(headers, headersLength, &(reqPtr->headers), &headerEnd);
+  int headerEnd = parseHeaders(headers, headersLength, &(reqPtr->headers));
 
   return headerEnd + firstLineEnd;
 }
